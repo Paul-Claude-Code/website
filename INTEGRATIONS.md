@@ -80,6 +80,32 @@ außerhalb von Ablefy — die laufen über Zeitplanr, weil dort erst ein Gesprä
 nötig ist, bevor bezahlt wird. Sag Bescheid, falls Moderation/Coaching auch
 direkt bezahlbar werden sollen.
 
+### 2b. Ablefy-Webhook — Benachrichtigung bei echtem Kauf (bereits vorbereitet)
+
+Ablefy selbst übernimmt Zahlung, Rechnung und Produktzustellung komplett —
+aber ohne zusätzliche Anbindung erfährt unsere Website/Brevo davon nichts.
+Dafür gibt es jetzt `ablefy-webhook.php`, den du in Ablefy als Webhook-Ziel
+hinterlegst (Ablefy → Einstellungen → Webhooks/API → Webhook-URL). Wichtig:
+Ablefys genaues Payload-Format konnte ich nicht einsehen (Doku hinter Login),
+darum ist der Empfänger bewusst defensiv gebaut:
+
+- Er schickt dir bei **jedem** eingehenden Webhook eine Mail mit einer
+  Best-Effort-Zusammenfassung (Käufer:in, Produkt, Betrag) **und** dem
+  kompletten Rohdaten-Payload als Anhang im Mailtext — falls die
+  Best-Effort-Erkennung mal daneben liegt, siehst du trotzdem alles.
+- Setup:
+  1. In `config.php` einen beliebigen geheimen String bei
+     `ablefy_webhook_token` festlegen.
+  2. In Ablefy als Webhook-URL eintragen:
+     `https://deine-domain.at/ablefy-webhook.php?token=DEIN_GEHEIMNIS`
+     (verhindert, dass irgendwer sonst gefälschte "Kauf"-Meldungen schickt).
+  3. Einen Test-Kauf/Test-Webhook in Ablefy auslösen — du bekommst die Mail
+     mit dem Rohdaten-Payload. Sag mir kurz, wie die Produkt-ID/der
+     Produktname darin aussieht, dann trage/trag ich sie in
+     `ablefy_products` in `config.php` ein (z.B.
+     `'prod_abc123' => 'vertrauen'`) — erst dann landet der Kauf zusätzlich
+     zur Mail auch in der passenden Brevo-Liste (`kauf_vertrauen` etc.).
+
 ## 3. Brevo (E-Mail — automatisierte Follow-ups nach Buchung)
 Was ich brauche:
 - Falls du ein Brevo-"Web Form" für Newsletter/Kontakt nutzen willst: die
@@ -107,5 +133,7 @@ dahin passiert nichts, kein Consent-Banner nötig (wolltet ihr separat klären).
 ### Kurzfassung — was du mir schicken kannst, wenn bereit:
 1. Brevo-Meetings-Buchungslink
 2. 3× Ablefy-Checkout-Link (Vertrauen / Rollen / Feedback)
-3. Brevo: ggf. Formular-Embed-URL + Liste-ID (Follow-up-Workflow richtest du direkt in Brevo ein)
-4. Umami: Script-URL + Website-ID
+3. Ablefy-Webhook: nach dem ersten Test-Webhook das Rohdaten-Payload aus der
+   Mail (für die Produkt-ID → Kit-Zuordnung in `ablefy_products`)
+4. Brevo: ggf. Formular-Embed-URL + Liste-ID (Follow-up-Workflow richtest du direkt in Brevo ein)
+5. Umami: Script-URL + Website-ID

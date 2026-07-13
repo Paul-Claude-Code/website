@@ -19,7 +19,13 @@ function leap_config(): array
             'kit_vertrauen' => null,
             'kit_rollen' => null,
             'kit_feedback' => null,
+            'kauf_alle' => null,
+            'kauf_vertrauen' => null,
+            'kauf_rollen' => null,
+            'kauf_feedback' => null,
         ],
+        'ablefy_webhook_token' => null,
+        'ablefy_products' => [],
     ];
     $file = __DIR__ . '/config.php';
     if (is_file($file)) {

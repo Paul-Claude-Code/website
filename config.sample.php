@@ -34,5 +34,32 @@ return [
         'kit_vertrauen' => null,
         'kit_rollen' => null,
         'kit_feedback' => null,
+        // Echte Käufer:innen über Ablefy (siehe ablefy_* unten) — eigene
+        // Listen, weil "hat gekauft" eine andere Zielgruppe ist als
+        // "steht auf der Warteliste".
+        'kauf_alle' => null,
+        'kauf_vertrauen' => null,
+        'kauf_rollen' => null,
+        'kauf_feedback' => null,
+    ],
+
+    // Geheimer String deiner Wahl, den du in der Ablefy-Webhook-URL als
+    // ?token=... anhängst (z.B. https://ich-leaps.at/ablefy-webhook.php?token=DEIN_GEHEIMNIS).
+    // So kann niemand außer Ablefy selbst gefälschte "Kauf"-Meldungen an
+    // uns schicken. Frei erfinden, einfach ein langer zufälliger String.
+    'ablefy_webhook_token' => null,
+
+    // Ordnet die Produkt-ID oder den Produktnamen, die Ablefy im Webhook
+    // mitschickt, einem unserer drei Kits zu — damit der Kauf in der
+    // richtigen Brevo-Liste (kauf_vertrauen/kauf_rollen/kauf_feedback)
+    // landet. Die genauen Schlüssel (Ablefys Produkt-ID oder -Name) siehst
+    // du im Rohdaten-Dump der ersten Test-Benachrichtigung, die
+    // ablefy-webhook.php dir schickt, sobald du in Ablefy einen Test-Webhook
+    // auslöst — trag sie danach hier ein. Bis dahin funktioniert die
+    // Benachrichtigung trotzdem, nur ohne Kit-genaue Brevo-Zuordnung.
+    'ablefy_products' => [
+        // 'ablefy-produkt-id-oder-name' => 'vertrauen',
+        // 'ablefy-produkt-id-oder-name' => 'rollen',
+        // 'ablefy-produkt-id-oder-name' => 'feedback',
     ],
 ];
