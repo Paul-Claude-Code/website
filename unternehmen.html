@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Für Unternehmen — LEAP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,700;1,200;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="leap-site.css">
+<script src="image-slot.js"></script>
+</head>
+<body data-screen-label="Für Unternehmen">
+
+<!-- NAV -->
+<nav>
+  <div class="wrap">
+    <div class="nav-in">
+      <a href="index.html" class="nav-logo">LE<span class="a">A</span>P</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Startseite</a></li>
+        <li><a href="programme.html">Programme</a></li>
+        <li><a href="workshop-kits.html">Workshop-Kits</a></li>
+        <li><a href="unternehmen.html" class="cur">Für Unternehmen</a></li>
+        <li><a href="ueber-uns.html">Über uns</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="kontakt.html" class="nav-cta">Gespräch buchen →</a>
+        <button class="nav-burger" onclick="toggleMenu()" aria-label="Menü"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+  <div class="mob-menu" id="mobmenu">
+    <a href="index.html">Startseite</a>
+    <a href="programme.html">Programme</a>
+    <a href="workshop-kits.html">Workshop-Kits</a>
+    <a href="unternehmen.html" class="cur">Für Unternehmen</a>
+    <a href="ueber-uns.html">Über uns</a>
+    <a href="kontakt.html">Kontakt</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="ov-hero">
+  <div class="wrap">
+    <span class="chip">Für HR &amp; Unternehmen</span>
+    <h1>Führungs-<br><mark>entwicklung, die</mark><br><em>eure Führungskräfte selbst durchführen.</em></h1>
+    <p class="ov-hero-sub">Workshop-Kits für dein ganzes Unternehmen — als Team-Bundle, im Train-the-Trainer-Modell oder als Whitelabel-Lösung für eure Academy.</p>
+    <div style="margin-top:32px;"><a href="kontakt.html" class="btn btn-lime">Gespräch buchen →</a></div>
+  </div>
+</section>
+
+<!-- THREE MODELS -->
+<section class="kits">
+  <div class="wrap">
+    <span class="chip">Was LEAP für Unternehmen anbietet</span>
+    <h2>Drei Wege, LEAP ins Unternehmen zu holen.</h2>
+    <p style="font-size:15px;font-weight:200;color:var(--gray);line-height:1.8;max-width:640px;margin-bottom:52px;">Ob eure Führungskräfte selbst loslegen, eure eigenen Trainer:innen aufbauen oder ihr LEAP komplett unter eurer Marke wollt — sprich mit uns, wir finden das passende Modell für euch.</p>
+    <div class="kits-grid">
+
+      <div class="kit-card feat fu">
+        <div class="kit-thumb"><img src="img/miro-rollen.png" alt="Beispiel eines LEAP Workshop-Kits im Miro-Board"><div class="kit-thumb-cap">Beispiel: eines der Kits, die eure Teams nutzen</div></div>
+        <div class="kit-head">
+          <div class="kit-icon"><svg class="ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M3 9h18"/><path d="M8 4v-1M16 4v-1"/></svg></div>
+          <div class="kit-topic">Modell 1</div>
+          <span class="kit-badge">Empfohlener Einstieg</span>
+        </div>
+        <h3>Team-Bundles</h3>
+        <p class="kit-pain">Die skalierbare Variante: ihr stellt euren Teams die Workshop-Kits zur Verfügung — eure Führungskräfte führen die Workshops selbst durch, unbegrenzt und unternehmensweit einsetzbar.</p>
+        <a href="kontakt.html" class="kit-btn">Bundle anfragen →</a>
+      </div>
+
+      <div class="kit-card fu" style="transition-delay:0.1s;">
+        <div class="kit-thumb"><div class="kit-thumb-duo"><img src="img/coach-paul.jpg" alt="Paul Scheipl"><img src="img/coach-christine.jpg" alt="Christine Wawra"></div><div class="kit-thumb-cap">LEAP-Coaches bilden eure Trainer:innen aus</div></div>
+        <div class="kit-head">
+          <div class="kit-icon"><svg class="ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/></svg></div>
+          <div class="kit-topic">Modell 2</div>
+        </div>
+        <h3>Train-the-Trainer</h3>
+        <p class="kit-pain">Wir gehen die Workshops gemeinsam mit euren internen Trainer:innen durch. Danach führen sie die Formate selbst weiter — die Kits bleiben dauerhaft im Haus.</p>
+        <a href="kontakt.html" class="kit-btn">Trainer:innen ausbilden →</a>
+      </div>
+
+      <div class="kit-card fu" style="transition-delay:0.2s;">
+        <div class="kit-thumb"><image-slot id="whitelabel-example" shape="rect" placeholder="Beispiel eures Brandings hier ablegen"></image-slot></div>
+        <div class="kit-head">
+          <div class="kit-icon"><svg class="ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 10.5V6a2 2 0 0 0-2-2h-4.5L4 13.5 10.5 20 20 10.5z"/><circle cx="10.5" cy="7.5" r="1.3" fill="currentColor" stroke="none"/></svg></div>
+          <div class="kit-topic">Modell 3</div>
+        </div>
+        <h3>Whitelabel-Lösungen</h3>
+        <p class="kit-pain">Wir entwickeln Kits zu euren eigenen Themen — mit eurem Branding, für eure Corporate Academy oder internen Trainingsprogramme.</p>
+        <a href="kontakt.html" class="kit-btn">Whitelabel-Projekt starten →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section class="sec sec-white" style="border-bottom:1px solid var(--border);">
+  <div class="wrap">
+    <span class="chip">Im Überblick</span>
+    <h2 class="sec-h2" style="color:var(--black);margin-bottom:34px;">Modelle im Vergleich.</h2>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;min-width:640px;font-size:14px;">
+        <thead>
+          <tr style="border-bottom:2px solid var(--black);">
+            <th style="text-align:left;padding:14px 16px 14px 0;font-weight:700;color:var(--black);"></th>
+            <th style="text-align:left;padding:14px 16px;font-weight:700;color:var(--black);">Team-Bundles</th>
+            <th style="text-align:left;padding:14px 16px;font-weight:700;color:var(--black);">Train-the-Trainer</th>
+            <th style="text-align:left;padding:14px 16px;font-weight:700;color:var(--black);">Whitelabel</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:14px 16px 14px 0;color:var(--gray);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;">Für wen</td>
+            <td style="padding:14px 16px;color:var(--ink);font-weight:200;">HR / Führungsteams</td>
+            <td style="padding:14px 16px;color:var(--ink);font-weight:200;">Interne Trainer:innen</td>
+            <td style="padding:14px 16px;color:var(--ink);font-weight:200;">Corporate Academies</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:14px 16px 14px 0;color:var(--gray);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;">Durchführung</td>
+            <td style="padding:14px 16px;color:var(--ink);font-weight:200;">Eure Führungskräfte</td>
+            <td style="padding:14px 16px;color:var(--ink);font-weight:200;">Eure Trainer:innen, angeleitet von LEAP</td>
+            <td style="padding:14px 16px;color:var(--ink);font-weight:200;">Individuell vereinbart</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:14px 16px 14px 0;color:var(--gray);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;">Kits</td>
+            <td style="padding:14px 16px;color:var(--ink);font-weight:200;">Bestehende LEAP-Kits</td>
+            <td style="padding:14px 16px;color:var(--ink);font-weight:200;">Bleiben dauerhaft im Haus</td>
+            <td style="padding:14px 16px;color:var(--ink);font-weight:200;">Eigens für euch entwickelt, mit eurem Branding</td>
+          </tr>
+          <tr>
+            <td style="padding:14px 16px 14px 0;color:var(--gray);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;">Abo</td>
+            <td style="padding:14px 16px;color:var(--ink);font-weight:200;">Nein</td>
+            <td style="padding:14px 16px;color:var(--ink);font-weight:200;">Nein</td>
+            <td style="padding:14px 16px;color:var(--ink);font-weight:200;">Nein</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- WHY NO SUBSCRIPTION -->
+<section class="sec sec-dark">
+  <div class="wrap">
+    <span class="chip" style="color:var(--lime);">Unsere Haltung</span>
+    <h2 class="sec-h2" style="color:var(--white);margin-bottom:20px;">Warum kein Abo?</h2>
+    <div class="bigquote fu" style="max-width:640px;">
+      <p>Weil ein Abo <strong>„viel für wenig"</strong> signalisiert. Das ist nicht LEAP. Du zahlst einmal für ein konkretes Ergebnis — und die Kits gehören dir.</p>
+      <cite>— Gilt für Einzelkauf genau wie für Pakete und Whitelabel-Lösungen</cite>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="sec sec-bg">
+  <div class="wrap">
+    <span class="chip">Das sagen HR-Leiter:innen</span>
+    <h2 class="sec-h2" style="color:var(--black);margin-bottom:14px;">Vertrauen, das wächst.</h2>
+    <p class="sec-sub" style="color:var(--gray);max-width:560px;margin-bottom:40px;">Referenzen und Logos folgen, sobald erste Unternehmenskund:innen live sind. Bis dahin gilt, was für jedes LEAP-Produkt gilt:</p>
+    <div class="stat-grid">
+      <div class="stat-box fu"><div class="stat-val">0%</div><div class="stat-lbl">Bullshit Bingo</div><div class="stat-sub">Oder Geld zurück</div></div>
+      <div class="stat-box dark fu" style="transition-delay:0.08s;"><div class="stat-val">100%</div><div class="stat-lbl">Wissenschaftlich fundiert</div><div class="stat-sub">Keine Trend-Methoden</div></div>
+      <div class="stat-box fu" style="transition-delay:0.16s;"><div class="stat-val">5</div><div class="stat-lbl">Coach-Team</div><div class="stat-sub">Alle mit eigener Führungserfahrung</div></div>
+      <div class="stat-box dark fu" style="transition-delay:0.24s;"><div class="stat-val">∞</div><div class="stat-lbl">Wiederverwendbar</div><div class="stat-sub">Kein Ablaufdatum</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<section class="fcta">
+  <div class="wrap-sm">
+    <h2>Welches Modell<br>passt zu <em>euch?</em></h2>
+    <p>20 Minuten reichen für eine klare Antwort.</p>
+    <a href="kontakt.html" class="btn btn-dark">Gespräch buchen →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="f-brand">LE<span class="a">A</span>P</div>
+        <p class="f-tagline">Leading &amp; Empowering Awesome People.<br>Führung, die wirklich funktioniert.</p>
+      </div>
+      <div>
+        <div class="f-col-title">Navigation</div>
+        <ul class="f-links">
+          <li><a href="index.html">Startseite</a></li>
+          <li><a href="programme.html">Programme</a></li>
+          <li><a href="workshop-kits.html">Workshop-Kits</a></li>
+          <li><a href="unternehmen.html">Für Unternehmen</a></li>
+          <li><a href="ueber-uns.html">Über uns</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-col-title">Kontakt</div>
+        <div class="f-contact">LEAP e.U.<br>Spittelauer Lände 15-2/7/21<br>1090 Wien, Österreich<br><br><a href="tel:+436649153184">+43 664 915 31 84</a><br><a href="mailto:paul@ich-leaps.at">paul@ich-leaps.at</a></div>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <p class="f-copy">© 2025 LEAP e.U. · Schau doch auf einen Sprung vorbei!</p>
+      <div class="f-legal"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>

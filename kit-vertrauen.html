@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEAP Workshop-Kit — Vertrauen aufbauen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,700;1,200;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="leap-site.css">
+<script src="integrations.js"></script>
+</head>
+<body data-screen-label="Kit · Vertrauen">
+
+<!-- NAV -->
+<nav>
+  <div class="wrap">
+    <div class="nav-in">
+      <a href="workshop-kits.html" class="nav-logo">LE<span class="a">A</span>P<span class="desc">Workshop-Kit</span></a>
+      <div class="nav-right">
+        <a href="workshop-kits.html" class="nav-back">← Zur Kit-Übersicht</a>
+        <button class="nav-cta" onclick="leapBuy('vertrauen')">Ja! Ich leaps! →</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <span class="chip">Workshop-Kit für Führungskräfte</span>
+    <h1>Alle sind nett.<br>Aber keiner ist<br><mark>wirklich offen —</mark><br><em>das ändert sich.</em></h1>
+    <p class="hero-sub">Höflichkeit statt Ehrlichkeit kostet dein Team täglich Energie. Dieser Workshop baut echtes Vertrauen auf — von dir, mit deinem Team, in 3 Stunden.</p>
+    <div class="hero-btns">
+      <button class="btn btn-lime" onclick="leapBuy('vertrauen')">Ja, ich will das! — €390</button>
+      <button class="btn btn-outline-light" onclick="document.getElementById('preview').scrollIntoView({behavior:'smooth'})">Erstmal reinschauen ↓</button>
+    </div>
+    <div class="hero-proof">
+      <div><div class="hproof-val">3 Std</div><div class="hproof-lbl">vollständig vorbereitet</div></div>
+      <div><div class="hproof-val">4–16</div><div class="hproof-lbl">Personen im Team</div></div>
+      <div><div class="hproof-val">0%</div><div class="hproof-lbl">Bullshit</div></div>
+      <div><div class="hproof-val">∞</div><div class="hproof-lbl">wiederverwendbar</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SCENARIO -->
+<section class="scenario">
+  <div class="wrap-sm">
+    <span class="chip">Kennst du das?</span>
+    <div class="scene-block fu">
+      <p>Das Feedback-Gespräch endet mit „Alles gut." Zwei Wochen später kündigt jemand. Du hast es nicht kommen sehen.</p>
+      <cite>— Situation, die viele Führungskräfte erst im Nachhinein verstehen. Und dann bereuen.</cite>
+    </div>
+    <p class="scenario-text fu">Mangelndes Vertrauen entsteht nicht weil die Menschen schlecht sind. Es entsteht weil <strong>Vertrauen nie aktiv aufgebaut wurde — es wurde einfach vorausgesetzt.</strong></p>
+    <p class="scenario-text fu" style="transition-delay:0.1s;">Das lässt sich in einer Session grundlegend verändern. Von dir. Mit deinem Team.</p>
+  </div>
+</section>
+
+<!-- PREVIEW -->
+<section class="preview" id="preview">
+  <div class="wrap">
+    <span class="chip">Einblick ins Kit</span>
+    <h2>Schau rein, bevor du kaufst.</h2>
+    <p class="preview-intro">Wir zeigen dir genau, was drin ist — keine Überraschungen.</p>
+    <div class="preview-tabs">
+      <button class="ptab act" onclick="switchPreview('slides',this)">Präsentation</button>
+      <button class="ptab" onclick="switchPreview('miro',this)">Miro-Board</button>
+      <button class="ptab" onclick="switchPreview('guide',this)">Leitfaden</button>
+    </div>
+
+    <!-- SLIDES -->
+    <div class="ppanel act" id="pp-slides">
+      <div class="mock-wrap">
+        <div class="mock-bar">
+          <div class="mdot" style="background:#FF5F57;"></div>
+          <div class="mdot" style="background:#FEBC2E;"></div>
+          <div class="mdot" style="background:#28C840;"></div>
+          <div class="murl">LEAP Workshop-Kit — Vertrauen aufbauen.pptx</div>
+        </div>
+        <div class="slide-deck">
+          <div class="sthumb cur" onclick="selSlide(0)"><img src="img/slides/vertrauen-01.png" alt="Folie: Cover"></div>
+          <div class="sthumb" onclick="selSlide(1)"><img src="img/slides/vertrauen-02.png" alt="Folie: Agenda"></div>
+          <div class="sthumb" onclick="selSlide(2)"><img src="img/slides/vertrauen-03.png" alt="Folie: Die 7 Fragen"></div>
+          <div class="sthumb" onclick="selSlide(3)"><img src="img/slides/vertrauen-04.png" alt="Folie: Was es ist"></div>
+          <div class="sthumb" onclick="selSlide(4)"><img src="img/slides/vertrauen-05.png" alt="Folie: Vereinbarungen"></div>
+        </div>
+        <div class="slide-lg" id="slide-lg"></div>
+      </div>
+      <p style="font-size:12px;color:#808080;margin-top:10px;text-align:center;font-weight:200;">12 Folien · PowerPoint &amp; Google Slides · direkt einsetzbar</p>
+    </div>
+
+    <!-- MIRO -->
+    <div class="ppanel" id="pp-miro">
+      <div class="miro-wrap">
+        <div class="miro-bar2">
+          <div class="miro-logo"><div class="myl"></div>Miro</div>
+          <div style="font-size:12px;color:#aaa;">LEAP Workshop-Kit — Vertrauen aufbauen</div>
+          <div style="background:#E9FF70;color:#000;font-size:11px;padding:0 14px;height:28px;border-radius:3px;display:flex;align-items:center;cursor:pointer;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Teilen</div>
+        </div>
+        <div class="miro-body">
+          <div class="miro-tools">
+            <div class="mtool on"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 8-6.5 1.5L9 19z"/></svg></div>
+            <div class="mtool"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/></svg></div>
+            <div class="mtool"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 5h14M12 5v14"/></svg></div>
+            <div class="mtool"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20l4-1L20 7l-3-3L5 16z"/></svg></div>
+            <div class="mtool"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6v9a2 2 0 0 1-2 2h-4l-4 4v-4H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z"/></svg></div>
+            <div class="mtool"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="12" rx="1.5"/><path d="M3 10h18"/></svg></div>
+          </div>
+          <div class="miro-canvas">
+            <img src="img/miro-vertrauen-full.png" alt="Das komplette Miro-Board — Vertrauen im Team">
+          </div>
+          <div class="miro-hint">Das ganze Board — einfach nach rechts scrollen →</div>
+          <div class="miro-zoom"><span style="cursor:pointer;">−</span><span>42%</span><span style="cursor:pointer;">+</span></div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:#808080;margin-top:10px;text-align:center;font-weight:200;">Das komplette Board · vollständig aufgebaut · kein Miro-Account nötig</p>
+    </div>
+
+    <!-- GUIDE -->
+    <div class="ppanel" id="pp-guide">
+      <div class="mock-wrap">
+        <div class="mock-bar">
+          <div class="mdot" style="background:#FF5F57;"></div>
+          <div class="mdot" style="background:#FEBC2E;"></div>
+          <div class="mdot" style="background:#28C840;"></div>
+          <div class="murl">Moderationsleitfaden — Vertrauen aufbauen.pdf</div>
+        </div>
+        <div class="guide-pages">
+          <img class="gpage" src="img/guide/vertrauen-p01.png" alt="Leitfaden — Titelseite">
+          <img class="gpage" src="img/guide/vertrauen-p02.png" alt="Leitfaden — Vorbereitung">
+          <img class="gpage" src="img/guide/vertrauen-p03.png" alt="Leitfaden — Workshop-Ablauf">
+          <img class="gpage" src="img/guide/vertrauen-p04.png" alt="Leitfaden — Schritt im Detail">
+        </div>
+      </div>
+      <p style="font-size:12px;color:#808080;margin-top:10px;text-align:center;font-weight:200;">18 Seiten · PDF · wörtliche Formulierungen für jeden Schritt</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <div class="wrap">
+    <span class="chip">So funktioniert's</span>
+    <h2>Von Kauf bis Workshop<br>in unter 30 Minuten Vorbereitung.</h2>
+    <p class="process-sub">Der Workshop dauert 3 Stunden. Die Vorbereitung nicht.</p>
+    <div class="timeline">
+      <div class="tl-track"></div>
+      <div class="tli"><div class="tl-node done"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v11"/><path d="M8 11l4 4 4-4"/><path d="M5 20h14"/></svg></div><div class="tlb"><div class="tl-when">Sofort nach Kauf</div><div class="tl-name">Kit herunterladen</div><div class="tl-desc">Präsentation, Miro-Board-Link und Leitfaden — alles in einem Ordner.</div><span class="tl-tag tag-in">Im Kit enthalten</span></div></div>
+      <div class="tli"><div class="tl-node done"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="5" width="16" height="15" rx="1.5"/><line x1="4" y1="9" x2="20" y2="9"/><line x1="8" y1="3" x2="8" y2="6"/><line x1="16" y1="3" x2="16" y2="6"/></svg></div><div class="tlb"><div class="tl-when">Tag 1 — 5 Minuten</div><div class="tl-name">Termin blockieren &amp; einladen</div><div class="tl-desc">Fertige Einladungsvorlage kopieren, 3 Stunden blockieren. Done.</div><span class="tl-tag tag-in">Vorlage im Kit</span></div></div>
+      <div class="tli"><div class="tl-node done"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 6C9 4 5.5 4 4 5v13c1.5-1 5-1 8 1 3-2 6.5-2 8-1V5c-1.5-1-5-1-8 1z"/><line x1="12" y1="6" x2="12" y2="20"/></svg></div><div class="tlb"><div class="tl-when">Tag vor dem Workshop — 20 Minuten</div><div class="tl-name">Leitfaden einmal durchlesen</div><div class="tl-desc">Einmal durchlesen. Liegt dann neben dir. Kein Auswendiglernen nötig.</div><span class="tl-tag tag-in">20 Seiten, klar strukturiert</span></div></div>
+      <div class="tli"><div class="tl-node now"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 19V6"/><path d="M6 12l6-6 6 6"/></svg></div><div class="tlb"><div class="tl-when">Workshop-Tag — 3 Stunden</div><div class="tl-name">Workshop durchführen — und erleben</div><div class="tl-desc">Du teilst deinen Bildschirm, öffnest das Miro-Board, folgst dem Leitfaden. Spiel, Spaß und echte Ergebnisse fast garantiert.</div><span class="tl-tag tag-in">Alles aufgebaut</span></div></div>
+      <div class="tli"><div class="tl-node"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 7l9 6 9-6"/></svg></div><div class="tlb"><div class="tl-when">Direkt danach — 5 Minuten</div><div class="tl-name">Ergebnisse sichern</div><div class="tl-desc">Nachbereitungs-Mail mit Screenshot der Vereinbarungen. Damit nichts verloren geht.</div><span class="tl-tag tag-in">Mail-Vorlage im Kit</span></div></div>
+      <div class="tli"><div class="tl-node"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></div><div class="tlb"><div class="tl-when">Optional</div><div class="tl-name">Moderation oder Coaching dazubuchen</div><div class="tl-desc">Lieber jemanden dabei haben? Oder als Führungskraft tiefer gehen? Unser LEAP-Coach-Team ist für beides da.</div><span class="tl-tag tag-opt">Optional zubuchbar</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT -->
+<section class="what">
+  <div class="wrap">
+    <span class="chip">Was enthalten ist</span>
+    <h2>Alles drin. Wirklich alles.</h2>
+    <div class="kit-grid2">
+      <div class="kcard fu"><div class="kcard-icon"><svg class="ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M7 12l3-3 2 2 4-4"/><line x1="12" y1="16" x2="12" y2="20"/><line x1="8" y1="20" x2="16" y2="20"/></svg></div><h3>Präsentation</h3><p>16 Folien. PowerPoint &amp; Google Slides. Nicht fast fertig — fertig.</p></div>
+      <div class="kcard fu" style="transition-delay:0.08s;"><div class="kcard-icon"><svg class="ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="1.5"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg></div><h3>Miro-Board</h3><p>Komplett aufgebaut. Link teilen, loslegen. Kein Account nötig.</p></div>
+      <div class="kcard fu" style="transition-delay:0.16s;"><div class="kcard-icon"><svg class="ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="4" width="14" height="17" rx="1.5"/><rect x="9" y="3" width="6" height="3" rx="1" fill="currentColor" stroke="none"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="17" x2="13" y2="17"/></svg></div><h3>Moderationsleitfaden</h3><p>20 Seiten. Wörtliche Formulierungen. Damit du nicht improvisieren musst.</p></div>
+      <div class="kcard fu" style="transition-delay:0.24s;"><div class="kcard-icon"><svg class="ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 7l9 6 9-6"/></svg></div><h3>E-Mail-Vorlagen</h3><p>Einladung und Nachbereitung — ohne einen Gedanken dran zu verschwenden.</p></div>
+    </div>
+    <div class="wmeta">
+      <div class="wmeta-item"><strong>3 Stunden</strong>Dauer</div>
+      <div class="wmeta-item"><strong>4–16 Personen</strong>Teamgröße</div>
+      <div class="wmeta-item"><strong>Remote, hybrid &amp; vor Ort</strong>Format</div>
+      <div class="wmeta-item"><strong>Kein Vorwissen</strong>als Moderator</div>
+      <div class="wmeta-item"><strong>Unbegrenzt</strong>wiederverwendbar</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing">
+  <div class="wrap">
+    <span class="chip">Angebot</span>
+    <h2>Wähle, wie du starten möchtest.</h2>
+    <p class="pricing-sub">Das Kit ist der Einstieg. Moderation und Coaching gibt es nur zusammen mit dem Kit.</p>
+    <div class="price-grid">
+      <div class="pcard fu">
+        <div class="ptier">Selbst durchführen</div>
+        <div class="pname">Workshop-Kit</div>
+        <div class="pamount"><sup>€</sup>390</div>
+        <div class="pdesc">einmalig · sofortiger Download</div>
+        <hr class="pdiv">
+        <ul class="pfeats">
+          <li><span class="tick"><svg class="ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-11"/></svg></span>Fertige Präsentation (16 Folien)</li>
+          <li><span class="tick"><svg class="ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-11"/></svg></span>Komplettes Miro-Board</li>
+          <li><span class="tick"><svg class="ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-11"/></svg></span>Moderationsleitfaden (20 S.)</li>
+          <li><span class="tick"><svg class="ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-11"/></svg></span>Einladungs- &amp; Follow-up-Mails</li>
+          <li><span class="tick"><svg class="ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-11"/></svg></span>Unbegrenzt wiederverwendbar</li>
+          <li class="dim"><span class="tick"><svg class="ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="6" y1="12" x2="18" y2="12"/></svg></span>Keine Live-Moderation</li>
+          <li class="dim"><span class="tick"><svg class="ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="6" y1="12" x2="18" y2="12"/></svg></span>Kein Coaching</li>
+        </ul>
+        <button class="pbtn" onclick="leapBuy('vertrauen')">Ja, ich will das Kit!</button>
+      </div>
+      <div class="pcard feat fu" style="transition-delay:0.1s;">
+        <div class="feat-badge">Empfohlen</div>
+        <div class="ptier">Mit LEAP-Coach dabei</div>
+        <div class="pname">Kit + Moderation</div>
+        <div class="pamount"><sup>€</sup>790</div>
+        <div class="pdesc">Kit + moderierte Session</div>
+        <hr class="pdiv">
+        <ul class="pfeats">
+          <li><span class="tick"><svg class="ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-11"/></svg></span>Alles aus dem Workshop-Kit</li>
+          <li><span class="tick"><svg class="ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-11"/></svg></span>Vorgespräch mit deinem LEAP-Coach (30 Min)</li>
+          <li><span class="tick"><svg class="ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-11"/></svg></span>Ein:e erfahrene:r LEAP-Coach moderiert — du nimmst teil</li>
+          <li><span class="tick"><svg class="ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-11"/></svg></span>Live-Moderation der Session</li>
+          <li><span class="tick"><svg class="ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-11"/></svg></span>Nachbesprechung (20 Min)</li>
+          <li><span class="tick"><svg class="ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-11"/></svg></span>Schriftliches Ergebnis-Protokoll</li>
+          <li class="dim"><span class="tick"><svg class="ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="6" y1="12" x2="18" y2="12"/></svg></span>Kein Coaching</li>
+        </ul>
+        <button class="pbtn" onclick="leapBookCall('moderation')">Moderation anfragen</button>
+      </div>
+      <div class="pcard fu" style="transition-delay:0.2s;">
+        <div class="ptier">Persönliche Begleitung</div>
+        <div class="pname">Coaching</div>
+        <div class="pamount"><sup>€</sup>290</div>
+        <div class="pdesc">pro Session · 60 Minuten · unabhängig buchbar</div>
+        <hr class="pdiv">
+        <ul class="pfeats">
+          <li><span class="tick"><svg class="ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-11"/></svg></span>Auch ohne Kit buchbar</li>
+          <li><span class="tick"><svg class="ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-11"/></svg></span>1:1 mit deinem LEAP-Coach</li>
+          <li><span class="tick"><svg class="ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-11"/></svg></span>Vorbereitung auf deinen Workshop</li>
+          <li><span class="tick"><svg class="ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-11"/></svg></span>Reflexion &amp; nächste Schritte</li>
+          <li><span class="tick"><svg class="ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-11"/></svg></span>Laufende Begleitung buchbar</li>
+          <li class="dim"><span class="tick"><svg class="ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="6" y1="12" x2="18" y2="12"/></svg></span>Keine Live-Moderation</li>
+        </ul>
+        <button class="pbtn" onclick="leapBookCall('coaching')">Coaching anfragen</button>
+      </div>
+    </div>
+    <div class="pnote">
+      <strong>Warum kein Abo?</strong> Weil ein Abo „viel für wenig" signalisiert. Das ist nicht LEAP. Wer €390 für ein konkretes Problem ausgibt, führt den Workshop auch durch. Das ist der Plan.
+    </div>
+  </div>
+</section>
+
+<!-- FOR WHO -->
+<section class="forwho">
+  <div class="wrap">
+    <span class="chip">Für wen</span>
+    <h2>Gemacht für Führungskräfte,<br>die Dinge selbst in die Hand nehmen.</h2>
+    <ul class="chk-list">
+      <li><span class="tick-c"><svg class="ico" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-11"/></svg></span>Du führst ein Team von 5–30 Personen in einem kleineren Unternehmen.</li>
+      <li><span class="tick-c"><svg class="ico" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-11"/></svg></span>Du hast keine HR-Abteilung, die sich darum kümmert — und willst auch keine brauchen.</li>
+      <li><span class="tick-c"><svg class="ico" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-11"/></svg></span>Du erkennst das Problem, willst aber keine Agentur die erst alles analysiert.</li>
+      <li><span class="tick-c"><svg class="ico" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-11"/></svg></span>Du willst echte Ergebnisse — nicht noch ein Seminar wo alle nett nicken und nichts passiert.</li>
+      <li><span class="tick-c"><svg class="ico" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-11"/></svg></span>Du bist bereit, 3 Stunden in dein Team zu investieren, wenn alles wirklich vorbereitet ist.</li>
+    </ul>
+    <div class="not-for">
+      <p><strong>Nicht für dich,</strong> wenn du ein Großunternehmen führst oder jemanden möchtest, der alles für dich erledigt. Bei LEAP bist du selbst Teil des Prozesses.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="wrap-sm">
+    <span class="chip">Häufige Fragen</span>
+    <h2>Deine Fragen.<br>Ehrliche Antworten.</h2>
+    <div class="fitem"><div class="fq" onclick="tfaq(this)">Muss ich Erfahrung als Moderator haben?</div><div class="fa">Nein. Der Leitfaden sagt dir wörtlich, was du wann sagst — inklusive Hinweisen für typische Reaktionen. Du musst ihn nicht auswendig kennen, er liegt neben dir.</div></div>
+    <div class="fitem"><div class="fq" onclick="tfaq(this)">Ist 3 Stunden nicht sehr lang?</div><div class="fa">Es ist kein Meeting — es ist eine bewusst geschützte Zeit für etwas, das im Alltag nie passiert. Kein Bullshit Bingo, nur echte Arbeit. Erfahrungsgemäß vergeht die Zeit schneller als erwartet.</div></div>
+    <div class="fitem"><div class="fq" onclick="tfaq(this)">Was, wenn mein Team kein Miro kennt?</div><div class="fa">Kein Problem. Das Board enthält eine kurze Einführung. Miro ist kostenlos und läuft im Browser — dein Team braucht keinen Account, nur einen Link.</div></div>
+    <div class="fitem"><div class="fq" onclick="tfaq(this)">Funktioniert das auch vor Ort?</div><div class="fa">Ja. Remote, hybrid, vor Ort mit Beamer. Der Leitfaden enthält konkrete Hinweise für alle drei Szenarien.</div></div>
+    <div class="fitem"><div class="fq" onclick="tfaq(this)">Wann erhalte ich das Kit?</div><div class="fa">Wir sind in der Abschlussphase. Mit dem Frühen Zugang wirst du sofort benachrichtigt wenn der Download verfügbar ist — und zahlst €390.</div></div>
+    <div class="fitem"><div class="fq" onclick="tfaq(this)">Das Thema ist bei uns zu heiß — kann ich trotzdem alleine moderieren?</div><div class="fa">Bei heißen Themen empfehlen wir die Moderation. Ein:e LEAP-Coach kommt als neutraler Außenblick rein — du nimmst einfach teil. Das Kit hast du trotzdem als Grundlage.</div></div>
+    <div class="fitem"><div class="fq" onclick="tfaq(this)">Kann ich den Workshop mehrfach nutzen?</div><div class="fa">Ja. Einmalig kaufen, unbegrenzt einsetzen — mit verschiedenen Teams oder nach einem Jahr nochmal mit demselben.</div></div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<section class="fcta">
+  <div class="wrap-sm">
+    <h2>Dein nächstes Team-Meeting<br>könnte das erste sein,<br><em>das wirklich zählt.</em></h2>
+    <p>Früher Zugang · €390 · Download direkt nach Launch</p>
+    <button class="btn btn-dark" onclick="leapBuy('vertrauen')">Ja! Ich leaps! →</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-in">
+      <div class="f-brand">LE<span class="a">A</span>P</div>
+      <p>© 2025 LEAP e.U. · <a href="mailto:paul@ich-leaps.at">paul@ich-leaps.at</a> · +43 664 915 31 84</p>
+      <div class="f-legal">
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-ov" id="modal" onclick="closeOut(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div id="mform">
+      <h3>Frühen Zugang sichern</h3>
+      <p>Trag dich ein — du wirst als Erstes benachrichtigt und zahlst €390.</p>
+      <div class="mform">
+        <input type="text" id="mname" placeholder="Dein Vorname" autocomplete="given-name">
+        <input type="email" id="memail" placeholder="Deine E-Mail-Adresse" autocomplete="email">
+        <div style="position:absolute;left:-5000px;" aria-hidden="true"><label for="mwebsite">Website</label><input type="text" id="mwebsite" tabindex="-1" autocomplete="off"></div>
+        <p id="mform-error" style="display:none;font-size:12px;font-weight:600;color:#b3261e;background:#fdecea;border:1px solid #f5c6c1;border-radius:4px;padding:8px 12px;"></p>
+        <button class="btn btn-lime" onclick="submitModal()" id="mform-submit">Ja! Ich will das Kit! →</button>
+      </div>
+      <p class="mnote">Kein Spam. Nur eine E-Mail, wenn's losgeht. Versprochen.</p>
+    </div>
+    <div class="msuccess" id="msuccess">
+      <div class="mcheck"><svg class="ico" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12l4 4 10-11"/></svg></div>
+      <h3>Du bist dabei!</h3>
+      <p>Wir melden uns sobald das Kit verfügbar ist. Freude und Führung gehören fix zam.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+window.LEAP_KIT_ID = 'vertrauen';
+window.LEAP_SLIDES = [
+  {bg:'#000',html:`<img src="img/slides/vertrauen-01.png" alt="Folie: Cover">`},
+  {bg:'#000',html:`<img src="img/slides/vertrauen-02.png" alt="Folie: Agenda">`},
+  {bg:'#000',html:`<img src="img/slides/vertrauen-03.png" alt="Folie: Die 7 Fragen">`},
+  {bg:'#000',html:`<img src="img/slides/vertrauen-04.png" alt="Folie: Was es ist">`},
+  {bg:'#000',html:`<img src="img/slides/vertrauen-05.png" alt="Folie: Vereinbarungen">`}
+];
+</script>
+<script src="kit.js"></script>
+</body>
+</html>

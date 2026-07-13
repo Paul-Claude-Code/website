@@ -1,0 +1,56 @@
+<svg viewBox="0 0 600 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="LEAP Entwicklungskurve">
+  <defs>
+    <pattern id="leap-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0L0 0 0 40" fill="none" stroke="#141414" stroke-width="0.5"></path>
+    </pattern>
+    <filter id="leap-glow">
+      <feGaussianBlur stdDeviation="4" result="b"></feGaussianBlur>
+      <feMerge><feMergeNode in="b"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+    </filter>
+  </defs>
+  
+  <rect width="600" height="540" fill="url(#leap-grid)"></rect>
+
+  
+  <line x1="80" y1="80" x2="80" y2="480" stroke="#252525" stroke-width="0.8"></line>
+  <line x1="80" y1="480" x2="548" y2="480" stroke="#252525" stroke-width="0.8"></line>
+  <text x="552" y="484" font-family="Poppins,sans-serif" font-size="10" font-weight="200" fill="#2e2e2e">Zeit</text>
+  <text x="46" y="290" font-family="Poppins,sans-serif" font-size="10" font-weight="200" fill="#2e2e2e" text-anchor="middle" transform="rotate(-90 46 290)">Wirkung</text>
+
+  
+  <path d="M 80 465 C 150 463 185 452 230 437 C 278 421 305 400 345 370 C 385 338 408 313 450 278 C 488 246 508 226 545 205" pathLength="100" class="draw" fill="none" stroke="#E9FF70" stroke-width="2.5" stroke-linecap="round"></path>
+  <polygon points="545,197 538,211 552,211" fill="#E9FF70" class="pop" style="animation-delay:1.95s"></polygon>
+
+  
+  <circle cx="80" cy="465" r="5" fill="#FF7C70" class="pop" style="animation-delay:.35s"></circle>
+  <text x="90" y="462" font-family="Poppins,sans-serif" font-size="11" font-weight="700" fill="#FF7C70" letter-spacing="0.06em" class="pop" style="animation-delay:.45s">Heute</text>
+
+  
+  <g class="pop" style="animation-delay:.8s">
+    <line x1="230" y1="437" x2="230" y2="480" stroke="#282828" stroke-width="0.8" stroke-dasharray="3 5"></line>
+    <circle cx="230" cy="437" r="4" fill="#E9FF70"></circle>
+    <text x="230" y="500" font-family="Poppins,sans-serif" font-size="10" font-weight="200" fill="rgba(255,255,255,0.35)" text-anchor="middle">Workshop-Kit</text>
+  </g>
+  <g class="pop" style="animation-delay:1.15s">
+    <line x1="345" y1="370" x2="345" y2="480" stroke="#282828" stroke-width="0.8" stroke-dasharray="3 5"></line>
+    <circle cx="345" cy="370" r="4" fill="#E9FF70"></circle>
+    <text x="345" y="500" font-family="Poppins,sans-serif" font-size="10" font-weight="200" fill="rgba(255,255,255,0.35)" text-anchor="middle">Workshop-Kit</text>
+  </g>
+  <g class="pop" style="animation-delay:1.5s">
+    <line x1="450" y1="278" x2="450" y2="480" stroke="#282828" stroke-width="0.8" stroke-dasharray="3 5"></line>
+    <circle cx="450" cy="278" r="4" fill="#E9FF70"></circle>
+    <text x="450" y="500" font-family="Poppins,sans-serif" font-size="10" font-weight="200" fill="rgba(255,255,255,0.35)" text-anchor="middle">Programm</text>
+  </g>
+  <g class="pop" style="animation-delay:1.85s">
+    <line x1="545" y1="221" x2="545" y2="480" stroke="#282828" stroke-width="0.8" stroke-dasharray="3 5"></line>
+    <circle cx="545" cy="205" r="22" fill="#E9FF70" fill-opacity="0.06"></circle>
+    <circle cx="545" cy="205" r="11" fill="#E9FF70" filter="url(#leap-glow)"></circle>
+    <text x="545" y="209" font-family="Poppins,sans-serif" font-size="10" font-weight="700" fill="#000" text-anchor="middle">↑</text>
+    <text x="545" y="500" font-family="Poppins,sans-serif" font-size="10" font-weight="200" fill="rgba(255,255,255,0.35)" text-anchor="middle">Dein Sprung</text>
+  </g>
+
+  
+  <text x="310" y="168" font-family="Poppins,sans-serif" font-size="11" font-weight="700" fill="#E9FF70" letter-spacing="0.08em" class="pop" style="animation-delay:1.2s">Deine Entwicklung</text>
+  <line x1="310" y1="172" x2="420" y2="172" stroke="#E9FF70" stroke-width="0.8" stroke-opacity="0.3" class="pop" style="animation-delay:1.25s"></line>
+  <line x1="416" y1="172" x2="452" y2="276" stroke="#E9FF70" stroke-width="0.8" stroke-opacity="0.2" stroke-dasharray="3 4" class="pop" style="animation-delay:1.35s"></line>
+</svg>

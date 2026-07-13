@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Über uns — LEAP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,700;1,200;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="leap-site.css">
+</head>
+<body data-screen-label="Über uns">
+
+<!-- NAV -->
+<nav>
+  <div class="wrap">
+    <div class="nav-in">
+      <a href="index.html" class="nav-logo">LE<span class="a">A</span>P</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Startseite</a></li>
+        <li><a href="programme.html">Programme</a></li>
+        <li><a href="workshop-kits.html">Workshop-Kits</a></li>
+        <li><a href="unternehmen.html">Für Unternehmen</a></li>
+        <li><a href="ueber-uns.html" class="cur">Über uns</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="kontakt.html" class="nav-cta">Gespräch buchen →</a>
+        <button class="nav-burger" onclick="toggleMenu()" aria-label="Menü"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+  <div class="mob-menu" id="mobmenu">
+    <a href="index.html">Startseite</a>
+    <a href="programme.html">Programme</a>
+    <a href="workshop-kits.html">Workshop-Kits</a>
+    <a href="unternehmen.html">Für Unternehmen</a>
+    <a href="ueber-uns.html" class="cur">Über uns</a>
+    <a href="kontakt.html">Kontakt</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="about-hero">
+  <div class="wrap">
+    <span class="chip">Über LEAP</span>
+    <h1>Wir glauben: Freude<br>und Führung gehören <em>fix zam.</em></h1>
+    <p class="about-hero-sub">LEAP steht für Leading &amp; Empowering Awesome People. Wir entwickeln Führungskräfte und Teams nicht im Seminarraum, sondern im echten Tun — mit steiler Lernkurve und viel Spaß beim Scheitern.</p>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="sec sec-white">
+  <div class="wrap">
+    <div class="split2">
+      <div>
+        <span class="chip">Warum es LEAP gibt</span>
+        <h2 class="prob-h">Klassische Seminare vermitteln Wissen. Aber Führung passiert im Moment.</h2>
+        <p class="prob-p">80% unserer Entscheidungen werden von Emotionen geleitet, nicht von Ratio. Genau das ignorieren die meisten Trainings — und genau dort setzt LEAP an.</p>
+        <p class="prob-p">Wir kommen immer ins Tun. Denn nur dort kann man scheitern, lernen und wachsen. <strong>Weniger Theorie, mehr echte Situationen, mehr Spiel, Spaß und schnelle Weiterentwicklung.</strong></p>
+      </div>
+      <div class="bigquote fu">
+        <p>Wer Menschen führen will, muss zuerst lernen, sich selbst zu führen — und dabei <strong>Freude</strong> nicht zu verlieren.</p>
+        <cite>— Paul Scheipl · Gründer LEAP</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="sec sec-dark">
+  <div class="wrap">
+    <span class="chip" style="color:var(--lime);">Wofür wir stehen</span>
+    <h2 class="sec-h2" style="color:var(--white);">Vier Haltungen,<br>die alles bei LEAP prägen.</h2>
+    <div class="values-grid">
+      <div class="value-card fu">
+        <div class="vico"><svg class="ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l2.5 5 5.5.8-4 3.9 1 5.5L12 16.5 7 18.2l1-5.5-4-3.9 5.5-.8z"/></svg></div>
+        <div><h3>Echtes Tun statt Zuhören</h3><p>74% Learning by Doing. Wir bringen dich in Handlung — denn nur dort entsteht echter Transfer.</p></div>
+      </div>
+      <div class="value-card fu" style="transition-delay:0.08s;">
+        <div class="vico"><svg class="ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/></svg></div>
+        <div><h3>Co-Creation</h3><p>Du bist kein passiver Zuhörer. Inhalte entstehen mit dir — das schafft echte Verbindlichkeit.</p></div>
+      </div>
+      <div class="value-card fu" style="transition-delay:0.16s;">
+        <div class="vico"><svg class="ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 18C6 18 8 12 12 9s6-5 9-6"/><circle cx="20" cy="3.5" r="2" fill="currentColor" stroke="none"/></svg></div>
+        <div><h3>Wachstum &amp; Haltung</h3><p>Wissen alleine reicht nicht. Persönliches Wachstum und Haltung sind fester Teil jedes Programms.</p></div>
+      </div>
+      <div class="value-card fu" style="transition-delay:0.24s;">
+        <div class="vico"><svg class="ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M8 13s1.5 2 4 2 4-2 4-2"/><circle cx="9.5" cy="10" r="0.6" fill="currentColor"/><circle cx="14.5" cy="10" r="0.6" fill="currentColor"/></svg></div>
+        <div><h3>0% Bullshit</h3><p>Kein Bullshit Bingo, oder Geld zurück. Wir versprechen nur, was wir auch halten.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="sec sec-bg">
+  <div class="wrap">
+    <span class="chip">Das Team</span>
+    <h2 class="sec-h2" style="color:var(--black);margin-bottom:14px;">Menschen, die selbst<br>gesprungen sind.</h2>
+    <p class="sec-sub" style="color:var(--gray);max-width:540px;margin-bottom:46px;">Kein theoretisches Wissen aus dem Lehrbuch. Jede Person im LEAP-Team hat selbst Führungserfahrung gesammelt — und gelernt, was wirklich funktioniert.</p>
+    <div class="team-grid">
+      <div class="team-card dark-on-light fu"><div class="avatar"><img src="img/coach-paul.jpg" alt="Paul Scheipl"></div><div class="team-name">Paul Scheipl</div><div class="team-role">Gründer &amp; Leadership Coach</div></div>
+      <div class="team-card dark-on-light fu" style="transition-delay:0.08s;"><div class="avatar"><img src="img/coach-christine.jpg" alt="Christine Wawra"></div><div class="team-name">Christine Wawra</div><div class="team-role">Leadership Coach</div></div>
+      <div class="team-card dark-on-light fu" style="transition-delay:0.16s;"><div class="avatar"><img src="img/coach-michael.jpg" alt="Michael Liehmann"></div><div class="team-name">Michael Liehmann</div><div class="team-role">Leadership Coach</div></div>
+      <div class="team-card dark-on-light fu" style="transition-delay:0.24s;"><div class="avatar"><img src="img/coach-christian.jpg" alt="Christian Götzenberger"></div><div class="team-name">Christian Götzenberger</div><div class="team-role">Coach</div></div>
+      <div class="team-card dark-on-light fu" style="transition-delay:0.32s;"><div class="avatar"><img src="img/coach-felicia.jpg" alt="Felicia Fuchs"></div><div class="team-name">Felicia Fuchs</div><div class="team-role">Coach</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section class="sec sec-white">
+  <div class="wrap">
+    <div class="stat-grid">
+      <div class="stat-box dark fu"><div class="stat-val">100%</div><div class="stat-lbl">Impact-orientiert</div><div class="stat-sub">Nur für Mutige</div></div>
+      <div class="stat-box fu" style="transition-delay:0.08s;"><div class="stat-val">0%</div><div class="stat-lbl">Bullshit Bingo</div><div class="stat-sub">Oder Geld zurück</div></div>
+      <div class="stat-box fu" style="transition-delay:0.16s;"><div class="stat-val">74%</div><div class="stat-lbl">Learning by Doing</div><div class="stat-sub">Nicht by Zuhören</div></div>
+      <div class="stat-box dark fu" style="transition-delay:0.24s;"><div class="stat-val">∞</div><div class="stat-lbl">Steile Lernkurve</div><div class="stat-sub">Garantiert</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<section class="fcta">
+  <div class="wrap-sm">
+    <h2>Lust, mit uns<br><em>zu springen?</em></h2>
+    <p>Lern uns in einem unverbindlichen Erstgespräch kennen.</p>
+    <a href="kontakt.html" class="btn btn-dark">Gespräch buchen →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="f-brand">LE<span class="a">A</span>P</div>
+        <p class="f-tagline">Leading &amp; Empowering Awesome People.<br>Führung, die wirklich funktioniert.</p>
+      </div>
+      <div>
+        <div class="f-col-title">Navigation</div>
+        <ul class="f-links">
+          <li><a href="index.html">Startseite</a></li>
+          <li><a href="programme.html">Programme</a></li>
+          <li><a href="workshop-kits.html">Workshop-Kits</a></li>
+          <li><a href="unternehmen.html">Für Unternehmen</a></li>
+          <li><a href="ueber-uns.html">Über uns</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-col-title">Kontakt</div>
+        <div class="f-contact">LEAP e.U.<br>Spittelauer Lände 15-2/7/21<br>1090 Wien, Österreich<br><br><a href="tel:+436649153184">+43 664 915 31 84</a><br><a href="mailto:paul@ich-leaps.at">paul@ich-leaps.at</a></div>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <p class="f-copy">© 2025 LEAP e.U. · Schau doch auf einen Sprung vorbei!</p>
+      <div class="f-legal"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>

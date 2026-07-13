@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workshop-Kits — LEAP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,700;1,200;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="leap-site.css">
+</head>
+<body data-screen-label="Workshop-Kits Übersicht">
+
+<!-- NAV -->
+<nav>
+  <div class="wrap">
+    <div class="nav-in">
+      <a href="index.html" class="nav-logo">LE<span class="a">A</span>P</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Startseite</a></li>
+        <li><a href="programme.html">Programme</a></li>
+        <li><a href="workshop-kits.html" class="cur">Workshop-Kits</a></li>
+        <li><a href="unternehmen.html">Für Unternehmen</a></li>
+        <li><a href="ueber-uns.html">Über uns</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="kontakt.html" class="nav-cta">Gespräch buchen →</a>
+        <button class="nav-burger" onclick="toggleMenu()" aria-label="Menü"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+  <div class="mob-menu" id="mobmenu">
+    <a href="index.html">Startseite</a>
+    <a href="programme.html">Programme</a>
+    <a href="workshop-kits.html" class="cur">Workshop-Kits</a>
+    <a href="unternehmen.html">Für Unternehmen</a>
+    <a href="ueber-uns.html">Über uns</a>
+    <a href="kontakt.html">Kontakt</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="ov-hero">
+  <div class="wrap">
+    <span class="chip">Workshop-Kits für Führungskräfte</span>
+    <h1>Dein Team braucht<br><mark>etwas. Jetzt.</mark><br><em>Von dir.</em></h1>
+    <p class="ov-hero-sub">Fertige Workshop-Formate die du selbst mit deinem Team durchführst — vollständig vorbereitet, ohne Vorkenntnisse, ohne Moderationserfahrung. Präsentation, Miro-Board und Leitfaden inklusive.</p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="wrap">
+    <span class="chip">So funktioniert ein Kit</span>
+    <h2>Kaufen. Lesen. Durchführen. Fertig.</h2>
+    <div class="how-grid">
+      <div class="how-card fu">
+        <div class="how-num">Schritt 1</div>
+        <h3>Kit kaufen</h3>
+        <p>Sofortiger Download — Präsentation, Miro-Board und Leitfaden in einem Ordner.</p>
+      </div>
+      <div class="how-card fu" style="transition-delay:0.08s;">
+        <div class="how-num">Schritt 2</div>
+        <h3>Termin blockieren</h3>
+        <p>Fertige Einladungsvorlage kopieren, Team einladen, 2–3 Stunden blockieren.</p>
+      </div>
+      <div class="how-card fu" style="transition-delay:0.16s;">
+        <div class="how-num">Schritt 3</div>
+        <h3>Leitfaden lesen</h3>
+        <p>20 Minuten vor dem Workshop. Er liegt neben dir — kein Auswendiglernen.</p>
+      </div>
+      <div class="how-card fu" style="transition-delay:0.24s;">
+        <div class="how-num">Schritt 4</div>
+        <h3>Workshop durchführen</h3>
+        <p>Du folgst dem Leitfaden, dein Team arbeitet im Miro-Board. Echte Ergebnisse.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KIT CARDS -->
+<section class="kits">
+  <div class="wrap">
+    <span class="chip">Unsere Kits</span>
+    <h2>Welches Problem willst du lösen?</h2>
+    <div class="kits-grid">
+
+      <div class="kit-card feat fu">
+        <div class="kit-head">
+          <div class="kit-icon"><svg class="ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/></svg></div>
+          <div class="kit-topic">Vertrauen</div>
+          <span class="kit-badge">Beliebtestes Kit</span>
+        </div>
+        <h3>Vertrauen aufbauen</h3>
+        <p class="kit-pain">Alle sind nett zueinander — aber niemand spricht wirklich offen. Höflichkeit statt Ehrlichkeit. Das Team funktioniert, aber verbindet sich nicht.</p>
+        <div class="kit-meta">
+          <span class="kit-tag kit-tag-lime">€390</span>
+          <span class="kit-tag kit-tag-dark">3 Stunden</span>
+          <span class="kit-tag kit-tag-dark">4–16 Personen</span>
+        </div>
+        <div class="kit-outcome"><span class="ar">→</span>Das Team kennt sich danach wirklich — nicht nur beruflich.</div>
+        <a href="kit-vertrauen.html" class="kit-btn">Zum Kit →</a>
+      </div>
+
+      <div class="kit-card fu" style="transition-delay:0.1s;">
+        <div class="kit-icon"><svg class="ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></div>
+        <div class="kit-topic">Zusammenarbeit</div>
+        <h3>Rollen &amp; Verantwortung</h3>
+        <p class="kit-pain">Keiner weiß genau wer wofür zuständig ist. Dinge werden doppelt gemacht oder fallen durch. Verantwortung wird hin- und hergeschoben.</p>
+        <div class="kit-meta">
+          <span class="kit-tag kit-tag-lime">€290</span>
+          <span class="kit-tag kit-tag-dark">2,5 Stunden</span>
+          <span class="kit-tag kit-tag-dark">4–20 Personen</span>
+        </div>
+        <div class="kit-outcome"><span class="ar">→</span>Jede Person weiß was in ihrem Verantwortungsbereich liegt — und was nicht.</div>
+        <a href="kit-rollen.html" class="kit-btn">Zum Kit →</a>
+      </div>
+
+      <div class="kit-card fu" style="transition-delay:0.2s;">
+        <div class="kit-icon"><svg class="ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 10h8M8 14h5" stroke-linecap="round"/><path d="M20 6v9a2 2 0 0 1-2 2h-4l-4 4v-4H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z"/></svg></div>
+        <div class="kit-topic">Feedback</div>
+        <h3>Feedback</h3>
+        <p class="kit-pain">Feedback gibt es nur im Jahresgespräch — oder gar nicht. Kritik wird geschluckt, Lob vergessen. Alle spüren, dass etwas fehlt.</p>
+        <div class="kit-meta">
+          <span class="kit-tag kit-tag-lime">€290</span>
+          <span class="kit-tag kit-tag-dark">2,5 Stunden</span>
+          <span class="kit-tag kit-tag-dark">4–20 Personen</span>
+        </div>
+        <div class="kit-outcome"><span class="ar">→</span>Dein Team gibt und nimmt danach Feedback, das wirklich ankommt — regelmäßig, ehrlich, ohne Drama.</div>
+        <a href="kit-feedback.html" class="kit-btn">Zum Kit →</a>
+      </div>
+
+      <div class="kit-card fu" style="transition-delay:0.3s;">
+        <div class="kit-icon"><svg class="ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5h16v11H9l-4 4z"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="12" x2="13" y2="12"/></svg></div>
+        <div class="kit-topic">Kommunikation</div>
+        <h3>Kommunikation &amp; Klarheit</h3>
+        <p class="kit-pain">Missverständnisse, endlose Diskussionen, keiner weiß was wirklich beschlossen wurde. Meetings die im Kreis laufen.</p>
+        <div class="kit-meta">
+          <span class="kit-tag kit-tag-lime">€290</span>
+          <span class="kit-tag kit-tag-dark">2,5 Stunden</span>
+          <span class="kit-tag kit-tag-dark">4–20 Personen</span>
+        </div>
+        <div class="kit-outcome"><span class="ar">→</span>Jede Entscheidung ist danach klar — und alle wissen, was beschlossen wurde.</div>
+        <span class="kit-btn" style="cursor:default;opacity:0.45;border-style:dashed;">Bald verfügbar</span>
+      </div>
+
+    </div>
+    <p style="margin-top:28px;font-size:14px;font-weight:200;color:var(--gray);">Du bist HR-Leiter:in oder leitest mehrere Teams? <a href="unternehmen.html" style="color:var(--black);font-weight:600;text-decoration:underline;">→ Bundles &amp; Lizenzen für Unternehmen</a></p>
+  </div>
+</section>
+
+<!-- ADD-ONS -->
+<section class="addons">
+  <div class="wrap">
+    <span class="chip">Noch mehr Unterstützung</span>
+    <h2>Lieber nicht alleine?</h2>
+    <p class="addons-sub">Jedes Kit kannst du selbst durchführen. Oder du holst dir Unterstützung dazu.</p>
+    <div class="addons-grid">
+      <div class="addon fu">
+        <div class="addon-price">ab €690</div>
+        <div class="addon-name">Kit + Moderation</div>
+        <div class="addon-desc">Du kaufst das Kit — ein:e erfahrene:r LEAP-Coach moderiert die Session. Du nimmst einfach teil. Ideal wenn das Thema heiß ist oder du neutral bleiben willst.<br><span style="color:rgba(255,255,255,0.32);">€690 bei 290er-Kits · €790 beim Vertrauen-Kit (Dauer 3 Std statt 2,5)</span></div>
+      </div>
+      <div class="addon fu" style="transition-delay:0.1s;">
+        <div class="addon-price">€290</div>
+        <div class="addon-name">1:1 Coaching</div>
+        <div class="addon-desc">60 Minuten 1:1 mit deinem LEAP-Coach — Vorbereitung, Reflexion, nächste Schritte. Unabhängig von einem Kit buchbar.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<section class="fcta">
+  <div class="wrap-sm">
+    <h2>Noch nicht sicher<br><em>welches Kit passt?</em></h2>
+    <p>Schreib uns kurz — wir helfen dir beim Auswählen.</p>
+    <a href="https://www.ich-leaps.at/kontakt" class="btn btn-dark">Frage stellen →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="f-brand">LE<span class="a">A</span>P</div>
+        <p class="f-tagline">Leading &amp; Empowering Awesome People.<br>Führung, die wirklich funktioniert.</p>
+      </div>
+      <div>
+        <div class="f-col-title">Navigation</div>
+        <ul class="f-links">
+          <li><a href="https://www.ich-leaps.at">Startseite</a></li>
+          <li><a href="https://www.ich-leaps.at/programme">Programme</a></li>
+          <li><a href="workshop-kits.html">Workshop-Kits</a></li>
+          <li><a href="unternehmen.html">Für Unternehmen</a></li>
+          <li><a href="https://www.ich-leaps.at/ueber-uns">Über uns</a></li>
+          <li><a href="https://www.ich-leaps.at/kontakt">Kontakt</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-col-title">Kontakt</div>
+        <div class="f-contact">LEAP e.U.<br>Spittelauer Lände 15-2/7/21<br>1090 Wien, Österreich<br><br><a href="tel:+436649153184">+43 664 915 31 84</a><br><a href="mailto:paul@ich-leaps.at">paul@ich-leaps.at</a></div>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <p class="f-copy">© 2025 LEAP e.U. · Schau doch auf einen Sprung vorbei!</p>
+      <div class="f-legal"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>

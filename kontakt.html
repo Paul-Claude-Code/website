@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kontakt — LEAP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,700;1,200;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="leap-site.css">
+<script src="integrations.js"></script>
+</head>
+<body data-screen-label="Kontakt">
+
+<!-- NAV -->
+<nav>
+  <div class="wrap">
+    <div class="nav-in">
+      <a href="index.html" class="nav-logo">LE<span class="a">A</span>P</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Startseite</a></li>
+        <li><a href="programme.html">Programme</a></li>
+        <li><a href="workshop-kits.html">Workshop-Kits</a></li>
+        <li><a href="unternehmen.html">Für Unternehmen</a></li>
+        <li><a href="ueber-uns.html">Über uns</a></li>
+        <li><a href="kontakt.html" class="cur">Kontakt</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="kontakt.html" class="nav-cta">Gespräch buchen →</a>
+        <button class="nav-burger" onclick="toggleMenu()" aria-label="Menü"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+  <div class="mob-menu" id="mobmenu">
+    <a href="index.html">Startseite</a>
+    <a href="programme.html">Programme</a>
+    <a href="workshop-kits.html">Workshop-Kits</a>
+    <a href="unternehmen.html">Für Unternehmen</a>
+    <a href="ueber-uns.html">Über uns</a>
+    <a href="kontakt.html" class="cur">Kontakt</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="about-hero" style="padding-bottom:64px;">
+  <div class="wrap">
+    <span class="chip">Kontakt</span>
+    <h1>Schau doch auf<br>einen <em>Sprung vorbei.</em></h1>
+    <p class="about-hero-sub">Egal ob Workshop-Kit, Programm oder einfach eine Frage — schreib uns kurz. Wir melden uns persönlich, direkt und ohne Verkaufsgespräch.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec sec-white" style="padding-top:64px;">
+  <div class="wrap">
+    <div class="contact-grid">
+
+      <!-- FORM -->
+      <div>
+        <div id="cform-wrap">
+          <h2 class="sec-h2" style="font-size:24px;color:var(--black);margin-bottom:8px;">Schreib uns</h2>
+          <p style="font-size:14px;font-weight:200;color:var(--gray);margin-bottom:28px;line-height:1.7;">Felder mit * sind Pflicht. Wir antworten in der Regel innerhalb eines Werktags.</p>
+          <p id="cform-hint" style="display:none;font-size:13px;font-weight:600;color:var(--black);background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:10px 14px;margin:-14px 0 22px;">Dein Thema wurde schon vorausgewählt →</p>
+          <div class="cform">
+            <div class="crow">
+              <div class="cfield"><label for="cname">Name *</label><input type="text" id="cname" placeholder="Dein Vor- und Nachname" autocomplete="name"></div>
+              <div class="cfield"><label for="ccompany">Unternehmen</label><input type="text" id="ccompany" placeholder="Optional" autocomplete="organization"></div>
+            </div>
+            <div class="crow">
+              <div class="cfield"><label for="cemail">E-Mail *</label><input type="email" id="cemail" placeholder="name@firma.at" autocomplete="email"></div>
+              <div class="cfield"><label for="cphone">Telefon</label><input type="tel" id="cphone" placeholder="Optional" autocomplete="tel"></div>
+            </div>
+            <div class="cfield"><label for="ctopic">Worum geht's?</label>
+              <select id="ctopic">
+                <option>Workshop-Kit</option>
+                <option>Programm</option>
+                <option>Moderation oder Coaching</option>
+                <option>Unternehmen / Bundle / Lizenz</option>
+                <option>Allgemeine Frage</option>
+              </select>
+            </div>
+            <div class="cfield"><label for="cmsg">Deine Nachricht *</label><textarea id="cmsg" placeholder="Erzähl uns kurz, wo du gerade stehst und was du brauchst."></textarea></div>
+            <div style="position:absolute;left:-5000px;" aria-hidden="true"><label for="cwebsite">Website</label><input type="text" id="cwebsite" name="website" tabindex="-1" autocomplete="off"></div>
+            <p id="cform-error" style="display:none;font-size:13px;font-weight:600;color:#b3261e;background:#fdecea;border:1px solid #f5c6c1;border-radius:4px;padding:10px 14px;"></p>
+            <button class="btn btn-lime" style="align-self:flex-start;" onclick="submitContact()" id="cform-submit">Nachricht senden →</button>
+            <p style="font-size:12px;font-weight:200;color:var(--gray);">Mit dem Absenden stimmst du der Verarbeitung deiner Daten gemäß <a href="datenschutz.html" style="text-decoration:underline;">Datenschutzerklärung</a> zu.</p>
+          </div>
+        </div>
+        <div class="csuccess" id="csuccess">
+          <div class="mcheck"><svg class="ico" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12l4 4 10-11"/></svg></div>
+          <h3>Danke — wir haben deine Nachricht!</h3>
+          <p>Wir melden uns innerhalb eines Werktags. Freude und Führung gehören fix zam.</p>
+        </div>
+      </div>
+
+      <!-- ASIDE -->
+      <div class="contact-aside">
+        <div class="ca-in">
+          <h3>Direkt erreichen</h3>
+          <p class="ca-lead">Lieber direkt? Ruf an oder schreib eine Mail — Paul antwortet persönlich.</p>
+          <button class="btn btn-lime" style="width:100%;justify-content:center;margin-bottom:26px;" onclick="leapBookCall('allgemein')">Termin direkt buchen →</button>
+          <div class="ca-item">
+            <div class="caico"><svg class="ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L19 13l2 5v3a1 1 0 0 1-1 1A16 16 0 0 1 4 6a1 1 0 0 1 1-1z"/></svg></div>
+            <div><div class="calbl">Telefon</div><div class="caval"><a href="tel:+436649153184">+43 664 915 31 84</a></div></div>
+          </div>
+          <div class="ca-item">
+            <div class="caico"><svg class="ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 7l9 6 9-6"/></svg></div>
+            <div><div class="calbl">E-Mail</div><div class="caval"><a href="mailto:paul@ich-leaps.at">paul@ich-leaps.at</a></div></div>
+          </div>
+          <div class="ca-item">
+            <div class="caico"><svg class="ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-5.5 7-11a7 7 0 0 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+            <div><div class="calbl">Adresse</div><div class="caval">LEAP e.U.<br>Spittelauer Lände 15-2/7/21<br>1090 Wien, Österreich</div></div>
+          </div>
+          <div class="ca-item">
+            <div class="caico"><svg class="ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+            <div><div class="calbl">Antwortzeit</div><div class="caval">In der Regel innerhalb eines Werktags</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="f-brand">LE<span class="a">A</span>P</div>
+        <p class="f-tagline">Leading &amp; Empowering Awesome People.<br>Führung, die wirklich funktioniert.</p>
+      </div>
+      <div>
+        <div class="f-col-title">Navigation</div>
+        <ul class="f-links">
+          <li><a href="index.html">Startseite</a></li>
+          <li><a href="programme.html">Programme</a></li>
+          <li><a href="workshop-kits.html">Workshop-Kits</a></li>
+          <li><a href="unternehmen.html">Für Unternehmen</a></li>
+          <li><a href="ueber-uns.html">Über uns</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-col-title">Kontakt</div>
+        <div class="f-contact">LEAP e.U.<br>Spittelauer Lände 15-2/7/21<br>1090 Wien, Österreich<br><br><a href="tel:+436649153184">+43 664 915 31 84</a><br><a href="mailto:paul@ich-leaps.at">paul@ich-leaps.at</a></div>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <p class="f-copy">© 2025 LEAP e.U. · Schau doch auf einen Sprung vorbei!</p>
+      <div class="f-legal"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- BOOKING MODAL -->
+<div class="modal-ov" id="booking-modal" onclick="if(event.target===this) closeBookingModal()">
+  <div class="modal" style="max-width:640px;padding:0;overflow:hidden;">
+    <button class="modal-close" onclick="closeBookingModal()" style="z-index:2;">×</button>
+    <iframe id="booking-frame" title="Termin buchen" style="width:100%;height:600px;border:0;display:block;" src="about:blank"></iframe>
+  </div>
+</div>
+
+<script src="site.js"></script>
+<script>
+function submitContact(){
+  var n=document.getElementById('cname').value.trim();
+  var e=document.getElementById('cemail').value.trim();
+  var m=document.getElementById('cmsg').value.trim();
+  var errEl=document.getElementById('cform-error');
+  errEl.style.display='none';
+  if(!n||!e||!m){ errEl.textContent='Bitte fülle Name, E-Mail und Nachricht aus.'; errEl.style.display='block'; return; }
+
+  var btn=document.getElementById('cform-submit');
+  btn.disabled=true;
+  var originalLabel=btn.textContent;
+  btn.textContent='Wird gesendet …';
+
+  fetch('send-contact.php', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({
+      name:n,
+      company:document.getElementById('ccompany').value.trim(),
+      email:e,
+      phone:document.getElementById('cphone').value.trim(),
+      topic:document.getElementById('ctopic').value,
+      message:m,
+      website:document.getElementById('cwebsite').value
+    })
+  }).then(function(res){ return res.json().then(function(data){ return {ok:res.ok, data:data}; }); })
+    .then(function(r){
+      if(!r.ok || !r.data.ok){ throw new Error((r.data && r.data.message) || 'Fehler beim Senden.'); }
+      document.getElementById('cform-wrap').style.display='none';
+      document.getElementById('csuccess').classList.add('op');
+      window.scrollTo({top:document.querySelector('.contact-grid').offsetTop-80,behavior:'smooth'});
+    })
+    .catch(function(err){
+      errEl.textContent=err.message + ' Alternativ erreichst du uns direkt unter paul@ich-leaps.at.';
+      errEl.style.display='block';
+      btn.disabled=false;
+      btn.textContent=originalLabel;
+    });
+}
+</script>
+</body>
+</html>
