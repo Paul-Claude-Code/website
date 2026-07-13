@@ -98,6 +98,11 @@ $kitLabels2 = [
     'rollen' => 'Rollen & Verantwortung',
     'feedback' => 'Feedback-Kultur aufbauen',
 ];
+$kitBoardTitles = [
+    'vertrauen' => 'Vertrauen',
+    'rollen' => 'Rollen',
+    'feedback' => 'Feedback',
+];
 $fulfillmentNotes = [];
 
 if ($tokenOk && $kit !== null && $buyerEmail !== '') {
@@ -115,7 +120,12 @@ if ($tokenOk && $kit !== null && $buyerEmail !== '') {
         }
     }
 
-    $miro = leap_create_miro_board($config, $kit, $buyerEmail);
+    // "Vorname LEAP Workshop Kit <Kit>", z.B. "Erika LEAP Workshop Kit Vertrauen"
+    $firstName = trim(explode(' ', trim($buyerName))[0] ?? '');
+    $boardTitle = $kitBoardTitles[$kit] ?? $kit;
+    $boardName = ($firstName !== '' ? $firstName . ' ' : '') . 'LEAP Workshop Kit ' . $boardTitle;
+
+    $miro = leap_create_miro_board($config, $kit, $buyerEmail, $boardName);
     if ($miro['error'] !== null) {
         $fulfillmentNotes[] = 'Miro: ' . $miro['error'];
     }

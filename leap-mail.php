@@ -281,8 +281,9 @@ function leap_send_via_mail_with_attachments(array $config, string $toEmail, str
 }
 
 /**
- * Creates the customer's personal Miro board by duplicating the template
- * board configured for $kit, and invites $inviteEmail as an editor on it.
+ * Creates the customer's personal Miro board (named $boardName, e.g.
+ * "Erika LEAP Workshop Kit Vertrauen") by duplicating the template board
+ * configured for $kit, and invites $inviteEmail as an editor on it.
  *
  * IMPORTANT: Miro's exact REST API behavior here (copy-board response
  * shape, and whether inviting an external, non-team-member email actually
@@ -294,7 +295,7 @@ function leap_send_via_mail_with_attachments(array $config, string $toEmail, str
  * nothing; $result['invited'] tells you whether the invite call itself
  * reported success.
  */
-function leap_create_miro_board(array $config, string $kit, string $inviteEmail): array
+function leap_create_miro_board(array $config, string $kit, string $inviteEmail, string $boardName): array
 {
     $result = ['link' => null, 'invited' => false, 'error' => null];
 
@@ -313,7 +314,7 @@ function leap_create_miro_board(array $config, string $kit, string $inviteEmail)
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POST => true,
         CURLOPT_POSTFIELDS => json_encode([
-            'name' => 'Workshop-Board — ' . $inviteEmail,
+            'name' => $boardName,
         ]),
         CURLOPT_HTTPHEADER => [
             'Content-Type: application/json',
