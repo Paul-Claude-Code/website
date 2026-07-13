@@ -10,13 +10,26 @@ function leap_config(): array
     $defaults = [
         'notify_email' => 'paul@ich-leaps.at',
         'brevo_api_key' => null,
-        'brevo_list_id' => null,
+        'brevo_lists' => [
+            'kontakt' => null,
+            'programm_veraenderung' => null,
+            'programm_coaching_leader' => null,
+            'programm_change_management' => null,
+            'kit_alle' => null,
+            'kit_vertrauen' => null,
+            'kit_rollen' => null,
+            'kit_feedback' => null,
+        ],
     ];
     $file = __DIR__ . '/config.php';
     if (is_file($file)) {
         $custom = include $file;
         if (is_array($custom)) {
-            return array_merge($defaults, $custom);
+            $merged = array_merge($defaults, $custom);
+            if (isset($custom['brevo_lists']) && is_array($custom['brevo_lists'])) {
+                $merged['brevo_lists'] = array_merge($defaults['brevo_lists'], $custom['brevo_lists']);
+            }
+            return $merged;
         }
     }
     return $defaults;
@@ -107,13 +120,25 @@ function leap_send_via_mail(array $config, string $subject, string $htmlBody, st
 }
 
 /**
- * Adds/updates a contact in Brevo (no-op if not configured).
+ * Adds/updates a contact in Brevo (no-op if not configured), placing them
+ * into the Brevo lists identified by $listKeys (looked up in
+ * $config['brevo_lists']; unresolved/null keys are skipped).
  */
-function leap_sync_brevo_contact(array $config, string $email, array $attributes = []): void
+function leap_sync_brevo_contact(array $config, string $email, array $listKeys = [], array $attributes = []): void
 {
     if (empty($config['brevo_api_key']) || $email === '') {
         return;
     }
+
+    $lists = $config['brevo_lists'] ?? [];
+    $listIds = [];
+    foreach ($listKeys as $key) {
+        if (!empty($lists[$key])) {
+            $listIds[] = (int) $lists[$key];
+        }
+    }
+    $listIds = array_values(array_unique($listIds));
+
     $payload = [
         'email' => $email,
         'updateEnabled' => true,
@@ -121,8 +146,8 @@ function leap_sync_brevo_contact(array $config, string $email, array $attributes
     if (!empty($attributes)) {
         $payload['attributes'] = $attributes;
     }
-    if (!empty($config['brevo_list_id'])) {
-        $payload['listIds'] = [(int) $config['brevo_list_id']];
+    if (!empty($listIds)) {
+        $payload['listIds'] = $listIds;
     }
 
     $ch = curl_init('https://api.brevo.com/v3/contacts');

@@ -24,6 +24,7 @@ $email = leap_clean((string) ($data['email'] ?? ''), 200);
 $phone = leap_clean((string) ($data['phone'] ?? ''), 60);
 $topic = leap_clean((string) ($data['topic'] ?? ''), 120);
 $message = leap_clean((string) ($data['message'] ?? ''), 4000);
+$programm = leap_clean((string) ($data['programm'] ?? ''), 60);
 
 if ($name === '' || $email === '' || $message === '') {
     leap_json_response(false, 'Bitte fülle Name, E-Mail und Nachricht aus.', 422);
@@ -34,6 +35,26 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
 $config = leap_config();
 
+// Which programme (if any) this inquiry is tied to — set via ?programm=
+// query param on the "Jetzt anmelden" links on the programme pages, so we
+// can route it into a dedicated Brevo list instead of just the general one.
+$programmLabels = [
+    'veraenderung' => 'Leadership & Teamentwicklung ("Bereit für die übernächste Veränderung?")',
+    'coaching-leader' => 'Coaching as a Leader ("Führen durch Fragen statt durch Antworten.")',
+    'change-management' => 'Systemisches Change Management ("Veränderung gestalten statt verwalten.")',
+];
+$programmListKeys = [
+    'veraenderung' => 'programm_veraenderung',
+    'coaching-leader' => 'programm_coaching_leader',
+    'change-management' => 'programm_change_management',
+];
+$programmLabel = $programmLabels[$programm] ?? '';
+
+$listKeys = ['kontakt'];
+if (isset($programmListKeys[$programm])) {
+    $listKeys[] = $programmListKeys[$programm];
+}
+
 $rows = [
     'Name' => $name,
     'Unternehmen' => $company !== '' ? $company : '—',
@@ -41,6 +62,9 @@ $rows = [
     'Telefon' => $phone !== '' ? $phone : '—',
     'Thema' => $topic !== '' ? $topic : '—',
 ];
+if ($programmLabel !== '') {
+    $rows['Programm'] = $programmLabel;
+}
 
 $html = '<h2>Neue Nachricht über das Kontaktformular</h2><table cellpadding="6" cellspacing="0">';
 foreach ($rows as $label => $value) {
@@ -50,7 +74,7 @@ $html .= '</table><p><strong>Nachricht:</strong><br>' . nl2br(htmlspecialchars($
 
 $sent = leap_send_notification($config, 'Kontaktformular: ' . $name, $html, $email, $name);
 
-leap_sync_brevo_contact($config, $email);
+leap_sync_brevo_contact($config, $email, $listKeys);
 
 if (!$sent) {
     leap_json_response(false, 'Nachricht konnte nicht gesendet werden. Bitte versuch es später erneut oder schreib direkt an paul@ich-leaps.at.', 502);

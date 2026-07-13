@@ -80,6 +80,7 @@
               </select>
             </div>
             <div class="cfield"><label for="cmsg">Deine Nachricht *</label><textarea id="cmsg" placeholder="Erzähl uns kurz, wo du gerade stehst und was du brauchst."></textarea></div>
+            <input type="hidden" id="cprogramm" value="">
             <div style="position:absolute;left:-5000px;" aria-hidden="true"><label for="cwebsite">Website</label><input type="text" id="cwebsite" name="website" tabindex="-1" autocomplete="off"></div>
             <p id="cform-error" style="display:none;font-size:13px;font-weight:600;color:#b3261e;background:#fdecea;border:1px solid #f5c6c1;border-radius:4px;padding:10px 14px;"></p>
             <button class="btn btn-lime" style="align-self:flex-start;" onclick="submitContact()" id="cform-submit">Nachricht senden →</button>
@@ -186,6 +187,7 @@ function submitContact(){
       phone:document.getElementById('cphone').value.trim(),
       topic:document.getElementById('ctopic').value,
       message:m,
+      programm:document.getElementById('cprogramm').value,
       website:document.getElementById('cwebsite').value
     })
   }).then(function(res){ return res.json().then(function(data){ return {ok:res.ok, data:data}; }); })

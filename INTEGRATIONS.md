@@ -13,19 +13,35 @@ die serverseitig per PHP `mail()` verschicken. Das funktioniert von Haus aus
 auf World4You-Hosting, ganz ohne weitere Einrichtung.
 
 Optional kannst du zusätzlich Brevo anschließen (bessere Zustellqualität +
-automatisches Anlegen des Kontakts in einer Brevo-Liste):
+automatisches Anlegen des Kontakts in **passenden, getrennten Brevo-Listen**
+— damit du in Brevo siehst, wer sich für welches Programm bzw. welches
+Workshop-Kit interessiert hat, statt alles in einem Topf):
 1. Kopiere `config.sample.php` zu `config.php` (liegt im selben Ordner,
    wird nicht mit eingecheckt/versioniert).
 2. Trag deinen Brevo-API-Key (Brevo → SMTP & API → API-Keys) bei
-   `brevo_api_key` ein, und optional die Listen-ID bei `brevo_list_id`
-   (Brevo → Kontakte → Listen).
-3. Sobald `brevo_api_key` gesetzt ist, laufen Benachrichtigungsmails
-   automatisch über die Brevo-API statt über `mail()`, und neue
-   Kontakte werden in die angegebene Liste eingetragen.
+   `brevo_api_key` ein.
+3. Leg in Brevo (Kontakte → Listen → Liste erstellen) eine Liste pro
+   Kategorie an, die dich interessiert — musst nicht alle nutzen — und
+   trag die jeweilige Listen-ID bei `brevo_lists` ein:
+   - `kontakt` — Sammelliste für alle Kontaktformular-Anfragen
+   - `programm_veraenderung`, `programm_coaching_leader`,
+     `programm_change_management` — wenn die Anfrage über einen
+     "Jetzt anmelden"/"Platz anfragen"-Button einer bestimmten
+     Programmseite kam
+   - `kit_alle` — Sammelliste über alle drei Kit-Wartelisten
+   - `kit_vertrauen`, `kit_rollen`, `kit_feedback` — je nachdem, für
+     welches Kit sich jemand auf der Warteliste eingetragen hat
+4. Sobald `brevo_api_key` gesetzt ist, laufen Benachrichtigungsmails
+   automatisch über die Brevo-API statt über `mail()`, und neue Kontakte
+   landen automatisch in den passenden Listen (z.B. Kontaktformular über
+   den "Jetzt anmelden"-Button beim Programm "Veränderung" → landet in
+   `kontakt` UND in `programm_veraenderung`).
 
 Beide Formulare haben ein unsichtbares Honeypot-Feld gegen simple
 Spam-Bots, serverseitige Validierung (Pflichtfelder, gültige E-Mail) und
-zeigen bei einem Fehler eine Meldung mit direktem Mailto-Fallback an.
+zeigen bei einem Fehler eine Meldung mit direktem Mailto-Fallback an. Die
+E-Mail-Benachrichtigung an dich enthält in jedem Fall auch Thema/Programm
+im Klartext — auch ohne Brevo siehst du also immer, worum es ging.
 
 ## 1. Brevo Meetings (Terminbuchung — "Gespräch buchen")
 Was ich brauche:

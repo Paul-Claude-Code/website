@@ -47,7 +47,16 @@ $html = '<h2>Neue Warteliste-Anmeldung (Früher Zugang)</h2>'
 
 $sent = leap_send_notification($config, 'Warteliste: ' . $kitLabel . ' — ' . $name, $html, $email, $name);
 
-leap_sync_brevo_contact($config, $email);
+$kitListKeys = [
+    'vertrauen' => 'kit_vertrauen',
+    'rollen' => 'kit_rollen',
+    'feedback' => 'kit_feedback',
+];
+$listKeys = ['kit_alle'];
+if (isset($kitListKeys[$kit])) {
+    $listKeys[] = $kitListKeys[$kit];
+}
+leap_sync_brevo_contact($config, $email, $listKeys);
 
 if (!$sent) {
     leap_json_response(false, 'Anmeldung konnte nicht gesendet werden. Bitte versuch es später erneut.', 502);

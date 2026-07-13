@@ -100,11 +100,14 @@ window.LEAP_INTEGRATIONS = {
     document.head.appendChild(s);
   }
 
-  /* ---------- Kontaktformular: Thema aus Query-Param vorbelegen ---------- */
+  /* ---------- Kontaktformular: Thema + Programm aus Query-Param vorbelegen ---------- */
   document.addEventListener('DOMContentLoaded', function(){
     var params = new URLSearchParams(window.location.search);
     var thema = params.get('thema');
     if(thema) preselectTopic(thema);
+    var programm = params.get('programm');
+    var programmField = document.getElementById('cprogramm');
+    if(programm && programmField) programmField.value = programm;
   });
 
 })();
