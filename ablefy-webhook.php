@@ -87,6 +87,64 @@ $rows = [
     'Bestell-ID' => $orderId !== '' ? $orderId : '(unbekannt)',
 ];
 
+// --- Customer fulfillment: only once we're sure this is a genuine,
+// kit-identified purchase (valid token + resolved kit + known buyer email).
+// Attaches the Facilitator Guide / Agenda / Präsentation from
+// deliverables/<kit>/, links the Vimeo welcome video, and creates +
+// shares the customer's own Miro board (duplicated from the kit's
+// template board).
+$kitLabels2 = [
+    'vertrauen' => 'Vertrauen aufbauen',
+    'rollen' => 'Rollen & Verantwortung',
+    'feedback' => 'Feedback-Kultur aufbauen',
+];
+$fulfillmentNotes = [];
+
+if ($tokenOk && $kit !== null && $buyerEmail !== '') {
+    $deliverables = [
+        'Facilitator Guide' => leap_find_deliverable($kit, 'facilitator-guide'),
+        'Agenda' => leap_find_deliverable($kit, 'agenda'),
+        'Präsentation' => leap_find_deliverable($kit, 'praesentation'),
+    ];
+    $attachments = [];
+    foreach ($deliverables as $label => $path) {
+        if ($path !== null) {
+            $attachments[] = ['path' => $path, 'name' => basename($path)];
+        } else {
+            $fulfillmentNotes[] = "Datei fehlt: '{$label}' für Kit '{$kit}' (erwartet in deliverables/{$kit}/, siehe INTEGRATIONS.md).";
+        }
+    }
+
+    $miro = leap_create_miro_board($config, $kit, $buyerEmail);
+    if ($miro['error'] !== null) {
+        $fulfillmentNotes[] = 'Miro: ' . $miro['error'];
+    }
+
+    $kitLabel2 = $kitLabels2[$kit] ?? $kit;
+    $customerHtml = '<h2>Danke für deinen Kauf — ' . htmlspecialchars($kitLabel2, ENT_QUOTES) . '!</h2>';
+    $customerHtml .= '<p>Im Anhang findest du Facilitator Guide, Agenda und Präsentation.</p>';
+    if (!empty($config['vimeo_welcome_url'])) {
+        $customerHtml .= '<p><strong>Begrüßungsvideo:</strong> <a href="' . htmlspecialchars($config['vimeo_welcome_url'], ENT_QUOTES) . '">' . htmlspecialchars($config['vimeo_welcome_url'], ENT_QUOTES) . '</a></p>';
+    }
+    if ($miro['link'] !== null) {
+        $customerHtml .= '<p><strong>Dein persönliches Miro-Board:</strong> <a href="' . htmlspecialchars($miro['link'], ENT_QUOTES) . '">' . htmlspecialchars($miro['link'], ENT_QUOTES) . '</a></p>';
+    } else {
+        $customerHtml .= '<p>Dein persönliches Miro-Board folgt in Kürze in einer separaten Mail.</p>';
+    }
+    $customerHtml .= '<p>Bei Fragen einfach auf diese Mail antworten — melden uns persönlich.<br>Freude und Führung gehören fix zam.<br>Paul</p>';
+
+    $customerSent = leap_send_email_with_attachments($config, $buyerEmail, $buyerName, 'Dein LEAP-Kit: ' . $kitLabel2, $customerHtml, $attachments);
+    if (!$customerSent) {
+        $fulfillmentNotes[] = 'Kunden-Fulfillment-Mail konnte nicht zugestellt werden (weder Brevo noch mail()).';
+    }
+} elseif ($tokenOk && $kit === null) {
+    $fulfillmentNotes[] = 'Kein Kit zugeordnet (siehe ablefy_products in config.php) — Kunden-Fulfillment-Mail wurde NICHT verschickt.';
+}
+
+if (!empty($fulfillmentNotes)) {
+    $rows['Fulfillment-Hinweise'] = implode(' | ', $fulfillmentNotes);
+}
+
 $html = '<h2>Ablefy-Webhook eingegangen</h2><table cellpadding="6" cellspacing="0">';
 foreach ($rows as $label => $value) {
     $html .= '<tr><td><strong>' . htmlspecialchars($label, ENT_QUOTES) . '</strong></td><td>' . htmlspecialchars((string) $value, ENT_QUOTES) . '</td></tr>';

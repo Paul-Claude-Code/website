@@ -58,4 +58,25 @@ return [
         // 'ablefy-produkt-id-oder-name' => 'rollen',
         // 'ablefy-produkt-id-oder-name' => 'feedback',
     ],
+
+    // ---- Kunden-Fulfillment nach echtem Kauf (Facilitator Guide, Agenda,
+    // Präsentation als Anhang + Begrüßungsvideo + persönliches Miro-Board) ----
+
+    // Dein Begrüßungsvideo auf Vimeo (ein Link für alle Kits).
+    'vimeo_welcome_url' => null,
+
+    // Miro-API-Token (Miro → Settings → Your apps → App erstellen →
+    // "Install app and get OAuth token" → Token kopieren). Braucht die
+    // Scopes boards:read, boards:write.
+    'miro_api_token' => null,
+
+    // Board-ID deines fertigen Vorlagen-Boards pro Kit (in Miro-URL:
+    // https://miro.com/app/board/BOARD_ID_HIER/ → der Teil zwischen
+    // /board/ und der abschließenden / ist die ID). Wird bei jedem Kauf
+    // dupliziert, damit der Kunde sein eigenes Board bekommt.
+    'miro_templates' => [
+        'vertrauen' => null,
+        'rollen' => null,
+        'feedback' => null,
+    ],
 ];

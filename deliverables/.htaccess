@@ -1,0 +1,10 @@
+# Verhindert direkten Web-Zugriff auf die Kit-Dateien. ablefy-webhook.php
+# liest die Dateien serverseitig über den Dateipfad (nicht über eine URL)
+# und hängt sie an die Kunden-Mail an — dieser Ordner muss nie öffentlich
+# erreichbar sein.
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Deny from all
+</IfModule>

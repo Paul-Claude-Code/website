@@ -110,6 +110,60 @@ darum ist der Empfänger bewusst defensiv gebaut:
      `'prod_abc123' => 'vertrauen'`) — erst dann landet der Kauf zusätzlich
      zur Mail auch in der Brevo-Liste `kauf` mit `INTERESSE = kauf_vertrauen`.
 
+### 2c. Kunden-Fulfillment-Mail — Dateien + Video + persönliches Miro-Board (bereits gebaut)
+
+Sobald ein Kauf über `ablefy-webhook.php` reinkommt und einem Kit zugeordnet
+werden kann (siehe `ablefy_products` oben), verschickt das Skript **direkt
+an den Kunden** (nicht nur an dich) eine E-Mail mit:
+- Facilitator Guide, Agenda und Präsentation als Dateianhang
+- dem Begrüßungsvideo-Link (Vimeo)
+- dem Link zu seinem persönlichen, frisch duplizierten Miro-Board
+
+Du bekommst zusätzlich weiterhin deine eigene interne Benachrichtigung wie
+bisher — mit einem Extra-Hinweis, falls beim Kunden-Fulfillment etwas
+gefehlt hat (fehlende Datei, Miro-Fehler etc.), damit nichts unbemerkt
+durchrutscht.
+
+**Setup — 3 Teile:**
+
+1. **Dateien hochladen.** Lad Facilitator Guide, Agenda und Präsentation
+   pro Kit in `deliverables/<kit>/` hoch (genaue Dateinamen und Anleitung
+   in `deliverables/README.md`) — per FTP/Datei-Manager, direkt neben
+   `index.html`. Dieser Ordner ist per `.htaccess` vor Web-Zugriff
+   geschützt, die Dateien werden nur serverseitig an die Mail angehängt,
+   nie öffentlich verlinkt.
+
+2. **Vimeo-Link eintragen.** In `config.php` bei `vimeo_welcome_url` den
+   Link zu deinem Begrüßungsvideo eintragen (ein Link für alle Kits).
+
+3. **Miro-API einrichten** (der aufwendigste Teil):
+   - Miro → Avatar → Settings → "Your apps" → "Create new app" (z.B.
+     "LEAP Fulfillment").
+   - App-Einstellungen → Scopes `boards:read` und `boards:write` aktivieren.
+   - Unten "Install app and get OAuth token" → "Install & authorize" →
+     Token kopieren → in `config.php` bei `miro_api_token` eintragen.
+   - Für jedes deiner 3 fertigen Vorlagen-Boards (die, die schon als
+     Screenshots auf den Kit-Seiten zu sehen sind) die Board-ID aus der
+     Miro-URL holen (`https://miro.com/app/board/BOARD_ID/` → der Teil
+     zwischen `/board/` und dem abschließenden `/`) und in `config.php`
+     bei `miro_templates.vertrauen` / `.rollen` / `.feedback` eintragen.
+
+   **Wichtiger Vorbehalt:** Miros genaues API-Verhalten beim Duplizieren
+   eines Boards und beim Einladen einer fremden E-Mail-Adresse als
+   Editor (statt eines bereits bestehenden Team-Mitglieds) konnte ich
+   nicht gegen einen echten Miro-Account testen — je nach deinem
+   Miro-Plan (Free/Starter/Business/Enterprise) kann es sein, dass
+   externe Personen automatisch nur Ansichts- statt Bearbeitungsrechte
+   bekommen, oder dass das Einladen einen zusätzlichen zahlungspflichtigen
+   Platz auf deinem Miro-Konto braucht. Der Code ist so gebaut, dass er
+   in jedem Fall wenigstens den Board-Link mitschickt (auch wenn die
+   Einladung fehlschlägt) und dir in der internen Benachrichtigung genau
+   sagt, ob die Einladung geklappt hat — **am besten einmal einen echten
+   Test-Kauf durchspielen**, dann schauen wir uns zusammen an, ob die
+   Rechte beim Kunden ankommen oder ob wir nachjustieren müssen (z.B.
+   Board stattdessen auf "jeder mit Link kann bearbeiten" stellen, falls
+   dein Plan das für Personen außerhalb deines Teams erlaubt).
+
 ## 3. Brevo (E-Mail — automatisierte Follow-ups nach Buchung)
 Was ich brauche:
 - Falls du ein Brevo-"Web Form" für Newsletter/Kontakt nutzen willst: die
@@ -135,9 +189,11 @@ dahin passiert nichts, kein Consent-Banner nötig (wolltet ihr separat klären).
 ---
 
 ### Kurzfassung — was du mir schicken kannst, wenn bereit:
-1. Brevo-Meetings-Buchungslink
+1. Brevo-Meetings-Buchungslink ✅ erledigt (meet.brevo.com/paul-scheipl)
 2. 3× Ablefy-Checkout-Link (Vertrauen / Rollen / Feedback)
 3. Ablefy-Webhook: nach dem ersten Test-Webhook das Rohdaten-Payload aus der
    Mail (für die Produkt-ID → Kit-Zuordnung in `ablefy_products`)
-4. Brevo: ggf. Formular-Embed-URL + Liste-ID (Follow-up-Workflow richtest du direkt in Brevo ein)
-5. Umami: Script-URL + Website-ID
+4. Kunden-Fulfillment: Dateien in `deliverables/<kit>/` hochladen, Vimeo-Link
+   für `vimeo_welcome_url`, Miro-API-Token + 3 Vorlagen-Board-IDs
+5. Brevo: ggf. Formular-Embed-URL + Liste-ID (Follow-up-Workflow richtest du direkt in Brevo ein)
+6. Umami: Script-URL + Website-ID

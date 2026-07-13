@@ -19,6 +19,13 @@ function leap_config(): array
         'brevo_attribute' => 'INTERESSE',
         'ablefy_webhook_token' => null,
         'ablefy_products' => [],
+        'vimeo_welcome_url' => null,
+        'miro_api_token' => null,
+        'miro_templates' => [
+            'vertrauen' => null,
+            'rollen' => null,
+            'feedback' => null,
+        ],
     ];
     $file = __DIR__ . '/config.php';
     if (is_file($file)) {
@@ -27,6 +34,9 @@ function leap_config(): array
             $merged = array_merge($defaults, $custom);
             if (isset($custom['brevo_lists']) && is_array($custom['brevo_lists'])) {
                 $merged['brevo_lists'] = array_merge($defaults['brevo_lists'], $custom['brevo_lists']);
+            }
+            if (isset($custom['miro_templates']) && is_array($custom['miro_templates'])) {
+                $merged['miro_templates'] = array_merge($defaults['miro_templates'], $custom['miro_templates']);
             }
             return $merged;
         }
@@ -167,4 +177,211 @@ function leap_sync_brevo_contact(array $config, string $email, array $listKeys =
     ]);
     curl_exec($ch);
     curl_close($ch);
+}
+
+/**
+ * Sends an email with file attachments to an arbitrary recipient (unlike
+ * leap_send_notification, which always mails notify_email). Used for the
+ * customer-facing kit-fulfillment email. $attachments is a list of
+ * ['path' => absolute filesystem path, 'name' => filename shown to the
+ * recipient]; missing files are silently skipped (caller should check for
+ * that beforehand and flag it in the internal notification).
+ * Tries Brevo's transactional API first (supports attachments natively),
+ * falls back to a hand-built MIME multipart PHP mail() otherwise.
+ */
+function leap_send_email_with_attachments(array $config, string $toEmail, string $toName, string $subject, string $htmlBody, array $attachments = []): bool
+{
+    $files = [];
+    foreach ($attachments as $att) {
+        if (!empty($att['path']) && is_file($att['path'])) {
+            $files[] = $att;
+        }
+    }
+
+    if (!empty($config['brevo_api_key'])) {
+        if (leap_send_via_brevo_with_attachments($config, $toEmail, $toName, $subject, $htmlBody, $files)) {
+            return true;
+        }
+    }
+    return leap_send_via_mail_with_attachments($config, $toEmail, $toName, $subject, $htmlBody, $files);
+}
+
+function leap_send_via_brevo_with_attachments(array $config, string $toEmail, string $toName, string $subject, string $htmlBody, array $files): bool
+{
+    $payload = [
+        'sender' => ['name' => 'LEAP', 'email' => $config['notify_email']],
+        'to' => [['email' => $toEmail, 'name' => $toName !== '' ? $toName : $toEmail]],
+        'subject' => $subject,
+        'htmlContent' => $htmlBody,
+    ];
+
+    $attachmentPayload = [];
+    foreach ($files as $file) {
+        $content = @file_get_contents($file['path']);
+        if ($content === false) {
+            continue;
+        }
+        $attachmentPayload[] = [
+            'name' => $file['name'],
+            'content' => base64_encode($content),
+        ];
+    }
+    if (!empty($attachmentPayload)) {
+        $payload['attachment'] = $attachmentPayload;
+    }
+
+    $ch = curl_init('https://api.brevo.com/v3/smtp/email');
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => json_encode($payload),
+        CURLOPT_HTTPHEADER => [
+            'Content-Type: application/json',
+            'api-key: ' . $config['brevo_api_key'],
+            'accept: application/json',
+        ],
+        CURLOPT_TIMEOUT => 30,
+    ]);
+    curl_exec($ch);
+    $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    return $status >= 200 && $status < 300;
+}
+
+function leap_send_via_mail_with_attachments(array $config, string $toEmail, string $toName, string $subject, string $htmlBody, array $files): bool
+{
+    $boundary = 'leap-' . bin2hex(random_bytes(12));
+    $from = $config['notify_email'];
+
+    $headers = "MIME-Version: 1.0\r\n";
+    $headers .= "From: LEAP <{$from}>\r\n";
+    $headers .= "Content-Type: multipart/mixed; boundary=\"{$boundary}\"\r\n";
+
+    $body = "--{$boundary}\r\n";
+    $body .= "Content-Type: text/html; charset=UTF-8\r\n";
+    $body .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
+    $body .= $htmlBody . "\r\n";
+
+    foreach ($files as $file) {
+        $content = @file_get_contents($file['path']);
+        if ($content === false) {
+            continue;
+        }
+        $body .= "--{$boundary}\r\n";
+        $body .= 'Content-Type: application/octet-stream; name="' . $file['name'] . "\"\r\n";
+        $body .= "Content-Transfer-Encoding: base64\r\n";
+        $body .= 'Content-Disposition: attachment; filename="' . $file['name'] . "\"\r\n\r\n";
+        $body .= chunk_split(base64_encode($content)) . "\r\n";
+    }
+    $body .= "--{$boundary}--";
+
+    $toHeader = $toName !== '' ? "{$toName} <{$toEmail}>" : $toEmail;
+    return @mail($toHeader, $subject, $body, $headers);
+}
+
+/**
+ * Creates the customer's personal Miro board by duplicating the template
+ * board configured for $kit, and invites $inviteEmail as an editor on it.
+ *
+ * IMPORTANT: Miro's exact REST API behavior here (copy-board response
+ * shape, and whether inviting an external, non-team-member email actually
+ * grants edit access or requires a paid seat) was not verified against a
+ * real Miro account/plan while building this — treat the endpoint paths
+ * below as a best-effort first cut that may need adjusting after the
+ * first real test purchase. Always returns whatever board link it has
+ * (even if the invite step failed), so the customer isn't left with
+ * nothing; $result['invited'] tells you whether the invite call itself
+ * reported success.
+ */
+function leap_create_miro_board(array $config, string $kit, string $inviteEmail): array
+{
+    $result = ['link' => null, 'invited' => false, 'error' => null];
+
+    if (empty($config['miro_api_token'])) {
+        $result['error'] = 'Kein Miro-API-Token in config.php hinterlegt.';
+        return $result;
+    }
+    $templateId = $config['miro_templates'][$kit] ?? null;
+    if (empty($templateId)) {
+        $result['error'] = "Keine Miro-Vorlagen-Board-ID für Kit '{$kit}' in config.php hinterlegt.";
+        return $result;
+    }
+
+    $ch = curl_init('https://api.miro.com/v2/boards/' . rawurlencode($templateId) . '/copy');
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => json_encode([
+            'name' => 'Workshop-Board — ' . $inviteEmail,
+        ]),
+        CURLOPT_HTTPHEADER => [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $config['miro_api_token'],
+            'Accept: application/json',
+        ],
+        CURLOPT_TIMEOUT => 20,
+    ]);
+    $response = curl_exec($ch);
+    $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    if ($status < 200 || $status >= 300) {
+        $result['error'] = "Miro copy-board fehlgeschlagen (HTTP {$status}): " . substr((string) $response, 0, 500);
+        return $result;
+    }
+
+    $data = json_decode((string) $response, true);
+    $boardId = $data['id'] ?? null;
+    $result['link'] = $data['viewLink'] ?? ($boardId ? ('https://miro.com/app/board/' . $boardId . '/') : null);
+
+    if (!$boardId) {
+        $result['error'] = 'Miro copy-board Antwort enthielt keine Board-ID.';
+        return $result;
+    }
+
+    $ch2 = curl_init('https://api.miro.com/v2/boards/' . rawurlencode($boardId) . '/members');
+    curl_setopt_array($ch2, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => json_encode([
+            'emails' => [$inviteEmail],
+            'role' => 'editor',
+        ]),
+        CURLOPT_HTTPHEADER => [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $config['miro_api_token'],
+            'Accept: application/json',
+        ],
+        CURLOPT_TIMEOUT => 20,
+    ]);
+    $response2 = curl_exec($ch2);
+    $status2 = curl_getinfo($ch2, CURLINFO_HTTP_CODE);
+    curl_close($ch2);
+
+    if ($status2 >= 200 && $status2 < 300) {
+        $result['invited'] = true;
+    } else {
+        $result['error'] = "Board wurde dupliziert, Einladung schlug aber fehl (HTTP {$status2}): " . substr((string) $response2, 0, 500);
+    }
+
+    return $result;
+}
+
+/**
+ * Finds a deliverable file for $kit trying a few common extensions, e.g.
+ * leap_find_deliverable('vertrauen', 'facilitator-guide') looks for
+ * deliverables/vertrauen/facilitator-guide.{pdf,pptx,ppt,docx,zip}.
+ * Returns null if none of them exist.
+ */
+function leap_find_deliverable(string $kit, string $basename): ?string
+{
+    $dir = __DIR__ . '/deliverables/' . $kit;
+    foreach (['pdf', 'pptx', 'ppt', 'docx', 'zip'] as $ext) {
+        $path = $dir . '/' . $basename . '.' . $ext;
+        if (is_file($path)) {
+            return $path;
+        }
+    }
+    return null;
 }

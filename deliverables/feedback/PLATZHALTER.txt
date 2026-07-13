@@ -1,0 +1,6 @@
+Hier die echten Dateien für das Kit "feedback" hochladen:
+  facilitator-guide.pdf
+  agenda.pdf
+  praesentation.pdf (oder .pptx)
+
+Diese Platzhalter-Datei danach löschen.
