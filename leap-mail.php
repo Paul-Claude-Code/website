@@ -26,6 +26,8 @@ function leap_config(): array
             'rollen' => null,
             'feedback' => null,
         ],
+        'miro_board_lifetime_days' => 30,
+        'miro_cron_token' => null,
     ];
     $file = __DIR__ . '/config.php';
     if (is_file($file)) {
@@ -283,21 +285,22 @@ function leap_send_via_mail_with_attachments(array $config, string $toEmail, str
 /**
  * Creates the customer's personal Miro board (named $boardName, e.g.
  * "Erika LEAP Workshop Kit Vertrauen") by duplicating the template board
- * configured for $kit, and invites $inviteEmail as an editor on it.
+ * configured for $kit, and sets it to "anyone with the link can edit" —
+ * no Miro account needed for the customer or their team. No password
+ * (Miro doesn't support setting one via API at all — see INTEGRATIONS.md);
+ * instead access is time-boxed by leap_expire_miro_boards() elsewhere.
  *
  * IMPORTANT: Miro's exact REST API behavior here (copy-board response
- * shape, and whether inviting an external, non-team-member email actually
- * grants edit access or requires a paid seat) was not verified against a
- * real Miro account/plan while building this — treat the endpoint paths
- * below as a best-effort first cut that may need adjusting after the
- * first real test purchase. Always returns whatever board link it has
- * (even if the invite step failed), so the customer isn't left with
- * nothing; $result['invited'] tells you whether the invite call itself
- * reported success.
+ * shape, and whether `sharingPolicy.access: "edit"` reliably grants
+ * edit rights to anonymous visitors — Miro's own community has flagged
+ * this as being beta/inconsistent via the API) was not verified against
+ * a real Miro account/plan while building this — treat it as a
+ * best-effort first cut that may need adjusting after the first real
+ * test purchase.
  */
-function leap_create_miro_board(array $config, string $kit, string $inviteEmail, string $boardName): array
+function leap_create_miro_board(array $config, string $kit, string $boardName): array
 {
-    $result = ['link' => null, 'invited' => false, 'error' => null];
+    $result = ['link' => null, 'boardId' => null, 'error' => null];
 
     if (empty($config['miro_api_token'])) {
         $result['error'] = 'Kein Miro-API-Token in config.php hinterlegt.';
@@ -315,6 +318,13 @@ function leap_create_miro_board(array $config, string $kit, string $inviteEmail,
         CURLOPT_POST => true,
         CURLOPT_POSTFIELDS => json_encode([
             'name' => $boardName,
+            'policy' => [
+                'sharingPolicy' => [
+                    // "Jeder mit dem Link kann bearbeiten" — kein Account nötig.
+                    'access' => 'edit',
+                    'inviteToAccountAndBoardLinkAccess' => 'no_access',
+                ],
+            ],
         ]),
         CURLOPT_HTTPHEADER => [
             'Content-Type: application/json',
@@ -334,39 +344,44 @@ function leap_create_miro_board(array $config, string $kit, string $inviteEmail,
 
     $data = json_decode((string) $response, true);
     $boardId = $data['id'] ?? null;
+    $result['boardId'] = $boardId;
     $result['link'] = $data['viewLink'] ?? ($boardId ? ('https://miro.com/app/board/' . $boardId . '/') : null);
 
     if (!$boardId) {
         $result['error'] = 'Miro copy-board Antwort enthielt keine Board-ID.';
-        return $result;
-    }
-
-    $ch2 = curl_init('https://api.miro.com/v2/boards/' . rawurlencode($boardId) . '/members');
-    curl_setopt_array($ch2, [
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_POST => true,
-        CURLOPT_POSTFIELDS => json_encode([
-            'emails' => [$inviteEmail],
-            'role' => 'editor',
-        ]),
-        CURLOPT_HTTPHEADER => [
-            'Content-Type: application/json',
-            'Authorization: Bearer ' . $config['miro_api_token'],
-            'Accept: application/json',
-        ],
-        CURLOPT_TIMEOUT => 20,
-    ]);
-    $response2 = curl_exec($ch2);
-    $status2 = curl_getinfo($ch2, CURLINFO_HTTP_CODE);
-    curl_close($ch2);
-
-    if ($status2 >= 200 && $status2 < 300) {
-        $result['invited'] = true;
-    } else {
-        $result['error'] = "Board wurde dupliziert, Einladung schlug aber fehl (HTTP {$status2}): " . substr((string) $response2, 0, 500);
     }
 
     return $result;
+}
+
+/**
+ * Appends a created board to the local expiry registry (data/miro-boards.json)
+ * so leap-miro-expire.php can revoke public access once its lifetime is up.
+ */
+function leap_register_miro_board(array $config, string $boardId, string $kit, string $buyerEmail): void
+{
+    $days = (int) ($config['miro_board_lifetime_days'] ?? 30);
+    $dir = __DIR__ . '/data';
+    if (!is_dir($dir)) {
+        @mkdir($dir, 0755, true);
+    }
+    $file = $dir . '/miro-boards.json';
+    $entries = [];
+    if (is_file($file)) {
+        $decoded = json_decode((string) file_get_contents($file), true);
+        if (is_array($decoded)) {
+            $entries = $decoded;
+        }
+    }
+    $entries[] = [
+        'boardId' => $boardId,
+        'kit' => $kit,
+        'buyerEmail' => $buyerEmail,
+        'createdAt' => gmdate('c'),
+        'expiresAt' => gmdate('c', time() + $days * 86400),
+        'expired' => false,
+    ];
+    @file_put_contents($file, json_encode($entries, JSON_PRETTY_PRINT));
 }
 
 /**

@@ -1,2 +1,3 @@
 config.php
+data/miro-boards.json
 .DS_Store

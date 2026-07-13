@@ -117,14 +117,20 @@ werden kann (siehe `ablefy_products` oben), verschickt das Skript **direkt
 an den Kunden** (nicht nur an dich) eine E-Mail mit:
 - Facilitator Guide, Agenda und Präsentation als Dateianhang
 - dem Begrüßungsvideo-Link (Vimeo)
-- dem Link zu seinem persönlichen, frisch duplizierten Miro-Board
+- dem Link zu seinem persönlichen, frisch duplizierten Miro-Board — benannt
+  "Vorname LEAP Workshop Kit <Kit>" (z.B. "Erika LEAP Workshop Kit Vertrauen"),
+  öffentlich per Link bearbeitbar (kein Miro-Account nötig für Kunde oder
+  Team), aber nur 30 Tage lang (siehe Punkt 3 unten) — bewusst **kein
+  Passwort**: Miro erlaubt das Setzen eines Board-Passworts nicht über die
+  API, nur manuell im Miro-Webinterface, was die volle Automatisierung
+  gebrochen hätte. Die zeitliche Begrenzung ist der Ausgleich dafür.
 
 Du bekommst zusätzlich weiterhin deine eigene interne Benachrichtigung wie
 bisher — mit einem Extra-Hinweis, falls beim Kunden-Fulfillment etwas
 gefehlt hat (fehlende Datei, Miro-Fehler etc.), damit nichts unbemerkt
 durchrutscht.
 
-**Setup — 3 Teile:**
+**Setup — 4 Teile:**
 
 1. **Dateien hochladen.** Lad Facilitator Guide, Agenda und Präsentation
    pro Kit in `deliverables/<kit>/` hoch (genaue Dateinamen und Anleitung
@@ -136,7 +142,7 @@ durchrutscht.
 2. **Vimeo-Link eintragen.** In `config.php` bei `vimeo_welcome_url` den
    Link zu deinem Begrüßungsvideo eintragen (ein Link für alle Kits).
 
-3. **Miro-API einrichten** (der aufwendigste Teil):
+3. **Miro-API einrichten:**
    - Miro → Avatar → Settings → "Your apps" → "Create new app" (z.B.
      "LEAP Fulfillment").
    - App-Einstellungen → Scopes `boards:read` und `boards:write` aktivieren.
@@ -147,22 +153,32 @@ durchrutscht.
      Miro-URL holen (`https://miro.com/app/board/BOARD_ID/` → der Teil
      zwischen `/board/` und dem abschließenden `/`) und in `config.php`
      bei `miro_templates.vertrauen` / `.rollen` / `.feedback` eintragen.
+   - Optional: `miro_board_lifetime_days` in `config.php` anpassen (Standard
+     30 Tage).
 
    **Wichtiger Vorbehalt:** Miros genaues API-Verhalten beim Duplizieren
-   eines Boards und beim Einladen einer fremden E-Mail-Adresse als
-   Editor (statt eines bereits bestehenden Team-Mitglieds) konnte ich
-   nicht gegen einen echten Miro-Account testen — je nach deinem
-   Miro-Plan (Free/Starter/Business/Enterprise) kann es sein, dass
-   externe Personen automatisch nur Ansichts- statt Bearbeitungsrechte
-   bekommen, oder dass das Einladen einen zusätzlichen zahlungspflichtigen
-   Platz auf deinem Miro-Konto braucht. Der Code ist so gebaut, dass er
-   in jedem Fall wenigstens den Board-Link mitschickt (auch wenn die
-   Einladung fehlschlägt) und dir in der internen Benachrichtigung genau
-   sagt, ob die Einladung geklappt hat — **am besten einmal einen echten
-   Test-Kauf durchspielen**, dann schauen wir uns zusammen an, ob die
-   Rechte beim Kunden ankommen oder ob wir nachjustieren müssen (z.B.
-   Board stattdessen auf "jeder mit Link kann bearbeiten" stellen, falls
-   dein Plan das für Personen außerhalb deines Teams erlaubt).
+   eines Boards mit `sharingPolicy.access: "edit"` (öffentlicher
+   Bearbeiten-Link ohne Account) konnte ich nicht gegen einen echten
+   Miro-Account testen — in Miros eigenem Community-Forum gibt es
+   Hinweise, dass dieses Feld über die API teils inkonsistent
+   funktioniert (als Beta markiert). Der Code schickt in jedem Fall den
+   Board-Link mit und meldet dir in der internen Benachrichtigung, falls
+   das Duplizieren fehlschlägt — **am besten einmal einen echten Test-Kauf
+   durchspielen** und prüfen, ob der Link beim Kunden wirklich ohne
+   Anmeldung bearbeitbar ist.
+
+4. **Cronjob für den Board-Ablauf einrichten.** `leap-miro-expire.php`
+   entzieht nach Ablauf von `miro_board_lifetime_days` den öffentlichen
+   Link wieder (Board selbst bleibt erhalten). Muss regelmäßig laufen
+   (z.B. täglich) — im World4You-Kundenmenü nach "Cronjob" suchen, dann
+   je nach Angebot:
+   - PHP-Datei direkt ausführen lassen: `leap-miro-expire.php`, **oder**
+   - falls nur URL-Abruf angeboten wird: geheimen Token bei
+     `miro_cron_token` in `config.php` festlegen, dann als Cron-URL
+     `https://ich-leaps.at/leap-miro-expire.php?token=DEIN_TOKEN` eintragen.
+   Ohne eingerichteten Cronjob bleiben die Boards einfach dauerhaft
+   öffentlich erreichbar — funktional kein Problem, nur ohne die
+   gewünschte zeitliche Begrenzung.
 
 ## 3. Brevo (E-Mail — automatisierte Follow-ups nach Buchung)
 Was ich brauche:
@@ -194,6 +210,7 @@ dahin passiert nichts, kein Consent-Banner nötig (wolltet ihr separat klären).
 3. Ablefy-Webhook: nach dem ersten Test-Webhook das Rohdaten-Payload aus der
    Mail (für die Produkt-ID → Kit-Zuordnung in `ablefy_products`)
 4. Kunden-Fulfillment: Dateien in `deliverables/<kit>/` hochladen, Vimeo-Link
-   für `vimeo_welcome_url`, Miro-API-Token + 3 Vorlagen-Board-IDs
+   für `vimeo_welcome_url`, Miro-API-Token + 3 Vorlagen-Board-IDs, Cronjob
+   für `leap-miro-expire.php` einrichten
 5. Brevo: ggf. Formular-Embed-URL + Liste-ID (Follow-up-Workflow richtest du direkt in Brevo ein)
 6. Umami: Script-URL + Website-ID

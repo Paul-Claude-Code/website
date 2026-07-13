@@ -1,0 +1,7 @@
+# Enthält Kunden-E-Mails/Board-IDs — nie öffentlich zugänglich machen.
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Deny from all
+</IfModule>

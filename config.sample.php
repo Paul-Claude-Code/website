@@ -79,4 +79,16 @@ return [
         'rollen' => null,
         'feedback' => null,
     ],
+
+    // Board ist öffentlich per Link erreichbar (kein Account nötig), aber
+    // nur für diese Anzahl Tage — danach entzieht leap-miro-expire.php
+    // (per Cronjob) den öffentlichen Zugriff wieder (Board bleibt erhalten,
+    // ist nur nicht mehr per Link erreichbar).
+    'miro_board_lifetime_days' => 30,
+
+    // Geheimer String deiner Wahl für den Cronjob-Aufruf von
+    // leap-miro-expire.php per URL (falls dein World4You-Hosting nur
+    // "URL per Cron abrufen" statt direktem PHP-Aufruf anbietet), z.B.
+    // https://ich-leaps.at/leap-miro-expire.php?token=DEIN_GEHEIMNIS
+    'miro_cron_token' => null,
 ];

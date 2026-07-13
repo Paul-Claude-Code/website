@@ -125,11 +125,15 @@ if ($tokenOk && $kit !== null && $buyerEmail !== '') {
     $boardTitle = $kitBoardTitles[$kit] ?? $kit;
     $boardName = ($firstName !== '' ? $firstName . ' ' : '') . 'LEAP Workshop Kit ' . $boardTitle;
 
-    $miro = leap_create_miro_board($config, $kit, $buyerEmail, $boardName);
+    $miro = leap_create_miro_board($config, $kit, $boardName);
     if ($miro['error'] !== null) {
         $fulfillmentNotes[] = 'Miro: ' . $miro['error'];
     }
+    if ($miro['boardId'] !== null) {
+        leap_register_miro_board($config, $miro['boardId'], $kit, $buyerEmail);
+    }
 
+    $lifetimeDays = (int) ($config['miro_board_lifetime_days'] ?? 30);
     $kitLabel2 = $kitLabels2[$kit] ?? $kit;
     $customerHtml = '<h2>Danke für deinen Kauf — ' . htmlspecialchars($kitLabel2, ENT_QUOTES) . '!</h2>';
     $customerHtml .= '<p>Im Anhang findest du Facilitator Guide, Agenda und Präsentation.</p>';
@@ -138,6 +142,7 @@ if ($tokenOk && $kit !== null && $buyerEmail !== '') {
     }
     if ($miro['link'] !== null) {
         $customerHtml .= '<p><strong>Dein persönliches Miro-Board:</strong> <a href="' . htmlspecialchars($miro['link'], ENT_QUOTES) . '">' . htmlspecialchars($miro['link'], ENT_QUOTES) . '</a></p>';
+        $customerHtml .= '<p style="font-size:13px;color:#666;">Der Link ist ' . $lifetimeDays . ' Tage lang gültig — kein Miro-Account nötig, einfach öffnen und mit deinem Team loslegen.</p>';
     } else {
         $customerHtml .= '<p>Dein persönliches Miro-Board folgt in Kürze in einer separaten Mail.</p>';
     }
