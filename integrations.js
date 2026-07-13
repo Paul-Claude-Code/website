@@ -17,7 +17,7 @@ window.LEAP_INTEGRATIONS = {
     listId: null,
     // Brevo Meetings: Link deiner Buchungsseite
     // (Brevo → Meetings → Buchungsseite → Link kopieren, z.B. https://meetings.brevo.com/paul/gespraech)
-    meetingsUrl: "https://meetings-eu1.brevo.com/demo/gespraech" // DEMO-Platzhalter zum Ansehen des Modals — durch echten Link ersetzen
+    meetingsUrl: "https://meet.brevo.com/paul-scheipl"
   },
 
   ablefy: {
