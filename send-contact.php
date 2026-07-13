@@ -37,22 +37,30 @@ $config = leap_config();
 
 // Which programme (if any) this inquiry is tied to — set via ?programm=
 // query param on the "Jetzt anmelden" links on the programme pages, so we
-// can route it into a dedicated Brevo list instead of just the general one.
+// can route it into the 'programm' Brevo list (in addition to 'kontakt')
+// and stamp INTERESSE with which programme specifically.
 $programmLabels = [
     'veraenderung' => 'Leadership & Teamentwicklung ("Bereit für die übernächste Veränderung?")',
     'coaching-leader' => 'Coaching as a Leader ("Führen durch Fragen statt durch Antworten.")',
     'change-management' => 'Systemisches Change Management ("Veränderung gestalten statt verwalten.")',
 ];
-$programmListKeys = [
-    'veraenderung' => 'programm_veraenderung',
-    'coaching-leader' => 'programm_coaching_leader',
-    'change-management' => 'programm_change_management',
-];
 $programmLabel = $programmLabels[$programm] ?? '';
 
 $listKeys = ['kontakt'];
-if (isset($programmListKeys[$programm])) {
-    $listKeys[] = $programmListKeys[$programm];
+$interesse = 'kontakt_allgemein';
+$topicInteresse = [
+    'Workshop-Kit' => 'kontakt_workshop-kit',
+    'Programm' => 'kontakt_programm',
+    'Moderation oder Coaching' => 'kontakt_moderation-coaching',
+    'Unternehmen / Bundle / Lizenz' => 'kontakt_unternehmen',
+    'Allgemeine Frage' => 'kontakt_allgemein',
+];
+if (isset($topicInteresse[$topic])) {
+    $interesse = $topicInteresse[$topic];
+}
+if ($programmLabel !== '') {
+    $listKeys[] = 'programm';
+    $interesse = 'programm_' . $programm . '_anmeldung';
 }
 
 $rows = [
@@ -74,7 +82,7 @@ $html .= '</table><p><strong>Nachricht:</strong><br>' . nl2br(htmlspecialchars($
 
 $sent = leap_send_notification($config, 'Kontaktformular: ' . $name, $html, $email, $name);
 
-leap_sync_brevo_contact($config, $email, $listKeys);
+leap_sync_brevo_contact($config, $email, $listKeys, $interesse);
 
 if (!$sent) {
     leap_json_response(false, 'Nachricht konnte nicht gesendet werden. Bitte versuch es später erneut oder schreib direkt an paul@ich-leaps.at.', 502);

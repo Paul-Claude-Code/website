@@ -13,29 +13,33 @@ die serverseitig per PHP `mail()` verschicken. Das funktioniert von Haus aus
 auf World4You-Hosting, ganz ohne weitere Einrichtung.
 
 Optional kannst du zusätzlich Brevo anschließen (bessere Zustellqualität +
-automatisches Anlegen des Kontakts in **passenden, getrennten Brevo-Listen**
-— damit du in Brevo siehst, wer sich für welches Programm bzw. welches
-Workshop-Kit interessiert hat, statt alles in einem Topf):
+automatisches Anlegen des Kontakts, sortiert nach Herkunft, statt alles in
+einem Topf) — mit nur **4 Brevo-Listen** plus **1 Attribut**, das den genauen
+Grund trägt:
 1. Kopiere `config.sample.php` zu `config.php` (liegt im selben Ordner,
    wird nicht mit eingecheckt/versioniert).
-2. Trag deinen Brevo-API-Key (Brevo → SMTP & API → API-Keys) bei
-   `brevo_api_key` ein.
-3. Leg in Brevo (Kontakte → Listen → Liste erstellen) eine Liste pro
-   Kategorie an, die dich interessiert — musst nicht alle nutzen — und
-   trag die jeweilige Listen-ID bei `brevo_lists` ein:
-   - `kontakt` — Sammelliste für alle Kontaktformular-Anfragen
-   - `programm_veraenderung`, `programm_coaching_leader`,
-     `programm_change_management` — wenn die Anfrage über einen
-     "Jetzt anmelden"/"Platz anfragen"-Button einer bestimmten
-     Programmseite kam
-   - `kit_alle` — Sammelliste über alle drei Kit-Wartelisten
-   - `kit_vertrauen`, `kit_rollen`, `kit_feedback` — je nachdem, für
-     welches Kit sich jemand auf der Warteliste eingetragen hat
-4. Sobald `brevo_api_key` gesetzt ist, laufen Benachrichtigungsmails
+2. Trag deinen Brevo-API-Key (Brevo → SMTP & API → API Keys & MCP →
+   "Generate a new API key") bei `brevo_api_key` ein.
+3. Leg in Brevo (Contacts → Lists → Create a list) **4 Listen** an und
+   trag die jeweilige Listen-ID (steht nach dem Anklicken der Liste in der
+   Browser-Adresszeile, z.B. `.../lists/id/47`) bei `brevo_lists` ein:
+   - `kontakt` — jede Kontaktformular-Anfrage
+   - `programm` — Kontaktformular-Anfragen mit konkretem Programm-Kontext
+     (zusätzlich zu `kontakt`, wenn die Anfrage über einen "Jetzt
+     anmelden"/"Platz anfragen"-Button einer Programmseite kam)
+   - `kit` — Kit-Warteliste-Anmeldungen ("Früher Zugang")
+   - `kauf` — echte Käufe über Ablefy (siehe Punkt 2b)
+4. **Einmalig** in Brevo das Attribut anlegen, das den genauen Grund trägt:
+   Contacts → Settings (Zahnrad) → Contact attributes → "Add a new
+   attribute" → Name **`INTERESSE`**, Type **Text**, Category
+   **Normal attribute**. Ohne diesen Schritt schlägt der Brevo-Aufruf fehl
+   (Brevo verlangt, dass Attribute vorher existieren).
+5. Sobald `brevo_api_key` gesetzt ist, laufen Benachrichtigungsmails
    automatisch über die Brevo-API statt über `mail()`, und neue Kontakte
-   landen automatisch in den passenden Listen (z.B. Kontaktformular über
-   den "Jetzt anmelden"-Button beim Programm "Veränderung" → landet in
-   `kontakt` UND in `programm_veraenderung`).
+   landen in der passenden Liste mit `INTERESSE` z.B. auf
+   `kit_vertrauen_warteliste`, `programm_veraenderung_anmeldung` oder
+   `kauf_rollen` gesetzt — so lässt sich in Brevo trotz nur 4 Listen genau
+   filtern/segmentieren, was jemand konkret getan hat.
 
 Beide Formulare haben ein unsichtbares Honeypot-Feld gegen simple
 Spam-Bots, serverseitige Validierung (Pflichtfelder, gültige E-Mail) und
@@ -104,7 +108,7 @@ darum ist der Empfänger bewusst defensiv gebaut:
      Produktname darin aussieht, dann trage/trag ich sie in
      `ablefy_products` in `config.php` ein (z.B.
      `'prod_abc123' => 'vertrauen'`) — erst dann landet der Kauf zusätzlich
-     zur Mail auch in der passenden Brevo-Liste (`kauf_vertrauen` etc.).
+     zur Mail auch in der Brevo-Liste `kauf` mit `INTERESSE = kauf_vertrauen`.
 
 ## 3. Brevo (E-Mail — automatisierte Follow-ups nach Buchung)
 Was ich brauche:

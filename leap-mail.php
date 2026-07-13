@@ -12,18 +12,11 @@ function leap_config(): array
         'brevo_api_key' => null,
         'brevo_lists' => [
             'kontakt' => null,
-            'programm_veraenderung' => null,
-            'programm_coaching_leader' => null,
-            'programm_change_management' => null,
-            'kit_alle' => null,
-            'kit_vertrauen' => null,
-            'kit_rollen' => null,
-            'kit_feedback' => null,
-            'kauf_alle' => null,
-            'kauf_vertrauen' => null,
-            'kauf_rollen' => null,
-            'kauf_feedback' => null,
+            'programm' => null,
+            'kit' => null,
+            'kauf' => null,
         ],
+        'brevo_attribute' => 'INTERESSE',
         'ablefy_webhook_token' => null,
         'ablefy_products' => [],
     ];
@@ -128,9 +121,13 @@ function leap_send_via_mail(array $config, string $subject, string $htmlBody, st
 /**
  * Adds/updates a contact in Brevo (no-op if not configured), placing them
  * into the Brevo lists identified by $listKeys (looked up in
- * $config['brevo_lists']; unresolved/null keys are skipped).
+ * $config['brevo_lists']; unresolved/null keys are skipped) and stamping
+ * the configured custom attribute (default: INTERESSE) with $interesse — a
+ * short descriptive slug like "kit_vertrauen_warteliste" or
+ * "programm_veraenderung_anmeldung" — so a handful of lists can still tell
+ * leads apart by what exactly they did.
  */
-function leap_sync_brevo_contact(array $config, string $email, array $listKeys = [], array $attributes = []): void
+function leap_sync_brevo_contact(array $config, string $email, array $listKeys = [], ?string $interesse = null): void
 {
     if (empty($config['brevo_api_key']) || $email === '') {
         return;
@@ -149,8 +146,8 @@ function leap_sync_brevo_contact(array $config, string $email, array $listKeys =
         'email' => $email,
         'updateEnabled' => true,
     ];
-    if (!empty($attributes)) {
-        $payload['attributes'] = $attributes;
+    if ($interesse !== null && $interesse !== '' && !empty($config['brevo_attribute'])) {
+        $payload['attributes'] = [$config['brevo_attribute'] => $interesse];
     }
     if (!empty($listIds)) {
         $payload['listIds'] = $listIds;

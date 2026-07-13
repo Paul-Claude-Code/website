@@ -11,37 +11,33 @@ return [
     // Where contact-form and waitlist-signup notifications are sent.
     'notify_email' => 'paul@ich-leaps.at',
 
-    // Optional: Brevo API key (Brevo → SMTP & API → API-Keys → "Create a new API key").
-    // When set, notification mails are sent through Brevo's transactional
-    // email API instead of PHP mail() (better deliverability), and new
-    // contacts are added to the Brevo list(s) below for CRM/follow-ups.
+    // Optional: Brevo API key (Brevo → SMTP & API → API Keys & MCP → "Generate
+    // a new API key"). When set, notification mails are sent through Brevo's
+    // transactional email API instead of PHP mail() (better deliverability),
+    // and new contacts are added to the Brevo list(s) below for CRM/follow-ups.
     'brevo_api_key' => null,
 
-    // Brevo list IDs (Brevo → Kontakte → Listen → Liste anlegen → ID steht
-    // in der URL/Listenübersicht) — eine Liste pro Herkunft, damit du in
-    // Brevo siehst wer sich wofür interessiert hat. Leer lassen (null) für
-    // Kategorien, die du nicht separat tracken willst — die landen dann nur
-    // in der 'kontakt'-Sammelliste (falls gesetzt) bzw. gar keiner Liste.
+    // 4 Brevo-Listen-IDs — je eine pro Herkunft (Brevo → Contacts → Lists →
+    // Create a list; die ID steht danach in der Browser-Adresszeile, z.B.
+    // .../lists/id/47 → 47). Leer lassen (null), um eine Kategorie nicht zu
+    // tracken.
     'brevo_lists' => [
-        // Kontaktformular — Sammelliste für alle Anfragen (Fallback)
-        'kontakt' => null,
-        // Kontaktformular, wenn ein bestimmtes Programm im Kontext war
-        'programm_veraenderung' => null,       // "Bereit für die übernächste Veränderung?" (Leadership & Teamentwicklung)
-        'programm_coaching_leader' => null,    // "Führen durch Fragen statt durch Antworten." (Coaching as a Leader)
-        'programm_change_management' => null,  // "Veränderung gestalten statt verwalten." (Systemisches Change Management)
-        // Workshop-Kit-Wartelisten ("Früher Zugang")
-        'kit_alle' => null,       // Sammelliste über alle drei Kits
-        'kit_vertrauen' => null,
-        'kit_rollen' => null,
-        'kit_feedback' => null,
-        // Echte Käufer:innen über Ablefy (siehe ablefy_* unten) — eigene
-        // Listen, weil "hat gekauft" eine andere Zielgruppe ist als
-        // "steht auf der Warteliste".
-        'kauf_alle' => null,
-        'kauf_vertrauen' => null,
-        'kauf_rollen' => null,
-        'kauf_feedback' => null,
+        'kontakt' => null,   // jede Kontaktformular-Anfrage
+        'programm' => null,  // Kontaktformular-Anfragen mit konkretem Programm-Kontext
+        'kit' => null,       // Kit-Warteliste-Anmeldungen ("Früher Zugang")
+        'kauf' => null,      // echte Käufe über Ablefy
     ],
+
+    // Name des Custom-Attributs, das den genauen Grund/Kontext trägt (z.B.
+    // "kit_vertrauen_warteliste", "programm_veraenderung_anmeldung",
+    // "kauf_vertrauen") — so reichen 4 Listen statt einer Liste pro Kit/
+    // Programm. WICHTIG: Dieses Attribut musst du EINMALIG manuell in Brevo
+    // anlegen, bevor die API es setzen kann (sonst schlägt der Aufruf fehl):
+    // Brevo → Contacts → Settings (Zahnrad) → Contact attributes →
+    // "Add a new attribute" → Name "INTERESSE", Type "Text", Category
+    // "Normal attribute". Muss exakt so heißen wie hier eingetragen
+    // (Brevo schreibt Attributnamen intern in Großbuchstaben).
+    'brevo_attribute' => 'INTERESSE',
 
     // Geheimer String deiner Wahl, den du in der Ablefy-Webhook-URL als
     // ?token=... anhängst (z.B. https://ich-leaps.at/ablefy-webhook.php?token=DEIN_GEHEIMNIS).
@@ -50,13 +46,13 @@ return [
     'ablefy_webhook_token' => null,
 
     // Ordnet die Produkt-ID oder den Produktnamen, die Ablefy im Webhook
-    // mitschickt, einem unserer drei Kits zu — damit der Kauf in der
-    // richtigen Brevo-Liste (kauf_vertrauen/kauf_rollen/kauf_feedback)
-    // landet. Die genauen Schlüssel (Ablefys Produkt-ID oder -Name) siehst
-    // du im Rohdaten-Dump der ersten Test-Benachrichtigung, die
-    // ablefy-webhook.php dir schickt, sobald du in Ablefy einen Test-Webhook
-    // auslöst — trag sie danach hier ein. Bis dahin funktioniert die
-    // Benachrichtigung trotzdem, nur ohne Kit-genaue Brevo-Zuordnung.
+    // mitschickt, einem unserer drei Kits zu — damit der Kauf mit dem
+    // richtigen INTERESSE-Wert (z.B. "kauf_vertrauen") in Brevo landet. Die
+    // genauen Schlüssel (Ablefys Produkt-ID oder -Name) siehst du im
+    // Rohdaten-Dump der ersten Test-Benachrichtigung, die ablefy-webhook.php
+    // dir schickt, sobald du in Ablefy einen Test-Webhook auslöst — trag sie
+    // danach hier ein. Bis dahin funktioniert die Benachrichtigung trotzdem,
+    // nur ohne Kit-genaue Brevo-Zuordnung.
     'ablefy_products' => [
         // 'ablefy-produkt-id-oder-name' => 'vertrauen',
         // 'ablefy-produkt-id-oder-name' => 'rollen',

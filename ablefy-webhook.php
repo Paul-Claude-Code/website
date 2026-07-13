@@ -74,11 +74,6 @@ $eventType = (string) (leap_dig($data, ['event', 'type', 'event_type']) ?? '');
 
 $productMap = $config['ablefy_products'] ?? [];
 $kit = $productMap[$productId] ?? $productMap[$productLabel] ?? null;
-$kitListMap = [
-    'vertrauen' => 'kauf_vertrauen',
-    'rollen' => 'kauf_rollen',
-    'feedback' => 'kauf_feedback',
-];
 
 $rows = [
     'Token gültig' => $tokenOk ? 'Ja' : 'NEIN — bitte prüfen! (falsches/fehlendes Token in der Ablefy-Webhook-URL)',
@@ -103,11 +98,8 @@ $subjectProduct = $productLabel !== '' ? $productLabel : 'unbekanntes Produkt';
 leap_send_notification($config, 'Ablefy-Kauf: ' . $subjectProduct, $html, $buyerEmail, $buyerName);
 
 if ($tokenOk && $buyerEmail !== '') {
-    $listKeys = ['kauf_alle'];
-    if ($kit !== null && isset($kitListMap[$kit])) {
-        $listKeys[] = $kitListMap[$kit];
-    }
-    leap_sync_brevo_contact($config, $buyerEmail, $listKeys);
+    $interesse = $kit !== null ? ('kauf_' . $kit) : 'kauf_unbekannt';
+    leap_sync_brevo_contact($config, $buyerEmail, ['kauf'], $interesse);
 }
 
 // Always answer 200 so Ablefy doesn't retry/disable the webhook — mail
