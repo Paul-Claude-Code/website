@@ -135,18 +135,15 @@ if ($tokenOk && $kit !== null && $buyerEmail !== '') {
 
     $lifetimeDays = (int) ($config['miro_board_lifetime_days'] ?? 30);
     $kitLabel2 = $kitLabels2[$kit] ?? $kit;
-    $customerHtml = '<h2>Danke für deinen Kauf — ' . htmlspecialchars($kitLabel2, ENT_QUOTES) . '!</h2>';
-    $customerHtml .= '<p>Im Anhang findest du Facilitator Guide, Agenda und Präsentation.</p>';
-    if (!empty($config['vimeo_welcome_url'])) {
-        $customerHtml .= '<p><strong>Begrüßungsvideo:</strong> <a href="' . htmlspecialchars($config['vimeo_welcome_url'], ENT_QUOTES) . '">' . htmlspecialchars($config['vimeo_welcome_url'], ENT_QUOTES) . '</a></p>';
-    }
-    if ($miro['link'] !== null) {
-        $customerHtml .= '<p><strong>Dein persönliches Miro-Board:</strong> <a href="' . htmlspecialchars($miro['link'], ENT_QUOTES) . '">' . htmlspecialchars($miro['link'], ENT_QUOTES) . '</a></p>';
-        $customerHtml .= '<p style="font-size:13px;color:#666;">Der Link ist ' . $lifetimeDays . ' Tage lang gültig — kein Miro-Account nötig, einfach öffnen und mit deinem Team loslegen.</p>';
-    } else {
-        $customerHtml .= '<p>Dein persönliches Miro-Board folgt in Kürze in einer separaten Mail.</p>';
-    }
-    $customerHtml .= '<p>Bei Fragen einfach auf diese Mail antworten — melden uns persönlich.<br>Freude und Führung gehören fix zam.<br>Paul</p>';
+    $attachedLabels = array_keys(array_filter($deliverables, function ($path) { return $path !== null; }));
+    $customerHtml = leap_render_kit_email(
+        $kitLabel2,
+        $firstName,
+        $attachedLabels,
+        $config['vimeo_welcome_url'] ?? null,
+        $miro['link'],
+        $lifetimeDays
+    );
 
     $customerSent = leap_send_email_with_attachments($config, $buyerEmail, $buyerName, 'Dein LEAP-Kit: ' . $kitLabel2, $customerHtml, $attachments);
     if (!$customerSent) {

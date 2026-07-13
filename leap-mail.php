@@ -401,3 +401,55 @@ function leap_find_deliverable(string $kit, string $basename): ?string
     }
     return null;
 }
+
+/**
+ * Renders the LEAP-styled kit-confirmation email (email-templates/
+ * kit-bestellbestaetigung.html) for a customer purchase. $attachmentLabels
+ * lists what's actually attached (e.g. ['Facilitator Guide', 'Agenda']) —
+ * only files that were actually found get listed. $vimeoUrl / $miroLink
+ * may be null (video block / Miro section fall back accordingly).
+ */
+function leap_render_kit_email(string $kitLabel, string $firstName, array $attachmentLabels, ?string $vimeoUrl, ?string $miroLink, int $lifetimeDays): string
+{
+    $html = (string) file_get_contents(__DIR__ . '/email-templates/kit-bestellbestaetigung.html');
+
+    $rows = '';
+    foreach ($attachmentLabels as $label) {
+        $rows .= '<div style="display: flex; gap: 10px; align-items: baseline;"><span style="font-weight: 700; color: var(--leap-lime); font-size: 13px;">&rarr;</span><span style="font-weight: 400; font-size: 14px; color: #000;">' . htmlspecialchars($label, ENT_QUOTES) . '</span></div>';
+    }
+
+    $svgPath = __DIR__ . '/email-templates/footer-curve.svg';
+    $footerImageSrc = is_file($svgPath) ? 'data:image/svg+xml;base64,' . base64_encode((string) file_get_contents($svgPath)) : '';
+
+    $html = str_replace('{{FIRST_NAME_GREETING}}', $firstName !== '' ? ', ' . htmlspecialchars($firstName, ENT_QUOTES) : '', $html);
+    $html = str_replace('{{KIT_LABEL}}', htmlspecialchars($kitLabel, ENT_QUOTES), $html);
+    $html = str_replace('{{ATTACHMENT_ROWS}}', $rows, $html);
+    $html = str_replace('{{LIFETIME_DAYS}}', (string) $lifetimeDays, $html);
+    $html = str_replace('{{FOOTER_IMAGE_SRC}}', $footerImageSrc, $html);
+
+    if ($vimeoUrl !== null && $vimeoUrl !== '') {
+        $html = str_replace('{{VIMEO_URL}}', htmlspecialchars($vimeoUrl, ENT_QUOTES), $html);
+        $html = leap_keep_template_block($html, 'VIDEO_BLOCK', true);
+    } else {
+        $html = leap_keep_template_block($html, 'VIDEO_BLOCK', false);
+    }
+
+    if ($miroLink !== null && $miroLink !== '') {
+        $html = str_replace('{{MIRO_LINK}}', htmlspecialchars($miroLink, ENT_QUOTES), $html);
+        $html = leap_keep_template_block($html, 'MIRO_BLOCK', true);
+        $html = leap_keep_template_block($html, 'MIRO_FALLBACK', false);
+    } else {
+        $html = leap_keep_template_block($html, 'MIRO_BLOCK', false);
+        $html = leap_keep_template_block($html, 'MIRO_FALLBACK', true);
+    }
+
+    return $html;
+}
+
+function leap_keep_template_block(string $html, string $name, bool $keep): string
+{
+    $pattern = '/<!--' . $name . '_START-->(.*?)<!--' . $name . '_END-->/s';
+    return (string) preg_replace_callback($pattern, function ($m) use ($keep) {
+        return $keep ? $m[1] : '';
+    }, $html);
+}
