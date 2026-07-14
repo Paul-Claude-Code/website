@@ -39,9 +39,53 @@ window.LEAP_INTEGRATIONS = {
 (function(){
 
   /* ---------- Ablefy: Workshop-Kit kaufen ---------- */
+  var kitLabels = { vertrauen: 'Vertrauen aufbauen', rollen: 'Rollen & Verantwortung', feedback: 'Feedback-Kultur aufbauen' };
+  var transitTimer = null;
+  var TRANSIT_DELAY_MS = 1800;
+
+  function ensureTransitModal(){
+    if(document.getElementById('ablefy-transit-modal')) return;
+    var wrap = document.createElement('div');
+    wrap.innerHTML =
+      '<div class="modal-ov" id="ablefy-transit-modal" onclick="if(event.target===this) window.closeAblefyTransit()">' +
+        '<div class="modal" style="text-align:center;">' +
+          '<div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:18px;">' +
+            '<span class="transit-dot"></span>' +
+            '<span style="font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--gray);">Weiterleitung läuft</span>' +
+          '</div>' +
+          '<h3>Weiter zu deiner sicheren Kasse</h3>' +
+          '<p>Du wirst gleich zu unserem Zahlungspartner <strong>Ablefy</strong> weitergeleitet, um <span id="ablefy-transit-kit"></span> sicher zu bezahlen.</p>' +
+          '<button class="btn btn-lime" style="width:100%;justify-content:center;" id="ablefy-transit-go">Jetzt weiter zur Kasse →</button>' +
+          '<button class="transit-cancel" id="ablefy-transit-cancel">Abbrechen</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(wrap.firstElementChild);
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') window.closeAblefyTransit(); });
+  }
+
+  function goToAblefy(url){
+    if(transitTimer){ clearTimeout(transitTimer); transitTimer = null; }
+    window.location.href = url;
+  }
+
+  window.closeAblefyTransit = function(){
+    if(transitTimer){ clearTimeout(transitTimer); transitTimer = null; }
+    var m = document.getElementById('ablefy-transit-modal');
+    if(m){ m.classList.remove('op'); document.body.style.overflow = ''; }
+  };
+
   window.leapBuy = function(productKey){
     var url = (window.LEAP_INTEGRATIONS.ablefy.products || {})[productKey];
-    if(url){ window.location.href = url; return; }
+    if(url){
+      ensureTransitModal();
+      document.getElementById('ablefy-transit-kit').textContent = kitLabels[productKey] || 'dein Workshop-Kit';
+      document.getElementById('ablefy-transit-go').onclick = function(){ goToAblefy(url); };
+      document.getElementById('ablefy-transit-cancel').onclick = window.closeAblefyTransit;
+      document.getElementById('ablefy-transit-modal').classList.add('op');
+      document.body.style.overflow = 'hidden';
+      transitTimer = setTimeout(function(){ goToAblefy(url); }, TRANSIT_DELAY_MS);
+      return;
+    }
     // Fallback solange kein Ablefy-Link hinterlegt ist: bestehendes Warteliste-Modal
     if(typeof window.openModal === 'function') window.openModal();
   };

@@ -307,6 +307,12 @@ footer p a:hover{color:var(--lime);}
 .mform{display:flex;flex-direction:column;gap:12px;}
 .mform input{width:100%;padding:13px 16px;border:1px solid var(--border);border-radius:4px;font-family:var(--pp);font-size:14px;color:var(--ink);background:var(--bg);outline:none;transition:border-color .2s;font-weight:400;}
 .mform input:focus{border-color:var(--black);box-shadow:0 0 0 3px rgba(233,255,112,0.5);}
+
+/* ABLEFY CHECKOUT TRANSITION */
+.transit-dot{width:8px;height:8px;border-radius:50%;background:var(--lime);display:inline-block;animation:leap-pulse-dot 1.4s ease-in-out infinite;}
+@keyframes leap-pulse-dot{0%,100%{opacity:1;}50%{opacity:.3;}}
+.transit-cancel{display:block;margin:14px auto 0;font-size:12px;font-weight:400;color:var(--gray);text-decoration:underline;cursor:pointer;background:none;border:none;padding:0;}
+.transit-cancel:hover{color:var(--black);}
 .mform input::placeholder{color:var(--gray);}
 .mform .btn-lime{padding:14px;}
 .mnote{font-size:12px;font-weight:200;color:var(--gray);margin-top:8px;text-align:center;}
