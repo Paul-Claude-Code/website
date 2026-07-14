@@ -385,6 +385,42 @@ function leap_register_miro_board(array $config, string $boardId, string $kit, s
 }
 
 /**
+ * Tracks processed Ablefy order IDs (data/processed-orders.json) so a
+ * webhook retry/duplicate delivery for the same order doesn't send the
+ * customer a second fulfillment email or spin up a second Miro board.
+ * Returns true (and does NOT re-register) if $orderId was already seen;
+ * records it and returns false otherwise. No-op (returns false) for an
+ * empty order ID, since we can't dedupe what we can't identify.
+ */
+function leap_is_duplicate_order(string $orderId): bool
+{
+    if ($orderId === '') {
+        return false;
+    }
+    $dir = __DIR__ . '/data';
+    if (!is_dir($dir)) {
+        @mkdir($dir, 0755, true);
+    }
+    $file = $dir . '/processed-orders.json';
+    $seen = [];
+    if (is_file($file)) {
+        $decoded = json_decode((string) file_get_contents($file), true);
+        if (is_array($decoded)) {
+            $seen = $decoded;
+        }
+    }
+    if (in_array($orderId, $seen, true)) {
+        return true;
+    }
+    $seen[] = $orderId;
+    if (count($seen) > 2000) {
+        $seen = array_slice($seen, -2000);
+    }
+    @file_put_contents($file, json_encode($seen));
+    return false;
+}
+
+/**
  * Finds a deliverable file for $kit trying a few common extensions, e.g.
  * leap_find_deliverable('vertrauen', 'facilitator-guide') looks for
  * deliverables/vertrauen/facilitator-guide.{pdf,pptx,ppt,docx,zip}.

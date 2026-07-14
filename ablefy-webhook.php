@@ -105,7 +105,15 @@ $kitBoardTitles = [
 ];
 $fulfillmentNotes = [];
 
-if ($tokenOk && $kit !== null && $buyerEmail !== '') {
+// Guard against Ablefy retrying/duplicating a webhook delivery for the
+// same order — without this, a duplicate would email the customer a
+// second time and spin up a second Miro board.
+$isDuplicate = false;
+if ($tokenOk && $orderId !== '') {
+    $isDuplicate = leap_is_duplicate_order($orderId);
+}
+
+if ($tokenOk && $kit !== null && $buyerEmail !== '' && !$isDuplicate) {
     $deliverables = [
         'Facilitator Guide' => leap_find_deliverable($kit, 'facilitator-guide'),
         'Agenda' => leap_find_deliverable($kit, 'agenda'),
@@ -149,6 +157,8 @@ if ($tokenOk && $kit !== null && $buyerEmail !== '') {
     if (!$customerSent) {
         $fulfillmentNotes[] = 'Kunden-Fulfillment-Mail konnte nicht zugestellt werden (weder Brevo noch mail()).';
     }
+} elseif ($tokenOk && $isDuplicate) {
+    $fulfillmentNotes[] = "Bestellung {$orderId} wurde bereits verarbeitet — Dublette übersprungen, keine zweite Kunden-Mail/kein zweites Miro-Board.";
 } elseif ($tokenOk && $kit === null) {
     $fulfillmentNotes[] = 'Kein Kit zugeordnet (siehe ablefy_products in config.php) — Kunden-Fulfillment-Mail wurde NICHT verschickt.';
 }
