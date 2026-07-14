@@ -23,9 +23,9 @@ window.LEAP_INTEGRATIONS = {
   ablefy: {
     // pro Workshop-Kit der Ablefy-Checkout-Link (Produkt → "Verkaufen" → Link kopieren)
     products: {
-      vertrauen: "https://pay.ablefy.io/demo/vertrauen", // DEMO-Platzhalter — durch echten Ablefy-Checkout-Link ersetzen
-      rollen: "https://pay.ablefy.io/demo/rollen",       // DEMO-Platzhalter
-      feedback: "https://pay.ablefy.io/demo/feedback"    // DEMO-Platzhalter
+      vertrauen: "https://myablefy.com/s/leap/workshop-kit-vertrauen-e315ec6e",
+      rollen: "https://myablefy.com/s/leap/workshop-kit-rollen-f8a7f57e",
+      feedback: "https://myablefy.com/s/leap/workshop-kit-feedback-79a89d9b"
     }
   },
 
