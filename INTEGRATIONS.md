@@ -84,31 +84,34 @@ außerhalb von Ablefy — die laufen über Zeitplanr, weil dort erst ein Gesprä
 nötig ist, bevor bezahlt wird. Sag Bescheid, falls Moderation/Coaching auch
 direkt bezahlbar werden sollen.
 
-### 2b. Ablefy-Webhook — Benachrichtigung bei echtem Kauf (bereits vorbereitet)
+### 2b. Ablefy-Webhook — Benachrichtigung bei echtem Kauf (bereits fertig)
 
 Ablefy selbst übernimmt Zahlung, Rechnung und Produktzustellung komplett —
 aber ohne zusätzliche Anbindung erfährt unsere Website/Brevo davon nichts.
-Dafür gibt es jetzt `ablefy-webhook.php`, den du in Ablefy als Webhook-Ziel
-hinterlegst (Ablefy → Einstellungen → Webhooks/API → Webhook-URL). Wichtig:
-Ablefys genaues Payload-Format konnte ich nicht einsehen (Doku hinter Login),
-darum ist der Empfänger bewusst defensiv gebaut:
+Dafür gibt es `ablefy-webhook.php`, den du in Ablefy als Webhook-Ziel
+hinterlegst (Ablefy → Market & Sell → Webhook → Create). Als auslösendes
+Event **"Betrag wurde vollständig gezahlt"** auswählen (nicht "alle
+Events" — sonst könnten auch Rückerstattungen o.ä. versehentlich eine
+Kunden-Mail auslösen).
 
-- Er schickt dir bei **jedem** eingehenden Webhook eine Mail mit einer
-  Best-Effort-Zusammenfassung (Käufer:in, Produkt, Betrag) **und** dem
-  kompletten Rohdaten-Payload als Anhang im Mailtext — falls die
-  Best-Effort-Erkennung mal daneben liegt, siehst du trotzdem alles.
+Die Feldnamen im Payload (E-Mail, Vorname, Produkt-Slug etc.) sind jetzt
+anhand von Ablefys offizieller Webhook-Doku fest verdrahtet — die
+Produkt-Zuordnung in `ablefy_products` ist bereits mit den echten Slugs
+deiner drei Kits vorausgefüllt, ein Testkauf ist dafür **nicht mehr nötig**.
+Trotzdem schickt dir das Skript bei jedem Webhook zusätzlich das komplette
+Rohdaten-Payload mit — falls Ablefy doch mal ein Feld anders benennt als
+dokumentiert, siehst du das sofort und wir passen nach.
+
 - Setup:
   1. In `config.php` einen beliebigen geheimen String bei
      `ablefy_webhook_token` festlegen.
   2. In Ablefy als Webhook-URL eintragen:
      `https://deine-domain.at/ablefy-webhook.php?token=DEIN_GEHEIMNIS`
      (verhindert, dass irgendwer sonst gefälschte "Kauf"-Meldungen schickt).
-  3. Einen Test-Kauf/Test-Webhook in Ablefy auslösen — du bekommst die Mail
-     mit dem Rohdaten-Payload. Sag mir kurz, wie die Produkt-ID/der
-     Produktname darin aussieht, dann trage/trag ich sie in
-     `ablefy_products` in `config.php` ein (z.B.
-     `'prod_abc123' => 'vertrauen'`) — erst dann landet der Kauf zusätzlich
-     zur Mail auch in der Brevo-Liste `kauf` mit `INTERESSE = kauf_vertrauen`.
+  3. Am Produkt selbst unter "Weiteres" den Webhook aktivieren.
+  4. Sobald der erste echte Kauf durchläuft: kurz die interne
+     Benachrichtigungs-Mail gegenchecken, ob "Zugeordnetes Kit" korrekt
+     erkannt wurde.
 
 ### 2c. Kunden-Fulfillment-Mail — Dateien + Video + persönliches Miro-Board (bereits gebaut)
 
@@ -206,11 +209,13 @@ dahin passiert nichts, kein Consent-Banner nötig (wolltet ihr separat klären).
 
 ### Kurzfassung — was du mir schicken kannst, wenn bereit:
 1. Brevo-Meetings-Buchungslink ✅ erledigt (meet.brevo.com/paul-scheipl)
-2. 3× Ablefy-Checkout-Link (Vertrauen / Rollen / Feedback)
-3. Ablefy-Webhook: nach dem ersten Test-Webhook das Rohdaten-Payload aus der
-   Mail (für die Produkt-ID → Kit-Zuordnung in `ablefy_products`)
+2. 3× Ablefy-Checkout-Link (Vertrauen / Rollen / Feedback) ✅ erledigt
+3. Ablefy-Webhook: Produkt-Zuordnung ✅ bereits vorausgefüllt (echte Slugs) —
+   nach dem ersten echten Kauf trotzdem kurz die Benachrichtigungs-Mail
+   gegenchecken
 4. Kunden-Fulfillment: Dateien in `deliverables/<kit>/` hochladen, Vimeo-Link
-   für `vimeo_welcome_url`, Miro-API-Token + 3 Vorlagen-Board-IDs, Cronjob
-   für `leap-miro-expire.php` einrichten
+   für `vimeo_welcome_url`, Miro-API-Token + 3 Vorlagen-Board-IDs ✅ erledigt,
+   Cronjob für `leap-miro-expire.php` einrichten (oder manuell per Browser
+   aufrufen, siehe Punkt 2c)
 5. Brevo: ggf. Formular-Embed-URL + Liste-ID (Follow-up-Workflow richtest du direkt in Brevo ein)
 6. Umami: Script-URL + Website-ID

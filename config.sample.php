@@ -45,18 +45,16 @@ return [
     // uns schicken. Frei erfinden, einfach ein langer zufälliger String.
     'ablefy_webhook_token' => null,
 
-    // Ordnet die Produkt-ID oder den Produktnamen, die Ablefy im Webhook
-    // mitschickt, einem unserer drei Kits zu — damit der Kauf mit dem
-    // richtigen INTERESSE-Wert (z.B. "kauf_vertrauen") in Brevo landet. Die
-    // genauen Schlüssel (Ablefys Produkt-ID oder -Name) siehst du im
-    // Rohdaten-Dump der ersten Test-Benachrichtigung, die ablefy-webhook.php
-    // dir schickt, sobald du in Ablefy einen Test-Webhook auslöst — trag sie
-    // danach hier ein. Bis dahin funktioniert die Benachrichtigung trotzdem,
-    // nur ohne Kit-genaue Brevo-Zuordnung.
+    // Ordnet den Produkt-Slug (bevorzugt), die Produkt-ID oder den
+    // Produktnamen, die Ablefy im Webhook mitschickt, einem unserer drei
+    // Kits zu. Bereits mit den echten Slugs aus den Ablefy-Checkout-Links
+    // vorausgefüllt — beim ersten echten Kauf trotzdem einmal die
+    // Rohdaten-Benachrichtigung gegenchecken, falls Ablefy doch ein
+    // anderes Feld verwendet als erwartet.
     'ablefy_products' => [
-        // 'ablefy-produkt-id-oder-name' => 'vertrauen',
-        // 'ablefy-produkt-id-oder-name' => 'rollen',
-        // 'ablefy-produkt-id-oder-name' => 'feedback',
+        'workshop-kit-vertrauen-e315ec6e' => 'vertrauen',
+        'workshop-kit-rollen-f8a7f57e' => 'rollen',
+        'workshop-kit-feedback-79a89d9b' => 'feedback',
     ],
 
     // ---- Kunden-Fulfillment nach echtem Kauf (Facilitator Guide, Agenda,

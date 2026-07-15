@@ -6,13 +6,12 @@
  *   https://deine-domain.at/ablefy-webhook.php?token=DEIN_GEHEIMNIS
  * (Token in config.php unter 'ablefy_webhook_token' festlegen.)
  *
- * Ablefys genaues Payload-Format war zum Zeitpunkt der Umsetzung nicht
- * einsehbar (Doku hinter Login) — dieses Skript verschickt deshalb IMMER
- * das komplette Rohdaten-Payload an dich (nichts geht verloren), plus
- * einen Best-Effort-Versuch, E-Mail/Produkt/Betrag herauszulesen. Sobald
- * ein echter Test-Kauf/Test-Webhook durchgelaufen ist, kann die Zuordnung
- * (siehe 'ablefy_products' in config.php) auf die tatsächlichen Feldnamen
- * geschärft werden.
+ * Feldnamen laut Ablefys offizieller Webhook-Doku (Käufer:in/Produktdaten/
+ * Zusätzliche Informationen). Unklar blieb nur die genaue JSON-Verschachtelung
+ * (flach vs. unter "buyer"/"product" gruppiert) — deshalb wird beides
+ * probiert. Trotzdem verschickt dieses Skript IMMER zusätzlich das
+ * komplette Rohdaten-Payload an dich, falls doch mal ein Feld nicht wie
+ * erwartet ankommt.
  */
 
 require __DIR__ . '/leap-mail.php';
@@ -64,28 +63,47 @@ function leap_dig(array $data, array $paths)
     return null;
 }
 
-$buyerEmail = (string) (leap_dig($data, ['email', 'buyer_email', 'customer.email', 'customer_email', 'order.email', 'data.email', 'data.customer.email']) ?? '');
-$buyerName = (string) (leap_dig($data, ['name', 'buyer_name', 'customer.name', 'customer_name', 'order.name', 'data.name', 'data.customer.name', 'first_name']) ?? '');
-$productLabel = (string) (leap_dig($data, ['product', 'product_name', 'product.name', 'item.name', 'order.product_name', 'data.product.name']) ?? '');
-$productId = (string) (leap_dig($data, ['product_id', 'product.id', 'item.id', 'order.product_id', 'data.product.id']) ?? '');
-$amount = (string) (leap_dig($data, ['amount', 'price', 'total', 'order.total', 'data.amount']) ?? '');
-$orderId = (string) (leap_dig($data, ['order_id', 'id', 'order.id', 'transaction_id', 'data.id']) ?? '');
-$eventType = (string) (leap_dig($data, ['event', 'type', 'event_type']) ?? '');
+$buyerEmail = (string) (leap_dig($data, ['email', 'buyer.email', 'buyer_email']) ?? '');
+$firstNameField = (string) (leap_dig($data, ['first_name', 'buyer.first_name', 'buyer_first_name']) ?? '');
+$lastNameField = (string) (leap_dig($data, ['last_name', 'buyer.last_name', 'buyer_last_name']) ?? '');
+$buyerName = trim($firstNameField . ' ' . $lastNameField);
+
+// Produkt: slug ist am zuverlässigsten für die Kit-Zuordnung, weil wir die
+// echten Slugs schon aus den Ablefy-Checkout-Links kennen (siehe
+// ablefy_products in config.php) — Produkt-ID/-Name als Fallback.
+$productSlug = (string) (leap_dig($data, ['product.slug', 'product_slug', 'slug']) ?? '');
+$productLabel = (string) (leap_dig($data, ['product.name', 'product_name', 'name']) ?? '');
+$productId = (string) (leap_dig($data, ['product.id', 'product_id']) ?? '');
+$internalProductName = (string) (leap_dig($data, ['product.internal_product_name', 'internal_product_name', 'internal product name']) ?? '');
+
+$amount = (string) (leap_dig($data, ['amount', 'product.price', 'price', 'revenue']) ?? '');
+$billNumber = (string) (leap_dig($data, ['bill_number']) ?? '');
+$orderId = $billNumber !== '' ? $billNumber : (string) (leap_dig($data, ['order_id', 'transaction_id']) ?? '');
+$state = (string) (leap_dig($data, ['state']) ?? '');
+$paymentMethod = (string) (leap_dig($data, ['payment_method']) ?? '');
+$successDate = (string) (leap_dig($data, ['success_date', 'success_date_short']) ?? '');
+$invoiceLink = (string) (leap_dig($data, ['invoice_link']) ?? '');
 
 $productMap = $config['ablefy_products'] ?? [];
-$kit = $productMap[$productId] ?? $productMap[$productLabel] ?? null;
+$kit = $productMap[$productSlug] ?? $productMap[$productId] ?? $productMap[$productLabel] ?? $productMap[$internalProductName] ?? null;
 
 $rows = [
     'Token gültig' => $tokenOk ? 'Ja' : 'NEIN — bitte prüfen! (falsches/fehlendes Token in der Ablefy-Webhook-URL)',
-    'Event' => $eventType !== '' ? $eventType : '(unbekannt)',
+    'Zahlungsstatus' => $state !== '' ? $state : '(unbekannt)',
     'Käufer:in' => $buyerName !== '' ? $buyerName : '(unbekannt)',
     'E-Mail' => $buyerEmail !== '' ? $buyerEmail : '(unbekannt)',
     'Produkt' => $productLabel !== '' ? $productLabel : '(unbekannt)',
+    'Produkt-Slug' => $productSlug !== '' ? $productSlug : '(unbekannt)',
     'Produkt-ID' => $productId !== '' ? $productId : '(unbekannt)',
     'Zugeordnetes Kit' => $kit ?? '(noch nicht zugeordnet — siehe ablefy_products in config.php)',
     'Betrag' => $amount !== '' ? $amount : '(unbekannt)',
-    'Bestell-ID' => $orderId !== '' ? $orderId : '(unbekannt)',
+    'Zahlungsart' => $paymentMethod !== '' ? $paymentMethod : '(unbekannt)',
+    'Rechnungsnummer' => $billNumber !== '' ? $billNumber : '(unbekannt)',
+    'Zahlungsdatum' => $successDate !== '' ? $successDate : '(unbekannt)',
 ];
+if ($invoiceLink !== '') {
+    $rows['Rechnung'] = $invoiceLink;
+}
 
 // --- Customer fulfillment: only once we're sure this is a genuine,
 // kit-identified purchase (valid token + resolved kit + known buyer email).
@@ -129,7 +147,7 @@ if ($tokenOk && $kit !== null && $buyerEmail !== '' && !$isDuplicate) {
     }
 
     // "Vorname LEAP Workshop Kit <Kit>", z.B. "Erika LEAP Workshop Kit Vertrauen"
-    $firstName = trim(explode(' ', trim($buyerName))[0] ?? '');
+    $firstName = $firstNameField;
     $boardTitle = $kitBoardTitles[$kit] ?? $kit;
     $boardName = ($firstName !== '' ? $firstName . ' ' : '') . 'LEAP Workshop Kit ' . $boardTitle;
 
