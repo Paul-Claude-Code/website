@@ -421,18 +421,22 @@ function leap_is_duplicate_order(string $orderId): bool
 }
 
 /**
- * Finds a deliverable file for $kit trying a few common extensions, e.g.
- * leap_find_deliverable('vertrauen', 'facilitator-guide') looks for
- * deliverables/vertrauen/facilitator-guide.{pdf,pptx,ppt,docx,zip}.
- * Returns null if none of them exist.
+ * Finds a deliverable file for $kit trying a few common extensions across
+ * a list of candidate basenames (first match wins), e.g.
+ * leap_find_deliverable('vertrauen', ['LEAP_Agenda_Vertrauen', 'agenda'])
+ * looks for deliverables/vertrauen/LEAP_Agenda_Vertrauen.{pdf,pptx,...},
+ * then deliverables/vertrauen/agenda.{pdf,pptx,...}. Returns null if none
+ * of them exist. Accepts a single string too, for convenience.
  */
-function leap_find_deliverable(string $kit, string $basename): ?string
+function leap_find_deliverable(string $kit, $basenames): ?string
 {
     $dir = __DIR__ . '/deliverables/' . $kit;
-    foreach (['pdf', 'pptx', 'ppt', 'docx', 'zip'] as $ext) {
-        $path = $dir . '/' . $basename . '.' . $ext;
-        if (is_file($path)) {
-            return $path;
+    foreach ((array) $basenames as $basename) {
+        foreach (['pdf', 'pptx', 'ppt', 'docx', 'zip'] as $ext) {
+            $path = $dir . '/' . $basename . '.' . $ext;
+            if (is_file($path)) {
+                return $path;
+            }
         }
     }
     return null;

@@ -8,24 +8,28 @@ direktem Web-Zugriff geschützt; die Dateien werden nie öffentlich verlinkt.
 
 ## Wohin genau
 
-Pro Kit ein Unterordner, mit **genau diesen Dateinamen** (Endung `.pdf`,
-`.pptx`, `.ppt`, `.docx` oder `.zip` — such dir eine passende Endung aus,
-das Skript findet sie automatisch):
+Pro Kit ein Unterordner. Das Skript erkennt sowohl das `LEAP_<Typ>_<Kit>`-
+Namensschema (so wie die Dateien tatsächlich abgelegt sind) als auch die
+generischen Kurznamen als Fallback — Endung `.pdf`, `.pptx`, `.ppt`,
+`.docx` oder `.zip`, das Skript findet sie automatisch:
 
 ```
 deliverables/
   vertrauen/
-    facilitator-guide.pdf
-    agenda.pdf
-    praesentation.pdf   (oder .pptx)
+    LEAP_FacilitatorGuide_Vertrauen.pdf
+    LEAP_Agenda_Vertrauen.pdf
+    LEAP_Präsentation_Vertrauen.pdf (oder .pptx)
+    LEAP_E-Mail_Vorlagen_Vertrauen.pdf  (oder LEAP_EmailVorlagen_Vertrauen)
   rollen/
-    facilitator-guide.pdf
-    agenda.pdf
-    praesentation.pdf
+    LEAP_FacilitatorGuide_Rollen.pdf
+    LEAP_Agenda_Rollen.pdf
+    LEAP_Präsentation_Rollen.pdf
+    LEAP_EmailVorlagen_Rollen.pdf
   feedback/
-    facilitator-guide.pdf
-    agenda.pdf
-    praesentation.pdf
+    LEAP_FacilitatorGuide_Feedback.pdf
+    LEAP_Agenda_Feedback.pdf
+    LEAP_Präsentation_Feedback.pdf
+    LEAP_EmailVorlagen_Feedback.pdf
 ```
 
 Fehlt eine Datei, wird die Kunden-Mail trotzdem verschickt (nur ohne diesen

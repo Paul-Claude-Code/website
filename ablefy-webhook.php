@@ -132,10 +132,16 @@ if ($tokenOk && $orderId !== '') {
 }
 
 if ($tokenOk && $kit !== null && $buyerEmail !== '' && !$isDuplicate) {
+    // Echte Dateinamen, wie sie tatsächlich hochgeladen wurden
+    // (LEAP_<Typ>_<Kit>, z.B. LEAP_FacilitatorGuide_Vertrauen) — mit den
+    // generischen Namen als Fallback. "E-Mail-Vorlagen" ist uneinheitlich
+    // benannt (mal mit Bindestrich, mal ohne), deshalb beide Varianten.
+    $kitTitle = $kitBoardTitles[$kit] ?? ucfirst($kit);
     $deliverables = [
-        'Facilitator Guide' => leap_find_deliverable($kit, 'facilitator-guide'),
-        'Agenda' => leap_find_deliverable($kit, 'agenda'),
-        'Präsentation' => leap_find_deliverable($kit, 'praesentation'),
+        'Facilitator Guide' => leap_find_deliverable($kit, ["LEAP_FacilitatorGuide_{$kitTitle}", 'facilitator-guide']),
+        'Agenda' => leap_find_deliverable($kit, ["LEAP_Agenda_{$kitTitle}", 'agenda']),
+        'Präsentation' => leap_find_deliverable($kit, ["LEAP_Präsentation_{$kitTitle}", 'praesentation']),
+        'E-Mail-Vorlagen' => leap_find_deliverable($kit, ["LEAP_E-Mail_Vorlagen_{$kitTitle}", "LEAP_EmailVorlagen_{$kitTitle}", 'email-vorlagen']),
     ];
     $attachments = [];
     foreach ($deliverables as $label => $path) {
