@@ -312,7 +312,7 @@ function leap_create_miro_board(array $config, string $kit, string $boardName): 
         return $result;
     }
 
-    $ch = curl_init('https://api.miro.com/v2/boards/' . rawurlencode($templateId) . '/copy');
+    $ch = curl_init('https://api.miro.com/v2/boards/' . $templateId . '/copy');
     curl_setopt_array($ch, [
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POST => true,

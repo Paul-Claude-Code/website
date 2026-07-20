@@ -110,7 +110,7 @@ function leap_revoke_miro_board_access(array $config, string $boardId): bool
     if (empty($config['miro_api_token'])) {
         return false;
     }
-    $ch = curl_init('https://api.miro.com/v2/boards/' . rawurlencode($boardId));
+    $ch = curl_init('https://api.miro.com/v2/boards/' . $boardId);
     curl_setopt_array($ch, [
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_CUSTOMREQUEST => 'PATCH',
