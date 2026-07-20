@@ -63,9 +63,9 @@ function leap_dig(array $data, array $paths)
     return null;
 }
 
-$buyerEmail = (string) (leap_dig($data, ['email', 'buyer.email', 'buyer_email']) ?? '');
-$firstNameField = (string) (leap_dig($data, ['first_name', 'buyer.first_name', 'buyer_first_name']) ?? '');
-$lastNameField = (string) (leap_dig($data, ['last_name', 'buyer.last_name', 'buyer_last_name']) ?? '');
+$buyerEmail = (string) (leap_dig($data, ['payer.email', 'email', 'buyer.email', 'buyer_email']) ?? '');
+$firstNameField = (string) (leap_dig($data, ['payer.first_name', 'first_name', 'buyer.first_name', 'buyer_first_name']) ?? '');
+$lastNameField = (string) (leap_dig($data, ['payer.last_name', 'last_name', 'buyer.last_name', 'buyer_last_name']) ?? '');
 $buyerName = trim($firstNameField . ' ' . $lastNameField);
 
 // Produkt: slug ist am zuverlässigsten für die Kit-Zuordnung, weil wir die
@@ -76,10 +76,10 @@ $productLabel = (string) (leap_dig($data, ['product.name', 'product_name', 'name
 $productId = (string) (leap_dig($data, ['product.id', 'product_id']) ?? '');
 $internalProductName = (string) (leap_dig($data, ['product.internal_product_name', 'internal_product_name', 'internal product name']) ?? '');
 
-$amount = (string) (leap_dig($data, ['amount', 'product.price', 'price', 'revenue']) ?? '');
+$amount = (string) (leap_dig($data, ['order_amount_gross', 'amount', 'product.price', 'price', 'revenue']) ?? '');
 $billNumber = (string) (leap_dig($data, ['bill_number']) ?? '');
 $orderId = $billNumber !== '' ? $billNumber : (string) (leap_dig($data, ['order_id', 'transaction_id']) ?? '');
-$state = (string) (leap_dig($data, ['state']) ?? '');
+$state = (string) (leap_dig($data, ['payment_state', 'state']) ?? '');
 $paymentMethod = (string) (leap_dig($data, ['payment_method']) ?? '');
 $successDate = (string) (leap_dig($data, ['success_date', 'success_date_short']) ?? '');
 $invoiceLink = (string) (leap_dig($data, ['invoice_link']) ?? '');
