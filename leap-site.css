@@ -425,10 +425,10 @@ footer p a:hover{color:var(--lime);}
    SHARED MULTI-PAGE NAV (full links)
    ============================================================ */
 .nav-links a.btn-nav{display:none;}
+.nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;}
 @media(max-width:760px){
   .nav-burger{display:flex;}
 }
-.nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;}
 .nav-burger span{display:block;width:22px;height:2px;background:var(--white);}
 .mob-menu{display:none;}
 .mob-menu.op{display:flex;flex-direction:column;gap:2px;padding:10px 7vw 18px;background:var(--black);border-bottom:1px solid var(--bd-dk);}
