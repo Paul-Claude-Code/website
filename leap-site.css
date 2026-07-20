@@ -439,7 +439,7 @@ footer p a:hover{color:var(--lime);}
    HOMEPAGE
    ============================================================ */
 .home-hero{background:var(--black);position:relative;overflow:hidden;border-bottom:1px solid var(--bd-dk);}
-.home-hero-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;min-height:calc(100vh - 62px);}
+.home-hero-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;min-height:calc(100vh - 62px);max-width:1600px;margin:0 auto;}
 @media(max-width:880px){.home-hero-grid{grid-template-columns:1fr;}.home-hero-art{display:none;}}
 .home-hero-copy{padding:8vh 4vw 8vh 7vw;}
 @media(min-width:1280px){.home-hero-copy{padding:9vh 4vw 9vh 40px;}}
