@@ -182,6 +182,80 @@ function leap_sync_brevo_contact(array $config, string $email, array $listKeys =
 }
 
 /**
+ * Looks up a Brevo contact's numeric ID by email — Deals can only be
+ * linked to a contact via linkedContactsIds (an ID), not by email address.
+ */
+function leap_brevo_contact_id(array $config, string $email): ?int
+{
+    if (empty($config['brevo_api_key']) || $email === '') {
+        return null;
+    }
+    $ch = curl_init('https://api.brevo.com/v3/contacts/' . rawurlencode($email));
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_HTTPHEADER => [
+            'api-key: ' . $config['brevo_api_key'],
+            'accept: application/json',
+        ],
+        CURLOPT_TIMEOUT => 15,
+    ]);
+    $response = curl_exec($ch);
+    $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    if ($status < 200 || $status >= 300) {
+        return null;
+    }
+    $data = json_decode((string) $response, true);
+    return isset($data['id']) ? (int) $data['id'] : null;
+}
+
+/**
+ * Creates a Brevo Deal for a completed purchase, linked to the buyer's
+ * contact — gives every purchase its own visible record in Brevo's CRM,
+ * unlike the INTERESSE contact attribute, which gets overwritten on each
+ * new purchase (so a repeat buyer's earlier kit would otherwise vanish).
+ * Best-effort: returns an error string on failure (e.g. Deals not
+ * available on the account's plan) instead of throwing, so it never
+ * blocks the rest of the webhook.
+ */
+function leap_create_brevo_deal(array $config, string $email, string $dealName, ?float $amount): ?string
+{
+    if (empty($config['brevo_api_key'])) {
+        return null;
+    }
+
+    $payload = ['name' => $dealName];
+    if ($amount !== null) {
+        $payload['attributes'] = ['deal_value' => $amount];
+    }
+    $contactId = leap_brevo_contact_id($config, $email);
+    if ($contactId !== null) {
+        $payload['linkedContactsIds'] = [$contactId];
+    }
+
+    $ch = curl_init('https://api.brevo.com/v3/crm/deals');
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => json_encode($payload),
+        CURLOPT_HTTPHEADER => [
+            'Content-Type: application/json',
+            'api-key: ' . $config['brevo_api_key'],
+            'accept: application/json',
+        ],
+        CURLOPT_TIMEOUT => 20,
+    ]);
+    $response = curl_exec($ch);
+    $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    if ($status < 200 || $status >= 300) {
+        return "Deal-Erstellung fehlgeschlagen (HTTP {$status}): " . substr((string) $response, 0, 300);
+    }
+    return null;
+}
+
+/**
  * Sends an email with file attachments to an arbitrary recipient (unlike
  * leap_send_notification, which always mails notify_email). Used for the
  * customer-facing kit-fulfillment email. $attachments is a list of

@@ -187,6 +187,23 @@ if ($tokenOk && $kit !== null && $buyerEmail !== '' && !$isDuplicate) {
     $fulfillmentNotes[] = 'Kein Kit zugeordnet (siehe ablefy_products in config.php) — Kunden-Fulfillment-Mail wurde NICHT verschickt.';
 }
 
+if ($tokenOk && $buyerEmail !== '') {
+    $interesse = $kit !== null ? ('kauf_' . $kit) : 'kauf_unbekannt';
+    leap_sync_brevo_contact($config, $buyerEmail, ['kauf'], $interesse);
+
+    // Eigener Deal pro Bestellung — bleibt in Brevo als eigener Eintrag
+    // sichtbar, anders als das INTERESSE-Attribut, das bei jedem weiteren
+    // Kauf überschrieben wird (bei mehreren Käufen derselben Person würde
+    // man sonst nur den letzten Kauf sehen).
+    $dealProductLabel = $productLabel !== '' ? $productLabel : ($kitLabels2[$kit] ?? 'Workshop-Kit');
+    $dealName = ($buyerName !== '' ? $buyerName . ' — ' : '') . $dealProductLabel . ($orderId !== '' ? ' (Bestellung ' . $orderId . ')' : '');
+    $dealAmount = is_numeric($amount) ? (float) $amount : null;
+    $dealError = leap_create_brevo_deal($config, $buyerEmail, $dealName, $dealAmount);
+    if ($dealError !== null) {
+        $fulfillmentNotes[] = 'Brevo-Deal: ' . $dealError;
+    }
+}
+
 if (!empty($fulfillmentNotes)) {
     $rows['Fulfillment-Hinweise'] = implode(' | ', $fulfillmentNotes);
 }
@@ -200,11 +217,6 @@ $html .= '<pre style="background:#f5f5f5;padding:12px;white-space:pre-wrap;">' .
 
 $subjectProduct = $productLabel !== '' ? $productLabel : 'unbekanntes Produkt';
 leap_send_notification($config, 'Ablefy-Kauf: ' . $subjectProduct, $html, $buyerEmail, $buyerName);
-
-if ($tokenOk && $buyerEmail !== '') {
-    $interesse = $kit !== null ? ('kauf_' . $kit) : 'kauf_unbekannt';
-    leap_sync_brevo_contact($config, $buyerEmail, ['kauf'], $interesse);
-}
 
 // Always answer 200 so Ablefy doesn't retry/disable the webhook — mail
 // delivery failures are only visible to us, not something Ablefy can fix.
