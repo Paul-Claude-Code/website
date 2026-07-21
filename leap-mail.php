@@ -226,7 +226,7 @@ function leap_create_brevo_deal(array $config, string $email, string $dealName, 
 
     $payload = ['name' => $dealName];
     if ($amount !== null) {
-        $payload['attributes'] = ['deal_value' => $amount];
+        $payload['attributes'] = ['amount' => $amount];
     }
     $contactId = leap_brevo_contact_id($config, $email);
     if ($contactId !== null) {
