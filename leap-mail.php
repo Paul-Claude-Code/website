@@ -312,10 +312,12 @@ function leap_create_miro_board(array $config, string $kit, string $boardName): 
         return $result;
     }
 
-    $ch = curl_init('https://api.miro.com/v2/boards/' . $templateId . '/copy');
+    // Miro hat keinen /boards/{id}/copy-Endpoint — kopiert wird per PUT auf
+    // die normale Boards-Ressource mit ?copy_from=<Vorlagen-Board-ID>.
+    $ch = curl_init('https://api.miro.com/v2/boards?copy_from=' . rawurlencode($templateId));
     curl_setopt_array($ch, [
         CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_POST => true,
+        CURLOPT_CUSTOMREQUEST => 'PUT',
         CURLOPT_POSTFIELDS => json_encode([
             'name' => $boardName,
             'policy' => [
