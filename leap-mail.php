@@ -531,17 +531,13 @@ function leap_render_kit_email(string $kitLabel, string $firstName, array $attac
 
     $rows = '';
     foreach ($attachmentLabels as $label) {
-        $rows .= '<div style="display: flex; gap: 10px; align-items: baseline;"><span style="font-weight: 700; color: var(--leap-lime); font-size: 13px;">&rarr;</span><span style="font-weight: 400; font-size: 14px; color: #000;">' . htmlspecialchars($label, ENT_QUOTES) . '</span></div>';
+        $rows .= '<p style="margin: 0 0 8px;"><span style="font-weight: 700; color: #E9FF70; font-size: 13px;">&rarr;</span> <span style="font-weight: 400; font-size: 14px; color: #000;">' . htmlspecialchars($label, ENT_QUOTES) . '</span></p>';
     }
-
-    $svgPath = __DIR__ . '/email-templates/footer-curve.svg';
-    $footerImageSrc = is_file($svgPath) ? 'data:image/svg+xml;base64,' . base64_encode((string) file_get_contents($svgPath)) : '';
 
     $html = str_replace('{{FIRST_NAME_GREETING}}', $firstName !== '' ? ', ' . htmlspecialchars($firstName, ENT_QUOTES) : '', $html);
     $html = str_replace('{{KIT_LABEL}}', htmlspecialchars($kitLabel, ENT_QUOTES), $html);
     $html = str_replace('{{ATTACHMENT_ROWS}}', $rows, $html);
     $html = str_replace('{{LIFETIME_DAYS}}', (string) $lifetimeDays, $html);
-    $html = str_replace('{{FOOTER_IMAGE_SRC}}', $footerImageSrc, $html);
 
     if ($vimeoUrl !== null && $vimeoUrl !== '') {
         $html = str_replace('{{VIMEO_URL}}', htmlspecialchars($vimeoUrl, ENT_QUOTES), $html);

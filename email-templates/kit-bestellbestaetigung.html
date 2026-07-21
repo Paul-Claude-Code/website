@@ -5,56 +5,42 @@
 <title>LEAP — Dein Workshop-Kit</title>
 
 <style>
-  @font-face { font-family: 'Poppins'; font-weight: 200; src: local('Poppins ExtraLight'); }
-  :root {
-    --leap-lime: #E9FF70;
-    --leap-blue: #70B3FF;
-    --leap-ink: #2E2E2E;
-    --leap-gray: #595959;
-    --leap-bg: #F5F5F5;
-    --leap-border: #E8E8E8;
-    --leap-on-dark-1: rgba(255,255,255,0.92);
-    --leap-on-dark-3: rgba(255,255,255,0.62);
-    --leap-on-dark-4: rgba(255,255,255,0.45);
-    --font-sans: 'Poppins', system-ui, -apple-system, sans-serif;
-  }
   html, body { margin: 0; padding: 0; background: #e6e6e4; }
   ::selection { background: #E9FF70; color: #000; }
-  a.leap-link { color: #000; text-decoration: underline; text-decoration-color: var(--leap-lime); text-decoration-thickness: 2px; }
+  a.leap-link { color: #000; text-decoration: underline; text-decoration-color: #E9FF70; text-decoration-thickness: 2px; }
   a.leap-link:hover { color: #595959; }
 </style>
 </head>
 <body>
 
-<div style="font-family: var(--font-sans); padding: 40px 0 64px;">
+<div style="font-family: Arial, Helvetica, sans-serif; padding: 40px 0 64px;">
 
-  <div style="width: 600px; margin: 0 auto; background: #fff; border-radius: 6px; overflow: hidden; border: 1px solid var(--leap-border);">
+  <div style="width: 600px; margin: 0 auto; background: #fff; border-radius: 6px; overflow: hidden; border: 1px solid #E8E8E8;">
 
     <!-- HEADER -->
-    <div style="background: #000; padding: 28px 40px; display: flex; align-items: center; justify-content: space-between;">
-      <span style="font-size: 18px; font-weight: 700; letter-spacing: 0.3em; color: #fff;">LEAP</span>
-      <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--leap-on-dark-3);">Bestellbestätigung</span>
-    </div>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background: #000;">
+      <tr>
+        <td style="padding: 28px 40px;"><span style="font-size: 18px; font-weight: 700; letter-spacing: 0.3em; color: #fff;">LEAP</span></td>
+        <td style="padding: 28px 40px; text-align: right;"><span style="font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.62);">Bestellbestätigung</span></td>
+      </tr>
+    </table>
 
     <!-- INTRO -->
     <div style="padding: 44px 40px 8px;">
-      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
-        <span style="width: 24px; height: 2px; background: var(--leap-lime);"></span>
-        <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--leap-gray);">Dein Workshop-Kit</span>
-      </div>
+      <p style="margin: 0 0 20px;"><span style="display: inline-block; width: 24px; height: 2px; background: #E9FF70; vertical-align: middle;"></span> <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #595959; vertical-align: middle;">Dein Workshop-Kit</span></p>
       <h1 style="margin: 0 0 8px; font-weight: 200; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #000;">Los geht's{{FIRST_NAME_GREETING}}</h1>
-      <p style="margin: 0 0 26px; font-weight: 200; font-size: 16px; line-height: 1.7; color: var(--leap-ink);">Danke für deinen Sprung — <strong style="font-weight: 700;">{{KIT_LABEL}}</strong> ist ab jetzt bereit für dich und dein Team.</p>
+      <p style="margin: 0 0 26px; font-weight: 200; font-size: 16px; line-height: 1.7; color: #2E2E2E;">Danke für deinen Sprung — <strong style="font-weight: 700;">{{KIT_LABEL}}</strong> ist ab jetzt bereit für dich und dein Team.</p>
     </div>
 
     <!-- KIT CARD -->
-    <div style="margin: 0 40px 28px; border: 1px solid var(--leap-border); border-radius: 6px; overflow: hidden;">
-      <div style="border-left: 3px solid var(--leap-lime); padding: 18px 22px;">
-        <span style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--leap-gray);">Workshop-Kit</span>
+    <div style="margin: 0 40px 28px; border: 1px solid #E8E8E8; border-radius: 6px; overflow: hidden;">
+      <div style="border-left: 3px solid #E9FF70; padding: 18px 22px;">
+        <span style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #595959;">Workshop-Kit</span>
         <p style="margin: 6px 0 0; font-weight: 700; font-size: 18px; color: #000;">{{KIT_LABEL}}</p>
       </div>
-      <div style="border-top: 1px solid var(--leap-border); background: var(--leap-bg); padding: 18px 22px;">
-        <span style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--leap-gray);">Im Anhang</span>
-        <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 8px;">
+      <div style="border-top: 1px solid #E8E8E8; background: #F5F5F5; padding: 18px 22px;">
+        <span style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #595959;">Im Anhang</span>
+        <div style="margin-top: 12px;">
           {{ATTACHMENT_ROWS}}
         </div>
       </div>
@@ -64,46 +50,51 @@
     <!-- VIDEO CTA -->
     <div style="margin: 0 40px 28px;">
       <p style="margin: 0 0 4px; font-weight: 700; font-size: 13px; color: #000;">Bevor du startest</p>
-      <p style="margin: 0 0 16px; font-weight: 200; font-size: 15px; line-height: 1.7; color: var(--leap-ink);">Ein kurzes Begrüßungsvideo — worauf es ankommt, bevor dein Team loslegt.</p>
-      <a href="{{VIMEO_URL}}" class="leap-link" style="display: inline-block; background: var(--leap-lime); color: #000; text-decoration: none; font-weight: 700; font-size: 13px; letter-spacing: 0.08em; padding: 13px 24px; border-radius: 4px;">Begrüßungsvideo ansehen →</a>
+      <p style="margin: 0 0 16px; font-weight: 200; font-size: 15px; line-height: 1.7; color: #2E2E2E;">Ein kurzes Begrüßungsvideo — worauf es ankommt, bevor dein Team loslegt.</p>
+      <a href="{{VIMEO_URL}}" class="leap-link" style="display: inline-block; background: #E9FF70; color: #000; text-decoration: none; font-weight: 700; font-size: 13px; letter-spacing: 0.08em; padding: 13px 24px; border-radius: 4px;">Begrüßungsvideo ansehen →</a>
     </div>
     <!--VIDEO_BLOCK_END-->
 
     <!--MIRO_BLOCK_START-->
     <!-- MIRO BOARD -->
-    <div style="margin: 0 40px 28px; border: 1px solid var(--leap-border); border-radius: 6px; border-left: 3px solid var(--leap-blue); padding: 22px 24px;">
-      <span style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--leap-gray);">Dein Miro-Board</span>
+    <div style="margin: 0 40px 28px; border: 1px solid #E8E8E8; border-radius: 6px; border-left: 3px solid #70B3FF; padding: 22px 24px;">
+      <span style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #595959;">Dein Miro-Board</span>
       <p style="margin: 10px 0 6px; font-weight: 700; font-size: 16px; color: #000;">Persönlich für {{KIT_LABEL}} vorbereitet</p>
-      <p style="margin: 0 0 18px; font-weight: 200; font-size: 14.5px; line-height: 1.7; color: var(--leap-ink); max-width: 460px;">Der Link ist {{LIFETIME_DAYS}} Tage lang gültig — kein Miro-Account nötig, einfach öffnen und mit deinem Team loslegen.</p>
+      <p style="margin: 0 0 18px; font-weight: 200; font-size: 14.5px; line-height: 1.7; color: #2E2E2E; max-width: 460px;">Der Link ist {{LIFETIME_DAYS}} Tage lang gültig — kein Miro-Account nötig, einfach öffnen und mit deinem Team loslegen.</p>
       <a href="{{MIRO_LINK}}" class="leap-link" style="display: inline-block; background: #000; color: #fff; text-decoration: none; font-weight: 700; font-size: 13px; letter-spacing: 0.08em; padding: 13px 24px; border-radius: 4px;">Board öffnen →</a>
     </div>
     <!--MIRO_BLOCK_END-->
     <!--MIRO_FALLBACK_START-->
-    <div style="margin: 0 40px 28px; border: 1px solid var(--leap-border); border-radius: 6px; border-left: 3px solid var(--leap-blue); padding: 22px 24px;">
-      <span style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--leap-gray);">Dein Miro-Board</span>
-      <p style="margin: 10px 0 0; font-weight: 200; font-size: 14.5px; line-height: 1.7; color: var(--leap-ink); max-width: 460px;">Folgt in Kürze in einer separaten Mail.</p>
+    <div style="margin: 0 40px 28px; border: 1px solid #E8E8E8; border-radius: 6px; border-left: 3px solid #70B3FF; padding: 22px 24px;">
+      <span style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #595959;">Dein Miro-Board</span>
+      <p style="margin: 10px 0 0; font-weight: 200; font-size: 14.5px; line-height: 1.7; color: #2E2E2E; max-width: 460px;">Folgt in Kürze in einer separaten Mail.</p>
     </div>
     <!--MIRO_FALLBACK_END-->
 
     <!-- SUPPORT / SIGNOFF -->
-    <div style="margin: 8px 40px 0; border-top: 1px solid var(--leap-border); padding-top: 26px;">
-      <p style="margin: 0 0 20px; font-weight: 200; font-size: 15px; line-height: 1.7; color: var(--leap-ink);">Bei Fragen einfach auf diese Mail antworten — wir melden uns persönlich.</p>
+    <div style="margin: 8px 40px 0; border-top: 1px solid #E8E8E8; padding-top: 26px;">
+      <p style="margin: 0 0 20px; font-weight: 200; font-size: 15px; line-height: 1.7; color: #2E2E2E;">Bei Fragen einfach auf diese Mail antworten — wir melden uns persönlich.</p>
       <p style="margin: 0 0 2px; font-weight: 200; font-style: italic; font-size: 15px; line-height: 1.7; color: #000;">Freude und Führung gehören fix zam.</p>
       <p style="margin: 0 0 40px; font-weight: 700; font-size: 15px; color: #000;">Paul</p>
     </div>
 
     <!-- FOOTER -->
-    <div style="background: #000; padding: 30px 40px; position: relative; overflow: hidden;">
-      <img src="{{FOOTER_IMAGE_SRC}}" alt="" style="position: absolute; right: -30px; bottom: -40px; width: 220px; opacity: 0.4; pointer-events: none;">
-      <div style="position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between;">
-        <div>
-          <span style="font-size: 15px; font-weight: 700; letter-spacing: 0.3em; color: #fff;">LEAP</span>
-          <p style="margin: 8px 0 0; font-weight: 200; font-size: 12px; color: var(--leap-on-dark-3);">Leading &amp; Empowering Awesome People</p>
-        </div>
-        <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: var(--leap-lime);">ich-leaps.at →</span>
-      </div>
-      <p style="position: relative; z-index: 2; margin: 20px 0 0; font-size: 10.5px; font-weight: 200; color: var(--leap-on-dark-4);">© LEAP e.U. · Du erhältst diese Mail, weil du ein Workshop-Kit bei uns gekauft hast.</p>
-    </div>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background: #000;">
+      <tr>
+        <td style="padding: 30px 40px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td>
+                <span style="font-size: 15px; font-weight: 700; letter-spacing: 0.3em; color: #fff;">LEAP</span>
+                <p style="margin: 8px 0 0; font-weight: 200; font-size: 12px; color: rgba(255,255,255,0.62);">Leading &amp; Empowering Awesome People</p>
+              </td>
+              <td style="text-align: right; vertical-align: top;"><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: #E9FF70;">ich-leaps.at →</span></td>
+            </tr>
+          </table>
+          <p style="margin: 20px 0 0; font-size: 10.5px; font-weight: 200; color: rgba(255,255,255,0.45);">© LEAP e.U. · Du erhältst diese Mail, weil du ein Workshop-Kit bei uns gekauft hast.</p>
+        </td>
+      </tr>
+    </table>
 
   </div>
 </div>
