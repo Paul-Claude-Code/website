@@ -54,6 +54,10 @@ img{max-width:100%;display:block;}
 .ico{display:inline-block;vertical-align:middle;}
 .ico line,.ico path,.ico circle,.ico rect,.ico polyline,.ico polygon{vector-effect:non-scaling-stroke;}
 
+/* ---------- Promo bar ---------- */
+.promo-bar{background:var(--lime);color:var(--black);text-align:center;font-size:13px;font-weight:400;letter-spacing:0.01em;padding:9px 16px;}
+.promo-bar strong{font-weight:700;text-decoration:underline;}
+
 /* ---------- Nav ---------- */
 nav{position:sticky;top:0;z-index:100;background:var(--black);border-bottom:1px solid var(--bd-dk);}
 .nav-in{display:flex;align-items:center;justify-content:space-between;height:62px;gap:20px;}
@@ -226,6 +230,8 @@ nav{position:sticky;top:0;z-index:100;background:var(--black);border-bottom:1px 
 .pdesc{font-size:12px;font-weight:200;color:var(--gray);margin-bottom:20px;}
 .pcard.feat .pdesc{color:rgba(255,255,255,0.35);}
 .pcard.feat .pnetto{color:rgba(255,255,255,0.4);}
+.price-bump{font-size:11px;font-weight:400;color:var(--gray);margin:-16px 0 20px;}
+.pcard.feat .price-bump{color:rgba(255,255,255,0.35);}
 .pdiv{border:none;border-top:1px solid var(--border);margin-bottom:16px;}
 .pcard.feat .pdiv{border-color:rgba(255,255,255,0.1);}
 .pfeats{list-style:none;display:flex;flex-direction:column;gap:11px;flex:1;}
@@ -387,6 +393,7 @@ footer p a:hover{color:var(--lime);}
 .kit-amount.soon{font-size:13px;font-weight:700;color:var(--gray);letter-spacing:0.04em;text-transform:uppercase;}
 .kit-netto{font-size:11px;font-weight:400;color:var(--gray);letter-spacing:0;margin-left:3px;}
 .kit-when{font-size:12px;font-weight:400;color:var(--gray);text-align:right;}
+.kit-bump{font-size:11px;font-weight:400;color:var(--gray);text-align:right;display:block;margin-top:2px;}
 /* highlighted / new kit — dark card so it pops on the lime section */
 .kit-card.feat{background:var(--black);border:1px solid var(--black);box-shadow:0 20px 48px rgba(0,0,0,0.24);position:relative;}
 .kit-card.feat:hover{border-color:var(--black);box-shadow:0 26px 58px rgba(0,0,0,0.3);transform:translateY(-5px);}
@@ -399,6 +406,10 @@ footer p a:hover{color:var(--lime);}
 .kit-card.feat .kit-amount .cur{color:var(--lime);}
 .kit-card.feat .kit-when{color:rgba(255,255,255,0.5);}
 .kit-card.feat .kit-netto{color:rgba(255,255,255,0.5);}
+.kit-card.feat .kit-bump{color:rgba(255,255,255,0.35);}
+.kit-card.feat .price-bump{color:rgba(255,255,255,0.35);}
+.kit-meta-bump{font-size:11px;font-weight:400;color:var(--gray);margin:-14px 0 20px;}
+.kit-card.feat .kit-meta-bump{color:rgba(255,255,255,0.35);}
 .kit-card.feat .kit-btn{background:var(--lime);color:var(--black);border-color:var(--lime);}
 .kit-card.feat .kit-btn:hover{background:transparent;color:var(--lime);border-color:var(--lime);}
 .kit-card.feat .kit-outcome{color:rgba(255,255,255,0.88);background:rgba(233,255,112,0.12);}
