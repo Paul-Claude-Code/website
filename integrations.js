@@ -15,9 +15,14 @@ window.LEAP_INTEGRATIONS = {
     // Liste-ID, der neue Kontakte zugeordnet werden (für die
     // automatisierten Follow-up-Mails nach einer Buchung)
     listId: null,
-    // Brevo Meetings: Link deiner Buchungsseite
-    // (Brevo → Meetings → Buchungsseite → Link kopieren, z.B. https://meetings.brevo.com/paul/gespraech)
-    meetingsUrl: "https://meet.brevo.com/paul-scheipl"
+    // Brevo Meetings: Link deiner kurzen Standard-Buchungsseite (15 Min)
+    // (Brevo → Meetings → Meeting-Typ → Link kopieren)
+    meetingsUrl: "https://meet.brevo.com/paul-scheipl",
+    // Separater Meeting-Typ für die 60-minütige Coaching-Stunde (nur für
+    // leapBookCall('coaching') verwendet — Moderation/Allgemein bleiben
+    // beim kurzen Link oben). Beide Meeting-Typen müssen in Brevo auf
+    // denselben Kalender zeigen, damit sich Buchungen gegenseitig blocken.
+    meetingsUrlCoaching: null
   },
 
   ablefy: {
@@ -104,7 +109,8 @@ window.LEAP_INTEGRATIONS = {
   }
 
   window.leapBookCall = function(context, fallbackUrl){
-    var url = window.LEAP_INTEGRATIONS.brevo.meetingsUrl;
+    var brevoCfg = window.LEAP_INTEGRATIONS.brevo;
+    var url = (context === 'coaching' && brevoCfg.meetingsUrlCoaching) ? brevoCfg.meetingsUrlCoaching : brevoCfg.meetingsUrl;
     if(url){
       var withCtx = context ? (url + (url.indexOf('?')>-1?'&':'?') + 'thema=' + encodeURIComponent(context)) : url;
       var modal = document.getElementById('booking-modal');
