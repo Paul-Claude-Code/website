@@ -222,8 +222,10 @@ nav{position:sticky;top:0;z-index:100;background:var(--black);border-bottom:1px 
 .pamount{font-family:var(--pp);font-size:46px;font-weight:700;letter-spacing:-0.03em;line-height:1;color:var(--black);margin-bottom:4px;}
 .pcard.feat .pamount{color:var(--lime);}
 .pamount sup{font-size:20px;vertical-align:super;font-weight:400;}
+.pamount .pnetto{font-size:14px;font-weight:400;letter-spacing:0;color:var(--gray);margin-left:4px;}
 .pdesc{font-size:12px;font-weight:200;color:var(--gray);margin-bottom:20px;}
 .pcard.feat .pdesc{color:rgba(255,255,255,0.35);}
+.pcard.feat .pnetto{color:rgba(255,255,255,0.4);}
 .pdiv{border:none;border-top:1px solid var(--border);margin-bottom:16px;}
 .pcard.feat .pdiv{border-color:rgba(255,255,255,0.1);}
 .pfeats{list-style:none;display:flex;flex-direction:column;gap:11px;flex:1;}
@@ -383,6 +385,7 @@ footer p a:hover{color:var(--lime);}
 .kit-amount{font-family:var(--pp);font-size:22px;font-weight:700;color:var(--black);letter-spacing:-0.01em;line-height:1;white-space:nowrap;}
 .kit-amount .cur{font-size:13px;font-weight:400;margin-right:1px;}
 .kit-amount.soon{font-size:13px;font-weight:700;color:var(--gray);letter-spacing:0.04em;text-transform:uppercase;}
+.kit-netto{font-size:11px;font-weight:400;color:var(--gray);letter-spacing:0;margin-left:3px;}
 .kit-when{font-size:12px;font-weight:400;color:var(--gray);text-align:right;}
 /* highlighted / new kit — dark card so it pops on the lime section */
 .kit-card.feat{background:var(--black);border:1px solid var(--black);box-shadow:0 20px 48px rgba(0,0,0,0.24);position:relative;}
@@ -395,6 +398,7 @@ footer p a:hover{color:var(--lime);}
 .kit-card.feat .kit-amount{color:var(--white);}
 .kit-card.feat .kit-amount .cur{color:var(--lime);}
 .kit-card.feat .kit-when{color:rgba(255,255,255,0.5);}
+.kit-card.feat .kit-netto{color:rgba(255,255,255,0.5);}
 .kit-card.feat .kit-btn{background:var(--lime);color:var(--black);border-color:var(--lime);}
 .kit-card.feat .kit-btn:hover{background:transparent;color:var(--lime);border-color:var(--lime);}
 .kit-card.feat .kit-outcome{color:rgba(255,255,255,0.88);background:rgba(233,255,112,0.12);}
