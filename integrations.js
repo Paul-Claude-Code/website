@@ -22,7 +22,7 @@ window.LEAP_INTEGRATIONS = {
     // leapBookCall('coaching') verwendet — Moderation/Allgemein bleiben
     // beim kurzen Link oben). Beide Meeting-Typen müssen in Brevo auf
     // denselben Kalender zeigen, damit sich Buchungen gegenseitig blocken.
-    meetingsUrlCoaching: null
+    meetingsUrlCoaching: "https://meet.brevo.com/paul-scheipl/coaching-stunde"
   },
 
   ablefy: {
