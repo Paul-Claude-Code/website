@@ -54,9 +54,9 @@ img{max-width:100%;display:block;}
 .ico{display:inline-block;vertical-align:middle;}
 .ico line,.ico path,.ico circle,.ico rect,.ico polyline,.ico polygon{vector-effect:non-scaling-stroke;}
 
-/* ---------- Promo bar ---------- */
-.promo-bar{background:var(--lime);color:var(--black);text-align:center;font-size:13px;font-weight:400;letter-spacing:0.01em;padding:9px 16px;}
-.promo-bar strong{font-weight:700;text-decoration:underline;}
+/* ---------- Promo bar (inline, inside kits-overview sections) ---------- */
+.promo-bar{background:var(--black);color:var(--white);text-align:center;font-size:14px;font-weight:400;letter-spacing:0.01em;padding:14px 20px;border-radius:6px;margin-bottom:32px;}
+.promo-bar strong{color:var(--lime);font-weight:700;text-decoration:underline;}
 
 /* ---------- Nav ---------- */
 nav{position:sticky;top:0;z-index:100;background:var(--black);border-bottom:1px solid var(--bd-dk);}
