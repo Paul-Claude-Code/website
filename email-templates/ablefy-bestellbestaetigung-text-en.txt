@@ -1,0 +1,21 @@
+Hello %{first_name} %{last_name},
+
+thank you for your order.
+
+Product name: %{product_name}
+Amount: %{amount}
+Payment: %{recurring_type}
+
+Please click here now:
+
+[HERE: switch on HTML mode for just this one paragraph, paste the content of ablefy-button-next-en.html, then switch HTML mode off again and keep typing normally]
+
+If you have any questions, feel free to reach out to us:
+
+%{seller_company_name}
+%{seller_street} %{seller_street_number}
+%{seller_zip} %{seller_city}
+%{seller_country}
+
+Best regards,
+Paul
