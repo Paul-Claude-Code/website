@@ -28,9 +28,9 @@ window.LEAP_INTEGRATIONS = {
   ablefy: {
     // pro Workshop-Kit der Ablefy-Checkout-Link (Produkt → "Verkaufen" → Link kopieren)
     products: {
-      vertrauen: "https://myablefy.com/s/leap/workshop-kit-vertrauen-e315ec6e",
-      rollen: "https://myablefy.com/s/leap/workshop-kit-rollen-f8a7f57e",
-      feedback: "https://myablefy.com/s/leap/workshop-kit-feedback-79a89d9b"
+      vertrauen: "https://myablefy.com/s/leap/workshop-kit-vertrauen-e315ec6e/payment",
+      rollen: "https://myablefy.com/s/leap/workshop-kit-rollen-f8a7f57e/payment",
+      feedback: "https://myablefy.com/s/leap/workshop-kit-feedback-79a89d9b/payment"
     }
   },
 
