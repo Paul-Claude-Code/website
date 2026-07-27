@@ -1,0 +1,85 @@
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#e6e6e4;">
+<tr><td align="center" style="padding: 32px 0 48px;">
+<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px; max-width:600px; background:#fff; border:1px solid #E8E8E8;">
+<tr><td>
+
+<!-- HEADER -->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background: #000;">
+  <tr>
+    <td style="padding: 28px 40px; font-family: Arial, Helvetica, sans-serif;"><span style="font-size: 18px; font-weight: 700; letter-spacing: 0.3em; color: #fff;">LEAP</span></td>
+    <td style="padding: 28px 40px; text-align: right; font-family: Arial, Helvetica, sans-serif;"><span style="font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.62);">Bestellbestätigung</span></td>
+  </tr>
+</table>
+
+<!-- INTRO -->
+<div style="padding: 40px 40px 8px; font-family: Arial, Helvetica, sans-serif;">
+  <p style="margin: 0 0 20px;"><span style="display: inline-block; width: 24px; height: 2px; background: #E9FF70; vertical-align: middle;"></span> <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #595959; vertical-align: middle;">Deine Bestellung</span></p>
+  <h1 style="margin: 0 0 8px; font-weight: 200; font-size: 30px; line-height: 1.15; letter-spacing: -0.02em; color: #000;">Hallo %{first_name} %{last_name},</h1>
+  <p style="margin: 0 0 26px; font-weight: 200; font-size: 16px; line-height: 1.7; color: #2E2E2E;">vielen Dank für deine Bestellung — hier die Details.</p>
+</div>
+
+<!-- ORDER CARD -->
+<div style="margin: 0 40px 32px; border: 1px solid #E8E8E8;">
+  <div style="border-left: 3px solid #E9FF70; padding: 20px 22px; font-family: Arial, Helvetica, sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td style="padding: 0 0 14px;">
+          <span style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #595959;">Produkt</span>
+          <p style="margin: 4px 0 0; font-weight: 700; font-size: 17px; color: #000;">%{product_name}</p>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 0 0 14px; border-top: 1px solid #F0F0F0; padding-top: 14px;">
+          <span style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #595959;">Betrag</span>
+          <p style="margin: 4px 0 0; font-weight: 700; font-size: 17px; color: #000;">%{amount}</p>
+        </td>
+      </tr>
+      <tr>
+        <td style="border-top: 1px solid #F0F0F0; padding-top: 14px;">
+          <span style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #595959;">Zahlung</span>
+          <p style="margin: 4px 0 0; font-weight: 400; font-size: 14px; color: #2E2E2E;">%{recurring_type}</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- CTA -->
+<div style="margin: 0 40px 32px; font-family: Arial, Helvetica, sans-serif;">
+  <p style="margin: 0 0 16px; font-weight: 200; font-size: 15px; line-height: 1.7; color: #2E2E2E;">Bitte klick jetzt hier, um fortzufahren:</p>
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+    <td style="background: #E9FF70; border-radius: 3px;">
+      <a href="%{next_page_link}" style="display: block; padding: 13px 28px; font-weight: 700; font-size: 13px; letter-spacing: 0.08em; color: #000; text-decoration: none; font-family: Arial, Helvetica, sans-serif;">WEITER →</a>
+    </td>
+  </tr></table>
+</div>
+
+<!-- SIGNOFF -->
+<div style="margin: 8px 40px 0; border-top: 1px solid #E8E8E8; padding-top: 26px; padding-bottom: 40px; font-family: Arial, Helvetica, sans-serif;">
+  <p style="margin: 0 0 20px; font-weight: 200; font-size: 15px; line-height: 1.7; color: #2E2E2E;">Bei Fragen einfach auf diese Mail antworten — wir melden uns persönlich.</p>
+  <p style="margin: 0 0 2px; font-weight: 200; font-style: italic; font-size: 15px; line-height: 1.7; color: #000;">Freude und Führung gehören fix zam.</p>
+  <p style="margin: 0; font-weight: 700; font-size: 15px; color: #000;">Paul</p>
+</div>
+
+<!-- FOOTER -->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background: #000;">
+  <tr>
+    <td style="padding: 30px 40px; font-family: Arial, Helvetica, sans-serif;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td>
+            <span style="font-size: 15px; font-weight: 700; letter-spacing: 0.3em; color: #fff;">LEAP</span>
+            <p style="margin: 8px 0 0; font-weight: 200; font-size: 12px; color: rgba(255,255,255,0.62);">Leading &amp; Empowering Awesome People</p>
+          </td>
+          <td style="text-align: right; vertical-align: top;"><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: #E9FF70;">ich-leaps.at →</span></td>
+        </tr>
+      </table>
+      <p style="margin: 20px 0 0; font-size: 10.5px; font-weight: 200; color: rgba(255,255,255,0.45);">© LEAP e.U. · Du erhältst diese Mail, weil du bei uns bestellt hast.</p>
+    </td>
+  </tr>
+</table>
+
+</td></tr>
+</table>
+</td></tr>
+</table>
