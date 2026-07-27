@@ -1,0 +1,16 @@
+Hallo %{first_name} %{last_name},
+
+vielen Dank für deinen Kauf von %{product_name}!
+
+Bestellnummer: %{order_id}
+Betrag: %{amount}
+Zahlung: %{recurring_type}
+
+Auf der nächsten Seite findest du deine Rechnung sowie den Download-Link zu deinem Workshop-Kit.
+
+[Hier den WEITER-Button einfügen, siehe ablefy-button-weiter.html]
+
+Bei Fragen antworte einfach auf diese Mail — ich melde mich persönlich.
+
+Freude und Führung gehören fix zam.
+Paul
