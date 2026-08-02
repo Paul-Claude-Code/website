@@ -35,9 +35,9 @@ window.LEAP_INTEGRATIONS = {
   },
 
   umami: {
-    enabled: false,   // auf true setzen, sobald scriptUrl + websiteId eingetragen sind
-    scriptUrl: null,  // z.B. https://umami.deine-domain.at/script.js
-    websiteId: null
+    enabled: true,
+    scriptUrl: "https://cloud.umami.is/script.js",
+    websiteId: "4732d90e-7a13-4f96-9399-19abf913fa0f"
   }
 };
 
