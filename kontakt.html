@@ -30,7 +30,7 @@
         <li><a href="kontakt.html" class="cur">Kontakt</a></li>
       </ul>
       <div class="nav-right">
-        <a href="kontakt.html" class="nav-cta">Gespräch buchen →</a>
+        <a href="kontakt.html" class="nav-cta" data-umami-event="nav_gespraech_buchen">Gespräch buchen →</a>
         <button class="nav-burger" onclick="toggleMenu()" aria-label="Menü"><span></span><span></span><span></span></button>
       </div>
     </div>
@@ -103,7 +103,7 @@
         <div class="ca-in">
           <h3>Direkt erreichen</h3>
           <p class="ca-lead">Lieber direkt? Ruf an oder schreib eine Mail — Paul antwortet persönlich.</p>
-          <button class="btn btn-lime" style="width:100%;justify-content:center;margin-bottom:26px;" onclick="leapBookCall('allgemein')">Termin direkt buchen →</button>
+          <button class="btn btn-lime" style="width:100%;justify-content:center;margin-bottom:26px;" onclick="leapBookCall('allgemein')" data-umami-event="termin_klick" data-umami-event-kontext="allgemein">Termin direkt buchen →</button>
           <div class="ca-item">
             <div class="caico"><svg class="ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L19 13l2 5v3a1 1 0 0 1-1 1A16 16 0 0 1 4 6a1 1 0 0 1 1-1z"/></svg></div>
             <div><div class="calbl">Telefon</div><div class="caval"><a href="tel:+436649153184">+43 664 915 31 84</a></div></div>
@@ -193,6 +193,7 @@ function submitContact(){
   }).then(function(res){ return res.json().then(function(data){ return {ok:res.ok, data:data}; }); })
     .then(function(r){
       if(!r.ok || !r.data.ok){ throw new Error((r.data && r.data.message) || 'Fehler beim Senden.'); }
+      if(window.umami) window.umami.track('kontakt_absenden', {thema: document.getElementById('ctopic').value});
       document.getElementById('cform-wrap').style.display='none';
       document.getElementById('csuccess').classList.add('op');
       window.scrollTo({top:document.querySelector('.contact-grid').offsetTop-80,behavior:'smooth'});
