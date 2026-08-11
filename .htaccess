@@ -1,0 +1,5 @@
+# LEAP — Clean-URL für die Team-Check-Landingpage
+# /team-check (ohne .html) auf team-check.html umleiten, für saubere
+# Links in LinkedIn-Posts etc. Bestehende Seiten/URLs bleiben unberührt.
+RewriteEngine On
+RewriteRule ^team-check/?$ team-check.html [L]
