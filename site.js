@@ -5,6 +5,10 @@
     if(m) m.classList.toggle('op');
   };
 
+  /* footer copyright year — always current, no yearly manual edits needed */
+  var yearEl = document.getElementById('copy-year');
+  if(yearEl) yearEl.textContent = new Date().getFullYear();
+
   /* scroll fade-up reveal */
   var obs = new IntersectionObserver(function(entries){
     entries.forEach(function(e,i){ if(e.isIntersecting) setTimeout(function(){e.target.classList.add('vis');}, i*70); });

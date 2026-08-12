@@ -1,5 +1,9 @@
 /* LEAP kit-detail page interactions */
 (function(){
+  // --- footer copyright year — always current, no yearly manual edits needed ---
+  var yearEl = document.getElementById('copy-year');
+  if(yearEl) yearEl.textContent = new Date().getFullYear();
+
   // --- Slide preview ---
   var slides = window.LEAP_SLIDES || [];
   window.selSlide = function(i){
