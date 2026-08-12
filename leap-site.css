@@ -69,6 +69,9 @@ nav{position:sticky;top:0;z-index:100;background:var(--black);border-bottom:1px 
 .nav-links a{font-size:13px;font-weight:400;color:rgba(255,255,255,0.82);transition:color .2s;}
 .nav-links a:hover{color:var(--lime);}
 .nav-links a.cur{color:var(--lime);}
+.nav-links a.nav-hl{position:relative;color:var(--white);font-weight:600;}
+.nav-links a.nav-hl::after{content:'';position:absolute;top:-3px;right:-9px;width:6px;height:6px;border-radius:50%;background:var(--lime);}
+.nav-links a.nav-hl.cur{color:var(--lime);}
 .nav-right{display:flex;align-items:center;gap:22px;}
 .nav-back{font-size:13px;font-weight:200;color:rgba(255,255,255,0.45);transition:color .2s;}
 .nav-back:hover{color:var(--lime);}
