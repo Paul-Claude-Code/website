@@ -3,3 +3,6 @@
 # Links in LinkedIn-Posts etc. Bestehende Seiten/URLs bleiben unberührt.
 RewriteEngine On
 RewriteRule ^team-check/?$ team-check.html [L]
+
+# LEAP — Clean-URL für den Leadership-Navigator (Testseite, noch nicht verlinkt)
+RewriteRule ^leadership-navigator/?$ leadership-navigator.html [L]
