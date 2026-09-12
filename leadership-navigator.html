@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leadership-Navigator – Wo drückt's gerade? | LEAP</title>
+<meta name="description" content="Wähl deine Situation, dann deine Herausforderung: Der LEAP Leadership-Navigator zeigt dir zu 19 Führungssituationen drei Ebenen an Maßnahmen — von der Übung für heute bis zur Arbeit am System.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://www.ich-leaps.at/leadership-navigator.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Leadership-Navigator – Wo drückt's gerade?">
+<meta property="og:description" content="Wähl deine Situation, dann deine Herausforderung — und schau dir an, was dir konkret helfen könnte.">
+<meta property="og:image" content="https://www.ich-leaps.at/img/og-default.jpg">
+<meta property="og:url" content="https://www.ich-leaps.at/leadership-navigator.html">
+<meta property="og:locale" content="de_AT">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,700;1,200;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="leap-site.css">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<script src="integrations.js"></script>
+<style>
+/* ---------- Leadership-Navigator — seitenspezifisches CSS ---------- */
+.nv-sec{padding:56px 0 96px;}
+a.nv-link{color:var(--black);border-bottom:1px solid var(--lime);}
+a.nv-link:hover{background:rgba(233,255,112,0.4);}
+/* rail — sticky directly under the nav; follows the nav's scrolled/shrunk height */
+.nv-rail{position:sticky;top:62px;z-index:60;background:var(--white);border-bottom:1px solid var(--border);transition:top .3s cubic-bezier(.2,.7,.2,1);}
+nav.scrolled+.nv-rail{top:52px;}
+.nv-rail-in{display:flex;align-items:stretch;}
+.nv-step{flex:1;display:flex;align-items:center;gap:13px;padding:20px 22px;background:none;border:none;border-top:2px solid transparent;text-align:left;font-family:var(--pp);cursor:default;transition:background .25s,border-color .25s;}
+.nv-step+.nv-step{border-left:1px solid var(--border);}
+.nv-step-n{flex:0 0 auto;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:50%;font-size:11px;font-weight:700;color:var(--gray);transition:all .25s;}
+.nv-step-l{font-size:14px;font-weight:400;color:var(--gray);letter-spacing:-0.005em;transition:color .25s;}
+.nv-step.is-done{cursor:pointer;}
+.nv-step.is-done .nv-step-n{border-color:var(--lime);background:var(--lime);color:var(--black);}
+.nv-step.is-done .nv-step-l{color:var(--ink);}
+.nv-step.is-done:hover{background:var(--bg);border-top-color:var(--lime);}
+.nv-step.is-done:hover .nv-step-l{color:var(--black);}
+.nv-step.is-on{background:var(--black);border-top-color:var(--lime);}
+.nv-step.is-on .nv-step-n{border-color:var(--lime);color:var(--lime);}
+.nv-step.is-on .nv-step-l{color:var(--white);font-weight:700;}
+@media(max-width:640px){.nv-step{padding:15px 14px;gap:10px;}.nv-step-l{display:none;}.nv-step.is-on .nv-step-l{display:block;font-size:13px;}}
+/* headings */
+.nv-h2{font-family:var(--pp);font-size:clamp(24px,3vw,36px);font-weight:700;letter-spacing:-0.02em;line-height:1.12;color:var(--black);margin-bottom:12px;}
+.nv-lead{font-size:16px;font-weight:200;color:var(--gray);line-height:1.8;max-width:58ch;margin-bottom:36px;}
+/* Schritt 1 — Situationskarten */
+.nv-sits{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:760px){.nv-sits{grid-template-columns:1fr;}}
+.nv-sit{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:28px 26px 26px 29px;position:relative;overflow:hidden;text-align:left;font-family:var(--pp);cursor:pointer;display:flex;flex-direction:column;gap:16px;transition:border-color .2s,box-shadow .3s ease,transform .3s cubic-bezier(.2,.7,.2,1);}
+.nv-sit::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--lime);}
+.nv-sit:hover,.nv-sit:focus-visible{border-color:var(--black);box-shadow:0 16px 38px rgba(0,0,0,0.08);transform:translateY(-5px);outline:none;}
+.nv-sit-n{display:inline-flex;align-self:flex-start;background:var(--black);color:var(--lime);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:5px 11px;border-radius:3px;}
+.nv-sit-q{font-family:var(--pp);font-size:19px;font-weight:700;line-height:1.3;letter-spacing:-0.015em;color:var(--black);}
+.nv-sit-go{margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:0.04em;color:var(--black);}
+.nv-sit:hover .nv-sit-go .arw{transform:translateX(5px);}
+.nv-all{display:inline-flex;align-items:center;gap:8px;margin-top:26px;padding:11px 18px;border-radius:4px;font-family:var(--pp);font-size:12px;font-weight:700;letter-spacing:0.04em;cursor:pointer;border:1.5px solid var(--black);color:var(--black);background:transparent;transition:all .2s;}
+.nv-all:hover{background:var(--black);color:var(--lime);}
+/* Kontext-Leiste */
+.nv-ctx{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--lime);border-radius:0 6px 6px 0;margin-bottom:44px;}
+.nv-ctx-row{display:flex;align-items:flex-start;gap:22px;padding:18px 24px;}
+.nv-ctx-row+.nv-ctx-row{border-top:1px solid var(--border);}
+.nv-ctx-lab{flex:0 0 128px;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gray);padding-top:6px;}
+.nv-ctx-q{flex:1;margin:0;font-size:16px;font-weight:200;line-height:1.6;color:var(--ink);}
+.nv-ctx-row.is-lead .nv-ctx-q{font-weight:600;color:var(--black);}
+.nv-ctx-edit{flex:0 0 auto;background:none;border:none;padding:5px 0 0;cursor:pointer;font-family:var(--pp);font-size:12px;font-weight:700;color:var(--gray);border-bottom:1px solid transparent;transition:color .2s,border-color .2s;}
+.nv-ctx-edit:hover{color:var(--black);border-color:var(--lime);}
+@media(max-width:600px){.nv-ctx-row{flex-wrap:wrap;gap:8px;}.nv-ctx-lab{flex:0 0 100%;}}
+/* Schritt 2 — Herausforderungen */
+.nv-list{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:760px){.nv-list{grid-template-columns:1fr;}}
+.nv-ch{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:24px 24px 22px;text-align:left;font-family:var(--pp);cursor:pointer;display:flex;flex-direction:column;gap:12px;transition:border-color .2s,box-shadow .3s ease,transform .3s cubic-bezier(.2,.7,.2,1);}
+.nv-ch:hover,.nv-ch:focus-visible{border-color:var(--black);box-shadow:0 14px 32px rgba(0,0,0,0.07);transform:translateY(-4px);outline:none;}
+.nv-ch-t{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gray);}
+.nv-ch-q{font-size:17px;font-weight:600;line-height:1.4;letter-spacing:-0.01em;color:var(--black);}
+.nv-ch-go{margin-top:auto;display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;letter-spacing:0.04em;color:var(--black);}
+.nv-ch:hover .nv-ch-go .arw{transform:translateX(5px);}
+/* Schritt 3 — Maßnahmen-Ebenen */
+.nv-lvl+.nv-lvl{margin-top:48px;}
+.nv-lvl-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:22px;}
+.nv-lvl-n{font-family:var(--pp);font-size:13px;font-weight:700;color:var(--lime);background:var(--black);display:inline-flex;align-items:center;padding:6px 14px;border-radius:3px;}
+.nv-lvl-t{font-family:var(--pp);font-size:19px;font-weight:700;letter-spacing:-0.01em;color:var(--black);margin:0;}
+.nv-opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px;}
+.nv-opt{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:28px 26px;position:relative;}
+.nv-opt-t{font-family:var(--pp);font-size:16px;font-weight:700;color:var(--black);margin:0 0 10px;line-height:1.3;}
+.nv-opt-b{font-size:14px;font-weight:200;line-height:1.75;color:var(--gray);margin:0;}
+.nv-refl{margin:18px 0 0;padding:12px 16px;background:rgba(233,255,112,0.22);border-left:3px solid var(--lime);border-radius:0 4px 4px 0;font-size:13px;font-weight:400;font-style:italic;line-height:1.6;color:var(--ink);}
+/* 01 — sofort erlebbar: lime-Akzent oben */
+.nv-lvl-1 .nv-opt::before{content:'';position:absolute;top:0;left:0;width:36px;height:2px;background:var(--lime);}
+.nv-lvl-1 .nv-opt{padding-top:32px;}
+/* 02 — im Alltag: ruhige Karten auf Grau */
+.nv-lvl-2 .nv-opt{background:var(--bg);}
+/* 03 — System: dunkle Blöcke, volle Breite */
+.nv-lvl-3 .nv-opts{grid-template-columns:1fr;}
+.nv-lvl-3 .nv-opt{background:var(--black);border-color:var(--black);padding:30px 32px;}
+.nv-lvl-3 .nv-opt-t{color:var(--lime);font-size:18px;}
+.nv-lvl-3 .nv-opt-b{color:rgba(255,255,255,0.6);max-width:70ch;}
+.nv-fmt{display:inline-flex;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin:0 0 12px;}
+.nv-opt-link{display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:10px 17px;border-radius:4px;font-size:12px;font-weight:700;letter-spacing:0.04em;background:var(--lime);color:var(--black);transition:filter .2s;}
+.nv-opt-link:hover{filter:brightness(.95);}
+.nv-opt-link.is-quiet{background:transparent;color:rgba(255,255,255,0.6);border:1.5px solid var(--bd-dk3);}
+.nv-opt-link.is-quiet:hover{border-color:var(--lime);color:var(--lime);}
+/* Sonderfall Kontakt */
+.nv-contact{background:var(--black);border-left:3px solid var(--coral);border-radius:0 6px 6px 0;padding:40px 38px;position:relative;overflow:hidden;}
+.nv-contact::before{content:'\201C';font-family:var(--pp);font-size:120px;font-weight:700;color:var(--coral);opacity:0.12;position:absolute;top:-10px;right:20px;line-height:1;}
+.nv-contact>*{position:relative;}
+.nv-contact .nv-c-lab{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--coral);margin-bottom:14px;}
+.nv-contact-t{font-family:var(--pp);font-size:clamp(21px,2.4vw,28px);font-weight:700;line-height:1.25;letter-spacing:-0.02em;color:var(--white);margin:0 0 14px;}
+.nv-contact-b{font-size:15px;font-weight:200;line-height:1.8;color:rgba(255,255,255,0.55);margin:0 0 28px;max-width:56ch;}
+/* Fuß des letzten Schritts */
+.nv-foot{margin-top:56px;padding-top:24px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;}
+.nv-restart{background:none;border:1.5px solid var(--black);border-radius:4px;padding:11px 18px;cursor:pointer;font-family:var(--pp);font-size:12px;font-weight:700;letter-spacing:0.04em;color:var(--black);transition:all .2s;}
+.nv-restart:hover{background:var(--black);color:var(--lime);}
+.nv-foot-note{font-size:14px;font-weight:200;color:var(--gray);margin:0;}
+/* Overlay „alle Themen“ */
+.nv-ov{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.6);overflow-y:auto;display:none;padding:40px 0;}
+.nv-ov.is-open{display:block;}
+.nv-ov-in{max-width:1120px;margin:0 auto;padding:40px 7vw 56px;background:var(--bg);border-top:3px solid var(--lime);border-radius:6px;}
+@media(min-width:1280px){.nv-ov-in{padding:40px 40px 56px;}}
+.nv-ov-head{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:32px;}
+.nv-ov-close{background:var(--white);border:1px solid var(--border);border-radius:4px;color:var(--ink);width:38px;height:38px;cursor:pointer;font-size:15px;font-family:var(--pp);flex-shrink:0;transition:border-color .2s,color .2s;}
+.nv-ov-close:hover{border-color:var(--black);color:var(--black);}
+</style>
+</head>
+<body data-screen-label="Leadership-Navigator">
+
+<!-- NAV -->
+<nav>
+  <div class="wrap">
+    <div class="nav-in">
+      <a href="index.html" class="nav-logo"><img src="apple-touch-icon.png" alt="" class="nav-logo-icon"><span class="nav-logo-text">LE<span class="a">A</span>P</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Startseite</a></li>
+        <li><a href="programme.html">Programme</a></li>
+        <li><a href="workshop-kits.html" class="nav-hl">Workshop-Kits</a></li>
+        <li><a href="unternehmen.html">Für Unternehmen</a></li>
+        <li><a href="ueber-uns.html">Über uns</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="kontakt.html" class="nav-cta" data-umami-event="nav_gespraech_buchen">Gespräch buchen →</a>
+        <button class="nav-burger" onclick="toggleMenu()" aria-label="Menü"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+  <div class="mob-menu" id="mobmenu">
+    <a href="index.html">Startseite</a>
+    <a href="programme.html">Programme</a>
+    <a href="workshop-kits.html">Workshop-Kits</a>
+    <a href="unternehmen.html">Für Unternehmen</a>
+    <a href="ueber-uns.html">Über uns</a>
+    <a href="kontakt.html">Kontakt</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="ov-hero">
+  <div class="wrap">
+    <span class="chip">Leadership-Navigator</span>
+    <h1>Wo drückt's gerade —<br><em>und was hilft konkret?</em></h1>
+    <p class="ov-hero-sub">Wähl deine Situation, dann deine Herausforderung — und schau dir an, was dir helfen könnte.</p>
+  </div>
+</header>
+
+<div class="nv-rail"><div class="wrap"><div class="nv-rail-in" id="nv-rail"></div></div></div>
+
+<main class="nv-sec sec-bg">
+  <div class="wrap"><div id="nv-stage"></div></div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="f-brand">LE<span class="a">A</span>P</div>
+        <p class="f-tagline">Leading &amp; Empowering Awesome People.<br>Führung, die wirklich funktioniert.</p>
+      </div>
+      <div>
+        <div class="f-col-title">Navigation</div>
+        <ul class="f-links">
+          <li><a href="index.html">Startseite</a></li>
+          <li><a href="programme.html">Programme</a></li>
+          <li><a href="workshop-kits.html">Workshop-Kits</a></li>
+          <li><a href="unternehmen.html">Für Unternehmen</a></li>
+          <li><a href="ueber-uns.html">Über uns</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-col-title">Kontakt</div>
+        <div class="f-contact">LEAP e.U.<br>Spittelauer Lände 15-2/7/21<br>1090 Wien, Österreich<br><br><a href="tel:+436649153184">+43 664 915 31 84</a><br><a href="mailto:paul@ich-leaps.at">paul@ich-leaps.at</a></div>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <p class="f-copy">© <span id="copy-year">2025</span> LEAP e.U. · Schau doch auf einen Sprung vorbei!</p>
+      <div class="f-legal"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></div>
+    </div>
+  </div>
+</footer>
+
+<div class="nv-ov" id="nv-ov"><div class="nv-ov-in">
+  <div class="nv-ov-head">
+    <div><span class="chip">Alle Themen</span><h2 class="nv-h2" style="margin:0;">19 Herausforderungen,<br>ohne Umweg.</h2></div>
+    <button class="nv-ov-close" id="nv-ov-close" aria-label="Schließen">✕</button>
+  </div>
+  <div class="nv-list" id="nv-ov-list"></div>
+</div></div>
+
+<script src="site.js"></script>
+<script>
+/* LEAP Leadership-Navigator — Inhalte & Fallunterscheidungen */
+window.NAV = (function(){
+  const categories = [
+    { id:"schweresgespraech",
+      full:"Ich muss ein schweres Gespräch führen …",
+      entries:[
+        { quote:"„Mitarbeiter bringt die Leistung nicht.“", challengeId:14 },
+        { quote:"„Ich muss Kritik äußern, ohne zu demotivieren.“", challengeId:15 },
+        { quote:"„Kündigung oder Abmahnung vorbereiten.“", challengeId:16 },
+        { quote:"„Feedback geben fühlt sich für mich nie leicht an.“", challengeId:5 },
+        { quote:"„Ich schiebe ein Gespräch seit Wochen vor mir her.“", challengeId:18 }
+      ] },
+    { id:"teamstreitet",
+      full:"Mein Team blockiert oder streitet …",
+      entries:[
+        { quote:"„Zwei Schlüsselpersonen fliegen sich ständig in die Haare.“", challengeId:13 },
+        { quote:"„Keiner übernimmt Verantwortung – alles landet bei mir.“", challengeId:4 },
+        { quote:"„Widerstand gegen die neue Strategie/Change.“", challengeId:7 },
+        { quote:"„Wir reden im Kreis, ohne je eine Entscheidung zu treffen.“", challengeId:4 },
+        { quote:"„Zwei Abteilungen schieben sich gegenseitig die Schuld zu.“", challengeId:19 }
+      ] },
+    { id:"ertrinke",
+      full:"Ich ertrinke in Arbeit …",
+      entries:[
+        { quote:"„Ich habe keine Zeit mehr für eigentliche Führungsaufgaben.“", challengeId:6 },
+        { quote:"„Wie delegiere ich richtig, ohne die Kontrolle zu verlieren?“", challengeId:10 },
+        { quote:"„Ich fühle mich dauerhaft getrieben.“", challengeId:6 },
+        { quote:"„Mein Team fragt bei jeder Kleinigkeit nach, statt selbst zu entscheiden.“", challengeId:11 },
+        { quote:"„Ich weiß nicht mehr, wo ich zuerst ansetzen soll.“", challengeId:12 }
+      ] },
+    { id:"neuinderrolle",
+      full:"Ich bin neu in der Rolle …",
+      entries:[
+        { quote:"„Gestern noch Kollege, heute der Chef.“", challengeId:9 },
+        { quote:"„Wie verschaffe ich mir Respekt, ohne autoritär zu sein?“", challengeId:17 },
+        { quote:"„Die ersten 90 Tage überstehen.“", challengeId:1 },
+        { quote:"„Ich merke erst spät, dass ich die Lage anders einschätze als mein Team.“", challengeId:3 },
+        { quote:"„Ich merke, dass ich unbewusst kopiere, wie ich selbst geführt wurde.“", challengeId:8 }
+      ] }
+  ];
+  const altEntries = [
+    { id:"aufbau", full:"Ich baue gerade ein Team komplett neu auf.", related:[1,2,4] },
+    { id:"akut", full:"Bei uns ist gerade richtig viel los.", related:[2,5,4] }
+  ];
+  const challenges = [
+    { id:1, tag:"Fehlendes Vertrauen", text:"Mein Team sagt mir nicht, was wirklich los ist.",
+      tier1:{ name:"Die ehrliche Frage", body:"Frag in der nächsten Runde nicht „Passt für alle?“, sondern „Was hab ich diese Woche übersehen?“ — und halt die Stille aus, bevor du selbst was sagst.", followup:"Wie lange konntest du die Stille aushalten, ohne sie zu füllen?" },
+      tier2:{ name:"Nicht sofort kommentieren", body:"Wenn diese Woche jemand eine unbequeme Rückmeldung gibt: nur „Danke, gut zu wissen.“ Kein Rechtfertigen, kein Einordnen." },
+      tier3:{ kind:"team-workshop", label:"Kit „Vertrauen aufbauen“", url:"https://www.ich-leaps.at/kits/vertrauen-aufbauen", note:"Wenn ehrliche Rückmeldung die Ausnahme bleibt, egal wie oft du fragst, ist das kein Frage-Problem mehr, sondern ein Klima-Problem. Ein Workshop mit deinem Team hilft hier, weil Vertrauen im Miteinander entsteht — nicht in einem Gespräch zwischen dir und einer Person allein." } },
+    { id:2, tag:"Aneinander vorbei", text:"Wir reden aneinander vorbei.",
+      tier1:{ name:"Die 20-Sekunden-Probe", body:"Bevor du im nächsten Gespräch antwortest, fass in einem Satz zusammen, was die andere Person gesagt hat — und frag: „Hab ich das richtig verstanden?“", followup:"Wie oft war deine Zusammenfassung nicht ganz das, was gemeint war?" },
+      tier2:{ name:"Ein Missverständnis offen ansprechen", body:"„Ich glaube, wir haben da gerade unterschiedliche Bilder — lass uns das kurz abgleichen.“ Gezielt bei der nächsten Unstimmigkeit." },
+      tier3:{ kind:"team-workshop", label:"Kit „Kommunikation & Klarheit“", url:"https://www.ich-leaps.at/kits/kommunikation-klarheit", note:"Wenn Missverständnisse nicht die Ausnahme, sondern der Normalfall sind, ist das kein Trainingsthema einer einzelnen Person mehr. Ein Workshop mit deinem Team hilft hier, weil ihr gemeinsam neue Gesprächsgewohnheiten braucht — die entstehen nicht durch eine Übung für dich allein." } },
+    { id:3, tag:"Blinder Fleck", text:"Ich sehe die Situation anders als mein Team — und merke es zu spät.",
+      tier1:{ name:"Der Stuhlwechsel", body:"Setz dich gedanklich auf den Platz von jemandem aus deinem Team. Was ist für diese Person gerade das größte Problem? Was würde sie über deine letzte Entscheidung sagen?" },
+      tier2:{ name:"Direkt nachfragen", body:"Frag eine Person aus deinem Team genau das — und widersteh dem Drang, die Antwort sofort zu kommentieren." },
+      tier3:{ kind:null, note:"Bewusst kein Kit hier. Perspektivwechsel ist Übungssache, keine Team-Struktur-Frage." } },
+    { id:4, tag:"Hängende Entscheidungen", text:"Entscheidungen bleiben ewig hängen.",
+      tier1:{ name:"Wer entscheidet das eigentlich — wirklich?", body:"Nimm die letzte hängende Entscheidung. Schreib einen Satz: wer sie laut Organigramm trifft. Dann einen zweiten: wer sie in Wirklichkeit trifft. Meist zwei verschiedene Namen.", followup:"Was sagt der Unterschied über eure Rollen?" },
+      tier2:{ name:"Vorher statt nachher klären", body:"Bei der nächsten Entscheidung vorher laut sagen, wer sie trifft — nicht erst danach, wenn's schon schwierig wird." },
+      tier3:{ kind:"team-workshop", label:"Kit „Rollen & Verantwortung“", url:"https://www.ich-leaps.at/kits/rollen-verantwortung", note:"Wenn das bei jeder zweiten Entscheidung passiert, ist es ein Struktur-, kein Einzelfall-Problem. Ein Workshop mit deinem Team hilft hier, weil Zuständigkeiten nur gemeinsam geklärt werden können — nicht durch eine Entscheidung von dir allein." } },
+    { id:5, tag:"Unangenehmes Feedback", text:"Feedback fühlt sich immer unangenehm an — für beide Seiten.",
+      tier1:[
+        { name:"Situation – Verhalten – Wirkung", body:"Statt „Du kommst immer zu spät“: „Beim Meeting heute (Situation) bist du 10 Minuten nach Start gekommen (Verhalten) — dadurch haben wir das Wichtigste zweimal erklärt (Wirkung).“ Nimmt die Bewertung raus, lässt nur Beobachtung." },
+        { name:"Die Ich-Botschaft", body:"Statt „Du kommst immer zu spät“: „Ich hab das Gefühl, mir fehlen wichtige Infos, wenn das Meeting schon läuft.“ Nimmt den Vorwurf raus, bleibt bei deiner eigenen Wahrnehmung — auch wenn es sich zuerst ungewohnt anfühlt." }
+      ],
+      tier2:[
+        { name:"Die aufgeschobene Rückmeldung", body:"Eine Rückmeldung, die du seit Tagen vor dir herschiebst, heute nach diesem Muster geben." },
+        { name:"Das kurze Innehalten", body:"Bevor du das nächste Feedback gibst, frag dich kurz: Geht es mir gerade um die Sache — oder will ich nur Dampf ablassen? Nur wenn's um die Sache geht, sag es heute." }
+      ],
+      tier3:[
+        { kind:"team-workshop", label:"Kit „Feedback & Kultur“", url:"https://www.ich-leaps.at/kits/feedback-kultur", note:"Wenn Feedback grundsätzlich vermieden wird statt nur unangenehm zu sein, hilft eine Methode allein nicht mehr. Ein Workshop mit deinem Team hilft hier, weil eine Feedback-Kultur nur entsteht, wenn alle gemeinsam üben — nicht nur du." },
+        { kind:null, note:"Wenn's noch nicht ums ganze Team geht: Fang mit einer einzelnen Feedback-Runde in eurem nächsten Jour Fixe an — 10 Minuten reichen schon, um zu sehen, wie tief das Thema wirklich sitzt." }
+      ] },
+    { id:6, tag:"Keine Zeit", text:"Ich habe schlicht keine Zeit, wirklich zu führen.",
+      tier1:[
+        { name:"Die Nicht-Tun-Liste", body:"Schreib eine Sache auf deiner Liste auf, die du diese Woche bewusst NICHT tust — um stattdessen ein echtes Führungsgespräch zu führen." },
+        { name:"Der Kalender-Test", body:"Schau dir die letzten zwei Wochen in deinem Kalender an: Wie viele Termine waren wirklich Führung — und wie viele reine Abarbeitung? Grob zählen reicht schon als Weckruf." }
+      ],
+      tier2:[
+        { name:"Der feste 30-Minuten-Slot", body:"Einen Termin blocken, der wirklich nur für ein Gespräch mit einem Teammitglied reserviert ist. Kein Task, kein Meeting, keine Verschiebung." },
+        { name:"Eine Aufgabe streichen", body:"Eine wiederkehrende Aufgabe diese Woche komplett aus deinem Kalender nehmen — nicht verschieben, sondern wirklich weglassen oder abgeben — und beobachten, was tatsächlich passiert." }
+      ],
+      tier3:{ kind:null, note:"Kein Kit hier. Zeit für Führung ist eine Priorisierungsfrage, keine Team-Workshop-Frage." } },
+    { id:7, tag:"Ausgesessene Veränderung", text:"Veränderung wird bei uns eher ausgesessen als angepackt.",
+      tier1:{ name:"Die andere Frage", body:"Nicht „Warum sind alle dagegen?“, sondern „Was würden wir verlieren, wenn sich das ändert?“ — ehrlich beantwortet, meist der eigentliche Grund für den Widerstand." },
+      tier2:{ name:"Offen im Team stellen", body:"Diese Frage einmal wirklich offen im Team stellen, statt sie nur für dich allein zu beantworten." },
+      tier3:{ kind:"team-programm", label:"Programm „Bereit für die übernächste Veränderung?“", url:"https://www.ich-leaps.at/programme/naechste-veraenderung", note:"Wenn Widerstand zum Standardzustand geworden ist, braucht es einen längeren Prozess, keine einzelne Übung. Ein mehrmonatiges Programm mit deinem Team hilft hier, weil sich dieses Muster nicht in einem Workshop, sondern nur über Zeit auflöst." } },
+    { id:8, tag:"Alte Reflexe", text:"Ich führe, wie ich geführt wurde — auch wenn's nicht passt.",
+      tier1:{ name:"Die unbewusste Angewohnheit", body:"Welche Führungsangewohnheit hast du übernommen, ohne sie je bewusst gewählt zu haben? Eine, die du diese Woche einmal bewusst weglässt." },
+      tier2:{ name:"Frage statt Reflex", body:"Bei der nächsten Situation, in der du reflexhaft eine Antwort geben würdest, stattdessen eine Frage stellen." },
+      tier3:{ kind:"personal-training", label:"Programm „Führen durch Fragen statt durch Antworten“", url:"https://www.ich-leaps.at/programme/fuehren-durch-fragen", note:"Wenn der alte Reflex immer wieder gewinnt, hilft geführte Praxis mehr als der nächste gute Vorsatz. Ein Training für dich als Führungskraft hilft hier, weil das eine persönliche Gewohnheit ist, die du am besten in Begleitung durchbrichst — nicht im Team-Workshop." } },
+    { id:9, text:"Gestern noch Kollege, heute der Chef.",
+      tier1:{ name:"Das ehrliche Gespräch zu zweit", body:"Sprich mit einer Person aus deinem früheren Team offen an, dass sich die Beziehung jetzt verändert — frag: „Was hat sich für dich dadurch schon verändert?“", followup:"Was hast du bisher vermieden anzusprechen, weil es unangenehm gewesen wäre?" },
+      tier2:{ name:"Neue Erwartungen aussprechen", body:"Sag im Team einmal klar, was sich durch deine neue Rolle ändert und was gleich bleibt — statt es stillschweigend vorauszusetzen." },
+      tier3:{ kind:null, note:"Bewusst kein Kit hier. Der Rollenwechsel von Kolleg:in zu Führungskraft ist eine persönliche Übergangsphase, die sich nicht in einem Team-Workshop lösen lässt." } },
+    { id:10, tag:"Alles läuft über mich", text:"Ich könnte vieles abgeben, aber ich mach's dann doch selber.",
+      tier1:{ name:"Die 24-Stunden-Regel", body:"Bevor du diese Woche eine Aufgabe selbst erledigst, warte 24 Stunden und frag dich: Wer aus dem Team könnte das genauso gut übernehmen?", followup:"Wie oft war die ehrliche Antwort „jemand anderer“?" },
+      tier2:{ name:"Eine Aufgabe ganz abgeben", body:"Eine wiederkehrende Aufgabe diese Woche komplett übergeben — ohne nachzufragen, wie's läuft." },
+      tier3:{ kind:null, note:"Kein Kit hier. Delegieren ist eine persönliche Gewohnheit, die du nur durchs Tun veränderst — keine Team-Struktur-Frage." } },
+    { id:11, tag:"Team wartet auf mich", text:"Mein Team wartet auf meine Entscheidung, obwohl es die selbst treffen könnte.",
+      tier1:{ name:"Die Rückfrage umdrehen", body:"Wenn als Nächstes jemand fragt „Was sollen wir tun?“, antworte mit „Was würdest du vorschlagen?“ — und lass den Vorschlag stehen.", followup:"Wie oft war der Vorschlag genauso gut wie deiner gewesen wäre?" },
+      tier2:{ name:"Eine Entscheidungsart abgeben", body:"Eine wiederkehrende Entscheidung benennen, die das Team ab jetzt komplett selbst trifft — und das auch so sagen." },
+      tier3:{ kind:"personal-training", label:"Programm „Führen durch Fragen statt durch Antworten“", url:"https://www.ich-leaps.at/programme/fuehren-durch-fragen", note:"Wenn dein Team lieber wartet, statt selbst zu entscheiden, ist das meist ein eingeübtes Muster auf beiden Seiten. Ein Training für dich als Führungskraft hilft hier, weil es genau diesen Wechsel von Antworten zu Fragen gezielt übt." } },
+    { id:12, tag:"Alles gleich dringend", text:"Ich weiß nicht, wo ich zuerst ansetzen soll — gerade wirkt alles gleich dringend.",
+      tier1:{ name:"Die Ein-Prioritäten-Regel", body:"Wähl genau eine Sache, die du diese Woche sichtbar vorantreibst — und sag im Team laut, was du dafür bewusst zurückstellst." },
+      tier2:{ name:"Prioritäten offen abgleichen", body:"Frag dein Team einmal direkt: „Was würdet ihr zuerst angehen?“ — und vergleich das mit deiner eigenen Liste." },
+      tier3:{ kind:null, note:"Kein Kit hier. Priorisierung ist eine persönliche Übung in Klarheit, keine Team-Workshop-Frage." } },
+    { id:13, tag:"Schwelende Konflikte", text:"In unserem Team schwelen Konflikte, aber niemand spricht sie offen an.",
+      tier1:{ name:"Das direkte Ansprechen", body:"Sprich die Spannung einmal direkt an: „Ich hab das Gefühl, zwischen X und Y hakt's gerade — stimmt das?“ Und dann einfach zuhören." },
+      tier2:{ name:"Ein klärendes Gespräch ansetzen", body:"Für den konkreten Konflikt diese Woche bewusst Zeit reservieren — mit den Beteiligten, nicht nur mit dir allein." },
+      tier3:{ kind:"team-workshop", label:"Kit „Feedback & Kultur“", url:"https://www.ich-leaps.at/kits/feedback-kultur", note:"Wenn Konflikte regelmäßig unter der Oberfläche bleiben statt ausgetragen zu werden, ist das ein Kultur-, kein Einzelfall-Thema. Ein Workshop mit deinem Team hilft hier, weil eine Konflikt- und Feedback-Kultur nur gemeinsam entsteht." } },
+    { id:14, tag:"Leistung fehlt", text:"Ein Teammitglied bringt seit Wochen nicht die Leistung, die es bringen könnte.",
+      tier1:[
+        { name:"Die konkrete Beobachtung", body:"Schreib dir vor dem Gespräch die letzten 2 konkreten Situationen auf, in denen die Leistung gefehlt hat — mit Datum, nicht mit Gefühl („bringt einfach nichts“). Ohne die zwei Beispiele kein Gespräch.", followup:"Wie oft hättest du bisher aus dem Bauch heraus argumentiert statt mit Beispielen?" },
+        { name:"Das Vorher-Gespräch mit dir selbst", body:"Beantworte für dich, bevor du das Gespräch führst: Was befürchte ich, wenn ich das jetzt anspreche? Oft ist die eigene Sorge größer als das, was im Gespräch tatsächlich passiert." }
+      ],
+      tier2:[
+        { name:"Können- oder Wollen-Frage klären", body:"Vor dem eigentlichen Gespräch für dich klären: Ist das ein Können- oder ein Wollen-Problem? Die Antwort verändert, was du im Gespräch fragst." },
+        { name:"Das Zwischengespräch", body:"Nicht gleich das große Kritikgespräch ansetzen, sondern erstmal kurz nachfragen: „Ist bei dir gerade was los, das die letzten Wochen mit reinspielt?“ Manchmal reicht das schon, um die Ursache zu finden." }
+      ],
+      tier3:[
+        { kind:null, note:"Ein eigenes Training zum Thema Leistungsgespräche wäre hier vermutlich am passendsten — konkret üben, wie du das nächste schwierige Gespräch aufbaust, bevor du es wirklich führst." },
+        { kind:null, note:"Manchmal hilft schon ein Gespräch mit jemandem, der solche Situationen öfter hat — frag im Kollegenkreis, wer das gut kann, und hol dir 30 Minuten von der Person." }
+      ] },
+    { id:15, tag:"Kritik äußern", text:"Ich muss Kritik äußern, ohne zu demotivieren.",
+      tier1:{ name:"Beobachtung statt Urteil", body:"Formuliere die Kritik als Beobachtung, nicht als Urteil: „Mir ist aufgefallen, dass …“ statt „Du machst das falsch.“" },
+      tier2:{ name:"Frage statt Vorgabe", body:"Nach der Kritik eine echte Frage stellen — „Wie siehst du das?“ — statt gleich die Lösung vorzugeben." },
+      tier3:[
+        { kind:"team-workshop", label:"Kit „Feedback & Kultur“", url:"https://www.ich-leaps.at/kits/feedback-kultur", note:"Wenn das nicht nur bei einer Person, sondern öfter im Team schwierig ist, hilft ein gemeinsamer Rahmen mehr als die einzelne Formulierung." },
+        { kind:null, note:"Manchmal hilft schon ein kurzes Gespräch mit jemandem, der dir ehrlich sagt, wie deine Kritik bei anderen ankommt — bevor du sie das nächste Mal im echten Gespräch übst." }
+      ] },
+    { id:16, special:"contact", tag:"Kündigung/Abmahnung", text:"Kündigung oder Abmahnung vorbereiten.",
+      note:"Das ist kein Textbaustein-Thema. Kündigungen und Abmahnungen haben rechtliche Seiten, bei denen eine Web-Übung nicht weiterhilft — und emotional ist es meist auch kein Moment für Selbsthilfe allein. Lass uns direkt sprechen." },
+    { id:17, tag:"Respekt statt Autorität", text:"Wie verschaffe ich mir Respekt, ohne autoritär zu sein?",
+      tier1:{ name:"Konsequent statt laut", body:"Nimm eine Sache, die du diese Woche angekündigt hast — und zieh sie konsequent durch, ohne sie nachträglich aufzuweichen. Respekt entsteht öfter durch Verlässlichkeit als durch Lautstärke." },
+      tier2:{ name:"Eine Grenze klar benennen", body:"Eine Erwartung, die bisher nur implizit im Raum stand, diese Woche einmal explizit aussprechen." },
+      tier3:{ kind:"team-workshop", label:"Kit „Rollen & Verantwortung“", url:"https://www.ich-leaps.at/kits/rollen-verantwortung", note:"Wenn Respekt im ganzen Team unklar verteilt ist, hilft ein einzelnes Gespräch nicht mehr. Ein Workshop mit deinem Team hilft hier, weil Rollen und Erwartungen gemeinsam geklärt werden müssen — nicht nur von dir behauptet." } },
+    { id:18, tag:"Aufgeschobenes Gespräch", text:"Ich schiebe ein Gespräch seit Wochen vor mir her.",
+      tier1:{ name:"Der erste Satz", body:"Schreib dir nur den ersten Satz auf, mit dem du das Gespräch eröffnest. Oft ist genau der die eigentliche Hürde — der Rest ergibt sich." },
+      tier2:{ name:"Der feste Termin", body:"Diese Woche einen konkreten Termin dafür setzen — nicht „irgendwann“, sondern Tag und Uhrzeit, mit der Person direkt vereinbart." },
+      tier3:[
+        { kind:null, note:"Wenn du das öfter merkst: Ein Coaching-Gespräch über genau dieses Muster bringt oft mehr als der nächste gute Vorsatz — frag dich, wer dich dabei ehrlich spiegeln könnte." },
+        { kind:null, note:"Manchmal hilft schon, die Person direkt zu fragen, ob sie überhaupt schon gemerkt hat, dass du zögerst — oft ist die Erwartung auf der anderen Seite kleiner, als du denkst." }
+      ] },
+    { id:19, tag:"Schuldzuweisung zwischen Teams", text:"Zwei Abteilungen schieben sich gegenseitig die Schuld zu.",
+      tier1:{ name:"Beide Seiten hören", body:"Bevor du eine Seite bevorzugst: von beiden Abteilungen getrennt die gleiche Frage stellen — „Was bräuchtet ihr von der anderen Seite, damit es funktioniert?“" },
+      tier2:{ name:"Ein gemeinsames Gespräch ansetzen", body:"Beide Abteilungen an einen Tisch holen — mit der Frage von oben als Ausgangspunkt, nicht mit einer Schuldfrage." },
+      tier3:{ kind:"team-workshop", label:"Kit „Feedback & Kultur“", url:"https://www.ich-leaps.at/kits/feedback-kultur", note:"Wenn sich das zwischen denselben Gruppen wiederholt, ist es ein Struktur- und Kulturthema, kein einmaliges Missverständnis. Ein Workshop hilft hier, weil beide Seiten gemeinsam an einer Lösung arbeiten müssen — nicht nur du als Vermittler." } }
+  ];
+  const formatLabels = {
+    "team-workshop": "Workshop mit deinem Team",
+    "team-programm": "Programm mit deinem Team",
+    "personal-training": "Training für dich als Führungskraft"
+  };
+  const situations = [...categories, ...altEntries];
+  return { situations, challenges, formatLabels };
+})();
+</script>
+<script>
+(function(){
+  var S = window.NAV.situations, C = window.NAV.challenges, FMT = window.NAV.formatLabels;
+  var LV = [
+    { n:'01', label:"Sofort erlebbar" },
+    { n:'02', label:"Im Alltag" },
+    { n:'03', label:"Wenn's ans System geht" }
+  ];
+  var state = { step:1, sit:null, ch:null, quote:null, viaAll:false };
+  var stage = document.getElementById('nv-stage'), rail = document.getElementById('nv-rail');
+  var ov = document.getElementById('nv-ov');
+
+  function byId(id){ return C.filter(function(c){ return c.id === id; })[0]; }
+  function entriesOf(s){
+    return s.entries || s.related.map(function(id){ return { challengeId:id }; });
+  }
+  function labelOf(entry){
+    return entry.quote || '„' + byId(entry.challengeId).text + '“';
+  }
+  function toArr(t){ return Array.isArray(t) ? t : [t]; }
+  function strip(q){ return (q || '').replace(/^„|“$/g, ''); }
+
+  function railHtml(){
+    return ['Situation','Herausforderung','Maßnahmen'].map(function(n,i){
+      var idx = i+1, cls = 'nv-step';
+      if (idx === state.step) cls += ' is-on';
+      else if (idx < state.step) cls += ' is-done';
+      return '<button class="'+cls+'" data-goto="'+idx+'"><span class="nv-step-n">0'+idx+'</span><span class="nv-step-l">'+n+'</span></button>';
+    }).join('');
+  }
+
+  function ctxHtml(){
+    var h = '<div class="nv-ctx">';
+    if (state.sit) h += '<div class="nv-ctx-row"><span class="nv-ctx-lab">Situation</span><p class="nv-ctx-q">„'+state.sit.full+'“</p><button class="nv-ctx-edit" data-goto="1">ändern</button></div>';
+    if (state.step === 3) {
+      var c = byId(state.ch);
+      h += '<div class="nv-ctx-row is-lead"><span class="nv-ctx-lab">Herausforderung</span><p class="nv-ctx-q">'+state.quote+'</p><button class="nv-ctx-edit" data-goto="'+(state.viaAll||!state.sit?1:2)+'">ändern</button></div>';
+      if (strip(state.quote) !== c.text) h += '<div class="nv-ctx-row"><span class="nv-ctx-lab">Worum es geht</span><p class="nv-ctx-q">„'+c.text+'“</p></div>';
+    }
+    return h + '</div>';
+  }
+
+  function exHtml(o){
+    var h = '<article class="nv-opt"><h4 class="nv-opt-t">'+o.name+'</h4><p class="nv-opt-b">'+o.body+'</p>';
+    if (o.followup) h += '<p class="nv-refl">'+o.followup+'</p>';
+    return h + '</article>';
+  }
+  function sysHtml(o){
+    if (!o.kind) {
+      var talk = /Coaching|Gespräch|jemandem/.test(o.note);
+      return '<article class="nv-opt"><p class="nv-opt-b">'+o.note+'</p>'+
+        (talk ? '<a class="nv-opt-link is-quiet" href="kontakt.html" data-umami-event="navigator_kontakt_klick" data-umami-event-ort="massnahme">Coaching-Gespräch bei LEAP anfragen <span class="arw">→</span></a>' : '') + '</article>';
+    }
+    return '<article class="nv-opt"><span class="nv-fmt">'+FMT[o.kind]+'</span><h4 class="nv-opt-t">'+o.label+'</h4><p class="nv-opt-b">'+o.note+'</p>'+
+      '<a class="nv-opt-link" href="'+o.url+'" target="_blank" rel="noopener" data-umami-event="navigator_kit_klick" data-umami-event-format="'+o.kind+'">Ansehen <span class="arw">→</span></a></article>';
+  }
+
+  function step1(){
+    var h = '<span class="chip">Schritt 01 · Situation</span>';
+    h += '<h2 class="nv-h2">In welcher Situation musst du gerade navigieren?</h2>';
+    h += '<p class="nv-lead">Such dir die Situation aus, die deinem Alltag gerade am nächsten kommt.</p>';
+    h += '<div class="nv-sits">' + S.map(function(s){
+      return '<button class="nv-sit" data-sit="'+s.id+'"><span class="nv-sit-n">Situation 0'+(S.indexOf(s)+1)+'</span><span class="nv-sit-q">„'+s.full+'“</span><span class="nv-sit-go">Weiter <span class="arw">→</span></span></button>';
+    }).join('') + '</div>';
+    return h + '<button class="nv-all" id="nv-all">Alle 19 Themen anzeigen</button>';
+  }
+
+  function step2(){
+    var h = ctxHtml() + '<span class="chip">Schritt 02 · Herausforderung</span><h2 class="nv-h2">Was ist deine Herausforderung?</h2>';
+    h += '<p class="nv-lead">Was davon trifft es am ehesten?</p><div class="nv-list">';
+    h += entriesOf(state.sit).map(function(e){
+      var c = byId(e.challengeId);
+      return '<button class="nv-ch" data-ch="'+e.challengeId+'" data-q="'+labelOf(e).replace(/"/g,'&quot;')+'">'+
+        (c.tag?'<span class="nv-ch-t">'+c.tag+'</span>':'')+'<span class="nv-ch-q">'+labelOf(e)+'</span><span class="nv-ch-go">Maßnahmen ansehen <span class="arw">→</span></span></button>';
+    }).join('');
+    return h + '</div>';
+  }
+
+  function step3(){
+    var c = byId(state.ch), h = ctxHtml();
+    if (c.special === 'contact') {
+      h += '<div class="nv-contact"><span class="nv-c-lab">Worum es geht</span>';
+      h += '<p class="nv-contact-t">„'+c.text+'“</p>';
+      h += '<p class="nv-contact-b">'+c.note+'</p>';
+      h += '<a class="btn btn-lime" href="kontakt.html" data-umami-event="navigator_kontakt_klick" data-umami-event-ort="sonderfall">Direkt mit Paul sprechen <span class="arw">→</span></a></div>';
+    } else {
+      h += '<span class="chip">Schritt 03 · Maßnahmen</span><h2 class="nv-h2">Was könnte dir helfen?</h2>';
+      h += '<p class="nv-lead">Drei Ebenen — von der Übung für heute bis zur Arbeit am System.</p>';
+      h += LV.map(function(lv, i){
+        var opts = toArr(c['tier'+(i+1)]);
+        var s = '<section class="nv-lvl nv-lvl-'+(i+1)+'"><div class="nv-lvl-head"><span class="nv-lvl-n">'+lv.n+'</span><h3 class="nv-lvl-t">'+lv.label+'</h3></div>';
+        s += '<div class="nv-opts">' + opts.map(i === 2 ? sysHtml : exHtml).join('') + '</div>';
+        return s + '</section>';
+      }).join('');
+    }
+    h += '<div class="nv-foot"><button class="nv-restart" id="nv-restart">Nochmal von vorn</button>';
+    h += '<p class="nv-foot-note">Passt nichts davon? <a class="nv-link" href="kontakt.html">Schreib uns kurz.</a></p></div>';
+    return h;
+  }
+
+  function render(){
+    rail.innerHTML = railHtml();
+    stage.innerHTML = state.step === 1 ? step1() : state.step === 2 ? step2() : step3();
+    window.scrollTo(0, 0);
+  }
+
+  function buildOverlay(){
+    document.getElementById('nv-ov-list').innerHTML = C.map(function(c){
+      return '<button class="nv-ch" data-ch="'+c.id+'" data-all="1">'+
+        (c.tag?'<span class="nv-ch-t">'+c.tag+'</span>':'')+'<span class="nv-ch-q">„'+c.text+'“</span><span class="nv-ch-go">Maßnahmen ansehen <span class="arw">→</span></span></button>';
+    }).join('');
+  }
+
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('[data-sit],[data-ch],[data-goto],#nv-all,#nv-restart,#nv-ov-close');
+    if (!t) return;
+    if (t.id === 'nv-all') { buildOverlay(); ov.classList.add('is-open'); document.body.style.overflow = 'hidden'; return; }
+    if (t.id === 'nv-ov-close') { closeOv(); return; }
+    if (t.id === 'nv-restart') { state = { step:1, sit:null, ch:null, quote:null, viaAll:false }; render(); return; }
+    if (t.dataset.sit) {
+      state.sit = S.filter(function(s){ return s.id === t.dataset.sit; })[0];
+      state.ch = null; state.quote = null; state.viaAll = false; state.step = 2; render(); return;
+    }
+    if (t.dataset.ch) {
+      state.ch = Number(t.dataset.ch);
+      if (t.dataset.all) { state.sit = null; state.viaAll = true; state.quote = '„' + byId(state.ch).text + '“'; closeOv(); }
+      else { state.quote = t.dataset.q; }
+      state.step = 3; render(); return;
+    }
+    var g = +t.dataset.goto;
+    if (g && g < state.step) {
+      state.step = g;
+      if (g === 1) { state.sit = null; state.ch = null; state.quote = null; state.viaAll = false; }
+      render();
+    }
+  });
+
+  function closeOv(){ ov.classList.remove('is-open'); document.body.style.overflow = ''; }
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeOv(); });
+
+  render();
+})();
+</script>
+</body>
+</html>
