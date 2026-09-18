@@ -47,7 +47,7 @@ nav.scrolled+.nv-rail{top:52px;}
 @media(max-width:640px){.nv-step{padding:15px 14px;gap:10px;}.nv-step-l{display:none;}.nv-step.is-on .nv-step-l{display:block;font-size:13px;}}
 /* headings */
 .nv-h2{font-family:var(--pp);font-size:clamp(24px,3vw,36px);font-weight:700;letter-spacing:-0.02em;line-height:1.12;color:var(--black);margin-bottom:12px;}
-.nv-lead{font-size:16px;font-weight:200;color:var(--gray);line-height:1.8;max-width:58ch;margin-bottom:36px;}
+.nv-lead{font-size:16px;font-weight:400;color:var(--ink);line-height:1.8;max-width:58ch;margin-bottom:36px;}
 /* Schritt 1 — Situationskarten */
 .nv-sits{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 @media(max-width:760px){.nv-sits{grid-template-columns:1fr;}}
@@ -87,7 +87,7 @@ nav.scrolled+.nv-rail{top:52px;}
 .nv-opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px;}
 .nv-opt{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:28px 26px;position:relative;}
 .nv-opt-t{font-family:var(--pp);font-size:16px;font-weight:700;color:var(--black);margin:0 0 10px;line-height:1.3;}
-.nv-opt-b{font-size:14px;font-weight:200;line-height:1.75;color:var(--gray);margin:0;}
+.nv-opt-b{font-size:15px;font-weight:400;line-height:1.7;color:var(--ink);margin:0;}
 .nv-refl{margin:18px 0 0;padding:12px 16px;background:rgba(233,255,112,0.22);border-left:3px solid var(--lime);border-radius:0 4px 4px 0;font-size:13px;font-weight:400;font-style:italic;line-height:1.6;color:var(--ink);}
 /* 01 — sofort erlebbar: lime-Akzent oben */
 .nv-lvl-1 .nv-opt::before{content:'';position:absolute;top:0;left:0;width:36px;height:2px;background:var(--lime);}
@@ -269,7 +269,7 @@ window.NAV = (function(){
     { id:3, tag:"Blinder Fleck", text:"Ich sehe die Situation anders als mein Team — und merke es zu spät.",
       tier1:{ name:"Der Stuhlwechsel", body:"Setz dich gedanklich auf den Platz von jemandem aus deinem Team. Was ist für diese Person gerade das größte Problem? Was würde sie über deine letzte Entscheidung sagen?" },
       tier2:{ name:"Direkt nachfragen", body:"Frag eine Person aus deinem Team genau das — und widersteh dem Drang, die Antwort sofort zu kommentieren." },
-      tier3:{ kind:null, note:"Bewusst kein Kit hier. Perspektivwechsel ist Übungssache, keine Team-Struktur-Frage." } },
+      tier3:{ kind:null, note:"Wenn du das öfter merkst: Frag zwei, drei Leute aus deinem Umfeld, die dich gut kennen, ganz direkt nach ihrer Einschätzung — oder sprich mit jemandem außerhalb deiner Situation darüber, was ihm oder ihr aus der Distanz auffällt. Blinde Flecken sieht man selten allein." } },
     { id:4, tag:"Hängende Entscheidungen", text:"Entscheidungen bleiben ewig hängen.",
       tier1:{ name:"Wer entscheidet das eigentlich — wirklich?", body:"Nimm die letzte hängende Entscheidung. Schreib einen Satz: wer sie laut Organigramm trifft. Dann einen zweiten: wer sie in Wirklichkeit trifft. Meist zwei verschiedene Namen.", followup:"Was sagt der Unterschied über eure Rollen?" },
       tier2:{ name:"Vorher statt nachher klären", body:"Bei der nächsten Entscheidung vorher laut sagen, wer sie trifft — nicht erst danach, wenn's schon schwierig wird." },
@@ -296,7 +296,7 @@ window.NAV = (function(){
         { name:"Der feste 30-Minuten-Slot", body:"Einen Termin blocken, der wirklich nur für ein Gespräch mit einem Teammitglied reserviert ist. Kein Task, kein Meeting, keine Verschiebung." },
         { name:"Eine Aufgabe streichen", body:"Eine wiederkehrende Aufgabe diese Woche komplett aus deinem Kalender nehmen — nicht verschieben, sondern wirklich weglassen oder abgeben — und beobachten, was tatsächlich passiert." }
       ],
-      tier3:{ kind:null, note:"Kein Kit hier. Zeit für Führung ist eine Priorisierungsfrage, keine Team-Workshop-Frage." } },
+      tier3:{ kind:null, note:"Wenn sich das über Wochen hält: Sprich mit jemandem, der von außen auf deinen Kalender schaut. Eine außenstehende Person sieht oft schneller, wo deine Zeit wirklich hingeht, als du selbst — ein Coaching-Gespräch kann genau dafür der Rahmen sein." } },
     { id:7, tag:"Ausgesessene Veränderung", text:"Veränderung wird bei uns eher ausgesessen als angepackt.",
       tier1:{ name:"Die andere Frage", body:"Nicht „Warum sind alle dagegen?“, sondern „Was würden wir verlieren, wenn sich das ändert?“ — ehrlich beantwortet, meist der eigentliche Grund für den Widerstand." },
       tier2:{ name:"Offen im Team stellen", body:"Diese Frage einmal wirklich offen im Team stellen, statt sie nur für dich allein zu beantworten." },
@@ -308,11 +308,11 @@ window.NAV = (function(){
     { id:9, text:"Gestern noch Kollege, heute der Chef.",
       tier1:{ name:"Das ehrliche Gespräch zu zweit", body:"Sprich mit einer Person aus deinem früheren Team offen an, dass sich die Beziehung jetzt verändert — frag: „Was hat sich für dich dadurch schon verändert?“", followup:"Was hast du bisher vermieden anzusprechen, weil es unangenehm gewesen wäre?" },
       tier2:{ name:"Neue Erwartungen aussprechen", body:"Sag im Team einmal klar, was sich durch deine neue Rolle ändert und was gleich bleibt — statt es stillschweigend vorauszusetzen." },
-      tier3:{ kind:null, note:"Bewusst kein Kit hier. Der Rollenwechsel von Kolleg:in zu Führungskraft ist eine persönliche Übergangsphase, die sich nicht in einem Team-Workshop lösen lässt." } },
+      tier3:{ kind:null, note:"Diese Übergangsphase meistert man selten allein. Rede mit anderen Führungskräften, die den gleichen Wechsel schon hinter sich haben — oder hol dir für die ersten Monate ein Coaching, das genau diesen Rollenwechsel begleitet." } },
     { id:10, tag:"Alles läuft über mich", text:"Ich könnte vieles abgeben, aber ich mach's dann doch selber.",
       tier1:{ name:"Die 24-Stunden-Regel", body:"Bevor du diese Woche eine Aufgabe selbst erledigst, warte 24 Stunden und frag dich: Wer aus dem Team könnte das genauso gut übernehmen?", followup:"Wie oft war die ehrliche Antwort „jemand anderer“?" },
       tier2:{ name:"Eine Aufgabe ganz abgeben", body:"Eine wiederkehrende Aufgabe diese Woche komplett übergeben — ohne nachzufragen, wie's läuft." },
-      tier3:{ kind:null, note:"Kein Kit hier. Delegieren ist eine persönliche Gewohnheit, die du nur durchs Tun veränderst — keine Team-Struktur-Frage." } },
+      tier3:{ kind:null, note:"Erzähl jemandem aus deinem Umfeld ganz konkret, was du diese Woche abgegeben hast — allein die Ankündigung erhöht oft den Druck, es wirklich durchzuziehen. Bleibt das Muster hartnäckig, ist ein Coaching zu genau dieser Gewohnheit oft wirksamer als der nächste gute Vorsatz." } },
     { id:11, tag:"Team wartet auf mich", text:"Mein Team wartet auf meine Entscheidung, obwohl es die selbst treffen könnte.",
       tier1:{ name:"Die Rückfrage umdrehen", body:"Wenn als Nächstes jemand fragt „Was sollen wir tun?“, antworte mit „Was würdest du vorschlagen?“ — und lass den Vorschlag stehen.", followup:"Wie oft war der Vorschlag genauso gut wie deiner gewesen wäre?" },
       tier2:{ name:"Eine Entscheidungsart abgeben", body:"Eine wiederkehrende Entscheidung benennen, die das Team ab jetzt komplett selbst trifft — und das auch so sagen." },
@@ -320,7 +320,7 @@ window.NAV = (function(){
     { id:12, tag:"Alles gleich dringend", text:"Ich weiß nicht, wo ich zuerst ansetzen soll — gerade wirkt alles gleich dringend.",
       tier1:{ name:"Die Ein-Prioritäten-Regel", body:"Wähl genau eine Sache, die du diese Woche sichtbar vorantreibst — und sag im Team laut, was du dafür bewusst zurückstellst." },
       tier2:{ name:"Prioritäten offen abgleichen", body:"Frag dein Team einmal direkt: „Was würdet ihr zuerst angehen?“ — und vergleich das mit deiner eigenen Liste." },
-      tier3:{ kind:null, note:"Kein Kit hier. Priorisierung ist eine persönliche Übung in Klarheit, keine Team-Workshop-Frage." } },
+      tier3:{ kind:null, note:"Nimm dir 15 Minuten mit jemandem, der nicht im Tagesgeschäft steckt, und lass dir laut erklären, was aus seiner oder ihrer Sicht wirklich Priorität hätte. Von außen wird oft schneller klar, was tatsächlich dringend ist." } },
     { id:13, tag:"Schwelende Konflikte", text:"In unserem Team schwelen Konflikte, aber niemand spricht sie offen an.",
       tier1:{ name:"Das direkte Ansprechen", body:"Sprich die Spannung einmal direkt an: „Ich hab das Gefühl, zwischen X und Y hakt's gerade — stimmt das?“ Und dann einfach zuhören." },
       tier2:{ name:"Ein klärendes Gespräch ansetzen", body:"Für den konkreten Konflikt diese Woche bewusst Zeit reservieren — mit den Beteiligten, nicht nur mit dir allein." },
@@ -377,7 +377,7 @@ window.NAV = (function(){
   var S = window.NAV.situations, C = window.NAV.challenges, FMT = window.NAV.formatLabels;
   var LV = [
     { n:'01', label:"Sofort erlebbar" },
-    { n:'02', label:"Im Alltag" },
+    { n:'02', label:"Im Alltag einfach anwendbar" },
     { n:'03', label:"Wenn's ans System geht" }
   ];
   var state = { step:1, sit:null, ch:null, quote:null, viaAll:false };
@@ -419,11 +419,22 @@ window.NAV = (function(){
     if (o.followup) h += '<p class="nv-refl">'+o.followup+'</p>';
     return h + '</article>';
   }
+  /* Baut einen Kontakt-Link, der Situation & Herausforderung schon in die
+     Nachricht vorausfüllt — damit man beim Kontakt nicht nochmal von vorn
+     erzählen muss, was man dem Navigator schon gesagt hat. */
+  function kontaktLink(){
+    var lines = [];
+    if (state.sit) lines.push('Meine Situation: „' + state.sit.full + '“');
+    if (state.quote) lines.push('Meine Herausforderung: ' + state.quote);
+    lines.push('', '(ausgefüllt über den Leadership-Navigator)');
+    var msg = encodeURIComponent(lines.join('\n'));
+    return 'kontakt.html?thema=coaching&programm=leadership-navigator&msg=' + msg;
+  }
   function sysHtml(o){
     if (!o.kind) {
       var talk = /Coaching|Gespräch|jemandem/.test(o.note);
       return '<article class="nv-opt"><p class="nv-opt-b">'+o.note+'</p>'+
-        (talk ? '<a class="nv-opt-link is-quiet" href="kontakt.html" data-umami-event="navigator_kontakt_klick" data-umami-event-ort="massnahme">Coaching-Gespräch bei LEAP anfragen <span class="arw">→</span></a>' : '') + '</article>';
+        (talk ? '<a class="nv-opt-link is-quiet" href="'+kontaktLink()+'" data-umami-event="navigator_kontakt_klick" data-umami-event-ort="massnahme">Coaching-Gespräch bei LEAP anfragen <span class="arw">→</span></a>' : '') + '</article>';
     }
     return '<article class="nv-opt"><span class="nv-fmt">'+FMT[o.kind]+'</span><h4 class="nv-opt-t">'+o.label+'</h4><p class="nv-opt-b">'+o.note+'</p>'+
       '<a class="nv-opt-link" href="'+o.url+'" target="_blank" rel="noopener" data-umami-event="navigator_kit_klick" data-umami-event-format="'+o.kind+'">Ansehen <span class="arw">→</span></a></article>';
@@ -456,7 +467,7 @@ window.NAV = (function(){
       h += '<div class="nv-contact"><span class="nv-c-lab">Worum es geht</span>';
       h += '<p class="nv-contact-t">„'+c.text+'“</p>';
       h += '<p class="nv-contact-b">'+c.note+'</p>';
-      h += '<a class="btn btn-lime" href="kontakt.html" data-umami-event="navigator_kontakt_klick" data-umami-event-ort="sonderfall">Direkt mit Paul sprechen <span class="arw">→</span></a></div>';
+      h += '<a class="btn btn-lime" href="'+kontaktLink()+'" data-umami-event="navigator_kontakt_klick" data-umami-event-ort="sonderfall">Direkt mit Paul sprechen <span class="arw">→</span></a></div>';
     } else {
       h += '<span class="chip">Schritt 03 · Maßnahmen</span><h2 class="nv-h2">Was könnte dir helfen?</h2>';
       h += '<p class="nv-lead">Drei Ebenen — von der Übung für heute bis zur Arbeit am System.</p>';
@@ -468,7 +479,7 @@ window.NAV = (function(){
       }).join('');
     }
     h += '<div class="nv-foot"><button class="nv-restart" id="nv-restart">Nochmal von vorn</button>';
-    h += '<p class="nv-foot-note">Passt nichts davon? <a class="nv-link" href="kontakt.html">Schreib uns kurz.</a></p></div>';
+    h += '<p class="nv-foot-note">Passt nichts davon? <a class="nv-link" href="'+kontaktLink()+'" data-umami-event="navigator_kontakt_klick" data-umami-event-ort="fuss">Schreib uns kurz.</a></p></div>';
     return h;
   }
 

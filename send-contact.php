@@ -43,6 +43,7 @@ $programmLabels = [
     'veraenderung' => 'Leadership & Teamentwicklung ("Bereit für die übernächste Veränderung?")',
     'coaching-leader' => 'Coaching as a Leader ("Führen durch Fragen statt durch Antworten.")',
     'change-management' => 'Systemisches Change Management ("Veränderung gestalten statt verwalten.")',
+    'leadership-navigator' => 'Leadership-Navigator (Selbsttest auf der Website)',
 ];
 $programmLabel = $programmLabels[$programm] ?? '';
 

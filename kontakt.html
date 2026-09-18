@@ -173,6 +173,25 @@
 
 <script src="site.js"></script>
 <script>
+/* Formular vorausfüllen, wenn man mit Kontext ankommt (?thema=, ?programm=,
+   ?msg=) — z.B. von den Programmseiten oder dem Leadership-Navigator aus. */
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var themaMap = {
+    kit: 'Workshop-Kit',
+    programm: 'Programm',
+    coaching: 'Moderation oder Coaching',
+    unternehmen: 'Unternehmen / Bundle / Lizenz',
+    frage: 'Allgemeine Frage'
+  };
+  var thema = params.get('thema'), programm = params.get('programm'), msg = params.get('msg');
+  var touched = false;
+  if (thema && themaMap[thema]) { document.getElementById('ctopic').value = themaMap[thema]; touched = true; }
+  if (programm) { document.getElementById('cprogramm').value = programm; touched = true; }
+  if (msg) { document.getElementById('cmsg').value = msg; touched = true; }
+  if (touched) document.getElementById('cform-hint').style.display = 'block';
+})();
+
 function submitContact(){
   var n=document.getElementById('cname').value.trim();
   var e=document.getElementById('cemail').value.trim();
