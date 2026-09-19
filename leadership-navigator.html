@@ -124,6 +124,46 @@ nav.scrolled+.nv-rail{top:52px;}
 .nv-ov-head{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:32px;}
 .nv-ov-close{background:var(--white);border:1px solid var(--border);border-radius:4px;color:var(--ink);width:38px;height:38px;cursor:pointer;font-size:15px;font-family:var(--pp);flex-shrink:0;transition:border-color .2s,color .2s;}
 .nv-ov-close:hover{border-color:var(--black);color:var(--black);}
+
+/* "Fehlt was?" — leichter Vorschlags-Kasten direkt in jedem Schritt, statt
+   Umweg über das große Kontaktformular */
+.nv-suggest{margin-top:28px;}
+.nv-suggest-toggle{background:none;border:none;padding:0;font-family:var(--pp);font-size:13px;font-weight:600;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:7px;border-bottom:1px solid var(--lime);}
+.nv-suggest-toggle[hidden]{display:none;}
+.nv-suggest-toggle:hover{color:var(--black);}
+.nv-suggest-form{margin-top:16px;background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 22px;max-width:560px;}
+.nv-suggest-form[hidden]{display:none;}
+.nv-suggest-form:not([hidden]){display:flex;flex-direction:column;gap:12px;}
+.nv-suggest-text{width:100%;min-height:76px;padding:12px 14px;border:1px solid var(--border);border-radius:4px;font-family:var(--pp);font-size:14px;color:var(--ink);background:var(--bg);outline:none;resize:vertical;transition:border-color .2s;}
+.nv-suggest-text:focus{border-color:var(--black);}
+.nv-suggest-email{width:100%;padding:10px 13px;border:1px solid var(--border);border-radius:4px;font-family:var(--pp);font-size:13px;color:var(--ink);background:var(--bg);outline:none;transition:border-color .2s;}
+.nv-suggest-email:focus{border-color:var(--black);}
+.nv-suggest-btns{display:flex;gap:16px;align-items:center;flex-wrap:wrap;}
+.nv-suggest-cancel{background:none;border:none;padding:8px 2px;font-family:var(--pp);font-size:12px;font-weight:600;color:var(--gray);cursor:pointer;}
+.nv-suggest-cancel:hover{color:var(--black);}
+.nv-suggest-msg{font-size:13px;font-weight:400;margin:0;}
+.nv-suggest-msg[hidden]{display:none;}
+.nv-suggest-msg.is-ok{color:#2e7d32;}
+.nv-suggest-msg.is-err{color:#b3261e;}
+
+/* Team-Check-Hinweis unter Kit-Empfehlungen, die wirklich Team-Sache sind */
+.nv-tc-hint{margin:16px 0 0;padding-top:14px;border-top:1px solid var(--bd-dk3);font-size:12px;font-weight:400;color:rgba(255,255,255,0.4);line-height:1.6;}
+.nv-tc-hint a{color:var(--lime);border-bottom:1px solid rgba(233,255,112,0.4);}
+.nv-tc-hint a:hover{border-bottom-color:var(--lime);}
+
+/* Dezenter Reflexions-Impuls: taucht nach einer Weile auf Schritt 3 auf,
+   nie als Modal, jederzeit wegklickbar, max. 1x pro Sitzung (sessionStorage) */
+.nv-nudge{position:fixed;left:16px;right:16px;bottom:-140px;z-index:150;max-width:440px;margin:0 auto;background:var(--black);border:1px solid var(--bd-dk2);border-radius:8px;box-shadow:0 20px 50px rgba(0,0,0,0.35);padding:20px 22px;transition:bottom .4s cubic-bezier(.2,.8,.2,1);}
+.nv-nudge.is-in{bottom:20px;}
+.nv-nudge-close{position:absolute;top:8px;right:10px;background:none;border:none;color:rgba(255,255,255,0.4);font-size:15px;cursor:pointer;line-height:1;padding:4px;}
+.nv-nudge-close:hover{color:var(--white);}
+.nv-nudge-q{font-size:14px;font-weight:400;color:var(--white);line-height:1.55;margin:0 14px 14px 0;}
+.nv-nudge-btns{display:flex;gap:10px;flex-wrap:wrap;}
+.nv-nudge-btn{background:transparent;border:1.5px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.85);font-family:var(--pp);font-size:12px;font-weight:700;letter-spacing:0.04em;padding:8px 16px;border-radius:4px;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px;text-decoration:none;}
+.nv-nudge-btn:hover{border-color:var(--lime);color:var(--lime);}
+.nv-nudge-btn.is-cta{background:var(--lime);border-color:var(--lime);color:var(--black);}
+.nv-nudge-btn.is-cta:hover{filter:brightness(.95);color:var(--black);}
+@media(max-width:520px){.nv-nudge{left:12px;right:12px;padding:18px 20px;}}
 </style>
 </head>
 <body data-screen-label="Leadership-Navigator">
@@ -436,8 +476,35 @@ window.NAV = (function(){
       return '<article class="nv-opt"><p class="nv-opt-b">'+o.note+'</p>'+
         (talk ? '<a class="nv-opt-link is-quiet" href="'+kontaktLink()+'" data-umami-event="navigator_kontakt_klick" data-umami-event-ort="massnahme">Coaching-Gespräch bei LEAP anfragen <span class="arw">→</span></a>' : '') + '</article>';
     }
+    var tcHint = o.kind === 'team-workshop'
+      ? '<p class="nv-tc-hint">Nicht sicher, ob das wirklich am ganzen Team liegt? <a href="team-check.html" data-umami-event="navigator_teamcheck_klick">Mach zuerst den kostenlosen Team-Check</a> (10 Minuten) — dann weißt du, ob es ein Einzelfall oder ein Muster ist.</p>'
+      : '';
     return '<article class="nv-opt"><span class="nv-fmt">'+FMT[o.kind]+'</span><h4 class="nv-opt-t">'+o.label+'</h4><p class="nv-opt-b">'+o.note+'</p>'+
-      '<a class="nv-opt-link" href="'+o.url+'" target="_blank" rel="noopener" data-umami-event="navigator_kit_klick" data-umami-event-format="'+o.kind+'">Ansehen <span class="arw">→</span></a></article>';
+      '<a class="nv-opt-link" href="'+o.url+'" target="_blank" rel="noopener" data-umami-event="navigator_kit_klick" data-umami-event-format="'+o.kind+'">Ansehen <span class="arw">→</span></a>'+tcHint+'</article>';
+  }
+
+  /* "Fehlt was?" — ein leichter Vorschlags-Kasten pro Schritt: zugeklappt ein
+     Link, aufgeklappt ein Mini-Formular, das direkt (ohne Umweg über
+     kontakt.html) an send-navigator-feedback.php geht. */
+  function suggestContext(){
+    var lines = [];
+    if (state.sit) lines.push('Situation: ' + state.sit.full);
+    if (state.step === 3 && state.quote) lines.push('Herausforderung: ' + strip(state.quote));
+    return lines.join(' | ');
+  }
+  function suggestHtml(step, label, placeholder){
+    return '<div class="nv-suggest" data-step="'+step+'">'+
+      '<button type="button" class="nv-suggest-toggle">'+label+' <span class="arw">→</span></button>'+
+      '<form class="nv-suggest-form" hidden>'+
+        '<textarea class="nv-suggest-text" placeholder="'+placeholder+'" required></textarea>'+
+        '<input type="email" class="nv-suggest-email" placeholder="Deine E-Mail (optional, falls du eine Antwort willst)">'+
+        '<div class="nv-suggest-btns">'+
+          '<button type="submit" class="btn btn-outline-dark nv-suggest-submit">Absenden <span class="arw">→</span></button>'+
+          '<button type="button" class="nv-suggest-cancel">Abbrechen</button>'+
+        '</div>'+
+        '<p class="nv-suggest-msg" hidden></p>'+
+      '</form>'+
+    '</div>';
   }
 
   function step1(){
@@ -447,7 +514,9 @@ window.NAV = (function(){
     h += '<div class="nv-sits">' + S.map(function(s){
       return '<button class="nv-sit" data-sit="'+s.id+'"><span class="nv-sit-n">Situation 0'+(S.indexOf(s)+1)+'</span><span class="nv-sit-q">„'+s.full+'“</span><span class="nv-sit-go">Weiter <span class="arw">→</span></span></button>';
     }).join('') + '</div>';
-    return h + '<button class="nv-all" id="nv-all">Alle 19 Themen anzeigen</button>';
+    h += '<button class="nv-all" id="nv-all">Alle 19 Themen anzeigen</button>';
+    h += suggestHtml('situation', 'Deine Situation ist nicht dabei?', 'Kurz beschreiben, welche Situation dir fehlt …');
+    return h;
   }
 
   function step2(){
@@ -458,7 +527,9 @@ window.NAV = (function(){
       return '<button class="nv-ch" data-ch="'+e.challengeId+'" data-q="'+labelOf(e).replace(/"/g,'&quot;')+'">'+
         (c.tag?'<span class="nv-ch-t">'+c.tag+'</span>':'')+'<span class="nv-ch-q">'+labelOf(e)+'</span><span class="nv-ch-go">Maßnahmen ansehen <span class="arw">→</span></span></button>';
     }).join('');
-    return h + '</div>';
+    h += '</div>';
+    h += suggestHtml('herausforderung', 'Deine Herausforderung ist nicht dabei?', 'Kurz beschreiben, welche Herausforderung dir fehlt …');
+    return h;
   }
 
   function step3(){
@@ -477,6 +548,7 @@ window.NAV = (function(){
         s += '<div class="nv-opts">' + opts.map(i === 2 ? sysHtml : exHtml).join('') + '</div>';
         return s + '</section>';
       }).join('');
+      h += suggestHtml('massnahme', 'Fehlt dir eine passende Lösung?', 'Kurz beschreiben, welche Maßnahme dir hier fehlt …');
     }
     h += '<div class="nv-foot"><button class="nv-restart" id="nv-restart">Nochmal von vorn</button>';
     h += '<p class="nv-foot-note">Passt nichts davon? <a class="nv-link" href="'+kontaktLink()+'" data-umami-event="navigator_kontakt_klick" data-umami-event-ort="fuss">Schreib uns kurz.</a></p></div>';
@@ -487,6 +559,59 @@ window.NAV = (function(){
     rail.innerHTML = railHtml();
     stage.innerHTML = state.step === 1 ? step1() : state.step === 2 ? step2() : step3();
     window.scrollTo(0, 0);
+    if (state.step === 3) scheduleNudge(); else { clearTimeout(nudgeTimer); removeNudge(); }
+  }
+
+  /* Dezenter Reflexions-Impuls: kein Popup-Overlay, sondern eine schmale,
+     jederzeit wegklickbare Leiste unten — taucht frühestens nach 25s auf
+     Schritt 3 auf (nicht beim Sonderfall Kontakt) und höchstens 1x pro
+     Sitzung (sessionStorage), damit's nicht nervt. */
+  var nudgeTimer = null, nudgeShown = false;
+  function scheduleNudge(){
+    clearTimeout(nudgeTimer);
+    if (nudgeShown) return;
+    try { if (sessionStorage.getItem('nvNudgeSeen')) { nudgeShown = true; return; } } catch(err){}
+    nudgeTimer = setTimeout(function(){
+      var c = byId(state.ch);
+      if (state.step === 3 && c && c.special !== 'contact') showNudge();
+    }, 25000);
+  }
+  function showNudge(){
+    if (nudgeShown || document.getElementById('nv-nudge')) return;
+    nudgeShown = true;
+    try { sessionStorage.setItem('nvNudgeSeen', '1'); } catch(err){}
+    var bar = document.createElement('div');
+    bar.className = 'nv-nudge'; bar.id = 'nv-nudge';
+    bar.innerHTML = '<button type="button" class="nv-nudge-close" aria-label="Schließen">✕</button>'+
+      '<p class="nv-nudge-q">Ehrlich: Glaubst du, du probierst eine dieser Ideen diese Woche wirklich aus?</p>'+
+      '<div class="nv-nudge-btns">'+
+        '<button type="button" class="nv-nudge-btn" data-nudge="yes">Ja, klar</button>'+
+        '<button type="button" class="nv-nudge-btn" data-nudge="no">Eher nicht</button>'+
+      '</div>';
+    document.body.appendChild(bar);
+    requestAnimationFrame(function(){ bar.classList.add('is-in'); });
+  }
+  function removeNudge(){
+    var bar = document.getElementById('nv-nudge');
+    if (!bar) return;
+    bar.classList.remove('is-in');
+    setTimeout(function(){ if (bar.parentNode) bar.parentNode.removeChild(bar); }, 400);
+  }
+  function handleNudge(val){
+    var bar = document.getElementById('nv-nudge');
+    if (!bar) return;
+    if (window.umami) window.umami.track('navigator_nudge_antwort', {antwort: val});
+    if (val === 'yes') {
+      bar.innerHTML = '<button type="button" class="nv-nudge-close" aria-label="Schließen">✕</button>'+
+        '<p class="nv-nudge-q" style="margin-bottom:0;">Gut — viel Erfolg damit!</p>';
+      setTimeout(removeNudge, 2600);
+    } else {
+      bar.innerHTML = '<button type="button" class="nv-nudge-close" aria-label="Schließen">✕</button>'+
+        '<p class="nv-nudge-q">Manchmal hilft ein kurzes Gespräch mehr als der nächste gute Vorsatz.</p>'+
+        '<div class="nv-nudge-btns">'+
+          '<a class="nv-nudge-btn is-cta" href="'+kontaktLink()+'" data-umami-event="navigator_kontakt_klick" data-umami-event-ort="nudge">Kontakt aufnehmen <span class="arw">→</span></a>'+
+        '</div>';
+    }
   }
 
   function buildOverlay(){
@@ -497,8 +622,22 @@ window.NAV = (function(){
   }
 
   document.addEventListener('click', function(e){
-    var t = e.target.closest('[data-sit],[data-ch],[data-goto],#nv-all,#nv-restart,#nv-ov-close');
+    var t = e.target.closest('[data-sit],[data-ch],[data-goto],#nv-all,#nv-restart,#nv-ov-close,.nv-suggest-toggle,.nv-suggest-cancel,.nv-nudge-close,[data-nudge]');
     if (!t) return;
+    if (t.classList.contains('nv-suggest-toggle')) {
+      var sBox = t.closest('.nv-suggest'), sForm = sBox.querySelector('.nv-suggest-form');
+      sForm.hidden = false; t.hidden = true;
+      sForm.querySelector('.nv-suggest-text').focus();
+      return;
+    }
+    if (t.classList.contains('nv-suggest-cancel')) {
+      var cBox = t.closest('.nv-suggest');
+      cBox.querySelector('.nv-suggest-form').hidden = true;
+      cBox.querySelector('.nv-suggest-toggle').hidden = false;
+      return;
+    }
+    if (t.classList.contains('nv-nudge-close')) { removeNudge(); return; }
+    if (t.dataset.nudge) { handleNudge(t.dataset.nudge); return; }
     if (t.id === 'nv-all') { buildOverlay(); ov.classList.add('is-open'); document.body.style.overflow = 'hidden'; return; }
     if (t.id === 'nv-ov-close') { closeOv(); return; }
     if (t.id === 'nv-restart') { state = { step:1, sit:null, ch:null, quote:null, viaAll:false }; render(); return; }
@@ -522,6 +661,45 @@ window.NAV = (function(){
 
   function closeOv(){ ov.classList.remove('is-open'); document.body.style.overflow = ''; }
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeOv(); });
+
+  document.addEventListener('submit', function(e){
+    var form = e.target.closest('.nv-suggest-form');
+    if (!form) return;
+    e.preventDefault();
+    var box = form.closest('.nv-suggest');
+    var textEl = form.querySelector('.nv-suggest-text'), emailEl = form.querySelector('.nv-suggest-email');
+    var msgEl = form.querySelector('.nv-suggest-msg'), btn = form.querySelector('.nv-suggest-submit');
+    var text = textEl.value.trim();
+    if (!text) return;
+    btn.disabled = true;
+    var origLabel = btn.innerHTML;
+    btn.innerHTML = 'Wird gesendet …';
+    msgEl.hidden = true;
+    fetch('send-navigator-feedback.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ step: box.dataset.step, suggestion: text, context: suggestContext(), email: emailEl.value.trim() })
+    }).then(function(res){ return res.json().then(function(data){ return {ok:res.ok, data:data}; }); })
+      .then(function(r){
+        if (!r.ok || !r.data.ok) { throw new Error((r.data && r.data.message) || 'Fehler beim Senden.'); }
+        if (window.umami) window.umami.track('navigator_vorschlag_gesendet', {step: box.dataset.step});
+        textEl.value = ''; emailEl.value = '';
+        msgEl.textContent = 'Danke — wir schauen uns das an!';
+        msgEl.className = 'nv-suggest-msg is-ok';
+        msgEl.hidden = false;
+        btn.disabled = false; btn.innerHTML = origLabel;
+        setTimeout(function(){
+          form.hidden = true; msgEl.hidden = true;
+          box.querySelector('.nv-suggest-toggle').hidden = false;
+        }, 2600);
+      })
+      .catch(function(err){
+        msgEl.textContent = err.message + ' Alternativ: paul@ich-leaps.at';
+        msgEl.className = 'nv-suggest-msg is-err';
+        msgEl.hidden = false;
+        btn.disabled = false; btn.innerHTML = origLabel;
+      });
+  });
 
   render();
 })();
