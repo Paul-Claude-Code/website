@@ -54,7 +54,6 @@ nav.scrolled+.nv-rail{top:52px;}
 .nv-sit{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:28px 26px 26px 29px;position:relative;overflow:hidden;text-align:left;font-family:var(--pp);cursor:pointer;display:flex;flex-direction:column;gap:16px;transition:border-color .2s,box-shadow .3s ease,transform .3s cubic-bezier(.2,.7,.2,1);}
 .nv-sit::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--lime);}
 .nv-sit:hover,.nv-sit:focus-visible{border-color:var(--black);box-shadow:0 16px 38px rgba(0,0,0,0.08);transform:translateY(-5px);outline:none;}
-.nv-sit-n{display:inline-flex;align-self:flex-start;background:var(--black);color:var(--lime);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:5px 11px;border-radius:3px;}
 .nv-sit-q{font-family:var(--pp);font-size:19px;font-weight:700;line-height:1.3;letter-spacing:-0.015em;color:var(--black);}
 .nv-sit-go{margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:0.04em;color:var(--black);}
 .nv-sit:hover .nv-sit-go .arw{transform:translateX(5px);}
@@ -512,7 +511,7 @@ window.NAV = (function(){
     h += '<h2 class="nv-h2">In welcher Situation musst du gerade navigieren?</h2>';
     h += '<p class="nv-lead">Such dir die Situation aus, die deinem Alltag gerade am nächsten kommt.</p>';
     h += '<div class="nv-sits">' + S.map(function(s){
-      return '<button class="nv-sit" data-sit="'+s.id+'" data-umami-event="navigator_situation_wahl" data-umami-event-situation="'+s.id+'"><span class="nv-sit-n">Situation 0'+(S.indexOf(s)+1)+'</span><span class="nv-sit-q">„'+s.full+'“</span><span class="nv-sit-go">Weiter <span class="arw">→</span></span></button>';
+      return '<button class="nv-sit" data-sit="'+s.id+'" data-umami-event="navigator_situation_wahl" data-umami-event-situation="'+s.id+'"><span class="nv-sit-q">„'+s.full+'“</span><span class="nv-sit-go">Weiter <span class="arw">→</span></span></button>';
     }).join('') + '</div>';
     h += '<button class="nv-all" id="nv-all" data-umami-event="navigator_alle_themen_oeffnen">Alle 19 Themen anzeigen</button>';
     h += suggestHtml('situation', 'Deine Situation ist nicht dabei?', 'Kurz beschreiben, welche Situation dir fehlt …');
