@@ -445,10 +445,10 @@ window.NAV = (function(){
 
   function ctxHtml(){
     var h = '<div class="nv-ctx">';
-    if (state.sit) h += '<div class="nv-ctx-row"><span class="nv-ctx-lab">Situation</span><p class="nv-ctx-q">„'+state.sit.full+'“</p><button class="nv-ctx-edit" data-goto="1">ändern</button></div>';
+    if (state.sit) h += '<div class="nv-ctx-row"><span class="nv-ctx-lab">Situation</span><p class="nv-ctx-q">„'+state.sit.full+'“</p><button class="nv-ctx-edit" data-goto="1" data-umami-event="navigator_aendern_klick" data-umami-event-ziel="situation">ändern</button></div>';
     if (state.step === 3) {
       var c = byId(state.ch);
-      h += '<div class="nv-ctx-row is-lead"><span class="nv-ctx-lab">Herausforderung</span><p class="nv-ctx-q">'+state.quote+'</p><button class="nv-ctx-edit" data-goto="'+(state.viaAll||!state.sit?1:2)+'">ändern</button></div>';
+      h += '<div class="nv-ctx-row is-lead"><span class="nv-ctx-lab">Herausforderung</span><p class="nv-ctx-q">'+state.quote+'</p><button class="nv-ctx-edit" data-goto="'+(state.viaAll||!state.sit?1:2)+'" data-umami-event="navigator_aendern_klick" data-umami-event-ziel="herausforderung">ändern</button></div>';
       if (strip(state.quote) !== c.text) h += '<div class="nv-ctx-row"><span class="nv-ctx-lab">Worum es geht</span><p class="nv-ctx-q">„'+c.text+'“</p></div>';
     }
     return h + '</div>';
@@ -512,9 +512,9 @@ window.NAV = (function(){
     h += '<h2 class="nv-h2">In welcher Situation musst du gerade navigieren?</h2>';
     h += '<p class="nv-lead">Such dir die Situation aus, die deinem Alltag gerade am nächsten kommt.</p>';
     h += '<div class="nv-sits">' + S.map(function(s){
-      return '<button class="nv-sit" data-sit="'+s.id+'"><span class="nv-sit-n">Situation 0'+(S.indexOf(s)+1)+'</span><span class="nv-sit-q">„'+s.full+'“</span><span class="nv-sit-go">Weiter <span class="arw">→</span></span></button>';
+      return '<button class="nv-sit" data-sit="'+s.id+'" data-umami-event="navigator_situation_wahl" data-umami-event-situation="'+s.id+'"><span class="nv-sit-n">Situation 0'+(S.indexOf(s)+1)+'</span><span class="nv-sit-q">„'+s.full+'“</span><span class="nv-sit-go">Weiter <span class="arw">→</span></span></button>';
     }).join('') + '</div>';
-    h += '<button class="nv-all" id="nv-all">Alle 19 Themen anzeigen</button>';
+    h += '<button class="nv-all" id="nv-all" data-umami-event="navigator_alle_themen_oeffnen">Alle 19 Themen anzeigen</button>';
     h += suggestHtml('situation', 'Deine Situation ist nicht dabei?', 'Kurz beschreiben, welche Situation dir fehlt …');
     return h;
   }
@@ -524,7 +524,7 @@ window.NAV = (function(){
     h += '<p class="nv-lead">Was davon trifft es am ehesten?</p><div class="nv-list">';
     h += entriesOf(state.sit).map(function(e){
       var c = byId(e.challengeId);
-      return '<button class="nv-ch" data-ch="'+e.challengeId+'" data-q="'+labelOf(e).replace(/"/g,'&quot;')+'">'+
+      return '<button class="nv-ch" data-ch="'+e.challengeId+'" data-q="'+labelOf(e).replace(/"/g,'&quot;')+'" data-umami-event="navigator_herausforderung_wahl" data-umami-event-challenge="'+e.challengeId+'" data-umami-event-quelle="liste">'+
         (c.tag?'<span class="nv-ch-t">'+c.tag+'</span>':'')+'<span class="nv-ch-q">'+labelOf(e)+'</span><span class="nv-ch-go">Maßnahmen ansehen <span class="arw">→</span></span></button>';
     }).join('');
     h += '</div>';
@@ -550,7 +550,7 @@ window.NAV = (function(){
       }).join('');
       h += suggestHtml('massnahme', 'Fehlt dir eine passende Lösung?', 'Kurz beschreiben, welche Maßnahme dir hier fehlt …');
     }
-    h += '<div class="nv-foot"><button class="nv-restart" id="nv-restart">Nochmal von vorn</button>';
+    h += '<div class="nv-foot"><button class="nv-restart" id="nv-restart" data-umami-event="navigator_neustart_klick">Nochmal von vorn</button>';
     h += '<p class="nv-foot-note">Passt nichts davon? <a class="nv-link" href="'+kontaktLink()+'" data-umami-event="navigator_kontakt_klick" data-umami-event-ort="fuss">Schreib uns kurz.</a></p></div>';
     return h;
   }
@@ -566,7 +566,7 @@ window.NAV = (function(){
      jederzeit wegklickbare Leiste unten — taucht frühestens nach 25s auf
      Schritt 3 auf (nicht beim Sonderfall Kontakt) und höchstens 1x pro
      Sitzung (sessionStorage), damit's nicht nervt. */
-  var nudgeTimer = null, nudgeShown = false;
+  var nudgeTimer = null, nudgeShown = false, nudgeAnswered = false;
   function scheduleNudge(){
     clearTimeout(nudgeTimer);
     if (nudgeShown) return;
@@ -590,6 +590,7 @@ window.NAV = (function(){
       '</div>';
     document.body.appendChild(bar);
     requestAnimationFrame(function(){ bar.classList.add('is-in'); });
+    if (window.umami) window.umami.track('navigator_nudge_angezeigt');
   }
   function removeNudge(){
     var bar = document.getElementById('nv-nudge');
@@ -600,6 +601,7 @@ window.NAV = (function(){
   function handleNudge(val){
     var bar = document.getElementById('nv-nudge');
     if (!bar) return;
+    nudgeAnswered = true;
     if (window.umami) window.umami.track('navigator_nudge_antwort', {antwort: val});
     if (val === 'yes') {
       bar.innerHTML = '<button type="button" class="nv-nudge-close" aria-label="Schließen">✕</button>'+
@@ -616,7 +618,7 @@ window.NAV = (function(){
 
   function buildOverlay(){
     document.getElementById('nv-ov-list').innerHTML = C.map(function(c){
-      return '<button class="nv-ch" data-ch="'+c.id+'" data-all="1">'+
+      return '<button class="nv-ch" data-ch="'+c.id+'" data-all="1" data-umami-event="navigator_herausforderung_wahl" data-umami-event-challenge="'+c.id+'" data-umami-event-quelle="alle">'+
         (c.tag?'<span class="nv-ch-t">'+c.tag+'</span>':'')+'<span class="nv-ch-q">„'+c.text+'“</span><span class="nv-ch-go">Maßnahmen ansehen <span class="arw">→</span></span></button>';
     }).join('');
   }
@@ -628,6 +630,7 @@ window.NAV = (function(){
       var sBox = t.closest('.nv-suggest'), sForm = sBox.querySelector('.nv-suggest-form');
       sForm.hidden = false; t.hidden = true;
       sForm.querySelector('.nv-suggest-text').focus();
+      if (window.umami) window.umami.track('navigator_vorschlag_oeffnen', {step: sBox.dataset.step});
       return;
     }
     if (t.classList.contains('nv-suggest-cancel')) {
@@ -636,7 +639,11 @@ window.NAV = (function(){
       cBox.querySelector('.nv-suggest-toggle').hidden = false;
       return;
     }
-    if (t.classList.contains('nv-nudge-close')) { removeNudge(); return; }
+    if (t.classList.contains('nv-nudge-close')) {
+      if (!nudgeAnswered && window.umami) window.umami.track('navigator_nudge_geschlossen');
+      removeNudge();
+      return;
+    }
     if (t.dataset.nudge) { handleNudge(t.dataset.nudge); return; }
     if (t.id === 'nv-all') { buildOverlay(); ov.classList.add('is-open'); document.body.style.overflow = 'hidden'; return; }
     if (t.id === 'nv-ov-close') { closeOv(); return; }
@@ -694,6 +701,7 @@ window.NAV = (function(){
         }, 2600);
       })
       .catch(function(err){
+        if (window.umami) window.umami.track('navigator_vorschlag_fehler', {step: box.dataset.step});
         msgEl.textContent = err.message + ' Alternativ: paul@ich-leaps.at';
         msgEl.className = 'nv-suggest-msg is-err';
         msgEl.hidden = false;
