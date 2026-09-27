@@ -96,7 +96,7 @@ window.LEAP_INTEGRATIONS = {
   };
 
   /* ---------- Zeitplanr: Termin/Gespräch anfragen ---------- */
-  var topicLabels = { moderation:'Moderation oder Coaching', coaching:'Moderation oder Coaching', allgemein:'Allgemeine Frage', workshop:'Workshop-Kit', programm:'Programm', unternehmen:'Unternehmen / Bundle / Lizenz' };
+  var topicLabels = { moderation:'Moderation oder Coaching', coaching:'Moderation oder Coaching', begleitung:'Moderation oder Coaching', allgemein:'Allgemeine Frage', workshop:'Workshop-Kit', programm:'Programm', unternehmen:'Unternehmen / Bundle / Lizenz' };
 
   function preselectTopic(context){
     var sel = document.getElementById('ctopic');

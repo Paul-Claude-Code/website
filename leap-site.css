@@ -220,6 +220,9 @@ nav{position:sticky;top:0;z-index:100;background:var(--black);border-bottom:1px 
 .pricing-sub{font-size:16px;font-weight:200;color:var(--gray);margin-bottom:38px;}
 .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
 @media(max-width:640px){.price-grid{grid-template-columns:1fr;}}
+/* 4 Karten (3 Kit-Stufen + unabhängiges Coaching): 2x2 statt eng an eng */
+.price-grid.cols-4{grid-template-columns:repeat(2,1fr);}
+@media(max-width:900px){.price-grid.cols-4{grid-template-columns:1fr;}}
 .pcard{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:30px 24px;display:flex;flex-direction:column;position:relative;}
 .pcard.feat{border:2px solid var(--lime);background:var(--black);}
 .feat-badge{position:absolute;top:-11px;left:24px;display:inline-block;font-size:9px;padding:4px 12px;border-radius:3px;background:var(--lime);color:var(--black);font-weight:700;text-transform:uppercase;letter-spacing:0.14em;}
@@ -435,6 +438,8 @@ footer p a:hover{color:var(--lime);}
 .addons-sub{font-size:16px;font-weight:200;color:rgba(255,255,255,0.45);margin-bottom:40px;}
 .addons-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 @media(max-width:680px){.addons-grid{grid-template-columns:1fr;}}
+.addons-grid.cols-3{grid-template-columns:repeat(3,1fr);}
+@media(max-width:900px){.addons-grid.cols-3{grid-template-columns:1fr;}}
 .addon{background:var(--card-dk);border:1px solid var(--bd-dk2);border-radius:6px;padding:30px;}
 .addon-price{font-family:var(--pp);font-size:30px;font-weight:700;color:var(--lime);line-height:1;margin-bottom:8px;}
 .addon-name{font-size:16px;font-weight:700;color:var(--white);margin-bottom:8px;}
