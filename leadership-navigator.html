@@ -425,9 +425,10 @@ window.NAV = (function(){
   /* Baut einen Kontakt-Link, der die Herausforderung schon in die Nachricht
      vorausfüllt — damit man beim Kontakt nicht nochmal von vorn erzählen
      muss, was man dem Navigator schon gesagt hat. */
-  function kontaktLink(){
+  function kontaktLink(extra){
     var lines = [];
     if (state.quote) lines.push('Meine Herausforderung: ' + state.quote);
+    if (extra) lines.push('', extra);
     lines.push('', '(ausgefüllt über den Leadership-Navigator)');
     var msg = encodeURIComponent(lines.join('\n'));
     return 'kontakt.html?thema=coaching&programm=leadership-navigator&msg=' + msg;
@@ -556,8 +557,10 @@ window.NAV = (function(){
     if (window.umami) window.umami.track('navigator_nudge_antwort', {antwort: val});
     if (val === 'yes') {
       bar.innerHTML = '<button type="button" class="nv-nudge-close" aria-label="Schließen">✕</button>'+
-        '<p class="nv-nudge-q" style="margin-bottom:0;">Gut — viel Erfolg damit!</p>';
-      setTimeout(removeNudge, 2600);
+        '<p class="nv-nudge-q">Gut — viel Erfolg damit! Lass uns gern wissen, wie es gelaufen ist.</p>'+
+        '<div class="nv-nudge-btns">'+
+          '<a class="nv-nudge-btn is-cta" href="'+kontaktLink('Kurzes Update: So ist es gelaufen: ')+'" data-umami-event="navigator_kontakt_klick" data-umami-event-ort="nudge-erfolg">Kurz Rückmeldung geben <span class="arw">→</span></a>'+
+        '</div>';
     } else {
       bar.innerHTML = '<button type="button" class="nv-nudge-close" aria-label="Schließen">✕</button>'+
         '<p class="nv-nudge-q">Manchmal hilft ein kurzes Gespräch mehr als der nächste gute Vorsatz.</p>'+
