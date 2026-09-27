@@ -144,7 +144,7 @@ nav.scrolled+.nv-rail{top:52px;}
 
 /* Dezenter Reflexions-Impuls: taucht nach einer Weile auf Schritt 3 auf,
    nie als Modal, jederzeit wegklickbar, max. 1x pro Sitzung (sessionStorage) */
-.nv-nudge{position:fixed;left:16px;right:16px;bottom:-140px;z-index:150;max-width:440px;margin:0 auto;background:var(--black);border:1px solid var(--bd-dk2);border-radius:8px;box-shadow:0 20px 50px rgba(0,0,0,0.35);padding:20px 22px;transition:bottom .4s cubic-bezier(.2,.8,.2,1);}
+.nv-nudge{position:fixed;left:16px;right:16px;bottom:-140px;z-index:150;max-width:440px;margin:0 auto;background:var(--black);border:1px solid var(--bd-dk2);border-top:3px solid var(--lime);border-radius:8px;box-shadow:0 20px 50px rgba(0,0,0,0.4),0 6px 24px rgba(233,255,112,0.18);padding:22px 22px 20px;transition:bottom .4s cubic-bezier(.2,.8,.2,1);}
 .nv-nudge.is-in{bottom:20px;}
 .nv-nudge-close{position:absolute;top:8px;right:10px;background:none;border:none;color:rgba(255,255,255,0.4);font-size:15px;cursor:pointer;line-height:1;padding:4px;}
 .nv-nudge-close:hover{color:var(--white);}
@@ -154,6 +154,8 @@ nav.scrolled+.nv-rail{top:52px;}
 .nv-nudge-btn:hover{border-color:var(--lime);color:var(--lime);}
 .nv-nudge-btn.is-cta{background:var(--lime);border-color:var(--lime);color:var(--black);}
 .nv-nudge-btn.is-cta:hover{filter:brightness(.95);color:var(--black);}
+.nv-nudge-btn.is-yes{background:var(--lime);border-color:var(--lime);color:var(--black);}
+.nv-nudge-btn.is-yes:hover{filter:brightness(.95);color:var(--black);}
 @media(max-width:520px){.nv-nudge{left:12px;right:12px;padding:18px 20px;}}
 </style>
 </head>
@@ -296,7 +298,7 @@ window.NAV = (function(){
     { id:2, tag:"Aneinander vorbei", text:"Wir reden aneinander vorbei.",
       tier1:{ name:"Die 20-Sekunden-Probe", body:"Bevor du im nächsten Gespräch antwortest, fass in einem Satz zusammen, was die andere Person gesagt hat — und frag: „Hab ich das richtig verstanden?“", followup:"Wie oft war deine Zusammenfassung nicht ganz das, was gemeint war?" },
       tier2:{ name:"Ein Missverständnis offen ansprechen", body:"„Ich glaube, wir haben da gerade unterschiedliche Bilder — lass uns das kurz abgleichen.“ Gezielt bei der nächsten Unstimmigkeit." },
-      tier3:{ kind:"team-workshop", label:"Kit „Kommunikation & Klarheit“", url:"workshop-kits.html", note:"Wenn Missverständnisse nicht die Ausnahme, sondern der Normalfall sind, ist das kein Trainingsthema einer einzelnen Person mehr. Ein Workshop mit deinem Team hilft hier, weil ihr gemeinsam neue Gesprächsgewohnheiten braucht — die entstehen nicht durch eine Übung für dich allein." } },
+      tier3:{ kind:"team-workshop", label:"Kit „Feedback & Kultur“", url:"kit-feedback.html", note:"Wenn Missverständnisse nicht die Ausnahme, sondern der Normalfall sind, ist das kein Trainingsthema einer einzelnen Person mehr. Ein Workshop mit deinem Team hilft hier, weil ihr gemeinsam neue Gesprächs- und Feedback-Gewohnheiten braucht — die entstehen nicht durch eine Übung für dich allein." } },
     { id:3, tag:"Blinder Fleck", text:"Ich sehe die Situation anders als mein Team — und merke es zu spät.",
       tier1:{ name:"Der Stuhlwechsel", body:"Setz dich gedanklich auf den Platz von jemandem aus deinem Team. Was ist für diese Person gerade das größte Problem? Was würde sie über deine letzte Entscheidung sagen?" },
       tier2:{ name:"Direkt nachfragen", body:"Frag eine Person aus deinem Team genau das — und widersteh dem Drang, die Antwort sofort zu kommentieren." },
@@ -336,7 +338,7 @@ window.NAV = (function(){
       tier1:{ name:"Die unbewusste Angewohnheit", body:"Welche Führungsangewohnheit hast du übernommen, ohne sie je bewusst gewählt zu haben? Eine, die du diese Woche einmal bewusst weglässt." },
       tier2:{ name:"Frage statt Reflex", body:"Bei der nächsten Situation, in der du reflexhaft eine Antwort geben würdest, stattdessen eine Frage stellen." },
       tier3:{ kind:"personal-training", label:"Programm „Führen durch Fragen statt durch Antworten“", url:"programm-coaching-leader.html", note:"Wenn der alte Reflex immer wieder gewinnt, hilft geführte Praxis mehr als der nächste gute Vorsatz. Ein Training für dich als Führungskraft hilft hier, weil das eine persönliche Gewohnheit ist, die du am besten in Begleitung durchbrichst — nicht im Team-Workshop." } },
-    { id:9, text:"Gestern noch Kollege, heute der Chef.",
+    { id:9, tag:"Rollenwechsel", text:"Gestern noch Kollege, heute der Chef.",
       tier1:{ name:"Das ehrliche Gespräch zu zweit", body:"Sprich mit einer Person aus deinem früheren Team offen an, dass sich die Beziehung jetzt verändert — frag: „Was hat sich für dich dadurch schon verändert?“", followup:"Was hast du bisher vermieden anzusprechen, weil es unangenehm gewesen wäre?" },
       tier2:{ name:"Neue Erwartungen aussprechen", body:"Sag im Team einmal klar, was sich durch deine neue Rolle ändert und was gleich bleibt — statt es stillschweigend vorauszusetzen." },
       tier3:{ kind:null, note:"Diese Übergangsphase meistert man selten allein. Rede mit anderen Führungskräften, die den gleichen Wechsel schon hinter sich haben — oder hol dir für die ersten Monate ein Coaching, das genau diesen Rollenwechsel begleitet." } },
@@ -365,10 +367,7 @@ window.NAV = (function(){
         { name:"Können- oder Wollen-Frage klären", body:"Vor dem eigentlichen Gespräch für dich klären: Ist das ein Können- oder ein Wollen-Problem? Die Antwort verändert, was du im Gespräch fragst." },
         { name:"Das Zwischengespräch", body:"Nicht gleich das große Kritikgespräch ansetzen, sondern erstmal kurz nachfragen: „Ist bei dir gerade was los, das die letzten Wochen mit reinspielt?“ Manchmal reicht das schon, um die Ursache zu finden." }
       ],
-      tier3:[
-        { kind:null, note:"Ein eigenes Training zum Thema Leistungsgespräche wäre hier vermutlich am passendsten — konkret üben, wie du das nächste schwierige Gespräch aufbaust, bevor du es wirklich führst." },
-        { kind:null, note:"Manchmal hilft schon ein Gespräch mit jemandem, der solche Situationen öfter hat — frag im Kollegenkreis, wer das gut kann, und hol dir 30 Minuten von der Person." }
-      ] },
+      tier3:{ kind:null, note:"Ein eigenes Training zum Thema Leistungsgespräche hilft hier oft mehr als der nächste Anlauf allein — konkret üben, wie du das nächste schwierige Gespräch aufbaust, bevor du es wirklich führst. Frag notfalls auch im Kollegenkreis, wer das gut kann, und hol dir 30 Minuten von der Person." } },
     { id:15, tag:"Kritik äußern", text:"Ich muss Kritik äußern, ohne zu demotivieren.",
       tier1:{ name:"Beobachtung statt Urteil", body:"Formuliere die Kritik als Beobachtung, nicht als Urteil: „Mir ist aufgefallen, dass …“ statt „Du machst das falsch.“" },
       tier2:{ name:"Frage statt Vorgabe", body:"Nach der Kritik eine echte Frage stellen — „Wie siehst du das?“ — statt gleich die Lösung vorzugeben." },
@@ -585,7 +584,7 @@ window.NAV = (function(){
     bar.innerHTML = '<button type="button" class="nv-nudge-close" aria-label="Schließen">✕</button>'+
       '<p class="nv-nudge-q">Ehrlich: Glaubst du, du probierst eine dieser Ideen diese Woche wirklich aus?</p>'+
       '<div class="nv-nudge-btns">'+
-        '<button type="button" class="nv-nudge-btn" data-nudge="yes">Ja, klar</button>'+
+        '<button type="button" class="nv-nudge-btn is-yes" data-nudge="yes">Ja, klar</button>'+
         '<button type="button" class="nv-nudge-btn" data-nudge="no">Eher nicht</button>'+
       '</div>';
     document.body.appendChild(bar);
