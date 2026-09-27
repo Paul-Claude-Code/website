@@ -44,8 +44,9 @@ nav.scrolled+.nv-rail{top:52px;}
 .nv-h2{font-family:var(--pp);font-size:clamp(24px,3vw,36px);font-weight:700;letter-spacing:-0.02em;line-height:1.12;color:var(--black);margin-bottom:12px;}
 .nv-lead{font-size:16px;font-weight:400;color:var(--ink);line-height:1.8;max-width:58ch;margin-bottom:36px;}
 /* Schritt 1 — Herausforderungen, gegliedert nach Situation */
-.nv-group+.nv-group{margin-top:40px;padding-top:36px;border-top:1px solid var(--border);}
-.nv-group-h{font-family:var(--pp);font-size:15px;font-weight:700;letter-spacing:-0.005em;color:var(--gray);margin:0 0 16px;}
+.nv-group+.nv-group{margin-top:52px;padding-top:44px;border-top:1px solid var(--border);}
+.nv-group-h{display:flex;align-items:center;gap:14px;font-family:var(--pp);font-size:clamp(19px,2.4vw,23px);font-weight:700;letter-spacing:-0.01em;color:var(--black);margin:0 0 20px;}
+.nv-group-h::before{content:'';flex:0 0 auto;width:28px;height:2px;background:var(--lime);}
 /* Kontext-Leiste — nur noch für den seltenen Zusatzhinweis "Worum es geht"
    (Situation/Herausforderung stehen jetzt im Rail-Breadcrumb oben) */
 .nv-ctx{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--lime);border-radius:0 6px 6px 0;margin-bottom:44px;}
