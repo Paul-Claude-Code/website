@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Leadership-Navigator – Wo drückt's gerade? | LEAP</title>
-<meta name="description" content="Wähl deine Situation, dann deine Herausforderung: Der LEAP Leadership-Navigator zeigt dir zu 19 Führungssituationen drei Ebenen an Maßnahmen — von der Übung für heute bis zur Arbeit am System.">
+<meta name="description" content="Wähl deine Herausforderung: Der LEAP Leadership-Navigator zeigt dir zu 19 Führungssituationen drei Ebenen an Maßnahmen — von der Übung für heute bis zur Arbeit am System.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="canonical" href="https://www.ich-leaps.at/leadership-navigator.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Leadership-Navigator – Wo drückt's gerade?">
-<meta property="og:description" content="Wähl deine Situation, dann deine Herausforderung — und schau dir an, was dir konkret helfen könnte.">
+<meta property="og:description" content="Wähl deine Herausforderung — und schau dir an, was dir konkret helfen könnte.">
 <meta property="og:image" content="https://www.ich-leaps.at/img/og-default.jpg">
 <meta property="og:url" content="https://www.ich-leaps.at/leadership-navigator.html">
 <meta property="og:locale" content="de_AT">
@@ -43,17 +43,9 @@ nav.scrolled+.nv-rail{top:52px;}
 /* headings */
 .nv-h2{font-family:var(--pp);font-size:clamp(24px,3vw,36px);font-weight:700;letter-spacing:-0.02em;line-height:1.12;color:var(--black);margin-bottom:12px;}
 .nv-lead{font-size:16px;font-weight:400;color:var(--ink);line-height:1.8;max-width:58ch;margin-bottom:36px;}
-/* Schritt 1 — Situationskarten */
-.nv-sits{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-@media(max-width:760px){.nv-sits{grid-template-columns:1fr;}}
-.nv-sit{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:28px 26px 26px 29px;position:relative;overflow:hidden;text-align:left;font-family:var(--pp);cursor:pointer;display:flex;flex-direction:column;gap:16px;transition:border-color .2s,box-shadow .3s ease,transform .3s cubic-bezier(.2,.7,.2,1);}
-.nv-sit::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--lime);}
-.nv-sit:hover,.nv-sit:focus-visible{border-color:var(--black);box-shadow:0 16px 38px rgba(0,0,0,0.08);transform:translateY(-5px);outline:none;}
-.nv-sit-q{font-family:var(--pp);font-size:19px;font-weight:700;line-height:1.3;letter-spacing:-0.015em;color:var(--black);}
-.nv-sit-go{margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:0.04em;color:var(--black);}
-.nv-sit:hover .nv-sit-go .arw{transform:translateX(5px);}
-.nv-all{display:inline-flex;align-items:center;gap:8px;margin-top:26px;padding:11px 18px;border-radius:4px;font-family:var(--pp);font-size:12px;font-weight:700;letter-spacing:0.04em;cursor:pointer;border:1.5px solid var(--black);color:var(--black);background:transparent;transition:all .2s;}
-.nv-all:hover{background:var(--black);color:var(--lime);}
+/* Schritt 1 — Herausforderungen, gegliedert nach Situation */
+.nv-group+.nv-group{margin-top:40px;padding-top:36px;border-top:1px solid var(--border);}
+.nv-group-h{font-family:var(--pp);font-size:15px;font-weight:700;letter-spacing:-0.005em;color:var(--gray);margin:0 0 16px;}
 /* Kontext-Leiste — nur noch für den seltenen Zusatzhinweis "Worum es geht"
    (Situation/Herausforderung stehen jetzt im Rail-Breadcrumb oben) */
 .nv-ctx{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--lime);border-radius:0 6px 6px 0;margin-bottom:44px;}
@@ -107,15 +99,6 @@ nav.scrolled+.nv-rail{top:52px;}
 .nv-restart{background:none;border:1.5px solid var(--black);border-radius:4px;padding:11px 18px;cursor:pointer;font-family:var(--pp);font-size:12px;font-weight:700;letter-spacing:0.04em;color:var(--black);transition:all .2s;}
 .nv-restart:hover{background:var(--black);color:var(--lime);}
 .nv-foot-note{font-size:14px;font-weight:200;color:var(--gray);margin:0;}
-/* Overlay „alle Themen“ */
-.nv-ov{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.6);overflow-y:auto;display:none;padding:40px 0;}
-.nv-ov.is-open{display:block;}
-.nv-ov-in{max-width:1120px;margin:0 auto;padding:40px 7vw 56px;background:var(--bg);border-top:3px solid var(--lime);border-radius:6px;}
-@media(min-width:1280px){.nv-ov-in{padding:40px 40px 56px;}}
-.nv-ov-head{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:32px;}
-.nv-ov-close{background:var(--white);border:1px solid var(--border);border-radius:4px;color:var(--ink);width:38px;height:38px;cursor:pointer;font-size:15px;font-family:var(--pp);flex-shrink:0;transition:border-color .2s,color .2s;}
-.nv-ov-close:hover{border-color:var(--black);color:var(--black);}
-
 /* "Fehlt was?" — leichter Vorschlags-Kasten direkt in jedem Schritt, statt
    Umweg über das große Kontaktformular */
 .nv-suggest{margin-top:28px;}
@@ -195,7 +178,7 @@ nav.scrolled+.nv-rail{top:52px;}
   <div class="wrap">
     <span class="chip">Leadership-Navigator</span>
     <h1>Wo drückt's gerade —<br><em>und was hilft konkret?</em></h1>
-    <p class="ov-hero-sub">Wähl deine Situation, dann deine Herausforderung — und schau dir an, was dir helfen könnte.</p>
+    <p class="ov-hero-sub">Wähl deine Herausforderung — und schau dir an, was dir helfen könnte.</p>
   </div>
 </header>
 
@@ -236,19 +219,14 @@ nav.scrolled+.nv-rail{top:52px;}
   </div>
 </footer>
 
-<div class="nv-ov" id="nv-ov"><div class="nv-ov-in">
-  <div class="nv-ov-head">
-    <div><span class="chip">Alle Themen</span><h2 class="nv-h2" style="margin:0;">19 Herausforderungen,<br>ohne Umweg.</h2></div>
-    <button class="nv-ov-close" id="nv-ov-close" aria-label="Schließen">✕</button>
-  </div>
-  <div class="nv-list" id="nv-ov-list"></div>
-</div></div>
-
 <script src="site.js"></script>
 <script>
 /* LEAP Leadership-Navigator — Inhalte & Fallunterscheidungen */
 window.NAV = (function(){
-  const categories = [
+  /* Gruppen — nur noch Gliederungs-Überschriften für die Herausforderungsliste
+     (keine eigene Auswahlstufe mehr). Jede der 19 Herausforderungen kommt genau
+     einmal vor, mit der lebendigsten der vorhandenen Formulierungen. */
+  const groups = [
     { id:"schweresgespraech",
       full:"Ich muss ein schweres Gespräch führen …",
       entries:[
@@ -264,15 +242,14 @@ window.NAV = (function(){
         { quote:"„Zwei Schlüsselpersonen fliegen sich ständig in die Haare.“", challengeId:13 },
         { quote:"„Keiner übernimmt Verantwortung – alles landet bei mir.“", challengeId:4 },
         { quote:"„Widerstand gegen die neue Strategie/Change.“", challengeId:7 },
-        { quote:"„Wir reden im Kreis, ohne je eine Entscheidung zu treffen.“", challengeId:4 },
-        { quote:"„Zwei Abteilungen schieben sich gegenseitig die Schuld zu.“", challengeId:19 }
+        { quote:"„Zwei Abteilungen schieben sich gegenseitig die Schuld zu.“", challengeId:19 },
+        { quote:"„Wir reden aneinander vorbei.“", challengeId:2 }
       ] },
     { id:"ertrinke",
       full:"Ich ertrinke in Arbeit …",
       entries:[
         { quote:"„Ich habe keine Zeit mehr für eigentliche Führungsaufgaben.“", challengeId:6 },
         { quote:"„Wie delegiere ich richtig, ohne die Kontrolle zu verlieren?“", challengeId:10 },
-        { quote:"„Ich fühle mich dauerhaft getrieben.“", challengeId:6 },
         { quote:"„Mein Team fragt bei jeder Kleinigkeit nach, statt selbst zu entscheiden.“", challengeId:11 },
         { quote:"„Ich weiß nicht mehr, wo ich zuerst ansetzen soll.“", challengeId:12 }
       ] },
@@ -281,14 +258,10 @@ window.NAV = (function(){
       entries:[
         { quote:"„Gestern noch Kollege, heute der Chef.“", challengeId:9 },
         { quote:"„Wie verschaffe ich mir Respekt, ohne autoritär zu sein?“", challengeId:17 },
-        { quote:"„Die ersten 90 Tage überstehen.“", challengeId:1 },
+        { quote:"„Mein Team sagt mir nicht, was wirklich los ist.“", challengeId:1 },
         { quote:"„Ich merke erst spät, dass ich die Lage anders einschätze als mein Team.“", challengeId:3 },
         { quote:"„Ich merke, dass ich unbewusst kopiere, wie ich selbst geführt wurde.“", challengeId:8 }
       ] }
-  ];
-  const altEntries = [
-    { id:"aufbau", full:"Ich baue gerade ein Team komplett neu auf.", related:[1,2,4] },
-    { id:"akut", full:"Bei uns ist gerade richtig viel los.", related:[2,5,4] }
   ];
   const challenges = [
     { id:1, tag:"Fehlendes Vertrauen", text:"Mein Team sagt mir nicht, was wirklich los ist.",
@@ -398,26 +371,21 @@ window.NAV = (function(){
     "team-programm": "Programm mit deinem Team",
     "personal-training": "Training für dich als Führungskraft"
   };
-  const situations = [...categories, ...altEntries];
-  return { situations, challenges, formatLabels };
+  return { groups, challenges, formatLabels };
 })();
 </script>
 <script>
 (function(){
-  var S = window.NAV.situations, C = window.NAV.challenges, FMT = window.NAV.formatLabels;
+  var G = window.NAV.groups, C = window.NAV.challenges, FMT = window.NAV.formatLabels;
   var LV = [
     { n:'01', label:"Sofort erlebbar" },
     { n:'02', label:"Im Alltag einfach anwendbar" },
     { n:'03', label:"Wenn's ans System geht" }
   ];
-  var state = { step:1, sit:null, ch:null, quote:null, viaAll:false };
+  var state = { step:1, ch:null, quote:null };
   var stage = document.getElementById('nv-stage'), rail = document.getElementById('nv-rail');
-  var ov = document.getElementById('nv-ov');
 
   function byId(id){ return C.filter(function(c){ return c.id === id; })[0]; }
-  function entriesOf(s){
-    return s.entries || s.related.map(function(id){ return { challengeId:id }; });
-  }
   function labelOf(entry){
     return entry.quote || '„' + byId(entry.challengeId).text + '“';
   }
@@ -431,23 +399,18 @@ window.NAV = (function(){
   function railHtml(){
     var segs = [];
     if (state.step === 1) {
-      segs.push('<span class="nv-crumb-cur">Situation wählen</span>');
+      segs.push('<span class="nv-crumb-cur">Herausforderung wählen</span>');
     } else {
-      if (state.sit) segs.push(crumbSeg(state.sit.full, 1, 'situation'));
-      if (state.step === 2) {
-        segs.push('<span class="nv-crumb-cur">Herausforderung wählen</span>');
-      } else {
-        segs.push(crumbSeg(strip(state.quote), state.viaAll || !state.sit ? 1 : 2, 'herausforderung'));
-        segs.push('<span class="nv-crumb-cur">Was hilft</span>');
-      }
+      segs.push(crumbSeg(strip(state.quote), 1, 'herausforderung'));
+      segs.push('<span class="nv-crumb-cur">Was hilft</span>');
     }
-    var pct = ((state.step - 1) / 2) * 100;
+    var pct = state.step === 1 ? 0 : 100;
     return '<div class="nv-crumb">' + segs.join('<span class="nv-crumb-sep">›</span>') + '</div>'+
       '<div class="nv-crumb-track"><div class="nv-crumb-fill" style="width:'+pct+'%"></div></div>';
   }
 
   function ctxHtml(){
-    if (state.step !== 3) return '';
+    if (state.step !== 2) return '';
     var c = byId(state.ch);
     if (strip(state.quote) === c.text) return '';
     return '<div class="nv-ctx"><div class="nv-ctx-row"><span class="nv-ctx-lab">Worum es geht</span><p class="nv-ctx-q">„'+c.text+'“</p></div></div>';
@@ -458,12 +421,11 @@ window.NAV = (function(){
     if (o.followup) h += '<p class="nv-refl">'+o.followup+'</p>';
     return h + '</article>';
   }
-  /* Baut einen Kontakt-Link, der Situation & Herausforderung schon in die
-     Nachricht vorausfüllt — damit man beim Kontakt nicht nochmal von vorn
-     erzählen muss, was man dem Navigator schon gesagt hat. */
+  /* Baut einen Kontakt-Link, der die Herausforderung schon in die Nachricht
+     vorausfüllt — damit man beim Kontakt nicht nochmal von vorn erzählen
+     muss, was man dem Navigator schon gesagt hat. */
   function kontaktLink(){
     var lines = [];
-    if (state.sit) lines.push('Meine Situation: „' + state.sit.full + '“');
     if (state.quote) lines.push('Meine Herausforderung: ' + state.quote);
     lines.push('', '(ausgefüllt über den Leadership-Navigator)');
     var msg = encodeURIComponent(lines.join('\n'));
@@ -486,10 +448,7 @@ window.NAV = (function(){
      Link, aufgeklappt ein Mini-Formular, das direkt (ohne Umweg über
      kontakt.html) an send-navigator-feedback.php geht. */
   function suggestContext(){
-    var lines = [];
-    if (state.sit) lines.push('Situation: ' + state.sit.full);
-    if (state.step === 3 && state.quote) lines.push('Herausforderung: ' + strip(state.quote));
-    return lines.join(' | ');
+    return state.step === 2 && state.quote ? 'Herausforderung: ' + strip(state.quote) : '';
   }
   function suggestHtml(step, label, placeholder){
     return '<div class="nv-suggest" data-step="'+step+'">'+
@@ -507,31 +466,23 @@ window.NAV = (function(){
   }
 
   function step1(){
-    var h = '<span class="chip">Schritt 01 · Situation</span>';
-    h += '<h2 class="nv-h2">In welcher Situation musst du gerade navigieren?</h2>';
-    h += '<p class="nv-lead">Such dir die Situation aus, die deinem Alltag gerade am nächsten kommt.</p>';
-    h += '<div class="nv-sits">' + S.map(function(s){
-      return '<button class="nv-sit" data-sit="'+s.id+'" data-umami-event="navigator_situation_wahl" data-umami-event-situation="'+s.id+'"><span class="nv-sit-q">„'+s.full+'“</span><span class="nv-sit-go">Weiter <span class="arw">→</span></span></button>';
-    }).join('') + '</div>';
-    h += '<button class="nv-all" id="nv-all" data-umami-event="navigator_alle_themen_oeffnen">Alle 19 Themen anzeigen</button>';
-    h += suggestHtml('situation', 'Deine Situation ist nicht dabei?', 'Kurz beschreiben, welche Situation dir fehlt …');
-    return h;
-  }
-
-  function step2(){
-    var h = ctxHtml() + '<span class="chip">Schritt 02 · Herausforderung</span><h2 class="nv-h2">Was ist deine Herausforderung?</h2>';
-    h += '<p class="nv-lead">Was davon trifft es am ehesten?</p><div class="nv-list">';
-    h += entriesOf(state.sit).map(function(e){
-      var c = byId(e.challengeId);
-      return '<button class="nv-ch" data-ch="'+e.challengeId+'" data-q="'+labelOf(e).replace(/"/g,'&quot;')+'" data-umami-event="navigator_herausforderung_wahl" data-umami-event-challenge="'+e.challengeId+'" data-umami-event-quelle="liste">'+
-        (c.tag?'<span class="nv-ch-t">'+c.tag+'</span>':'')+'<span class="nv-ch-q">'+labelOf(e)+'</span><span class="nv-ch-go">Maßnahmen ansehen <span class="arw">→</span></span></button>';
+    var h = '<span class="chip">Schritt 01 · Herausforderung</span>';
+    h += '<h2 class="nv-h2">Was ist gerade deine Herausforderung?</h2>';
+    h += '<p class="nv-lead">Wähl, was deinem Alltag am nächsten kommt — geordnet nach der Situation, in der es meistens auftaucht.</p>';
+    h += G.map(function(g){
+      var gh = '<div class="nv-group"><h3 class="nv-group-h">'+g.full+'</h3><div class="nv-list">';
+      gh += g.entries.map(function(e){
+        var c = byId(e.challengeId);
+        return '<button class="nv-ch" data-ch="'+e.challengeId+'" data-q="'+labelOf(e).replace(/"/g,'&quot;')+'" data-umami-event="navigator_herausforderung_wahl" data-umami-event-challenge="'+e.challengeId+'">'+
+          (c.tag?'<span class="nv-ch-t">'+c.tag+'</span>':'')+'<span class="nv-ch-q">'+labelOf(e)+'</span><span class="nv-ch-go">Maßnahmen ansehen <span class="arw">→</span></span></button>';
+      }).join('');
+      return gh + '</div></div>';
     }).join('');
-    h += '</div>';
     h += suggestHtml('herausforderung', 'Deine Herausforderung ist nicht dabei?', 'Kurz beschreiben, welche Herausforderung dir fehlt …');
     return h;
   }
 
-  function step3(){
+  function step2(){
     var c = byId(state.ch), h = ctxHtml();
     if (c.special === 'contact') {
       h += '<div class="nv-contact"><span class="nv-c-lab">Worum es geht</span>';
@@ -539,7 +490,7 @@ window.NAV = (function(){
       h += '<p class="nv-contact-b">'+c.note+'</p>';
       h += '<a class="btn btn-lime" href="'+kontaktLink()+'" data-umami-event="navigator_kontakt_klick" data-umami-event-ort="sonderfall">Direkt mit Paul sprechen <span class="arw">→</span></a></div>';
     } else {
-      h += '<span class="chip">Schritt 03 · Maßnahmen</span><h2 class="nv-h2">Was könnte dir helfen?</h2>';
+      h += '<span class="chip">Schritt 02 · Maßnahmen</span><h2 class="nv-h2">Was könnte dir helfen?</h2>';
       h += '<p class="nv-lead">Drei Ebenen — von der Übung für heute bis zur Arbeit am System.</p>';
       h += LV.map(function(lv, i){
         var opts = toArr(c['tier'+(i+1)]);
@@ -556,9 +507,9 @@ window.NAV = (function(){
 
   function render(){
     rail.innerHTML = railHtml();
-    stage.innerHTML = state.step === 1 ? step1() : state.step === 2 ? step2() : step3();
+    stage.innerHTML = state.step === 1 ? step1() : step2();
     window.scrollTo(0, 0);
-    if (state.step === 3) scheduleNudge(); else { clearTimeout(nudgeTimer); removeNudge(); }
+    if (state.step === 2) scheduleNudge(); else { clearTimeout(nudgeTimer); removeNudge(); }
   }
 
   /* Dezenter Reflexions-Impuls: kein Popup-Overlay, sondern eine schmale,
@@ -572,7 +523,7 @@ window.NAV = (function(){
     try { if (sessionStorage.getItem('nvNudgeSeen')) { nudgeShown = true; return; } } catch(err){}
     nudgeTimer = setTimeout(function(){
       var c = byId(state.ch);
-      if (state.step === 3 && c && c.special !== 'contact') showNudge();
+      if (state.step === 2 && c && c.special !== 'contact') showNudge();
     }, 25000);
   }
   function showNudge(){
@@ -615,15 +566,8 @@ window.NAV = (function(){
     }
   }
 
-  function buildOverlay(){
-    document.getElementById('nv-ov-list').innerHTML = C.map(function(c){
-      return '<button class="nv-ch" data-ch="'+c.id+'" data-all="1" data-umami-event="navigator_herausforderung_wahl" data-umami-event-challenge="'+c.id+'" data-umami-event-quelle="alle">'+
-        (c.tag?'<span class="nv-ch-t">'+c.tag+'</span>':'')+'<span class="nv-ch-q">„'+c.text+'“</span><span class="nv-ch-go">Maßnahmen ansehen <span class="arw">→</span></span></button>';
-    }).join('');
-  }
-
   document.addEventListener('click', function(e){
-    var t = e.target.closest('[data-sit],[data-ch],[data-goto],#nv-all,#nv-restart,#nv-ov-close,.nv-suggest-toggle,.nv-suggest-cancel,.nv-nudge-close,[data-nudge]');
+    var t = e.target.closest('[data-ch],[data-goto],#nv-restart,.nv-suggest-toggle,.nv-suggest-cancel,.nv-nudge-close,[data-nudge]');
     if (!t) return;
     if (t.classList.contains('nv-suggest-toggle')) {
       var sBox = t.closest('.nv-suggest'), sForm = sBox.querySelector('.nv-suggest-form');
@@ -644,29 +588,15 @@ window.NAV = (function(){
       return;
     }
     if (t.dataset.nudge) { handleNudge(t.dataset.nudge); return; }
-    if (t.id === 'nv-all') { buildOverlay(); ov.classList.add('is-open'); document.body.style.overflow = 'hidden'; return; }
-    if (t.id === 'nv-ov-close') { closeOv(); return; }
-    if (t.id === 'nv-restart') { state = { step:1, sit:null, ch:null, quote:null, viaAll:false }; render(); return; }
-    if (t.dataset.sit) {
-      state.sit = S.filter(function(s){ return s.id === t.dataset.sit; })[0];
-      state.ch = null; state.quote = null; state.viaAll = false; state.step = 2; render(); return;
-    }
+    if (t.id === 'nv-restart') { state = { step:1, ch:null, quote:null }; render(); return; }
     if (t.dataset.ch) {
       state.ch = Number(t.dataset.ch);
-      if (t.dataset.all) { state.sit = null; state.viaAll = true; state.quote = '„' + byId(state.ch).text + '“'; closeOv(); }
-      else { state.quote = t.dataset.q; }
-      state.step = 3; render(); return;
+      state.quote = t.dataset.q;
+      state.step = 2; render(); return;
     }
     var g = +t.dataset.goto;
-    if (g && g < state.step) {
-      state.step = g;
-      if (g === 1) { state.sit = null; state.ch = null; state.quote = null; state.viaAll = false; }
-      render();
-    }
+    if (g && g < state.step) { state.step = g; render(); }
   });
-
-  function closeOv(){ ov.classList.remove('is-open'); document.body.style.overflow = ''; }
-  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeOv(); });
 
   document.addEventListener('submit', function(e){
     var form = e.target.closest('.nv-suggest-form');
