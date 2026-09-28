@@ -44,7 +44,7 @@ window.LEAP_INTEGRATIONS = {
 (function(){
 
   /* ---------- Ablefy: Workshop-Kit kaufen ---------- */
-  var kitLabels = { vertrauen: 'Vertrauen aufbauen', rollen: 'Rollen & Verantwortung', feedback: 'Feedback-Kultur aufbauen' };
+  var kitLabels = { vertrauen: 'Vertrauen aufbauen', rollen: 'Rollen & Verantwortung', feedback: 'Feedback' };
   var transitTimer = null;
   var TRANSIT_DELAY_MS = 1800;
 

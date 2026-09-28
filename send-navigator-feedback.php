@@ -34,9 +34,8 @@ if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
 $config = leap_config();
 
 $stepLabels = [
-    'situation' => 'Situation fehlt (Schritt 1)',
-    'herausforderung' => 'Herausforderung fehlt (Schritt 2)',
-    'massnahme' => 'Maßnahme/Lösung fehlt (Schritt 3)',
+    'herausforderung' => 'Herausforderung fehlt (Schritt 1)',
+    'massnahme' => 'Maßnahme/Lösung fehlt (Schritt 2)',
 ];
 $stepLabel = $stepLabels[$step] ?? 'Leadership-Navigator';
 

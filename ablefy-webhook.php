@@ -114,7 +114,7 @@ if ($invoiceLink !== '') {
 $kitLabels2 = [
     'vertrauen' => 'Vertrauen aufbauen',
     'rollen' => 'Rollen & Verantwortung',
-    'feedback' => 'Feedback-Kultur aufbauen',
+    'feedback' => 'Feedback',
 ];
 $kitBoardTitles = [
     'vertrauen' => 'Vertrauen',

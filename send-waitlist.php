@@ -23,9 +23,10 @@ $email = leap_clean((string) ($data['email'] ?? ''), 200);
 $kit = leap_clean((string) ($data['kit'] ?? ''), 60);
 
 $kitLabels = [
-    'vertrauen' => 'Vertrauen aufbauen (€390)',
-    'rollen' => 'Rollen & Verantwortung (€290)',
-    'feedback' => 'Feedback-Kultur aufbauen (€290)',
+    'vertrauen' => 'Vertrauen aufbauen (€490)',
+    'rollen' => 'Rollen & Verantwortung (€390)',
+    'feedback' => 'Feedback (€390)',
+    'kommunikation' => 'Kommunikation & Klarheit (bald verfügbar, €390)',
 ];
 $kitLabel = $kitLabels[$kit] ?? ($kit !== '' ? $kit : 'Unbekanntes Kit');
 

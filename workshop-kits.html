@@ -145,7 +145,7 @@
         <a href="kit-feedback.html" class="kit-btn" data-umami-event="kit_view_click" data-umami-event-kit="feedback">Zum Kit →</a>
       </div>
 
-      <div class="kit-card fu" style="transition-delay:0.3s;">
+      <div class="kit-card fu" id="kit-kommunikation" style="transition-delay:0.3s;">
         <div class="kit-icon"><svg class="ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5h16v11H9l-4 4z"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="12" x2="13" y2="12"/></svg></div>
         <div class="kit-topic">Kommunikation</div>
         <h3>Kommunikation &amp; Klarheit</h3>
@@ -156,7 +156,7 @@
           <span class="kit-tag kit-tag-dark">4–20 Personen</span>
         </div>
         <div class="kit-outcome"><span class="ar">→</span>Jede Entscheidung ist danach klar — und alle wissen, was beschlossen wurde.</div>
-        <span class="kit-btn" style="cursor:default;opacity:0.45;border-style:dashed;">Bald verfügbar</span>
+        <button type="button" class="kit-btn" style="border-style:dashed;" onclick="openKommModal()" data-umami-event="kit_waitlist_open" data-umami-event-kit="kommunikation">Bald verfügbar — vormerken →</button>
       </div>
 
     </div>
@@ -230,6 +230,71 @@
   </div>
 </footer>
 
+<!-- Warteliste "Kommunikation & Klarheit" (noch nicht verfügbar) -->
+<div class="modal-ov" id="komm-modal" onclick="if(event.target===this) closeKommModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeKommModal()">×</button>
+    <div id="komm-mform">
+      <h3>Bald verfügbar</h3>
+      <p>Trag dich kurz ein — wir sagen dir Bescheid, sobald das Kit „Kommunikation &amp; Klarheit“ startet.</p>
+      <div class="mform">
+        <input type="text" id="komm-mname" placeholder="Dein Vorname" autocomplete="given-name">
+        <input type="email" id="komm-memail" placeholder="Deine E-Mail-Adresse" autocomplete="email">
+        <div style="position:absolute;left:-5000px;" aria-hidden="true"><label for="komm-mwebsite">Website</label><input type="text" id="komm-mwebsite" tabindex="-1" autocomplete="off"></div>
+        <p id="komm-mform-error" style="display:none;font-size:12px;font-weight:600;color:#b3261e;background:#fdecea;border:1px solid #f5c6c1;border-radius:4px;padding:8px 12px;"></p>
+        <button class="btn btn-lime" onclick="submitKommModal()" id="komm-mform-submit">Vormerken →</button>
+      </div>
+      <p class="mnote">Kein Spam. Nur eine Nachricht, sobald es losgeht.</p>
+    </div>
+    <div class="msuccess" id="komm-msuccess">
+      <div class="mcheck"><svg class="ico" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12l4 4 10-11"/></svg></div>
+      <h3>Alles klar!</h3>
+      <p>Wir melden uns, sobald das Kit startet.</p>
+    </div>
+  </div>
+</div>
+
 <script src="site.js"></script>
+<script>
+window.openKommModal = function(){
+  document.getElementById('komm-modal').classList.add('op');
+  document.body.style.overflow = 'hidden';
+  setTimeout(function(){ var n = document.getElementById('komm-mname'); if (n) n.focus(); }, 100);
+};
+window.closeKommModal = function(){
+  document.getElementById('komm-modal').classList.remove('op');
+  document.body.style.overflow = '';
+};
+window.submitKommModal = function(){
+  var n = document.getElementById('komm-mname').value.trim();
+  var em = document.getElementById('komm-memail').value.trim();
+  var errEl = document.getElementById('komm-mform-error');
+  errEl.style.display = 'none';
+  if (!n || !em) { errEl.textContent = 'Bitte Name und E-Mail eintragen.'; errEl.style.display = 'block'; return; }
+
+  var btn = document.getElementById('komm-mform-submit');
+  btn.disabled = true;
+  var originalLabel = btn.textContent;
+  btn.textContent = 'Wird gesendet …';
+
+  fetch('send-waitlist.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: n, email: em, kit: 'kommunikation', website: document.getElementById('komm-mwebsite').value })
+  }).then(function(res){ return res.json().then(function(data){ return {ok:res.ok, data:data}; }); })
+    .then(function(r){
+      if (!r.ok || !r.data.ok) { throw new Error((r.data && r.data.message) || 'Fehler beim Senden.'); }
+      document.getElementById('komm-mform').style.display = 'none';
+      document.getElementById('komm-msuccess').style.display = 'block';
+    })
+    .catch(function(err){
+      errEl.textContent = err.message;
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = originalLabel;
+    });
+};
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeKommModal(); });
+</script>
 </body>
 </html>
