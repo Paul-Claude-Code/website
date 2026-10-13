@@ -293,5 +293,37 @@
   var AUTOHIDE = Boolean(0);
 </script>
 <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+
+<!-- Echtes Erfolg/Fehler-Tracking fürs Brevo-Formular: der Submit-Button
+     trackt nur den Klick (auch bei Validierungsfehlern) — hier wird
+     zusätzlich getrackt, ob danach wirklich #success-message oder
+     #error-message sichtbar wird, egal wie Brevo das intern umschaltet. -->
+<script>
+(function(){
+  function isVisible(el){
+    if (!el) return false;
+    var cs = getComputedStyle(el);
+    return cs.display !== 'none' && cs.visibility !== 'hidden' && el.offsetParent !== null;
+  }
+  var success = document.getElementById('success-message');
+  var error = document.getElementById('error-message');
+  if (!success && !error) return;
+  var tracked = { success:false, error:false };
+  function check(){
+    if (!tracked.success && isVisible(success)) {
+      tracked.success = true;
+      if (window.umami) window.umami.track('teamcheck_erfolgreich');
+    }
+    if (!tracked.error && isVisible(error)) {
+      tracked.error = true;
+      if (window.umami) window.umami.track('teamcheck_fehler');
+    }
+  }
+  var watchTargets = [success, error, success && success.parentElement, error && error.parentElement].filter(Boolean);
+  var obs = new MutationObserver(check);
+  watchTargets.forEach(function(el){ obs.observe(el, { attributes:true, attributeFilter:['style','class'], subtree:true }); });
+  check();
+})();
+</script>
 </body>
 </html>
