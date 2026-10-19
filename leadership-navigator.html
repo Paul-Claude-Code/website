@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Leadership-Navigator – Wo drückt's gerade? | LEAP</title>
-<meta name="description" content="Wähl deine Herausforderung: Der LEAP Leadership-Navigator zeigt dir zu typischen Führungssituationen drei ehrliche Antworten, von der Übung für heute bis zur Frage, ob es ein Muster ist.">
+<title>Leadership-Navigator – Wo zwickt's gerade? | LEAP</title>
+<meta name="description" content="Wähl deine Herausforderung: Der LEAP Leadership-Navigator zeigt dir zu typischen Führungssituationen drei mögliche Lösungsansätze, von der Übung für heute bis zur Frage, ob es ein Muster ist.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.ich-leaps.at/leadership-navigator.html">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Leadership-Navigator – Wo drückt's gerade?">
-<meta property="og:description" content="19 Situationen, die fast jede Führungskraft kennt. Zu jeder gibt's drei Antworten, eine davon kannst du heute noch ausprobieren.">
+<meta property="og:title" content="Leadership-Navigator – Wo zwickt's gerade?">
+<meta property="og:description" content="19 Herausforderungen, die fast jede Führungskraft kennt. Zu jeder gibt's drei Ebenen an Lösungsansätzen, eine davon kannst du heute noch ausprobieren.">
 <meta property="og:image" content="https://www.ich-leaps.at/img/og-navigator.jpg">
 <meta property="og:url" content="https://www.ich-leaps.at/leadership-navigator.html">
 <meta property="og:locale" content="de_AT">
@@ -126,6 +126,9 @@ nav.scrolled+.nv-rail{top:52px;}
 .nv-tc-hint{margin:16px 0 0;padding-top:14px;border-top:1px solid var(--bd-dk3);font-size:12px;font-weight:400;color:rgba(255,255,255,0.4);line-height:1.6;}
 .nv-tc-hint a{color:var(--lime);border-bottom:1px solid rgba(233,255,112,0.4);}
 .nv-tc-hint a:hover{border-bottom-color:var(--lime);}
+.nv-tc-step1{margin:0 0 40px;padding:16px 20px;background:var(--bg);border-left:3px solid var(--lime);border-radius:0 4px 4px 0;font-size:14px;font-weight:400;color:var(--ink);line-height:1.6;max-width:58ch;}
+.nv-tc-step1 a{color:var(--black);font-weight:700;border-bottom:1.5px solid var(--lime);white-space:nowrap;}
+.nv-tc-step1 a:hover{background:rgba(233,255,112,0.3);}
 
 /* Dezenter Reflexions-Impuls: taucht nach einer Weile auf Schritt 3 auf,
    nie als Modal, jederzeit wegklickbar, max. 1x pro Sitzung (sessionStorage) */
@@ -183,8 +186,8 @@ nav.scrolled+.nv-rail{top:52px;}
 <header class="ov-hero nv-hero">
   <div class="wrap">
     <span class="chip">Leadership-Navigator</span>
-    <h1>Wo drückt's gerade,<br><em>und was hilft konkret?</em></h1>
-    <p class="ov-hero-sub">19 Situationen, die fast jede Führungskraft kennt. Zu jeder gibt's drei Antworten, eine davon kannst du heute noch ausprobieren.</p>
+    <h1>Wo zwickt's gerade,<br><em>und was hilft konkret?</em></h1>
+    <p class="ov-hero-sub">19 Herausforderungen, die fast jede Führungskraft kennt. Zu jeder gibt's drei Ebenen an Lösungsansätzen, eine davon kannst du heute noch ausprobieren.</p>
   </div>
 </header>
 
@@ -194,7 +197,7 @@ nav.scrolled+.nv-rail{top:52px;}
   <div class="wrap"><div id="nv-stage"></div></div>
 </main>
 
-<div class="wrap"><p class="nv-byline">Geschrieben von Paul und dem LEAP-Coach-Team. Die Übungen stützen sich u.&nbsp;a. auf Amy Edmondsons Forschung zu psychologischer Sicherheit und das Situation-Behavior-Impact-Modell des CCL.</p></div>
+<div class="wrap"><p class="nv-byline">Geschrieben von Paul und dem LEAP-Coach-Team. Die Übungen stützen sich auf Forschung, bewährte Modelle und unsere Erfahrung aus der Arbeit mit Führungskräften und Teams.</p></div>
 
 <!-- FOOTER -->
 <footer>
@@ -238,8 +241,8 @@ window.NAV = (function(){
     { id:"schweresgespraech",
       full:"Ich muss ein schweres Gespräch führen …",
       entries:[
-        { quote:"„Jemand im Team bringt seit Wochen nicht die Leistung, die drin wäre.“", challengeId:14 },
-        { quote:"„Ich muss Kritik anbringen und will niemanden damit runterziehen.“", challengeId:15 },
+        { quote:"„Jemand im Team bringt seit Wochen nicht die Leistung, die wir brauchen.“", challengeId:14 },
+        { quote:"„Ich muss Kritik anbringen, will aber niemanden damit runterziehen.“", challengeId:15 },
         { quote:"„Ich muss eine Kündigung oder Abmahnung vorbereiten.“", challengeId:16 },
         { quote:"„Feedback geben fühlt sich für mich nie leicht an.“", challengeId:5 },
         { quote:"„Ich schiebe ein Gespräch seit Wochen vor mir her.“", challengeId:18 }
@@ -250,7 +253,7 @@ window.NAV = (function(){
         { quote:"„Zwei Schlüsselpersonen fliegen sich ständig in die Haare.“", challengeId:13 },
         { quote:"„Niemand übernimmt Verantwortung, alles landet bei mir.“", challengeId:4 },
         { quote:"„Die neue Strategie wird bei uns eher ausgesessen als angepackt.“", challengeId:7 },
-        { quote:"„Zwei Abteilungen schieben sich gegenseitig die Schuld zu.“", challengeId:19 },
+        { quote:"„Zwei Abteilungen oder Teams schieben sich gegenseitig die Schuld zu.“", challengeId:19 },
         { quote:"„Wir reden aneinander vorbei.“", challengeId:2 }
       ] },
     { id:"ertrinke",
@@ -264,7 +267,7 @@ window.NAV = (function(){
     { id:"neuinderrolle",
       full:"Ich bin neu in der Rolle …",
       entries:[
-        { quote:"„Gestern noch im Team, heute führ ich es.“", challengeId:9 },
+        { quote:"„Gestern noch im Team, heute führe ich es.“", challengeId:9 },
         { quote:"„Ich will ernst genommen werden, ohne mit der Faust auf den Tisch zu hauen.“", challengeId:17 },
         { quote:"„Mein Team sagt mir nicht, was wirklich los ist.“", challengeId:1 },
         { quote:"„Ich merke erst spät, dass ich die Lage anders einschätze als mein Team.“", challengeId:3 },
@@ -275,39 +278,39 @@ window.NAV = (function(){
     { id:1, tag:"Fehlendes Vertrauen", text:"Mein Team sagt mir nicht, was wirklich los ist.",
       reply:"Im Meeting nicken alle, und in der Kaffeeküche hörst du dann, was Sache ist. Das heißt selten, dass es nichts zu sagen gäbe. Meistens hat das Team gelernt, dass es sich nicht auszahlt, und das kannst du ändern. Mit einer einzigen Frage wird's nur nicht gehen.",
       tier1:{ name:"Die ehrliche Frage", body:"Frag in der nächsten Runde: „Was hab ich diese Woche übersehen?“ Und dann sag nichts. Die Stille fühlt sich lang an, aber in diesen Sekunden überlegt gerade jemand, ob es sich auszahlt, etwas zu sagen.", followup:"Wie lange hast du die Stille ausgehalten?" },
-      tier2:{ name:"Nicht sofort kommentieren", body:"Wenn dir diese Woche jemand was Unbequemes sagt, antworte nur: „Danke, gut zu wissen.“ Und dann lass es so stehen. Dein Team merkt sich weniger, was gesagt wurde, als wie du reagiert hast." },
-      tier3:{ kind:"team-workshop", label:"Kit „Vertrauen aufbauen“", url:"kit-vertrauen.html", note:"Wenn trotzdem niemand was sagt, liegt's nicht an deiner Frage. Dann fehlt im Team das Vertrauen, offen zu reden, und das baut ihr nur gemeinsam auf. Mit dem Kit arbeitet ihr zweieinhalb Stunden als Team daran." } },
+      tier2:{ name:"Nicht sofort kommentieren", body:"Wenn dir diese Woche jemand was Unbequemes sagt, antworte nur: „Danke, gut zu wissen.“ Oder stell eine Verständnisfrage, zum Beispiel: „Magst du mir ein Beispiel geben?“ Aber rechtfertige dich nicht. Dein Team merkt sich weniger, was gesagt wurde, als wie du reagiert hast." },
+      tier3:{ kind:"team-workshop", label:"Kit „Vertrauen aufbauen“", url:"kit-vertrauen.html", tc:true, note:"Wenn trotzdem niemand was sagt, liegt's nicht an deiner Frage. Dann fehlt im Team das Vertrauen, offen zu reden, und das baut ihr nur gemeinsam auf. Mit dem Kit arbeitet ihr zweieinhalb Stunden als Team daran." } },
     { id:2, tag:"Aneinander vorbei", text:"Wir reden aneinander vorbei.",
       reply:"Passiert in fast jedem Team. Meistens meinen alle mit denselben Worten etwas anderes, und niemand merkt's, bis es schiefgeht.",
-      tier1:{ name:"Die 20-Sekunden-Probe", body:"Bevor du im nächsten Gespräch antwortest, fass in einem Satz zusammen, was die andere Person gesagt hat. Dann frag: „Hab ich das richtig verstanden?“ Dauert 20 Sekunden und erspart oft eine Woche Missverständnis.", followup:"Wie oft lagst du mit deiner Zusammenfassung daneben?" },
+      tier1:{ name:"Die 20-Sekunden-Probe", body:"Bevor du im nächsten Gespräch antwortest, fass in einem Satz zusammen, was die andere Person gesagt hat. Dann frag: „Hab ich das richtig verstanden?“ Dauert 20 Sekunden und erspart oft eine Woche Missverständnis.", followup:"Wie oft liegst du mit deiner Zusammenfassung ein bisschen daneben?" },
       tier2:{ name:"Ein Missverständnis offen ansprechen", body:"Bei der nächsten Unstimmigkeit sag's laut: „Ich glaub, wir reden gerade von zwei verschiedenen Dingen. Lass uns das kurz abgleichen.“ Klingt banal, nimmt aber sofort Druck raus." },
-      tier3:{ kind:"coming-soon", label:"Kit „Kommunikation & Klarheit“", url:"workshop-kits.html#kit-kommunikation", note:"Wenn ihr ständig aneinander vorbeiredet, reicht eine Übung nicht. Wir arbeiten gerade am Kit „Kommunikation & Klarheit“. Wenn du willst, sagen wir dir Bescheid, sobald es fertig ist." } },
+      tier3:{ kind:"coming-soon", label:"Kit „Kommunikation & Klarheit“", url:"workshop-kits.html#kit-kommunikation", tc:"Bis dahin: Der kostenlose Team-Check zeigt dir in 10 Minuten, wie es bei euch um Kommunikation, Rollen, Feedback und Vertrauen steht.", note:"Wenn ihr ständig aneinander vorbeiredet, reicht eine Übung nicht. Wir arbeiten gerade am Kit „Kommunikation & Klarheit“. Wenn du willst, sagen wir dir Bescheid, sobald es fertig ist." } },
     { id:3, tag:"Blinder Fleck", text:"Ich sehe die Situation anders als mein Team, und merke es zu spät.",
-      reply:"Das bringt die Rolle mit sich: Je mehr Verantwortung du hast, desto gefilterter kommen Infos bei dir an. Gut, dass es dir überhaupt auffällt.",
+      reply:"Das bringt die Rolle mit sich: Je mehr Verantwortung du hast, desto gefilterter kommen Infos bei dir an. Gut, dass es dir überhaupt auffällt!",
       tier1:{ name:"Der Stuhlwechsel", body:"Setz dich gedanklich auf den Platz von jemandem aus deinem Team. Was ist für diese Person gerade das größte Problem? Und was würde sie über deine letzte Entscheidung sagen, wenn du nicht im Raum wärst?" },
       tier2:{ name:"Direkt nachfragen", body:"Stell diese Woche einer Person aus dem Team diese zwei Fragen. Und hör dir die Antwort an, ohne gleich zu erklären, warum du's anders siehst." },
-      tier3:{ kind:null, coach:true, note:"Den eigenen blinden Fleck sieht man nicht, das liegt in der Natur der Sache. Frag zwei, drei Leute, die dich gut kennen, wie sie dich gerade erleben. Oder red mit jemandem von außen, zum Beispiel aus unserem Coach-Team. Mit etwas Abstand sieht man vieles schneller." } },
+      tier3:{ kind:null, coach:true, tc:"Willst du wissen, wie dein Team die Lage einschätzt? Der kostenlose Team-Check gibt dir in 10 Minuten ein erstes Bild.", note:"Den eigenen blinden Fleck sieht man nicht, das liegt in der Natur der Sache. Frag zwei, drei Leute, die dich gut kennen, wie sie dich gerade erleben. Oder red mit jemandem von außen, zum Beispiel aus unserem Coach-Team. Mit etwas Abstand sieht man vieles schneller." } },
     { id:4, tag:"Hängende Entscheidungen", text:"Entscheidungen bleiben ewig hängen.",
-      reply:"Das liegt oft gar nicht an Entscheidungsschwäche. Es ist schlicht unklar, wer entscheiden darf, und dann warten alle aufeinander.",
-      tier1:{ name:"Wer entscheidet das eigentlich?", body:"Nimm die letzte Entscheidung, die hängen geblieben ist. Schreib auf, wer sie laut Organigramm trifft. Dann, wer sie in Wirklichkeit trifft. Meistens stehen da zwei verschiedene Namen.", followup:"Was sagt dir der Unterschied über eure Rollen?" },
-      tier2:{ name:"Gleich am Anfang klären", body:"Sag bei der nächsten Entscheidung gleich am Anfang, wer sie trifft und bis wann. Nicht erst, wenn's schon kracht." },
-      tier3:{ kind:"team-workshop", label:"Kit „Rollen & Verantwortung“", url:"kit-rollen.html", note:"Wenn das bei jeder zweiten Entscheidung so läuft, ist das kein Zufall mehr. Wer wofür zuständig ist, klärt ihr am besten gemeinsam im Team, dann tragen es auch alle mit. Das Kit führt euch Schritt für Schritt durch." } },
+      reply:"Das liegt oft gar nicht an Entscheidungsschwäche. Es ist schlicht unklar, wer entscheiden darf und wer welche Rolle und Aufgaben hat. Dann warten plötzlich alle aufeinander.",
+      tier1:{ name:"Wer entscheidet das eigentlich?", body:"Nimm die letzte Entscheidung, die hängen geblieben ist. Schreib auf, wer sie laut eurer Rollenverteilung trifft. Dann, wer sie in Wirklichkeit entschieden hat. Vielleicht stehen da zwei verschiedene Namen, oder gar kein Name.", followup:"Wie klar sind eure Rollen?" },
+      tier2:{ name:"Gleich am Anfang klären", body:"Vereinbart im Team bei der nächsten Entscheidung gleich am Anfang, wer sie trifft und bis wann. Nicht erst, wenn's schon kracht." },
+      tier3:{ kind:"team-workshop", label:"Kit „Rollen & Verantwortung“", url:"kit-rollen.html", tc:true, note:"Wenn das bei jeder zweiten Entscheidung so läuft, ist das kein Zufall mehr. Wer wofür zuständig ist, klärt ihr am besten gemeinsam im Team, dann tragen es auch alle mit. Das Kit führt euch Schritt für Schritt durch." } },
     { id:5, tag:"Unangenehmes Feedback", text:"Feedback fühlt sich immer unangenehm an. Für beide Seiten.",
       reply:"Geht den meisten so. Unangenehm wird's vor allem dann, wenn Feedback nach Urteil klingt. Mit diesen zwei Formulierungen wird's leichter:",
       tier1:[
-        { name:"Situation – Verhalten – Wirkung", body:"Statt „Du kommst immer zu spät“: „Beim Meeting heute (Situation) bist du 10 Minuten nach Start gekommen (Verhalten), dadurch haben wir das Wichtigste zweimal erklärt (Wirkung).“ So bleibt's bei dem, was passiert ist, und die andere Person muss sich nicht verteidigen." },
-        { name:"Die Ich-Botschaft", body:"Statt „Du kommst immer zu spät“: „Wenn du später dazukommst, erklären wir vieles doppelt, und ich werd dabei ungeduldig. Mir wär wichtig, dass wir pünktlich gemeinsam starten.“ Du sprichst über deine Wahrnehmung, nicht über den Charakter der anderen Person." }
+        { name:"Situation – Verhalten – Wirkung", body:"Statt „Du kommst immer zu spät“: „Beim Meeting heute (Situation) bist du 10 Minuten nach Start gekommen (Verhalten), dadurch haben wir das Wichtigste zweimal erklären müssen und viel Zeit verloren (Wirkung).“ So könnt ihr gemeinsam an einer Lösung arbeiten, und die andere Person muss sich nicht verteidigen wie bei einem Urteil." },
+        { name:"Die Ich-Botschaft", body:"Statt „Du kommst immer zu spät“ probier's mal so: „Wenn du später dazukommst, erklären wir vieles doppelt, und ich werde dabei ungeduldig. Mir wär wichtig, dass wir pünktlich gemeinsam starten.“ So sprichst du über deine Wahrnehmung, nicht über den Charakter der anderen Person." }
       ],
       tier2:[
         { name:"Die aufgeschobene Rückmeldung", body:"Gibt's eine Rückmeldung, die du seit Tagen vor dir herschiebst? Gib sie diese Woche, mit einem der beiden Muster oben." },
         { name:"Das kurze Innehalten", body:"Vor dem nächsten Feedback kurz ehrlich zu dir sein: Geht's mir um die Sache, oder will ich Dampf ablassen? Wenn's nur Dampf ist, schlaf eine Nacht drüber." }
       ],
       tier3:[
-        { kind:"team-workshop", label:"Kit „Feedback“", url:"kit-feedback.html", note:"Wenn Feedback bei euch eher vermieden wird, hilft die beste Formulierung wenig. Feedback geben und annehmen muss das ganze Team üben, und dafür haben wir das Kit „Feedback“ gebaut." },
+        { kind:"team-workshop", label:"Kit „Feedback“", url:"kit-feedback.html", tc:true, note:"Wenn Feedback bei euch eher vermieden wird, hilft die beste Formulierung wenig. Feedback geben und annehmen muss das ganze Team üben, und dafür haben wir das Kit „Feedback“ gebaut." },
         { kind:null, note:"Wenn's noch nicht ums ganze Team geht: Probiert im nächsten Jour fixe eine kurze Feedback-Runde. Zehn Minuten reichen, dann siehst du, wo ihr steht." }
       ] },
     { id:6, tag:"Keine Zeit", text:"Ich habe schlicht keine Zeit, wirklich zu führen.",
-      reply:"Das hören wir ständig. Die Zeit fürs Führen kommt selten von allein, du musst sie dir irgendwo anders wegnehmen.",
+      reply:"Das hören wir sehr oft. Die Zeit fürs Führen kommt selten von allein, du musst sie dir irgendwo anders wegnehmen.",
       tier1:[
         { name:"Die Nicht-Tun-Liste", body:"Streich eine Sache von deiner Liste, die du diese Woche bewusst nicht machst. Die gewonnene Zeit nutzt du für ein echtes Gespräch mit jemandem aus dem Team." },
         { name:"Der Kalender-Test", body:"Schau dir die letzten zwei Wochen in deinem Kalender an: Wie viele Termine waren Führung, und wie viele reines Abarbeiten? Grob zählen reicht. Das Ergebnis ist oft ernüchternd." }
@@ -318,79 +321,79 @@ window.NAV = (function(){
       ],
       tier3:{ kind:null, coach:true, note:"Wenn das seit Wochen so geht, lass jemanden von außen auf deinen Kalender schauen. Mit Abstand sieht man schneller, wo die Zeit hingeht und was du abgeben könntest. In einem Coaching-Gespräch schaut sich jemand aus unserem Coach-Team das mit dir gemeinsam an." } },
     { id:7, tag:"Ausgesessene Veränderung", text:"Veränderung wird bei uns eher ausgesessen als angepackt.",
-      reply:"Aussitzen hat selten mit Faulheit zu tun. Meistens hat jemand das Gefühl, durch die Veränderung etwas zu verlieren, und sagt's nicht laut.",
-      tier1:{ name:"Die andere Frage", body:"Frag dich nicht „Warum sind alle dagegen?“. Frag: „Was würden wir verlieren, wenn sich das ändert?“ Wenn du das ehrlich beantwortest, findest du meistens den eigentlichen Grund." },
+      reply:"Aussitzen hat selten mit Faulheit zu tun. Meistens stecken Emotionen und Ängste dahinter, zum Beispiel das Gefühl, durch die Veränderung etwas zu verlieren. Nur sagt das selten jemand laut.",
+      tier1:{ name:"Die andere Frage", body:"Frag dich nicht „Warum sind manche dagegen?“. Frag lieber: „Was würden wir verlieren, wenn sich das ändert?“ oder „Wovor haben wir eigentlich Angst?“ Ehrlich beantwortet, führen diese Fragen meistens zum eigentlichen Grund." },
       tier2:{ name:"Offen im Team stellen", body:"Stell die Frage diese Woche im Team. Und beantworte sie nicht gleich selbst, auch wenn die Stille unangenehm wird." },
-      tier3:{ kind:"team-programm", label:"Programm „Bereit für die übernächste Veränderung?“", url:"programm-veraenderung.html", note:"Wenn bei euch jede Veränderung erst einmal ausgesessen wird, löst das kein einzelner Workshop. Das braucht Zeit und mehrere Anläufe. Unser Programm begleitet dein Team dabei über mehrere Monate." } },
+      tier3:{ kind:"coming-soon", label:"Programm „Systemisches Change Management“", url:"kontakt.html?thema=programm&programm=change-management", linkLabel:"Interesse melden", note:"Wenn bei euch jede Veränderung erst einmal ausgesessen wird, löst das kein einzelner Workshop. In unserem viertägigen Programm lernst du, Veränderung so zu begleiten, dass dein Team mitgeht. Es startet 2027, du kannst dich schon jetzt vormerken." } },
     { id:8, tag:"Alte Reflexe", text:"Ich führe, wie ich geführt wurde, auch wenn's nicht passt.",
       reply:"Ganz normal. Was man jahrelang selbst erlebt hat, sitzt tief. Dass es dir auffällt, ist schon der wichtigste Schritt, denn erst dann kannst du's dir aussuchen.",
-      tier1:{ name:"Die unbewusste Angewohnheit", body:"Such dir eine Angewohnheit, die du von deinen früheren Führungskräften übernommen hast, ohne je darüber nachzudenken. Lass sie diese Woche einmal bewusst weg und schau, was passiert." },
+      tier1:{ name:"Die unbewusste Angewohnheit", body:"Such dir eine Angewohnheit, die du von deinen früheren Führungskräften übernommen hast, ohne je darüber nachzudenken. Lass sie diese Woche einmal bewusst weg oder mach's anders, und schau, was passiert und wie es sich anfühlt." },
       tier2:{ name:"Die Gegenfrage", body:"Wenn dir das nächste Mal reflexartig eine Antwort rausrutschen will, stell stattdessen eine Frage. „Was meinst du?“ reicht schon." },
       tier3:{ kind:"personal-training", label:"Programm „Coaching as a Leader“", url:"programm-coaching-leader.html", note:"Alte Reflexe sind zäh. Wenn sie immer wieder gewinnen, hilft Üben mit Begleitung mehr als ein neuer Vorsatz. In „Coaching as a Leader“ probierst du neue Gewohnheiten direkt in deinem Führungsalltag aus und besprichst sie mit unserem Coach-Team." } },
-    { id:9, tag:"Rollenwechsel", text:"Gestern noch im Team, heute führ ich es.",
-      reply:"Einer der schwierigsten Wechsel, die wir kennen. Letzten Monat warst du noch mit allen auf ein Bier, jetzt führst du die Jahresgespräche. Die Beziehungen bleiben, die Rollen ändern sich, und darüber redet selten jemand offen.",
-      tier1:{ name:"Das ehrliche Gespräch zu zweit", body:"Setz dich mit jemandem aus deinem alten Team zusammen und sprich's an: Zwischen euch hat sich was verändert. Frag: „Was ist für dich seitdem anders?“", followup:"Was hast du bisher vermieden anzusprechen?" },
+    { id:9, tag:"Rollenwechsel", text:"Gestern noch im Team, heute führe ich es.",
+      reply:"Einer der schwierigsten Wechsel, die wir kennen. Letzten Monat warst du noch mit allen auf ein Bier und jetzt führst du die Jahresgespräche. Die Beziehungen bleiben, die Rollen ändern sich, und darüber redet selten jemand offen.",
+      tier1:{ name:"Das ehrliche Gespräch zu zweit", body:"Setz dich mit jemandem aus deinem Team zusammen und sprich's an: Zwischen euch hat sich was verändert. Frag: „Was ist für dich seitdem anders?“", followup:"Was hast du bisher vermieden anzusprechen?" },
       tier2:{ name:"Neue Erwartungen aussprechen", body:"Sag im Team einmal klar, was sich durch deine neue Rolle ändert und was gleich bleibt. Lieber einmal zu deutlich als stillschweigend vorausgesetzt." },
-      tier3:{ kind:null, coach:true, note:"Diesen Wechsel macht kaum jemand gern allein durch. Red mit Führungskräften, die das schon hinter sich haben. Oder hol dir für die ersten Monate Begleitung aus unserem Coach-Team." } },
+      tier3:{ kind:null, coach:true, tc:"Gerade am Anfang hilft ein ehrliches Bild, wo dein Team steht. Der kostenlose Team-Check zeigt es dir in 10 Minuten.", note:"Diesen Wechsel macht kaum jemand gern allein durch. Rede mit anderen Führungskräften, die das schon hinter sich haben. Oder hol dir für die ersten Monate Begleitung aus unserem Coach-Team." } },
     { id:10, tag:"Alles läuft über mich", text:"Ich könnte vieles abgeben, aber ich mach's dann doch selber.",
       reply:"Kennen wir gut. Selber machen geht oft schneller, zumindest kurzfristig. Auf Dauer landet dann aber alles bei dir.",
-      tier1:{ name:"Die Wer-noch-Frage", body:"Bevor du diese Woche etwas selbst erledigst, frag dich kurz: Wer aus dem Team könnte das genauso gut, oder zu 80 % so gut? 80 % reicht oft völlig.", followup:"Wie oft war die ehrliche Antwort „jemand anderer“?" },
+      tier1:{ name:"Die Wer-noch-Frage", body:"Bevor du diese Woche etwas selbst erledigst, frag dich kurz: Wer aus dem Team könnte das genauso gut, oder zu 70 bis 80 % so gut? 70 % reichen oft völlig.", followup:"Wie oft war die ehrliche Antwort „jemand anderer“?" },
       tier2:{ name:"Eine Aufgabe ganz abgeben", body:"Gib diese Woche eine wiederkehrende Aufgabe ganz ab. Macht einen fixen Zwischentermin aus, dann musst du zwischendurch nicht nachfragen, und die andere Person kann in Ruhe arbeiten." },
       tier3:{ kind:null, coach:true, note:"Erzähl jemandem, was du diese Woche abgegeben hast. Wer's laut sagt, zieht's eher durch. Und wenn du trotzdem immer wieder alles selbst machst, lohnt sich ein Coaching-Gespräch bei uns. Oft steckt hinter dem Festhalten etwas, das man gut besprechen kann." } },
     { id:11, tag:"Team wartet auf mich", text:"Mein Team wartet auf meine Entscheidung, obwohl es die selbst treffen könnte.",
       reply:"Das hat meistens zwei Seiten: Das Team hat sich ans Fragen gewöhnt, und du dich ans Antworten. Beides lässt sich wieder umgewöhnen.",
-      tier1:{ name:"Die Rückfrage umdrehen", body:"Wenn dich das nächste Mal jemand fragt „Was sollen wir tun?“, antworte mit: „Was würdest du vorschlagen?“ Und wenn der Vorschlag passt, lass ihn stehen, auch wenn du's anders gemacht hättest.", followup:"Wie oft war der Vorschlag genauso gut wie deiner?" },
-      tier2:{ name:"Eine Entscheidungsart abgeben", body:"Such dir eine Entscheidung aus, die regelmäßig bei dir landet, und sag dem Team: Die trefft ab jetzt ihr. Und dann misch dich nicht mehr ein." },
+      tier1:{ name:"Die Rückfrage umdrehen", body:"Wenn dich das nächste Mal jemand fragt „Was sollen wir tun?“, antworte mit einer Gegenfrage: „Was würdest du vorschlagen?“ oder „Gibt's schon Ideen?“ Und wenn der Vorschlag passt, lass ihn stehen, auch wenn du's anders gemacht hättest.", followup:"Wie oft war der Vorschlag ähnlich gut wie dein eigener?" },
+      tier2:{ name:"Eine Entscheidungsart abgeben", body:"Such dir eine Entscheidung aus, die regelmäßig bei dir landet, und übergib sie dem Team. Und dann misch dich nicht mehr ein." },
       tier3:{ kind:"personal-training", label:"Programm „Coaching as a Leader“", url:"programm-coaching-leader.html", note:"Wenn dein Team trotzdem lieber wartet, als selbst zu entscheiden, braucht's mehr als einen Trick. In „Coaching as a Leader“ übst du gezielt, öfter zu fragen statt zu antworten, und bekommst dabei Rückmeldung von unseren Coaches." } },
     { id:12, tag:"Alles gleich dringend", text:"Ich weiß nicht, wo ich zuerst ansetzen soll, gerade wirkt alles gleich dringend.",
       reply:"Wenn alles gleich dringend wirkt, hat meistens noch niemand entschieden, was zuerst kommt. Das passiert schnell, wenn man wochenlang nur auf Mails und Anrufe reagiert.",
       tier1:{ name:"Die Ein-Prioritäten-Regel", body:"Such dir eine einzige Sache aus, die du diese Woche sichtbar vorantreibst. Und sag im Team laut, was du dafür zurückstellst. Das entlastet dich und dein Team." },
       tier2:{ name:"Prioritäten offen abgleichen", body:"Frag dein Team: „Was würdet ihr zuerst angehen?“ Und vergleich das mit deiner Liste. Die Unterschiede sagen oft mehr als die Antworten selbst." },
       tier3:{ kind:null, coach:true, note:"Nimm dir eine Viertelstunde mit jemandem außerhalb des Tagesgeschäfts. Erzähl, was alles anliegt, und frag: Was würdest du zuerst angehen? Von außen sieht man das oft klarer. Das kann jemand aus einem anderen Bereich sein oder jemand aus unserem Coach-Team." } },
-    { id:13, tag:"Schwelende Konflikte", text:"In unserem Team schwelen Konflikte, aber niemand spricht sie offen an.",
+    { id:13, tag:"Schwelende Konflikte", text:"In unserem Team gibt es Spannungen und Konflikte, aber niemand spricht sie offen an.",
       reply:"Schwelende Konflikte gehen selten von allein weg. Du merkst sie an Kleinigkeiten, etwa daran, wer im Meeting neben wem sitzt oder bei wessen Beitrag die Augen verdreht werden. Je länger niemand was sagt, desto mehr kostet es das ganze Team.",
-      tier1:{ name:"Das direkte Ansprechen", body:"Sprich die Spannung mit jeder der beiden Personen einzeln an, unter vier Augen: „Ich hab das Gefühl, da hakt's gerade zwischen euch. Stimmt das?“ Und dann hör einfach zu." },
+      tier1:{ name:"Das direkte Ansprechen", body:"Sprich die Spannung mit jeder der Personen einzeln an, unter vier Augen: „Ich hab das Gefühl, da hakt's gerade zwischen euch. Stimmt das?“ Und dann hör einfach zu." },
       tier2:{ name:"Ein klärendes Gespräch ansetzen", body:"Setz diese Woche ein Gespräch mit beiden an, mit fixem Termin. Du moderierst, die beiden reden." },
-      tier3:{ kind:"team-workshop", label:"Kit „Feedback“", url:"kit-feedback.html", note:"Wenn Konflikte bei euch regelmäßig unter den Teppich gekehrt werden, ist das eine Frage der Teamkultur. Die ändert sich nur, wenn alle mitmachen. Im Kit „Feedback“ übt ihr, Unstimmigkeiten früh und fair anzusprechen." } },
-    { id:14, tag:"Leistung fehlt", text:"Ein Teammitglied bringt seit Wochen nicht die Leistung, die es bringen könnte.",
+      tier3:{ kind:"team-workshop", label:"Kit „Feedback“", url:"kit-feedback.html", tc:true, note:"Wenn Konflikte bei euch regelmäßig unter den Teppich gekehrt werden, ist das eine Frage der Teamkultur. Die ändert sich nur, wenn alle mitmachen. Im Kit „Feedback“ übt ihr, Unstimmigkeiten früh und fair anzusprechen." } },
+    { id:14, tag:"Leistung fehlt", text:"Jemand im Team bringt seit Wochen nicht die Leistung, die wir brauchen.",
       reply:"Das ist eines der Gespräche, die am häufigsten aufgeschoben werden. Mit guter Vorbereitung wird's deutlich leichter, für dich und für die andere Person.",
       tier1:[
-        { name:"Die konkrete Beobachtung", body:"Schreib dir vor dem Gespräch zwei konkrete Situationen auf, in denen die Leistung gefehlt hat. Mit Datum und dem, was passiert ist. „Bringt einfach nichts“ zählt nicht, darauf kann niemand sinnvoll antworten.", followup:"Wie oft hättest du bisher aus dem Bauch heraus argumentiert?" },
-        { name:"Das Vorher-Gespräch mit dir selbst", body:"Bevor du ins Gespräch gehst, beantworte dir eine Frage: Was befürchte ich eigentlich? Meistens ist die Sorge größer als das, was dann tatsächlich passiert." }
+        { name:"Die konkrete Beobachtung", body:"Schreib dir vor dem Gespräch zwei konkrete Situationen auf, in denen die Leistung gefehlt hat. Mit Datum, was passiert ist und was es ausgelöst hat. Ein „Bringt einfach nichts“ hilft nicht weiter, darauf kann niemand sinnvoll antworten.", followup:"Wie oft hättest du bisher aus dem Bauch heraus argumentiert?" },
+        { name:"Das Vorher-Gespräch mit dir selbst", body:"Bevor du ins Gespräch gehst, beantworte dir ein paar Fragen: Was befürchte ich eigentlich? Was will ich erreichen? Schwingt noch etwas anderes mit? Meistens ist die Sorge größer als das, was dann tatsächlich passiert." }
       ],
       tier2:[
-        { name:"Können oder Wollen?", body:"Überleg dir vorher: Kann die Person nicht, oder will sie nicht? Wenn ihr etwas fehlt, zum Beispiel Wissen, Zeit oder eine klare Erwartung, fragst du im Gespräch, was sie braucht. Wenn die Motivation weg ist, fragst du, was sich für sie verändert hat." },
-        { name:"Das Zwischengespräch", body:"Setz nicht gleich das große Gespräch an. Frag erst einmal nebenbei: „Ist bei dir gerade was los?“ Manchmal liegt der Grund ganz woanders als gedacht." }
+        { name:"Können oder Wollen?", body:"Überleg dir vorher in Ruhe: Kann die Person nicht, weil ihr etwas fehlt, oder will sie nicht? Fehlt etwas, zum Beispiel Wissen, Zeit oder eine klare Erwartung, fragst du im Gespräch, was sie braucht. Wenn die Motivation weg ist, fragst du, was sich für sie verändert hat." },
+        { name:"Das Zwischengespräch", body:"Setz nicht gleich das große Gespräch an. Nutz lieber kurze Momente im Alltag, um mehr über die Hintergründe zu erfahren, und frag einfach nebenbei: „Ist bei dir gerade was los?“ Manchmal liegt der Grund ganz woanders, als wir denken." }
       ],
-      tier3:{ kind:null, coach:true, note:"Wenn das Thema immer wieder auftaucht, lohnt sich ein Blick über das einzelne Gespräch hinaus: Wie sprecht ihr Leistung grundsätzlich an, wann, und was passiert danach? Eine klare Struktur und ein fester Ablauf nehmen viel Druck raus, für dich und für dein Team. Im Coaching-Gespräch baust du das mit jemandem aus unserem Coach-Team auf und bereitest das nächste Gespräch konkret vor." } },
-    { id:15, tag:"Kritik äußern", text:"Ich muss Kritik anbringen und will niemanden damit runterziehen.",
-      reply:"Kritik zieht vor allem dann runter, wenn sie nach einem Urteil über die Person klingt. Über eine Sache zu reden, geht fast immer.",
-      tier1:{ name:"Die Beobachtung", body:"Sag, was du beobachtet hast: „Mir ist aufgefallen, dass …“. Kein „Du machst das falsch.“ Mit einer Beobachtung kann die andere Person arbeiten, mit einem Urteil nicht." },
-      tier2:{ name:"Die Lösung zurückhalten", body:"Frag nach der Kritik: „Wie siehst du das?“ Und lass die Lösung erst einmal weg. Wer selbst draufkommt, bleibt eher dran." },
+      tier3:{ kind:null, coach:true, note:"Wenn das Thema immer wieder auftaucht, lohnt sich ein Blick über das einzelne Gespräch hinaus: Wie sprecht ihr Leistung grundsätzlich an, wann, und was passiert danach? Eine klare Struktur und ein fester Ablauf nehmen viel Druck raus, für dich und für dein Team. Im Coaching-Gespräch gehst du das mit jemandem aus unserem Coach-Team durch und bereitest die nächsten Gespräche gut vor." } },
+    { id:15, tag:"Kritik äußern", text:"Ich muss Kritik anbringen, will aber niemanden damit runterziehen.",
+      reply:"Kritik zieht vor allem dann runter, wenn sie nach einem Urteil klingt statt nach einem Vorschlag, wie's besser gehen kann. Das lässt sich gut üben.",
+      tier1:{ name:"Die Beobachtung", body:"Sag erst einmal nur, was du beobachtet hast, ohne Urteil und ohne Lösung: „Mir ist aufgefallen, dass …“. Kein „Du machst das falsch.“ Mit einer Beobachtung kann die andere Person arbeiten, mit einem Urteil nicht." },
+      tier2:{ name:"Die Lösung zurückhalten", body:"Frag nach der Kritik: „Wie siehst du das?“ Und lass die Lösung erst einmal weg. Wer selbst draufkommt, bleibt eher dran und ist motivierter." },
       tier3:[
-        { kind:"team-workshop", label:"Kit „Feedback“", url:"kit-feedback.html", note:"Wenn Kritik bei euch öfter schwierig ist, nicht nur bei einer Person, bringt ein gemeinsamer Workshop mehr als die perfekte Formulierung." },
-        { kind:null, coach:true, note:"Lass dir von einer Person, der du vertraust, sagen, wie deine Kritik normalerweise ankommt. Die Antwort überrascht oft. In einem Coaching-Gespräch kannst du das nächste Gespräch auch vorher mit uns durchspielen." }
+        { kind:"team-workshop", label:"Kit „Feedback“", url:"kit-feedback.html", tc:true, note:"Wenn Kritik bei euch öfter schwierig ist, nicht nur bei einer Person, bringt ein gemeinsamer Workshop mehr als die perfekte Formulierung." },
+        { kind:null, coach:true, note:"Lass dir von einer Person, der du vertraust, sagen, wie deine Kritik normalerweise ankommt. Die Antwort überrascht oft. Das nächste Gespräch kannst du auch vorher in einem Coaching-Gespräch mit uns durchspielen." }
       ] },
     { id:16, special:"contact", tag:"Kündigung/Abmahnung", text:"Ich muss eine Kündigung oder Abmahnung vorbereiten.",
-      note:"Dafür gibt's hier bewusst keine Übung. Bei einer Kündigung oder Abmahnung hängt viel dran, rechtlich und menschlich. Das Rechtliche klärst du mit HR oder jemandem aus dem Arbeitsrecht. Wie du das Gespräch selbst führst, kannst du mit jemandem aus unserem Coach-Team vorbereiten: wie du anfängst, was du sagst und wie du reagierst, wenn's emotional wird." },
+      note:"Dafür gibt's hier bewusst keine Übung. Bei einer Kündigung oder Abmahnung hängt viel dran, rechtlich und menschlich. Das Rechtliche kannst du mit HR oder jemandem aus dem Arbeitsrecht klären. Wie du das Gespräch selbst führst, kannst du mit jemandem aus unserem Coach-Team vorbereiten: wie du anfängst, was du sagst und wie du reagierst, wenn's emotional wird." },
     { id:17, tag:"Respekt statt Autorität", text:"Ich will ernst genommen werden, ohne mit der Faust auf den Tisch zu hauen.",
-      reply:"Respekt kommt selten von Lautstärke. Viel öfter davon, dass dein Team weiß, woran es bei dir ist.",
-      tier1:{ name:"Konsequent statt laut", body:"Nimm dir eine Sache, die du angekündigt hast, und zieh sie diese Woche durch. Ohne nachträglich einzuknicken. Verlässlichkeit fällt mehr auf, als man glaubt." },
+      reply:"Respekt kommt selten von Lautstärke. Viel öfter davon, dass dein Team weiß, woran es bei dir ist. Klarheit und Verlässlichkeit zählen dabei mehr als jede Ansage.",
+      tier1:{ name:"Konsequent statt laut", body:"Nimm dir eine Sache, die du angekündigt hast, und zieh sie diese Woche konsequent durch. Ohne nachträglich einzuknicken. Verlässlichkeit fällt mehr auf, als man glaubt." },
       tier2:{ name:"Eine Grenze klar benennen", body:"Sprich diese Woche eine Erwartung aus, die bisher nur stillschweigend im Raum stand. Was nie gesagt wurde, kann auch niemand einhalten." },
-      tier3:{ kind:"team-workshop", label:"Kit „Rollen & Verantwortung“", url:"kit-rollen.html", note:"Wenn im Team unklar ist, wer was entscheiden darf, wird Respekt schnell zur Machtfrage. Das klärt ihr am besten gemeinsam, und das Kit gibt euch dafür den Ablauf." } },
+      tier3:{ kind:"team-workshop", label:"Kit „Rollen & Verantwortung“", url:"kit-rollen.html", tc:true, note:"Wenn im Team unklar ist, wer was entscheiden darf, wird Respekt schnell zur Machtfrage. Das klärt ihr am besten gemeinsam, und das Kit gibt euch dafür den Ablauf." } },
     { id:18, tag:"Aufgeschobenes Gespräch", text:"Ich schiebe ein Gespräch seit Wochen vor mir her.",
       reply:"Kennen alle. Und je länger man's schiebt, desto größer wird's im Kopf. Der schwierigste Teil ist fast immer der Anfang.",
       tier1:{ name:"Der erste Satz", body:"Schreib dir nur den ersten Satz auf, mit dem du das Gespräch eröffnest. Oft hängt's an dem. Wenn der steht, kommt der Rest meistens von selbst." },
       tier2:{ name:"Der feste Termin", body:"Mach diese Woche einen fixen Termin mit der Person aus. Tag und Uhrzeit, nicht „demnächst mal“." },
       tier3:[
-        { kind:null, note:"Sag den ersten Satz einmal laut zu einer Person, der du vertraust. Laut geübt ist halb geführt." },
+        { kind:null, note:"Üb die ersten Sätze ein paarmal laut, am besten mit einer Person, der du vertraust. Dann fällt der erste Schritt im echten Gespräch leichter." },
         { kind:null, coach:true, note:"Wenn du Gespräche öfter vor dir herschiebst, lohnt sich ein Blick darauf, was dich bremst. Das lässt sich gut in einem Coaching-Gespräch anschauen." }
       ] },
-    { id:19, tag:"Schuldzuweisung zwischen Teams", text:"Zwei Abteilungen schieben sich gegenseitig die Schuld zu.",
+    { id:19, tag:"Schuldzuweisung zwischen Teams", text:"Zwei Abteilungen oder Teams schieben sich gegenseitig die Schuld zu.",
       reply:"Dahinter steckt selten böser Wille. Meistens sieht jede Seite nur ihren Teil des Problems.",
-      tier1:{ name:"Beide Seiten hören", body:"Bevor du dich auf eine Seite schlägst, stell beiden Abteilungen getrennt dieselbe Frage: „Was bräuchtet ihr von den anderen, damit es läuft?“" },
+      tier1:{ name:"Beide Seiten hören", body:"Bevor du dich auf eine Seite schlägst, stell beiden Teams getrennt dieselbe Frage: „Was bräuchtet ihr von den anderen, damit es läuft?“" },
       tier2:{ name:"Ein gemeinsames Gespräch ansetzen", body:"Hol beide an einen Tisch. Fangt mit den Antworten auf diese Frage an, die Schuldfrage lasst ihr draußen." },
-      tier3:{ kind:"team-workshop", label:"Kit „Feedback“ + Moderation", url:"kit-feedback.html#preise", note:"Wenn das zwischen denselben Abteilungen immer wieder passiert, steckt mehr dahinter als ein Missverständnis. Deshalb empfehlen wir hier Kit plus Moderation. Dann leitet jemand aus unserem Coach-Team den Workshop, und keine Seite fühlt sich von der anderen vorgeführt." } }
+      tier3:{ kind:"team-workshop", label:"Kit „Feedback“ + Moderation", url:"kit-feedback.html#preise", note:"Wenn das zwischen denselben Abteilungen oder Teams immer wieder passiert, steckt mehr dahinter als ein Missverständnis. Deshalb empfehlen wir hier Kit plus Moderation. Dann leitet jemand aus unserem Coach-Team den Workshop, und keine Seite fühlt sich von der anderen vorgeführt." } }
   ];
   const formatLabels = {
     "team-workshop": "Workshop mit deinem Team",
@@ -462,13 +465,14 @@ window.NAV = (function(){
   function sysHtml(o){
     if (!o.kind) {
       var talk = !!o.coach;
+      var tcPlain = o.tc ? '<p class="nv-tc-hint">'+(typeof o.tc === 'string' ? o.tc : 'Unsicher, ob\'s am ganzen Team liegt? Der kostenlose Team-Check zeigt dir in 10 Minuten, wo ihr bei Rollen, Feedback, Vertrauen und Kommunikation steht.')+' <a href="team-check.html" data-umami-event="navigator_teamcheck_klick" data-umami-event-ort="massnahme-'+state.ch+'">Zum Team-Check →</a></p>' : '';
       return '<article class="nv-opt"><p class="nv-opt-b">'+o.note+'</p>'+
-        (talk ? '<a class="nv-opt-link is-quiet" href="'+kontaktLink()+'" data-umami-event="navigator_kontakt_klick" data-umami-event-ort="massnahme">Coaching-Gespräch anfragen <span class="arw">→</span></a>' : '') + '</article>';
+        (talk ? '<a class="nv-opt-link is-quiet" href="'+kontaktLink()+'" data-umami-event="navigator_kontakt_klick" data-umami-event-ort="massnahme">Coaching-Gespräch anfragen <span class="arw">→</span></a>' : '') + tcPlain + '</article>';
     }
-    var tcHint = o.kind === 'team-workshop'
-      ? '<p class="nv-tc-hint">Unsicher, ob\'s am ganzen Team liegt? <a href="team-check.html" data-umami-event="navigator_teamcheck_klick">Mach den kostenlosen Team-Check</a>. Dauert 10 Minuten.</p>'
+    var tcHint = o.tc
+      ? '<p class="nv-tc-hint">'+(typeof o.tc === 'string' ? o.tc : 'Unsicher, ob\'s am ganzen Team liegt? Der kostenlose Team-Check zeigt dir in 10 Minuten, wo ihr bei Rollen, Feedback, Vertrauen und Kommunikation steht.')+' <a href="team-check.html" data-umami-event="navigator_teamcheck_klick" data-umami-event-ort="massnahme-'+state.ch+'">Zum Team-Check →</a></p>'
       : '';
-    var linkLabel = o.kind === 'coming-soon' ? 'Jetzt vormerken' : 'Ansehen';
+    var linkLabel = o.linkLabel || (o.kind === 'coming-soon' ? 'Jetzt vormerken' : 'Ansehen');
     return '<article class="nv-opt"><span class="nv-fmt">'+FMT[o.kind]+'</span><h4 class="nv-opt-t">'+o.label+'</h4><p class="nv-opt-b">'+o.note+'</p>'+
       '<a class="nv-opt-link" href="'+o.url+'" target="_blank" rel="noopener" data-umami-event="navigator_kit_klick" data-umami-event-format="'+o.kind+'">'+linkLabel+' <span class="arw">→</span></a>'+tcHint+'</article>';
   }
@@ -497,7 +501,8 @@ window.NAV = (function(){
   function step1(){
     var h = '<span class="chip">Schritt 01 · Herausforderung</span>';
     h += '<h2 class="nv-h2">Was beschäftigt dich gerade?</h2>';
-    h += '<p class="nv-lead">Such dir den Satz aus, der am ehesten nach dir klingt.</p>';
+    h += '<p class="nv-lead">Such dir den Satz aus, der am ehesten zu deiner Situation passt.</p>';
+    h += '<p class="nv-tc-step1">Nicht sicher, wo\'s genau hakt? Der kostenlose Team-Check zeigt dir in 10 Minuten, wo dein Team bei Rollen, Feedback, Vertrauen und Kommunikation steht. <a href="team-check.html" data-umami-event="navigator_teamcheck_klick" data-umami-event-ort="schritt1">Zum Team-Check →</a></p>';
     h += G.map(function(g){
       var gh = '<div class="nv-group"><h3 class="nv-group-h">'+g.full+'</h3><div class="nv-list">';
       gh += g.entries.map(function(e){
@@ -530,7 +535,7 @@ window.NAV = (function(){
       h += suggestHtml('massnahme', 'Fehlt dir eine passende Lösung?', 'Kurz beschreiben, welche Maßnahme dir hier fehlt …');
     }
     h += '<div class="nv-foot"><button class="nv-restart" id="nv-restart" data-umami-event="navigator_neustart_klick">Nochmal von vorn</button>';
-    h += '<p class="nv-foot-note">Passt nichts davon? <a class="nv-link" href="'+kontaktLink()+'" data-umami-event="navigator_kontakt_klick" data-umami-event-ort="fuss">Schreib uns kurz.</a></p></div>';
+    h += '<p class="nv-foot-note">Passt nichts davon? <a class="nv-link" href="'+kontaktLink()+'" data-umami-event="navigator_kontakt_klick" data-umami-event-ort="fuss">Schreib uns kurz</a>, oder <a class="nv-link" href="team-check.html" data-umami-event="navigator_teamcheck_klick" data-umami-event-ort="fuss">mach den kostenlosen Team-Check</a>.</p></div>';
     return h;
   }
 
