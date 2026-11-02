@@ -672,10 +672,12 @@ function finish(){
     $('team-link').style.display = 'block';
     $('team-url').value = teamUrl(); $('team-url-res').value = resultUrl();
     var already = teamRole === 'member';
-    teamRole = 'member'; store('tc-team-' + teamId, 'member');
-    var req = already ? fetch('team-check-team.php?team=' + teamId) :
-      fetch('team-check-team.php', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({action:'add', team: teamId, antworten: answers.join('')})});
-    req.then(function(r){ return r.json(); }).then(function(d){ renderTeam(d, $('r-teamres'), s); }).catch(function(){ teamError($('r-teamres')); });
+    var req = already ? fetch('/team-check-team.php?team=' + teamId) :
+      fetch('/team-check-team.php', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({action:'add', team: teamId, antworten: answers.join('')})});
+    req.then(readJson).then(function(d){
+      if(d.ok){ teamRole = 'member'; store('tc-team-' + teamId, 'member'); }
+      renderTeam(d, $('r-teamres'), s);
+    }).catch(function(e){ teamError($('r-teamres'), e); });
     track('teamcheck-team-mitgemacht', {});
   } else if(teamId && teamRole === 'lead'){
     $('team-create').style.display = 'none';
@@ -755,10 +757,10 @@ function resultUrl(){ return teamUrl() + '&ansicht=ergebnis'; }
 
 function createTeam(){
   var btn = document.querySelector('#team-create .btn'); btn.disabled = true; btn.textContent = 'Wird erstellt …';
-  fetch('team-check-team.php', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({action:'create', antworten: answers.join('')})})
-    .then(function(r){ return r.json(); })
+  fetch('/team-check-team.php', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({action:'create', antworten: answers.join('')})})
+    .then(readJson)
     .then(function(d){
-      if(!d.ok || !d.team) throw new Error('fehler');
+      if(!d.ok || !d.team) throw new Error(d.error || 'fehler');
       teamId = d.team; teamRole = 'lead'; store('tc-team-' + teamId, 'lead');
       $('team-create').style.display = 'none';
       $('team-link').style.display = 'block';
@@ -766,7 +768,7 @@ function createTeam(){
       try{ history.replaceState(null, '', 'team-check.html?team=' + teamId); }catch(e){}
       track('teamcheck-team-erstellt', {typ: result.t});
     })
-    .catch(function(){ btn.disabled = false; btn.textContent = 'Team-Link erstellen →'; $('r-copied').textContent = 'Das hat leider nicht geklappt. Bitte versuch es gleich nochmal.'; });
+    .catch(function(e){ btn.disabled = false; btn.textContent = 'Team-Link erstellen →'; $('r-copied').textContent = 'Das hat leider nicht geklappt. Bitte versuch es gleich nochmal. (' + errText(e) + ')'; });
 }
 
 function copyTeam(which){
@@ -782,18 +784,41 @@ function viewTeam(){
   show('s-team');
   $('tm-start').style.display = teamRole ? 'none' : 'inline-flex';
   $('tm-res').innerHTML = '<p class="lead" style="margin-top:24px">Lade das Teamergebnis …</p>';
-  fetch('team-check-team.php?team=' + teamId)
-    .then(function(r){ return r.json(); })
+  fetch('/team-check-team.php?team=' + teamId)
+    .then(readJson)
     .then(function(d){ renderTeam(d, $('tm-res'), null); })
-    .catch(function(){ teamError($('tm-res')); });
+    .catch(function(e){ teamError($('tm-res'), e); });
 }
 
-function teamError(el){ el.innerHTML = '<p class="lead" style="margin-top:24px">Das Teamergebnis konnte gerade nicht geladen werden. Bitte versuch es später nochmal.</p>'; }
+/* Antwort lesen; bei Fehlern den Grund mitgeben, damit man ihn sieht */
+function readJson(r){
+  return r.text().then(function(t){
+    var d = null; try{ d = JSON.parse(t); }catch(e){}
+    if(d) return d;
+    var err = new Error('keine-json'); err.status = r.status; throw err;
+  });
+}
+var ERR_TXT = {
+  'unbekannt': 'Diesen Team-Link gibt es nicht (mehr). Bitte prüf, ob er vollständig kopiert wurde.',
+  'speicher': 'Der Server konnte die Antwort nicht speichern.',
+  'voll': 'Für dieses Team sind schon sehr viele Antworten eingegangen.',
+  'antworten': 'Die Antworten waren unvollständig.'
+};
+function errText(e){
+  if(!e) return 'unbekannter Fehler';
+  if(e.status) return 'Server antwortet mit ' + e.status;
+  return ERR_TXT[e.message] ? e.message : 'keine Verbindung';
+}
+function teamError(el, e){
+  var code = e && e.message && ERR_TXT[e.message] ? ERR_TXT[e.message] : 'Das Teamergebnis konnte gerade nicht geladen werden. Bitte versuch es später nochmal.';
+  el.innerHTML = '<p class="lead" style="margin-top:24px">' + code + '</p><p class="note">Technischer Hinweis: ' + errText(e) + '</p>';
+  track('teamcheck-team-fehler', {grund: errText(e)});
+}
 
 function fmt(v){ return String(v).replace('.', ','); }
 
 function renderTeam(d, el, own){
-  if(!d || !d.ok){ teamError(el); return; }
+  if(!d || !d.ok){ teamError(el, new Error((d && d.error) || 'fehler')); return; }
   var html = '<div class="teamres"><div class="eyebrow">Euer Team</div>';
   if(!d.ready){
     var fehlt = d.min - d.n;
@@ -853,7 +878,7 @@ function saveAnon(s, t){
       quelle: (p.get('utm_source') || '').slice(0,40),
       kampagne: (p.get('utm_campaign') || '').slice(0,60)
     });
-    fetch('team-check-save.php', {method:'POST', headers:{'Content-Type':'application/json'}, body: body, keepalive: true}).catch(function(){});
+    fetch('/team-check-save.php', {method:'POST', headers:{'Content-Type':'application/json'}, body: body, keepalive: true}).catch(function(){});
   }catch(e){}
 }
 
