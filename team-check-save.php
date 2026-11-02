@@ -3,7 +3,7 @@
  * LEAP — Team-Check: anonyme Antworten speichern.
  * Schreibt pro abgeschlossenem Check eine Zeile in data/team-check.csv.
  * Gespeichert werden NUR die Antworten (1–5), Ergebnistyp, Punkte je Bereich,
- * ggf. die Vergleichsantworten aus dem Link und die UTM-Quelle.
+ * ggf. die Team-Kennung mit Rolle und die UTM-Quelle.
  * Keine IP-Adresse, kein Name, keine E-Mail. data/ ist per .htaccess gesperrt.
  */
 
@@ -20,7 +20,6 @@ $d = json_decode($raw ?: '', true);
 if (!is_array($d)) { $d = $_POST; }
 
 $antworten = (string) ($d['antworten'] ?? '');
-$vergleich = (string) ($d['vergleich'] ?? '');
 $typ = (string) ($d['typ'] ?? '');
 
 // Plausibilitätsprüfung: genau 12 Antworten von 1 bis 5
@@ -29,9 +28,11 @@ if (!preg_match('/^[1-5]{12}$/', $antworten) || !in_array($typ, ['A', 'B', 'C', 
     echo json_encode(['ok' => false]);
     exit;
 }
-if ($vergleich !== '' && !preg_match('/^[1-5]{12}$/', $vergleich)) {
-    $vergleich = '';
+$team = (string) ($d['team'] ?? '');
+if (!preg_match('/^[A-Za-z0-9]{12}$/', $team)) {
+    $team = '';
 }
+$rolle = in_array($d['rolle'] ?? '', ['einzeln', 'lead', 'member', 'mitglied'], true) ? $d['rolle'] : '';
 
 // Punkte serverseitig neu berechnen (Reihenfolge der Aussagen: A1-3, B4-6, C7-9, D10-12)
 $sum = function (int $from) use ($antworten) {
@@ -46,7 +47,8 @@ $row = [
     $antworten,
     $typ,
     $sum(0), $sum(3), $sum(6), $sum(9),
-    $vergleich,
+    $team,
+    $rolle,
     $clean($d['quelle'] ?? '', 40),
     $clean($d['kampagne'] ?? '', 60),
 ];
@@ -64,7 +66,7 @@ if (!$fh) {
 }
 flock($fh, LOCK_EX);
 if ($isNew) {
-    fputcsv($fh, ['zeit', 'antworten', 'typ', 'rollen', 'feedback', 'vertrauen', 'kommunikation', 'vergleich_antworten', 'quelle', 'kampagne'], ';');
+    fputcsv($fh, ['zeit', 'antworten', 'typ', 'rollen', 'feedback', 'vertrauen', 'kommunikation', 'team', 'rolle', 'quelle', 'kampagne'], ';');
 }
 fputcsv($fh, $row, ';');
 flock($fh, LOCK_UN);
