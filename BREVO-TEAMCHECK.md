@@ -1,5 +1,7 @@
 # Brevo einrichten: Team-Check-Ergebnis per Mail
 
+Stand 2.11.2026: Schritte 1 bis 5 sind in Brevo erledigt (Felder angelegt, Vorlage #1 mit Tag „optin“, Automatisierung #1 mit Mail 1, 7 Tage Wartezeit, Mail 2). Offen: die alten Mails 3 und 4 am Ende der Automation entfernen und testen.
+
 Die Website legt Kontakte über die Brevo-API mit Double-Opt-in in Liste 9 an und speichert das Ergebnis in Kontaktfeldern. Brevo verschickt daraus zwei Mails: das Ergebnis sofort nach der Bestätigung und eine Nachfrage nach 7 Tagen.
 
 ## 1. Kontaktfelder anlegen
@@ -24,11 +26,7 @@ FIRSTNAME gibt es schon.
 
 ## 2. Double-Opt-in-Vorlage
 
-Kampagnen → Vorlagen. Es gibt meist schon eine Vorlage für die Bestätigung („Double opt-in confirmation“). Sie muss den Bestätigungslink `{{ doubleoptin }}` enthalten und das Tag `optin` haben. Die Nummer (ID) dieser Vorlage in config.php auf dem Server eintragen:
-
-    'teamcheck_doi_template_id' => 12,
-
-(12 durch die echte ID ersetzen.)
+Verwendet wird „Default Template Double opt-in confirmation“ (#1) mit dem Tag `optin`. Die ID ist in team-check-mail.php eingetragen. Wer eine andere Vorlage will, setzt in config.php `'teamcheck_doi_template_id' => <ID>`.
 
 ## 3. Automation umbauen
 

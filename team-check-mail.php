@@ -19,7 +19,7 @@ require __DIR__ . '/leap-mail.php';
 const TC_LIST_ID = 9;
 // ID der Double-Opt-in-Vorlage in Brevo (Kampagnen → Vorlagen, die Vorlage mit dem Bestätigungslink).
 // Kann auch in config.php als 'teamcheck_doi_template_id' gesetzt werden.
-const TC_DOI_TEMPLATE_ID = null;
+const TC_DOI_TEMPLATE_ID = 1; // „Default Template Double opt-in confirmation“
 const TC_REDIRECT = 'https://www.ich-leaps.at/team-check-danke.html';
 const TC_RESULT_URL = 'https://www.ich-leaps.at/team-check?ergebnis=';
 
