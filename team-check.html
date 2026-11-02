@@ -88,7 +88,7 @@ main.tc .linkbtn:disabled{visibility:hidden}
 main.tc .res-head{max-width:680px}
 main.tc .res-head .type{font-size:clamp(32px,6vw,54px);font-weight:700;line-height:1.08;letter-spacing:-.02em;margin:20px 0 18px}
 main.tc .res-head .type em{font-style:normal;color:var(--lime)}
-main.tc .scores{margin:44px 0 12px;display:grid;gap:18px}
+main.tc .scores{margin:24px 0 12px;display:grid;gap:18px}
 main.tc .srow .lbl{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;font-weight:400;color:var(--d1);margin-bottom:8px;gap:12px}
 main.tc .srow .lbl b{font-weight:700}
 main.tc .srow .lvl{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
@@ -101,7 +101,7 @@ main.tc .track .mk{position:absolute;top:-5px;bottom:-5px;width:3px;border-radiu
 main.tc .track .mk.lead{background:var(--coral)}
 main.tc .track .mk.you{background:var(--white)}
 main.tc .agree{font-size:11px;font-weight:400;color:var(--d3);margin-left:8px;text-transform:none;letter-spacing:0}
-main.tc .teamres{border:1px solid var(--blue);border-radius:8px;padding:28px 26px;margin-top:44px}
+main.tc .teamres{border:1px solid var(--blue);border-radius:8px;padding:28px 26px;margin-top:40px}
 main.tc .teamres .eyebrow{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
 main.tc .teamres h3{font-size:clamp(20px,2.6vw,26px);font-weight:700;line-height:1.25;margin-bottom:6px}
 main.tc .teamres h3 em{font-style:normal;color:var(--blue)}
@@ -136,7 +136,7 @@ main.tc .share-actions{display:flex;flex-direction:column;gap:12px;align-items:f
 main.tc .share-actions p{font-size:14px;color:var(--d2);max-width:460px}
 main.tc .copied{font-size:12px;color:var(--lime);min-height:18px}
 
-main.tc .team{background:var(--white);color:var(--black);border-radius:8px;padding:36px 32px;margin-top:56px}
+main.tc .team{background:var(--white);color:var(--black);border-radius:8px;padding:36px 32px;margin-top:40px}
 main.tc .team h2{color:var(--black)}
 main.tc .team p{color:var(--ink);font-size:15px;max-width:600px;margin:14px 0 22px}
 
@@ -289,8 +289,27 @@ main.tc .restart{margin-top:40px}
         <p class="lead" id="r-desc"></p>
       </div>
 
-      <div class="scores" id="r-scores"></div>
       <div id="r-teamres"></div>
+
+      <div class="team">
+        <span class="chip" style="border-color:#ccc;color:#555">Der wertvollste Vergleich</span>
+        <h2 style="margin-top:16px">Sieht dein Team das genauso?</h2>
+        <div id="team-create">
+          <p>Erstell einen Team-Link und schick ihn deinem Team. Alle füllen den Check anonym aus, und alle sehen danach dasselbe Ergebnis, nämlich den Durchschnitt des Teams. Deine eigenen Antworten zählen genauso anonym mit wie alle anderen.</p>
+          <p style="font-size:13px;color:#555;margin-top:-8px">Dein eigenes Ergebnis siehst nur du. Lad es dir weiter unten als Bild oder PDF herunter und leg es in eurer Besprechung neben das Teamergebnis. Das Teamergebnis erscheint erst ab drei Antworten, damit niemand erkennbar ist.</p>
+          <button class="btn btn-dark" onclick="createTeam()">Team-Link erstellen →</button>
+        </div>
+        <div id="team-link" style="display:none">
+          <p style="margin-bottom:6px"><strong>Link zum Mitmachen.</strong> Den schickst du deinem Team, zum Beispiel per Teams, Slack oder Mail.</p>
+          <div class="linkbox" style="margin-top:0"><input type="text" readonly id="team-url" onclick="this.select()"><button class="btn btn-dark" onclick="copyTeam('mit')">Kopieren</button></div>
+          <p style="margin:22px 0 6px"><strong>Link zum Ergebnis.</strong> Damit öffnet ihr das Teamergebnis direkt, ohne den Check nochmal zu machen. Ideal für eure gemeinsame Besprechung, speicher ihn dir gut ab.</p>
+          <div class="linkbox" style="margin-top:0"><input type="text" readonly id="team-url-res" onclick="this.select()"><button class="btn btn-dark" onclick="copyTeam('res')">Kopieren</button></div>
+        </div>
+        <div class="copied" id="r-copied" style="color:#3a5a00;margin-top:10px"></div>
+      </div>
+
+      <h2 style="margin-top:56px">Deine Einschätzung im Detail</h2>
+      <div class="scores" id="r-scores"></div>
 
       <div class="cards">
         <div class="card">
@@ -325,23 +344,6 @@ main.tc .restart{margin-top:40px}
             <button class="btn btn-ghost" onclick="shareLinkedIn()">Auf LinkedIn teilen</button>
           </div>
         </div>
-      </div>
-
-      <div class="team">
-        <span class="chip" style="border-color:#ccc;color:#555">Der wertvollste Vergleich</span>
-        <h2 style="margin-top:16px">Sieht dein Team das genauso?</h2>
-        <div id="team-create">
-          <p>Erstell einen Team-Link und schick ihn deinem Team. Alle füllen den Check anonym aus, und alle sehen danach dasselbe Ergebnis, nämlich den Durchschnitt des Teams. Deine eigenen Antworten zählen genauso anonym mit wie alle anderen.</p>
-          <p style="font-size:13px;color:#555;margin-top:-8px">Dein eigenes Ergebnis siehst nur du. Lad es dir oben als Bild oder PDF herunter und leg es in eurer Besprechung neben das Teamergebnis. Das Teamergebnis erscheint erst ab drei Antworten, damit niemand erkennbar ist.</p>
-          <button class="btn btn-dark" onclick="createTeam()">Team-Link erstellen →</button>
-        </div>
-        <div id="team-link" style="display:none">
-          <p style="margin-bottom:6px"><strong>Link zum Mitmachen.</strong> Den schickst du deinem Team, zum Beispiel per Teams, Slack oder Mail.</p>
-          <div class="linkbox" style="margin-top:0"><input type="text" readonly id="team-url" onclick="this.select()"><button class="btn btn-dark" onclick="copyTeam('mit')">Kopieren</button></div>
-          <p style="margin:22px 0 6px"><strong>Link zum Ergebnis.</strong> Damit öffnet ihr das Teamergebnis direkt, ohne den Check nochmal zu machen. Ideal für eure gemeinsame Besprechung, speicher ihn dir gut ab.</p>
-          <div class="linkbox" style="margin-top:0"><input type="text" readonly id="team-url-res" onclick="this.select()"><button class="btn btn-dark" onclick="copyTeam('res')">Kopieren</button></div>
-        </div>
-        <div class="copied" id="r-copied" style="color:#3a5a00;margin-top:10px"></div>
       </div>
 
       <div class="mail" id="r-mail">
