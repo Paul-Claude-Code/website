@@ -141,19 +141,16 @@ main.tc .team h2{color:var(--black)}
 main.tc .team p{color:var(--ink);font-size:15px;max-width:600px;margin:14px 0 22px}
 
 main.tc .mail{border-top:1px solid var(--s700);margin-top:56px;padding-top:44px}
-main.tc .mail form{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;max-width:560px}
-main.tc .mail input[type=email]{flex:1 1 240px;background:var(--s900);border:1px solid var(--s500);color:var(--white);font-family:inherit;font-size:15px;padding:14px 16px;border-radius:4px}
-main.tc .mail input[type=email]:focus{outline:none;border-color:var(--lime)}
 main.tc .mail .small{font-size:12px;color:var(--d4);margin-top:12px;max-width:560px}
 main.tc .mail .ok{display:none;color:var(--lime);font-weight:700;margin-top:16px}
 main.tc .mail form{display:flex;flex-direction:column;gap:16px;margin-top:22px;max-width:620px}
 main.tc .mrow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 main.tc .mrow label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:400;color:var(--d2)}
-main.tc .mrow input{font-family:inherit;font-size:15px;padding:13px 14px;border-radius:4px;border:1px solid var(--s500);background:var(--s900);color:var(--white)}
+main.tc .mrow input{height:auto;flex:none;width:100%;font-family:inherit;font-size:15px;padding:13px 14px;border-radius:4px;border:1px solid var(--s500);background:var(--s900);color:var(--white)}
 main.tc .mrow input:focus{outline:none;border-color:var(--lime)}
-main.tc .mcheck{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--d2);line-height:1.6}
-main.tc .mcheck input{margin-top:4px;accent-color:var(--lime);width:16px;height:16px;flex:none}
-main.tc .mcheck a{text-decoration:underline}
+main.tc .tc-consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--d2);line-height:1.6;width:auto;height:auto;margin:0;background:none;border-radius:0}
+main.tc .tc-consent input{margin-top:4px;accent-color:var(--lime);width:16px;height:16px;flex:none}
+main.tc .tc-consent a{text-decoration:underline}
 main.tc .mail .btn{align-self:flex-start}
 main.tc .merr{color:var(--coral);font-size:14px;min-height:1px}
 main.tc .mok{display:none;border:1px solid var(--lime);border-radius:8px;padding:24px 26px;margin-top:22px;max-width:620px}
@@ -338,7 +335,7 @@ main.tc .restart{margin-top:40px}
             <label>E-Mail<input type="email" name="email" autocomplete="email" required maxlength="200" placeholder="name@firma.at"></label>
           </div>
           <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-          <label class="mcheck"><input type="checkbox" name="einwilligung" required> Ich möchte mein Ergebnis per Mail bekommen und eine Woche später eine kurze Nachfrage. Ich kann mich jederzeit abmelden. Mehr in der <a href="datenschutz.html">Datenschutzerklärung</a>.</label>
+          <label class="tc-consent"><input type="checkbox" name="einwilligung" required><span>Ich möchte mein Ergebnis per Mail bekommen und eine Woche später eine kurze Nachfrage. Ich kann mich jederzeit abmelden. Mehr in der <a href="datenschutz.html">Datenschutzerklärung</a>.</span></label>
           <button class="btn btn-lime" type="submit">Ergebnis schicken →</button>
           <p class="merr" id="mail-err"></p>
         </form>
