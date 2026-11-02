@@ -2,15 +2,15 @@
 /**
  * LEAP — Team-Check im Team: gemeinsames, anonymes Teamergebnis.
  *
- * POST {"action":"create","antworten":"…12 Ziffern…"}          → neues Team, Antworten der Führungskraft
+ * POST {"action":"create","antworten":"…12 Ziffern…"}          → neues Team, erste Antwort
  * POST {"action":"add","team":"ID","antworten":"…"}             → Antwort eines Teammitglieds
  * GET  ?team=ID                                                 → Teamergebnis
  *
  * Gespeichert in data/teams/<ID>.json (data/ per .htaccess gesperrt).
  * Keine Namen, keine Mailadressen, keine IP-Adressen.
  * Das Teamergebnis (Mittelwert je Bereich) wird erst ab MIN_TEAM Antworten
- * herausgegeben, Einzelantworten nie. Die Führungskraft zählt nicht in den
- * Mittelwert und wird getrennt ausgewiesen.
+ * herausgegeben, Einzelantworten nie. Auch die Antworten der Person, die den
+ * Link erstellt hat (meist die Führungskraft), zählen ganz normal und anonym mit.
  */
 
 const MIN_TEAM = 3;
@@ -59,7 +59,6 @@ function tc_summary(array $team): array
         'n' => $n,
         'min' => MIN_TEAM,
         'ready' => $n >= MIN_TEAM,
-        'lead' => !empty($team['lead']) ? tc_sums($team['lead']) : null,
     ];
     if ($n >= MIN_TEAM) {
         $mean = [];
@@ -114,7 +113,7 @@ if ($action === 'create') {
         $id = '';
         for ($i = 0; $i < 12; $i++) { $id .= $chars[random_int(0, strlen($chars) - 1)]; }
     } while (is_file(tc_file($id)));
-    $team = ['created' => date('Y-m-d H:i'), 'lead' => $answers, 'members' => []];
+    $team = ['created' => date('Y-m-d H:i'), 'members' => [$answers]];
     if (file_put_contents(tc_file($id), json_encode($team), LOCK_EX) === false) {
         tc_out(['ok' => false, 'error' => 'speicher'], 500);
     }

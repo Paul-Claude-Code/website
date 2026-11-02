@@ -274,7 +274,6 @@ main.tc .restart{margin-top:40px}
       <span class="chip lime">Euer Teamergebnis</span>
       <div id="tm-res"></div>
       <div style="margin-top:36px;display:flex;gap:12px;flex-wrap:wrap">
-        <button class="btn btn-lime" id="tm-pdf" style="display:none" onclick="downloadPdf('team', this)">Teamergebnis als PDF →</button>
         <button class="btn btn-lime" id="tm-start" onclick="startCheck()">Selbst mitmachen →</button>
         <button class="btn btn-ghost" onclick="viewTeam()">Aktualisieren</button>
       </div>
@@ -332,8 +331,8 @@ main.tc .restart{margin-top:40px}
         <span class="chip" style="border-color:#ccc;color:#555">Der wertvollste Vergleich</span>
         <h2 style="margin-top:16px">Sieht dein Team das genauso?</h2>
         <div id="team-create">
-          <p>Erstell einen Team-Link und schick ihn deinem Team. Alle füllen den Check anonym aus, und alle sehen danach dasselbe Ergebnis, nämlich den Durchschnitt des Teams und daneben deine Einschätzung. Dort, wo die Bilder am weitesten auseinanderliegen, wartet fast immer das Gespräch, das ihr führen solltet.</p>
-          <p style="font-size:13px;color:#555;margin-top:-8px">Gut zu wissen: Deine eigene Einschätzung zählt nicht in den Durchschnitt und ist für dein Team sichtbar. Das Teamergebnis erscheint erst ab drei Antworten, damit niemand erkennbar ist.</p>
+          <p>Erstell einen Team-Link und schick ihn deinem Team. Alle füllen den Check anonym aus, und alle sehen danach dasselbe Ergebnis, nämlich den Durchschnitt des Teams. Deine eigenen Antworten zählen genauso anonym mit wie alle anderen.</p>
+          <p style="font-size:13px;color:#555;margin-top:-8px">Dein eigenes Ergebnis siehst nur du. Lad es dir oben als Bild oder PDF herunter und leg es in eurer Besprechung neben das Teamergebnis. Das Teamergebnis erscheint erst ab drei Antworten, damit niemand erkennbar ist.</p>
           <button class="btn btn-dark" onclick="createTeam()">Team-Link erstellen →</button>
         </div>
         <div id="team-link" style="display:none">
@@ -692,7 +691,7 @@ function finish(){
     var req = already ? fetch('/team-check-team.php?team=' + teamId) :
       fetch('/team-check-team.php', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({action:'add', team: teamId, antworten: answers.join('')})});
     req.then(readJson).then(function(d){
-      if(d.ok){ teamRole = 'member'; store('tc-team-' + teamId, 'member'); }
+      if(d.ok){ teamRole = 'member'; store('tc-team-' + teamId, 'member'); store('tc-own-' + teamId, answers.join('')); }
       renderTeam(d, $('r-teamres'), s);
     }).catch(function(e){ teamError($('r-teamres'), e); });
     track('teamcheck-team-mitgemacht', {});
@@ -778,7 +777,7 @@ function createTeam(){
     .then(readJson)
     .then(function(d){
       if(!d.ok || !d.team) throw new Error(d.error || 'fehler');
-      teamId = d.team; teamRole = 'lead'; store('tc-team-' + teamId, 'lead');
+      teamId = d.team; teamRole = 'lead'; store('tc-team-' + teamId, 'lead'); store('tc-own-' + teamId, answers.join(''));
       $('team-create').style.display = 'none';
       $('team-link').style.display = 'block';
       $('team-url').value = teamUrl(); $('team-url-res').value = resultUrl();
@@ -846,33 +845,32 @@ function renderTeam(d, el, own){
     el.innerHTML = html; return;
   }
   lastTeam = d;
-  if($('tm-pdf')) $('tm-pdf').style.display = 'inline-flex';
-  var m = d.mean, L = d.lead;
+  if(!own){ var saved = store('tc-own-' + teamId); if(saved && /^[1-5]{12}$/.test(saved)) own = sums(saved.split('').map(Number)); }
+  var m = d.mean;
   var T = TYPES[typeOf(m)];
   html += '<h3>Im Durchschnitt sagt euer Team: <em>' + T.name + '</em></h3>'
-    + '<p class="sub">Durchschnitt aus ' + d.n + ' anonymen Antworten. Die Einschätzung der Führungskraft zählt nicht mit und steht daneben.</p>'
+    + '<p class="sub">Durchschnitt aus ' + d.n + ' anonymen Antworten.' + (own ? ' Die weiße Markierung ist deine eigene Einschätzung, die siehst nur du.' : '') + '</p>'
     + '<div class="scores">';
   BLOCKS.forEach(function(b){
     var lv = level(m[b.k]);
     html += '<div class="srow"><div class="lbl"><span><b>' + b.k + '</b> · ' + b.name + '<span class="agree">Team ' + d.agree[b.k] + '</span></span>'
       + '<span class="lvl ' + lv + '">Ø ' + fmt(m[b.k]) + '/15</span></div>'
       + '<div class="track"><div class="fill tmavg" data-w="' + ((m[b.k]-3)/12*100) + '"></div>'
-      + (L ? '<div class="mk lead" data-l="' + ((L[b.k]-3)/12*100) + '" title="Führungskraft: ' + L[b.k] + '/15"></div>' : '')
       + (own ? '<div class="mk you" data-l="' + ((own[b.k]-3)/12*100) + '" title="Du: ' + own[b.k] + '/15"></div>' : '')
       + '</div></div>';
   });
   html += '</div><div class="legend"><span><i style="background:var(--blue)"></i>Team-Durchschnitt</span>'
-    + (L ? '<span><i style="background:var(--coral)"></i>Führungskraft</span>' : '')
-    + (own ? '<span><i style="background:#fff"></i>Du</span>' : '') + '</div>';
-  if(L){
+    + (own ? '<span><i style="background:#fff"></i>Du (nur für dich sichtbar)</span>' : '') + '</div>';
+  if(own){
     var gapK = 'A', gap = -1;
-    BLOCKS.forEach(function(b){ var g = Math.abs(m[b.k]-L[b.k]); if(g>gap){ gap=g; gapK=b.k; } });
+    BLOCKS.forEach(function(b){ var g = Math.abs(m[b.k]-own[b.k]); if(g>gap){ gap=g; gapK=b.k; } });
     var gb = BLOCKS.filter(function(b){ return b.k===gapK; })[0];
     html += '<p class="cmp-note" style="display:block">' + (gap < 2
-      ? '<strong>Führungskraft und Team sehen das ziemlich ähnlich.</strong> Am meisten weicht ' + gb.name + ' ab (' + L[gapK] + ' zu Ø ' + fmt(m[gapK]) + '). Eine gute Grundlage, um gemeinsam am schwächsten Bereich zu arbeiten.'
-      : '<strong>Am weitesten auseinander liegen Führungskraft und Team bei ' + gb.name + '</strong>, mit ' + L[gapK] + ' zu Ø ' + fmt(m[gapK]) + ' Punkten. Genau darüber lohnt es sich zu reden. Nicht darüber, wer recht hat, sondern warum ihr es so unterschiedlich erlebt.')
+      ? '<strong>Du siehst das Team ziemlich ähnlich wie alle anderen.</strong> Am meisten weichst du bei ' + gb.name + ' ab (' + own[gapK] + ' zu Ø ' + fmt(m[gapK]) + ').'
+      : '<strong>Am weitesten weichst du bei ' + gb.name + ' vom Team ab</strong>, mit ' + own[gapK] + ' zu Ø ' + fmt(m[gapK]) + ' Punkten. Ein guter Punkt, um in der Besprechung nachzufragen, wie die anderen das erleben.')
       + '</p>';
   }
+  html += '<div style="margin-top:22px"><button class="btn btn-ghost" onclick="downloadPdf(\'team\', this)">Teamergebnis als PDF →</button></div>';
   html += '<p class="sub" style="margin-top:26px">Link zum Ergebnis, für eure Besprechung:</p><div class="linkbox" style="margin-top:6px"><input type="text" readonly value="' + resultUrl() + '" onclick="this.select()"></div>';
   html += '</div>';
   el.innerHTML = html;
@@ -925,9 +923,9 @@ function drawPdfPage(mode){
   var W = 1240, H = 1754, M = 110, CW = W - 2*M;
   var c = document.createElement('canvas'); c.width = W; c.height = H;
   var x = c.getContext('2d');
-  var team = (lastTeam && lastTeam.ready) ? lastTeam : null;
+  // 'team' = nur das Teamergebnis (zum gemeinsamen Besprechen), 'eigen' = nur das eigene Ergebnis
+  var team = (mode === 'team' && lastTeam && lastTeam.ready) ? lastTeam : null;
   var own = (mode === 'eigen' && result) ? result.s : null;
-  var L = team ? team.lead : null;
   var base = team ? team.mean : own;
   var T = TYPES[typeOf(base)];
   var y;
@@ -960,37 +958,22 @@ function drawPdfPage(mode){
     x.font = '700 25px Poppins, sans-serif'; x.fillStyle = '#000';
     x.fillText(b.k + ' · ' + b.name, M, y);
     var parts = [];
-    if(team){ parts.push('Team Ø ' + fmt(team.mean[b.k])); if(L) parts.push('Führungskraft ' + L[b.k]); if(own) parts.push('Ich ' + own[b.k]); }
+    if(team){ parts.push('Ø ' + fmt(team.mean[b.k]) + '/15'); }
     else parts.push(v + '/15');
     x.font = '400 21px Poppins, sans-serif'; x.fillStyle = lv==='w' ? '#C2410C' : '#2E2E2E'; x.textAlign = 'right';
     x.fillText(parts.join('  ·  ') + '  ·  ' + LEVEL_TXT[lv], W-M, y); x.textAlign = 'left';
     var by = y + 18;
     x.fillStyle = '#EDEDED'; roundRect(x, M, by, CW, 18, 5); x.fill();
     x.fillStyle = '#000'; roundRect(x, M, by, Math.max(18, CW*(v-3)/12), 18, 5); x.fill();
-    if(team && L){ x.fillStyle = '#FF7C70'; x.fillRect(M + CW*(L[b.k]-3)/12 - 3, by-9, 6, 36); }
-    if(team && own){ x.fillStyle = '#70B3FF'; x.fillRect(M + CW*(own[b.k]-3)/12 - 3, by-9, 6, 36); }
     if(team){ x.font = '400 18px Poppins, sans-serif'; x.fillStyle = '#595959'; x.fillText('Team ' + team.agree[b.k], M, by + 46); y += 100; }
     else y += 92;
   });
-  if(team){
-    x.font = '400 19px Poppins, sans-serif'; var gx = M;
-    [['#000','Team-Durchschnitt'], L ? ['#FF7C70','Führungskraft'] : null, own ? ['#70B3FF','Ich'] : null].forEach(function(it){
-      if(!it) return; x.fillStyle = it[0]; x.fillRect(gx, y-16, 16, 16); x.fillStyle = '#2E2E2E'; x.fillText(it[1], gx+26, y-1); gx += x.measureText(it[1]).width + 64;
-    });
-    y += 14;
-  }
-
-  // Größter Unterschied
+  // Wo ist sich das Team am wenigsten einig?
   var gapArea = null;
-  if(team && L){
-    var gapK = 'A', gap = -1;
-    BLOCKS.forEach(function(b){ var g = Math.abs(team.mean[b.k]-L[b.k]); if(g>gap){ gap=g; gapK=b.k; } });
-    gapArea = BLOCKS.filter(function(b){ return b.k===gapK; })[0].name;
-    y += 20;
-    x.fillStyle = '#70B3FF'; x.fillRect(M, y-26, 5, 76);
-    x.font = '400 22px Poppins, sans-serif'; x.fillStyle = '#000';
-    wrapText(x, 'Am weitesten auseinander liegen Führungskraft und Team bei ' + gapArea + ' (' + L[gapK] + ' zu Ø ' + fmt(team.mean[gapK]) + ' Punkten).', CW-30).forEach(function(l){ x.fillText(l, M+26, y); y += 34; });
-    y += 10;
+  if(team){
+    var order = {uneinig:2, gemischt:1, einig:0}, best = null;
+    BLOCKS.forEach(function(b){ var o = order[team.agree[b.k]]; if(o>0 && (!best || o>order[team.agree[best.k]])) best = b; });
+    if(best) gapArea = best.name;
   }
 
   // Übung + Fragen
@@ -1008,7 +991,7 @@ function drawPdfPage(mode){
   }
   var qs = ['1. Welche Zahl überrascht uns am meisten, und warum?',
             '2. Wo erleben wir ' + weakest + ' im Alltag? Ein Beispiel aus den letzten zwei Wochen.'];
-  if(gapArea) qs.push('3. Warum erleben Führungskraft und Team ' + gapArea + ' so unterschiedlich?');
+  if(gapArea) qs.push('3. Bei ' + gapArea + ' sind wir uns am wenigsten einig. Wie erlebt das jede und jeder Einzelne?');
   else qs.push('3. Was wäre anders, wenn wir hier zwei Punkte höher lägen?');
   qs.push('4. Was probieren wir bis zum nächsten Treffen aus, und wer kümmert sich darum?');
   var qHead = 'Redet darüber, warum es so ist. Wer recht hat, ist egal.';
