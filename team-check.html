@@ -146,10 +146,20 @@ main.tc .mail input[type=email]{flex:1 1 240px;background:var(--s900);border:1px
 main.tc .mail input[type=email]:focus{outline:none;border-color:var(--lime)}
 main.tc .mail .small{font-size:12px;color:var(--d4);margin-top:12px;max-width:560px}
 main.tc .mail .ok{display:none;color:var(--lime);font-weight:700;margin-top:16px}
-/* Brevo-Formular: helle Box auf dunkler Seite, Schrift wieder dunkel */
-main.tc #sib-container{color:#404040}
-main.tc #sib-container input.input,main.tc #sib-container input[type=text],main.tc #sib-container input[type=email]{color:#000;background:#fff;-webkit-text-fill-color:#000;caret-color:#000}
-main.tc #sib-container input:-webkit-autofill{-webkit-text-fill-color:#000;box-shadow:0 0 0 1000px #fff inset}
+main.tc .mail form{display:flex;flex-direction:column;gap:16px;margin-top:22px;max-width:620px}
+main.tc .mrow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+main.tc .mrow label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:400;color:var(--d2)}
+main.tc .mrow input{font-family:inherit;font-size:15px;padding:13px 14px;border-radius:4px;border:1px solid var(--s500);background:var(--s900);color:var(--white)}
+main.tc .mrow input:focus{outline:none;border-color:var(--lime)}
+main.tc .mcheck{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--d2);line-height:1.6}
+main.tc .mcheck input{margin-top:4px;accent-color:var(--lime);width:16px;height:16px;flex:none}
+main.tc .mcheck a{text-decoration:underline}
+main.tc .mail .btn{align-self:flex-start}
+main.tc .merr{color:var(--coral);font-size:14px;min-height:1px}
+main.tc .mok{display:none;border:1px solid var(--lime);border-radius:8px;padding:24px 26px;margin-top:22px;max-width:620px}
+main.tc .mok h3{font-size:20px;font-weight:700;color:var(--lime);margin-bottom:6px}
+main.tc .mok p{font-size:15px;color:var(--d1)}
+@media (max-width:720px){main.tc .mrow{grid-template-columns:1fr}}
 main.tc .restart{margin-top:40px}
 
 
@@ -166,33 +176,6 @@ main.tc .restart{margin-top:40px}
 }
 
 </style>
-<!-- Brevo Formular: Schriftarten + Basis-Styles -->
-<style>
-  @font-face {
-    font-display: block;
-    font-family: Roboto;
-    src: url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")
-  }
-  @font-face {
-    font-display: fallback;
-    font-family: Roboto;
-    font-weight: 600;
-    src: url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")
-  }
-  @font-face {
-    font-display: fallback;
-    font-family: Roboto;
-    font-weight: 700;
-    src: url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")
-  }
-  :where(.sib-form-message-panel) { display: none; }
-  :where(.sib-form-message-panel .sib-notification__icon) { width: 20px; height: 20px; }
-  #sib-container input:-ms-input-placeholder { font-family: Helvetica, sans-serif; text-align: left; color: #c0ccda; }
-  #sib-container input::placeholder { font-family: Helvetica, sans-serif; text-align: left; color: #c0ccda; }
-  #sib-container textarea::placeholder { font-family: Helvetica, sans-serif; text-align: left; color: #c0ccda; }
-  #sib-container a { text-decoration: underline; color: #2BB2FC; }
-</style>
-<link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
 </head>
 <body class="tc-page" data-screen-label="Team-Check">
 
@@ -347,105 +330,22 @@ main.tc .restart{margin-top:40px}
       </div>
 
       <div class="mail" id="r-mail">
-        <h2>Lieber auf Papier?</h2>
-        <p class="lead" style="font-size:15px;margin-top:12px">Wir schicken dir den leeren Fragebogen zum Ausdrucken, für alle im Team, die lieber mit Stift ausfüllen. Dein Ergebnis von oben bekommst du über den Button „Ergebnis als PDF“.</p>
-        <div style="margin-top:24px;max-width:480px"><!-- BREVO_FORM_EMBED:START -->
-    <div class="sib-form" style="text-align: center; max-width:440px; margin:0 auto;">
-      <div id="sib-form-container" class="sib-form-container">
-        <div id="error-message" class="sib-form-message-panel" style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#661d1d; background-color:#ffeded; border-color:#ff4949; border-radius:3px; max-width:540px;">
-          <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
-            <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon"><path d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-11.49 120h22.979c6.823 0 12.274 5.682 11.99 12.5l-7 168c-.268 6.428-5.556 11.5-11.99 11.5h-8.979c-6.433 0-11.722-5.073-11.99-11.5l-7-168c-.283-6.818 5.167-12.5 11.99-12.5zM256 340c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28z"/></svg>
-            <span class="sib-form-message-panel__inner-text">Deine Anmeldung konnte nicht gespeichert werden. Bitte versuche es erneut.</span>
+        <h2>Dein Ergebnis per Mail</h2>
+        <p class="lead" style="font-size:15px;margin-top:12px">Wir schicken dir dein Ergebnis mit der Übung und einem Link, über den du es jederzeit wieder öffnen und als PDF speichern kannst. Eine Woche später fragt Paul kurz nach, wie es dir damit geht.</p>
+        <form id="tc-mail" onsubmit="return sendMail(event)" novalidate>
+          <div class="mrow">
+            <label>Vorname<input type="text" name="vorname" autocomplete="given-name" required maxlength="80"></label>
+            <label>E-Mail<input type="email" name="email" autocomplete="email" required maxlength="200" placeholder="name@firma.at"></label>
           </div>
+          <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+          <label class="mcheck"><input type="checkbox" name="einwilligung" required> Ich möchte mein Ergebnis per Mail bekommen und eine Woche später eine kurze Nachfrage. Ich kann mich jederzeit abmelden. Mehr in der <a href="datenschutz.html">Datenschutzerklärung</a>.</label>
+          <button class="btn btn-lime" type="submit">Ergebnis schicken →</button>
+          <p class="merr" id="mail-err"></p>
+        </form>
+        <div class="mok" id="mail-ok">
+          <h3>Fast geschafft.</h3>
+          <p>Wir haben dir eine Mail geschickt. Bitte klick dort auf den Bestätigungslink, danach kommt dein Ergebnis gleich hinterher. Schau notfalls im Spam-Ordner nach.</p>
         </div>
-        <div></div>
-        <div id="success-message" class="sib-form-message-panel" style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#085229; background-color:#e7faf0; border-color:#13ce66; border-radius:3px; max-width:540px;">
-          <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
-            <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon"><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z"/></svg>
-            <span class="sib-form-message-panel__inner-text">Deine Anmeldung war erfolgreich. Neugierig auf mehr? <a href="leadership-navigator.html" style="color:#085229;font-weight:700;text-decoration:underline;" data-umami-event="navigator_einstieg_klick" data-umami-event-ort="teamcheck-danke">Probier den Leadership-Navigator aus →</a></span>
-          </div>
-        </div>
-        <div></div>
-        <div id="sib-container" class="sib-container--large sib-container--vertical" style="text-align:center; background-color:#ffffff; border-width:1px; border-style:solid; border-color:#E8E8E8; border-radius:8px; direction:ltr; padding:34px 30px;">
-          <form id="sib-form" method="POST" action="https://64adf7a6.sibforms.com/serve/MUIFADbWN5Ic-49a586uduAx_tDVuaFYiq6Jj88GgzvSkOvCZX0MZBj2ciIDIKQMzm6ZddqXkxCu5TMAlWBWyv-Ns96w1bs0xY6D5LZkyj901IqnsP-Nr0ASD9HauoeOhti71QisozAxwDk_61ydhQSXPjTufXpkIzySPgTgFvy9qWcvypg2n-Cjskd-uj5APrTjDW6r9b8qmGE0iQ==" data-type="subscription">
-
-            <div style="padding: 0 0 8px;">
-              <div class="sib-form-block" style="font-family:'Poppins',sans-serif; font-size:22px; font-weight:700; text-align:left; color:#000000; background-color:transparent;">
-                <p>Fragebogen zum Ausdrucken</p>
-              </div>
-            </div>
-
-            <div style="padding: 8px 0;">
-              <div class="sib-form-block" style="font-family:Helvetica, sans-serif; font-size:14px; text-align:left; color:#404040; background-color:transparent;">
-                <div class="sib-text-form-block">
-                  <p>Trag dich ein und du bekommst den Fragebogen zum Ausdrucken direkt in dein Postfach.</p>
-                </div>
-              </div>
-            </div>
-
-            <div style="padding: 8px 0;">
-              <div class="sib-input sib-form-block">
-                <div class="form__entry entry_block">
-                  <div class="form__label-row ">
-                    <label class="entry__label" style="font-weight: 700; text-align: left; font-family:Helvetica, sans-serif; font-size:14px; font-weight:700; text-align:left; color:#000000;" for="FIRSTNAME" data-required="*">Vorname</label>
-                    <div class="entry__field">
-                      <input class="input " maxlength="200" type="text" id="FIRSTNAME" name="FIRSTNAME" autocomplete="off" placeholder="Dein Vorname" data-required="true" required style="border-radius:4px;border-color:#E8E8E8;" />
-                    </div>
-                  </div>
-                  <label class="entry__error entry__error--primary" style="font-family:Helvetica, sans-serif; font-size:14px; text-align:left; color:#661d1d; background-color:#ffeded; border-color:#ff4949; border-radius:3px;"></label>
-                </div>
-              </div>
-            </div>
-
-            <div style="padding: 8px 0;">
-              <div class="sib-input sib-form-block">
-                <div class="form__entry entry_block">
-                  <div class="form__label-row ">
-                    <label class="entry__label" style="font-weight: 700; text-align: left; font-family:Helvetica, sans-serif; font-size:14px; font-weight:700; text-align:left; color:#000000;" for="EMAIL" data-required="*">E-Mail</label>
-                    <div class="entry__field">
-                      <input class="input " type="text" id="EMAIL" name="EMAIL" autocomplete="off" value="" placeholder="name@firma.at" data-required="true" required style="border-radius:4px;border-color:#E8E8E8;" />
-                    </div>
-                  </div>
-                  <label class="entry__error entry__error--primary" style="font-family:Helvetica, sans-serif; font-size:14px; text-align:left; color:#661d1d; background-color:#ffeded; border-color:#ff4949; border-radius:3px;"></label>
-                  <label class="entry__specification" style="font-family:Helvetica, sans-serif; font-size:11px; text-align:left; color:#808080;">z. B. name@firma.at</label>
-                </div>
-              </div>
-            </div>
-
-            <div style="padding: 8px 0;">
-              <div class="sib-optin sib-form-block" data-required="true">
-                <div class="form__entry entry_mcq">
-                  <div class="form__label-row ">
-                    <div class="entry__choice" style="">
-                      <label>
-                        <input type="checkbox" class="input_replaced" value="1" id="OPT_IN" name="OPT_IN" required />
-                        <span class="checkbox checkbox_tick_positive" style="margin-left:"></span><span style="font-family:Helvetica, sans-serif; font-size:13px; text-align:left; color:#404040; background-color:transparent;"><p>Ich möchte den Team-Check erhalten und akzeptiere die <a href="datenschutz.html" style="text-decoration:underline;color:#404040;">Datenschutzerklärung</a>.</p></span>
-                      </label>
-                    </div>
-                  </div>
-                  <label class="entry__error entry__error--primary" style="font-family:Helvetica, sans-serif; font-size:14px; text-align:left; color:#661d1d; background-color:#ffeded; border-color:#ff4949; border-radius:3px;"></label>
-                  <label class="entry__specification" style="font-family:Helvetica, sans-serif; font-size:11px; text-align:left; color:#808080;">Du kannst dich jederzeit über den Link in der E-Mail wieder abmelden.</label>
-                </div>
-              </div>
-            </div>
-
-            <div style="padding: 16px 0 0;">
-              <div class="sib-form-block" style="text-align: left">
-                <button class="sib-form-block__button sib-form-block__button-with-loader" style="width:100%;justify-content:center;font-family:'Poppins',sans-serif; font-size:13px; font-weight:700; letter-spacing:0.06em; color:#000000; background-color:#E9FF70; border-width:0px; border-radius:4px; padding:14px 28px;" form="sib-form" type="submit" data-umami-event="teamcheck-mail">
-                  <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512" style="display:none;width:16px;height:16px;"><path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/></svg>
-                  Team-Check anfordern →
-                </button>
-              </div>
-            </div>
-
-            <input type="text" name="email_address_check" value="" class="input--hidden" style="display:none;">
-            <input type="hidden" name="locale" value="de">
-          </form>
-        </div>
-      </div>
-    </div>
-    <!-- BREVO_FORM_EMBED:END --></div>
-        <p class="small">Die Anmeldung läuft über unseren E-Mail-Anbieter Brevo. Mehr in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
       </div>
 
       <div class="restart"><button class="linkbtn" onclick="restart()">↺ Nochmal von vorn</button></div>
@@ -590,6 +490,20 @@ function typeOf(s){
   for(var i=0;i<TIE_ORDER.length;i++){ if(s[TIE_ORDER[i]]===min) return TIE_ORDER[i]; }
 }
 
+/* ---------- Ergebnis aus dem Mail-Link (?ergebnis=…) ---------- */
+var replay = false;
+(function(){
+  try{
+    var e = new URLSearchParams(location.search).get('ergebnis');
+    if(e && /^[1-5]{12}$/.test(e)){
+      replay = true;
+      answers = e.split('').map(Number);
+      document.addEventListener('DOMContentLoaded', function(){ finish(); });
+      if(document.readyState !== 'loading') setTimeout(finish, 0);
+    }
+  }catch(err){}
+})();
+
 /* ---------- Team-Link lesen ---------- */
 (function(){
   try{
@@ -705,8 +619,9 @@ function finish(){
 
   show('s-res');
   drawCard();
-  saveAnon(s, t);
-  track('teamcheck-fertig', {typ:t, A:s.A, B:s.B, C:s.C, D:s.D, team: teamId ? teamRole : 'nein'});
+  if(replay){ $('r-mail').style.display = 'none'; track('teamcheck-ergebnis-link', {typ:t}); }
+  else { saveAnon(s, t); }
+  if(!replay) track('teamcheck-fertig', {typ:t, A:s.A, B:s.B, C:s.C, D:s.D, team: teamId ? teamRole : 'nein'});
 }
 
 /* ---------- Ergebnisbild ---------- */
@@ -1025,62 +940,30 @@ function downloadPdf(mode, btn){
   }).then(function(){ if(btn){ btn.disabled = false; btn.textContent = label; } });
 }
 
+/* ---------- Ergebnis per Mail ---------- */
+function sendMail(ev){
+  ev.preventDefault();
+  var f = ev.target, err = $('mail-err'), btn = f.querySelector('button');
+  err.textContent = '';
+  var vor = f.vorname.value.trim(), mail = f.email.value.trim();
+  if(!vor || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ err.textContent = 'Bitte gib deinen Vornamen und eine gültige E-Mail-Adresse an.'; return false; }
+  if(!f.einwilligung.checked){ err.textContent = 'Bitte bestätige noch das Häkchen.'; return false; }
+  btn.disabled = true; var lbl = btn.textContent; btn.textContent = 'Wird gesendet …';
+  fetch('/team-check-mail.php', {method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({vorname: vor, email: mail, einwilligung: true, antworten: answers.join(''), website: f.website.value})})
+    .then(function(r){ return r.json().catch(function(){ return {ok:false, message:'Server antwortet mit ' + r.status}; }); })
+    .then(function(d){
+      if(d.ok){ f.style.display = 'none'; $('mail-ok').style.display = 'block'; track('teamcheck-mail', {typ: result ? result.t : ''}); }
+      else { err.textContent = d.message || 'Das hat gerade nicht geklappt.'; }
+    })
+    .catch(function(){ err.textContent = 'Keine Verbindung. Bitte versuch es gleich noch einmal.'; })
+    .then(function(){ btn.disabled = false; btn.textContent = lbl; });
+  return false;
+}
+
 function restart(){ answers = new Array(12).fill(null); show('s-intro'); }
 </script>
 <script src="site.js"></script>
 
-<!-- Brevo Formular: Validierungslogik -->
-<script>
-  window.REQUIRED_CODE_ERROR_MESSAGE = 'Wähle bitte einen Ländervorwahl aus.';
-  window.LOCALE = 'de';
-  window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = "Die eingegebenen Informationen sind nicht gültig. Bitte überprüfe das Feldformat und versuche es erneut.";
-  window.REQUIRED_ERROR_MESSAGE = "Dieses Feld darf nicht leer sein. ";
-  window.GENERIC_INVALID_MESSAGE = "Die eingegebenen Informationen sind nicht gültig. Bitte überprüfe das Feldformat und versuche es erneut.";
-  window.INVALID_NUMBER = "Die eingegebenen Informationen sind nicht gültig. Bitte überprüfe das Feldformat und versuche es erneut.";
-  window.INVALID_DATE = "Bitte gib ein gültiges Datum ein";
-  window.REQUIRED_MULTISELECT_MESSAGE = 'Wähle bitte mindestens eine Option aus';
-  window.translation = {
-    common: {
-      selectedList: '{quantity} Liste ausgewählt',
-      selectedLists: '{quantity} Listen ausgewählt',
-      selectedOption: '{quantity} ausgewählt',
-      selectedOptions: '{quantity} ausgewählt',
-    }
-  };
-  var AUTOHIDE = Boolean(0);
-</script>
-<script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
-
-<!-- Echtes Erfolg/Fehler-Tracking fürs Brevo-Formular: der Submit-Button
-     trackt nur den Klick (auch bei Validierungsfehlern) — hier wird
-     zusätzlich getrackt, ob danach wirklich #success-message oder
-     #error-message sichtbar wird, egal wie Brevo das intern umschaltet. -->
-<script>
-(function(){
-  function isVisible(el){
-    if (!el) return false;
-    var cs = getComputedStyle(el);
-    return cs.display !== 'none' && cs.visibility !== 'hidden' && el.offsetParent !== null;
-  }
-  var success = document.getElementById('success-message');
-  var error = document.getElementById('error-message');
-  if (!success && !error) return;
-  var tracked = { success:false, error:false };
-  function check(){
-    if (!tracked.success && isVisible(success)) {
-      tracked.success = true;
-      if (window.umami) window.umami.track('teamcheck_erfolgreich');
-    }
-    if (!tracked.error && isVisible(error)) {
-      tracked.error = true;
-      if (window.umami) window.umami.track('teamcheck_fehler');
-    }
-  }
-  var watchTargets = [success, error, success && success.parentElement, error && error.parentElement].filter(Boolean);
-  var obs = new MutationObserver(check);
-  watchTargets.forEach(function(el){ obs.observe(el, { attributes:true, attributeFilter:['style','class'], subtree:true }); });
-  check();
-})();
-</script>
 </body>
 </html>
