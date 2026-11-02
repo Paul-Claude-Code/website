@@ -2,3 +2,4 @@ config.php
 data/miro-boards.json
 data/processed-orders.json
 .DS_Store
+data/team-check.csv
