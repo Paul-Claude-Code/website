@@ -2,3 +2,6 @@ config.php
 data/miro-boards.json
 data/processed-orders.json
 .DS_Store
+data/team-check.csv
+data/teams/
+data/team-check-mail-fehler.log

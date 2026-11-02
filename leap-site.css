@@ -785,3 +785,28 @@ nav.scrolled .nav-in{height:52px;}
   .home-hero-copy .chip,.home-hero h1 .hl,.home-hero-sub,.home-hero-cta,.home-hero-stats,.home-hero-art{animation:none!important;opacity:1!important;transform:none!important;}
   .arw,.kit-card:hover,.prog-card:hover,.q-card:hover,.prin-card:hover,.team-card:hover .avatar img,.kit-card:hover .kit-icon{transition:none!important;transform:none!important;}
 }
+
+/* ============================================================
+   TEAM-CHECK im Menü
+   ============================================================ */
+.nav-links a .nav-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--lime);color:#000;border-radius:3px;padding:1px 5px;margin-left:5px;vertical-align:2px;line-height:1.5;}
+.nav-links a.nav-tc{color:var(--white);font-weight:600;}
+.nav-links a.nav-tc.cur{color:var(--lime);}
+.mob-menu a.mob-tc{color:var(--lime);font-weight:600;}
+
+
+/* Team-Check-Hinweis auf Startseite und Kit-Seite */
+.tc-band{background:var(--lime);color:var(--black);}
+.tc-band .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-top:30px;padding-bottom:30px;}
+.tc-band-txt{display:flex;flex-direction:column;gap:4px;max-width:640px;}
+.tc-band-eyebrow{font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;}
+.tc-band-h{font-size:clamp(20px,2.4vw,28px);font-weight:700;line-height:1.2;letter-spacing:-0.01em;}
+.tc-band-sub{font-size:14px;font-weight:400;color:rgba(0,0,0,0.66);}
+.tc-band .btn{background:var(--black);color:var(--white);}
+.tc-band .btn:hover{filter:brightness(1.3);}
+
+/* Menü mit Team-Check: bei mittleren Breiten enger, darunter Burger-Menü */
+.nav-cta{white-space:nowrap;}
+@media(max-width:1360px){.nav-links{gap:16px;}.nav-in{gap:16px;}.nav-right{gap:16px;}}
+@media(max-width:1200px){.nav-links a .nav-badge{display:none;}.nav-links li:first-child{display:none;}}
+@media(max-width:1080px){.nav-links{display:none;}.nav-burger{display:flex;}}

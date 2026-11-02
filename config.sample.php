@@ -43,6 +43,10 @@ return [
     // ?token=... anhängst (z.B. https://ich-leaps.at/ablefy-webhook.php?token=DEIN_GEHEIMNIS).
     // So kann niemand außer Ablefy selbst gefälschte "Kauf"-Meldungen an
     // uns schicken. Frei erfinden, einfach ein langer zufälliger String.
+    // Team-Check „Ergebnis per Mail“: ID der Double-Opt-in-Vorlage in Brevo
+    // (Kampagnen → Vorlagen → die Vorlage mit dem Bestätigungslink, ID steht in der Liste).
+    'teamcheck_doi_template_id' => null,
+
     'ablefy_webhook_token' => null,
 
     // Ordnet den Produkt-Slug (bevorzugt), die Produkt-ID oder den
