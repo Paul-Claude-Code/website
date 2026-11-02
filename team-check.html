@@ -487,6 +487,20 @@ function typeOf(s){
   for(var i=0;i<TIE_ORDER.length;i++){ if(s[TIE_ORDER[i]]===min) return TIE_ORDER[i]; }
 }
 
+/* ---------- Einstieg von der Startseite (?a1=…): erste Antwort übernehmen ---------- */
+(function(){
+  try{
+    var a1 = new URLSearchParams(location.search).get('a1');
+    if(a1 && /^[1-5]$/.test(a1)){
+      document.addEventListener('DOMContentLoaded', function(){
+        answers[ORDER[0]] = Number(a1);
+        idx = 1; renderQ(); show('s-q');
+        track('teamcheck-start', {quelle:'startseite'});
+      });
+    }
+  }catch(e){}
+})();
+
 /* ---------- Ergebnis aus dem Mail-Link (?ergebnis=…) ---------- */
 var replay = false;
 (function(){
