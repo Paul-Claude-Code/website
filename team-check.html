@@ -321,8 +321,10 @@ main.tc .restart{margin-top:40px}
           <button class="btn btn-dark" onclick="createTeam()">Team-Link erstellen →</button>
         </div>
         <div id="team-link" style="display:none">
-          <p>Dein Team-Link ist fertig. Schick ihn deinem Team, zum Beispiel per Teams, Slack oder Mail. Über denselben Link siehst du später auch das Teamergebnis, speicher ihn dir also gut ab.</p>
-          <div class="linkbox"><input type="text" readonly id="team-url" onclick="this.select()"><button class="btn btn-dark" onclick="copyTeam()">Kopieren</button></div>
+          <p style="margin-bottom:6px"><strong>Link zum Mitmachen.</strong> Den schickst du deinem Team, zum Beispiel per Teams, Slack oder Mail.</p>
+          <div class="linkbox" style="margin-top:0"><input type="text" readonly id="team-url" onclick="this.select()"><button class="btn btn-dark" onclick="copyTeam('mit')">Kopieren</button></div>
+          <p style="margin:22px 0 6px"><strong>Link zum Ergebnis.</strong> Damit öffnet ihr das Teamergebnis direkt, ohne den Check nochmal zu machen. Ideal für eure gemeinsame Besprechung, speicher ihn dir gut ab.</p>
+          <div class="linkbox" style="margin-top:0"><input type="text" readonly id="team-url-res" onclick="this.select()"><button class="btn btn-dark" onclick="copyTeam('res')">Kopieren</button></div>
         </div>
         <div class="copied" id="r-copied" style="color:#3a5a00;margin-top:10px"></div>
       </div>
@@ -579,7 +581,8 @@ function typeOf(s){
       teamRole = store('tc-team-' + t);
       $('cmp-banner').style.display = 'block';
       // wer schon mitgemacht hat (oder den Link erstellt hat), sieht gleich das Teamergebnis
-      if(teamRole){ viewTeam(); }
+      var p = new URLSearchParams(location.search);
+      if(teamRole || p.get('ansicht') === 'ergebnis'){ viewTeam(); }
     }
   }catch(e){}
 })();
@@ -667,7 +670,7 @@ function finish(){
   if(teamId && teamRole !== 'lead'){
     $('team-create').style.display = 'none';
     $('team-link').style.display = 'block';
-    $('team-url').value = teamUrl();
+    $('team-url').value = teamUrl(); $('team-url-res').value = resultUrl();
     var already = teamRole === 'member';
     teamRole = 'member'; store('tc-team-' + teamId, 'member');
     var req = already ? fetch('team-check-team.php?team=' + teamId) :
@@ -677,7 +680,7 @@ function finish(){
   } else if(teamId && teamRole === 'lead'){
     $('team-create').style.display = 'none';
     $('team-link').style.display = 'block';
-    $('team-url').value = teamUrl();
+    $('team-url').value = teamUrl(); $('team-url-res').value = resultUrl();
   }
 
   show('s-res');
@@ -748,6 +751,7 @@ function shareLinkedIn(){
 }
 
 function teamUrl(){ return CONFIG.pageUrl + '?team=' + teamId; }
+function resultUrl(){ return teamUrl() + '&ansicht=ergebnis'; }
 
 function createTeam(){
   var btn = document.querySelector('#team-create .btn'); btn.disabled = true; btn.textContent = 'Wird erstellt …';
@@ -758,20 +762,20 @@ function createTeam(){
       teamId = d.team; teamRole = 'lead'; store('tc-team-' + teamId, 'lead');
       $('team-create').style.display = 'none';
       $('team-link').style.display = 'block';
-      $('team-url').value = teamUrl();
+      $('team-url').value = teamUrl(); $('team-url-res').value = resultUrl();
       try{ history.replaceState(null, '', 'team-check.html?team=' + teamId); }catch(e){}
       track('teamcheck-team-erstellt', {typ: result.t});
     })
     .catch(function(){ btn.disabled = false; btn.textContent = 'Team-Link erstellen →'; $('r-copied').textContent = 'Das hat leider nicht geklappt. Bitte versuch es gleich nochmal.'; });
 }
 
-function copyTeam(){
-  var url = teamUrl() + '&utm_source=team&utm_medium=link&utm_campaign=teamcheck-team';
+function copyTeam(which){
+  var url = which === 'res' ? resultUrl() : teamUrl() + '&utm_source=team&utm_medium=link&utm_campaign=teamcheck-team';
   var done = function(){ $('r-copied').textContent = 'Link kopiert.'; };
   if(navigator.clipboard && navigator.clipboard.writeText){
     navigator.clipboard.writeText(url).then(done, function(){ fallbackCopy(url); done(); });
   } else { fallbackCopy(url); done(); }
-  track('teamcheck-team-link', {});
+  track('teamcheck-team-link', {art: which === 'res' ? 'ergebnis' : 'mitmachen'});
 }
 
 function viewTeam(){
@@ -795,7 +799,8 @@ function renderTeam(d, el, own){
     var fehlt = d.min - d.n;
     html += '<h3>Bisher ' + (d.n===1 ? 'eine Antwort' : d.n + ' Antworten') + ' aus dem Team.</h3>'
       + '<p class="sub">Das Teamergebnis erscheint, sobald mindestens ' + d.min + ' Personen mitgemacht haben. Es ' + (fehlt===1 ? 'fehlt noch eine' : 'fehlen noch ' + fehlt) + '. Schau über denselben Link später nochmal rein.</p>'
-      + '<div class="linkbox"><input type="text" readonly value="' + teamUrl() + '" onclick="this.select()"></div></div>';
+      + '<p class="sub" style="margin-top:18px">Link zum Mitmachen:</p><div class="linkbox" style="margin-top:6px"><input type="text" readonly value="' + teamUrl() + '" onclick="this.select()"></div>'
+      + '<p class="sub" style="margin-top:14px">Link zum Ergebnis, für eure Besprechung:</p><div class="linkbox" style="margin-top:6px"><input type="text" readonly value="' + resultUrl() + '" onclick="this.select()"></div></div>';
     el.innerHTML = html; return;
   }
   var m = d.mean, L = d.lead;
@@ -824,6 +829,7 @@ function renderTeam(d, el, own){
       : '<strong>Am weitesten auseinander liegen Führungskraft und Team bei ' + gb.name + '</strong>, mit ' + L[gapK] + ' zu Ø ' + fmt(m[gapK]) + ' Punkten. Genau darüber lohnt es sich zu reden. Nicht darüber, wer recht hat, sondern warum ihr es so unterschiedlich erlebt.')
       + '</p>';
   }
+  html += '<p class="sub" style="margin-top:26px">Link zum Ergebnis, für eure Besprechung:</p><div class="linkbox" style="margin-top:6px"><input type="text" readonly value="' + resultUrl() + '" onclick="this.select()"></div>';
   html += '</div>';
   el.innerHTML = html;
   setTimeout(function(){
