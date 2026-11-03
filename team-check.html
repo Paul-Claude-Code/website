@@ -306,20 +306,13 @@ main.tc .restart{margin-top:40px}
       </div>
       <p class="note" id="r-multi" style="display:none;margin-top:-20px;margin-bottom:40px"></p>
 
-      <div class="pdfbox">
-        <div>
-          <h3>Dein Ergebnis als PDF</h3>
-          <p>Zum Ausdrucken oder Weiterschicken, mit Fragen für eure Besprechung im Team.</p>
-        </div>
-        <button class="btn btn-lime" onclick="downloadPdf('eigen', this)">Ergebnis als PDF →</button>
-      </div>
-
       <div class="share">
-        <h2>Teil dein Ergebnis</h2>
+        <h2>Speichern und teilen</h2>
         <div class="share-grid">
           <canvas id="r-canvas" width="1080" height="1080" aria-label="Ergebnisbild zum Teilen"></canvas>
           <div class="share-actions">
-            <p>Lad das Bild herunter und poste es auf LinkedIn. Mich interessiert ehrlich, welcher Typ am häufigsten vorkommt.</p>
+            <p>Das PDF enthält dein Ergebnis, die Übung und Fragen für die Besprechung im Team. Das Bild kannst du auf LinkedIn posten. Mich interessiert ehrlich, welcher Typ am häufigsten vorkommt.</p>
+            <button class="btn btn-lime" onclick="downloadPdf('eigen', this)">Als PDF herunterladen →</button>
             <button class="btn btn-lime" onclick="downloadCard()">Bild herunterladen →</button>
             <button class="btn btn-ghost" onclick="shareLinkedIn()">Auf LinkedIn teilen</button>
           </div>
