@@ -527,7 +527,7 @@ var replay = false;
       $('cmp-banner').style.display = 'block';
       // wer schon mitgemacht hat (oder den Link erstellt hat), sieht gleich das Teamergebnis
       var p = new URLSearchParams(location.search);
-      if(teamRole || p.get('ansicht') === 'ergebnis'){ viewTeam(); }
+      if(!replay && (teamRole || p.get('ansicht') === 'ergebnis')){ viewTeam(); }
     }
   }catch(e){}
 })();
@@ -612,7 +612,14 @@ function finish(){
 
   // Team
   $('r-teamres').innerHTML = '';
-  if(teamId && teamRole !== 'lead'){
+  if(teamId && replay){
+    $('team-create').style.display = 'none';
+    $('team-link').style.display = 'block';
+    $('team-url').value = teamUrl(); $('team-url-res').value = resultUrl(); setMailMe();
+    fetch('/team-check-team.php?team=' + teamId).then(readJson)
+      .then(function(d){ renderTeam(d, $('r-teamres'), s); })
+      .catch(function(e){ teamError($('r-teamres'), e); });
+  } else if(teamId && teamRole !== 'lead'){
     $('team-create').style.display = 'none';
     $('team-link').style.display = 'block';
     $('team-url').value = teamUrl(); $('team-url-res').value = resultUrl(); setMailMe();
@@ -967,7 +974,7 @@ function sendMail(ev){
   if(!f.einwilligung.checked){ err.textContent = 'Bitte bestätige noch das Häkchen.'; return false; }
   btn.disabled = true; var lbl = btn.textContent; btn.textContent = 'Wird gesendet …';
   fetch('/team-check-mail.php', {method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({vorname: vor, email: mail, einwilligung: true, antworten: answers.join(''), website: f.website.value})})
+    body: JSON.stringify({vorname: vor, email: mail, einwilligung: true, antworten: answers.join(''), team: teamId || '', website: f.website.value})})
     .then(function(r){ return r.json().catch(function(){ return {ok:false, message:'Server antwortet mit ' + r.status}; }); })
     .then(function(d){
       if(d.ok){ f.style.display = 'none'; $('mail-ok').style.display = 'block'; track('teamcheck-mail', {typ: result ? result.t : ''}); }

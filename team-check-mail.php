@@ -74,6 +74,13 @@ if (min($s) >= 13) {
 }
 $bereich = $typ === 'E' ? 'allen vier Bereichen' : TC_AREAS[$typ];
 
+// Gehört das Ergebnis zu einem Team? Dann kommt das Team in den Link aus der Mail mit.
+$link = TC_RESULT_URL . $antworten;
+$team = (string) ($d['team'] ?? '');
+if (preg_match('/^[A-Za-z0-9]{12}$/', $team) && is_file(__DIR__ . '/data/teams/' . $team . '.json')) {
+    $link .= '&team=' . $team;
+}
+
 $config = leap_config();
 $template = $config['teamcheck_doi_template_id'] ?? TC_DOI_TEMPLATE_ID;
 if (empty($config['brevo_api_key']) || empty($template)) {
@@ -96,7 +103,7 @@ $payload = [
         'TC_FEEDBACK' => $s['B'],
         'TC_VERTRAUEN' => $s['C'],
         'TC_KOMMUNIKATION' => $s['D'],
-        'TC_LINK' => TC_RESULT_URL . $antworten,
+        'TC_LINK' => $link,
         'TC_DATUM' => date('Y-m-d'),
     ],
 ];
