@@ -110,6 +110,10 @@ main.tc .teamres .scores{margin:28px 0 8px}
 main.tc .teamres .legend{display:flex;flex-wrap:wrap}
 main.tc .linkbox{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:18px}
 main.tc .linkbox input{flex:1 1 260px;font-family:inherit;font-size:13px;padding:12px 14px;border-radius:4px;border:1px solid var(--s500);background:var(--s900);color:var(--white)}
+main.tc .savebox{display:flex;flex-direction:column;gap:8px;align-items:flex-start;background:var(--lime);color:#000;border-radius:8px;padding:20px 22px;margin-top:26px}
+main.tc .savebox strong{font-size:16px;font-weight:700}
+main.tc .savebox span{font-size:14px;line-height:1.6;color:rgba(0,0,0,.75)}
+main.tc .savebox .btn{margin-top:6px}
 main.tc .team .linkbox input{background:#f5f5f5;border-color:#ddd;color:#000}
 main.tc .legend{display:none;gap:8px 18px;font-size:12px;color:var(--d3);margin-top:6px}
 main.tc .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
@@ -286,6 +290,11 @@ main.tc .restart{margin-top:40px}
           <div class="linkbox" style="margin-top:0"><input type="text" readonly id="team-url" onclick="this.select()"><button class="btn btn-dark" onclick="copyTeam('mit')">Kopieren</button></div>
           <p style="margin:22px 0 6px"><strong>Link zum Ergebnis.</strong> Damit öffnet ihr das Teamergebnis direkt, ohne den Check nochmal zu machen. Ideal für eure gemeinsame Besprechung, speicher ihn dir gut ab.</p>
           <div class="linkbox" style="margin-top:0"><input type="text" readonly id="team-url-res" onclick="this.select()"><button class="btn btn-dark" onclick="copyTeam('res')">Kopieren</button></div>
+          <div class="savebox">
+            <strong>Wichtig: Speicher dir diese Links jetzt.</strong>
+            <span>Jeder Team-Link gehört zu genau einem Team. Ohne den Link kommst du später nicht mehr an euer Ergebnis, und wir können ihn auch nicht wiederherstellen. Am einfachsten schickst du dir beide Links gleich selbst.</span>
+            <a class="btn btn-dark" id="team-mailme" href="#" onclick="track('teamcheck-team-link-mail',{})">Links an mich mailen →</a>
+          </div>
         </div>
         <div class="copied" id="r-copied" style="color:#3a5a00;margin-top:10px"></div>
       </div>
@@ -606,7 +615,7 @@ function finish(){
   if(teamId && teamRole !== 'lead'){
     $('team-create').style.display = 'none';
     $('team-link').style.display = 'block';
-    $('team-url').value = teamUrl(); $('team-url-res').value = resultUrl();
+    $('team-url').value = teamUrl(); $('team-url-res').value = resultUrl(); setMailMe();
     var already = teamRole === 'member';
     var req = already ? fetch('/team-check-team.php?team=' + teamId) :
       fetch('/team-check-team.php', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({action:'add', team: teamId, antworten: answers.join('')})});
@@ -618,7 +627,7 @@ function finish(){
   } else if(teamId && teamRole === 'lead'){
     $('team-create').style.display = 'none';
     $('team-link').style.display = 'block';
-    $('team-url').value = teamUrl(); $('team-url-res').value = resultUrl();
+    $('team-url').value = teamUrl(); $('team-url-res').value = resultUrl(); setMailMe();
   }
 
   show('s-res');
@@ -691,6 +700,10 @@ function shareLinkedIn(){
 
 function teamUrl(){ return CONFIG.pageUrl + '?team=' + teamId; }
 function resultUrl(){ return teamUrl() + '&ansicht=ergebnis'; }
+function setMailMe(){
+  var body = 'Mein LEAP Team-Check\n\nLink zum Mitmachen (für das Team):\n' + teamUrl() + '\n\nLink zum Ergebnis (für die Besprechung):\n' + resultUrl() + '\n';
+  var el = $('team-mailme'); if(el) el.href = 'mailto:?subject=' + encodeURIComponent('Team-Check: unsere Links') + '&body=' + encodeURIComponent(body);
+}
 
 function createTeam(){
   var btn = document.querySelector('#team-create .btn'); btn.disabled = true; btn.textContent = 'Wird erstellt …';
@@ -701,7 +714,7 @@ function createTeam(){
       teamId = d.team; teamRole = 'lead'; store('tc-team-' + teamId, 'lead'); store('tc-own-' + teamId, answers.join(''));
       $('team-create').style.display = 'none';
       $('team-link').style.display = 'block';
-      $('team-url').value = teamUrl(); $('team-url-res').value = resultUrl();
+      $('team-url').value = teamUrl(); $('team-url-res').value = resultUrl(); setMailMe();
       try{ history.replaceState(null, '', 'team-check.html?team=' + teamId); }catch(e){}
       track('teamcheck-team-erstellt', {typ: result.t});
     })
@@ -792,7 +805,7 @@ function renderTeam(d, el, own){
       + '</p>';
   }
   html += '<div style="margin-top:22px"><button class="btn btn-ghost" onclick="downloadPdf(\'team\', this)">Teamergebnis als PDF →</button></div>';
-  html += '<p class="sub" style="margin-top:26px">Link zum Ergebnis, für eure Besprechung:</p><div class="linkbox" style="margin-top:6px"><input type="text" readonly value="' + resultUrl() + '" onclick="this.select()"></div>';
+  html += '<p class="sub" style="margin-top:26px"><strong style="color:var(--lime)">Link zum Ergebnis, bitte speichern.</strong> Damit öffnet ihr das Teamergebnis jederzeit wieder, etwa in eurer Besprechung.</p><div class="linkbox" style="margin-top:6px"><input type="text" readonly value="' + resultUrl() + '" onclick="this.select()"></div>';
   html += '</div>';
   el.innerHTML = html;
   setTimeout(function(){
