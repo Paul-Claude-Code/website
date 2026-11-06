@@ -292,8 +292,8 @@ main.tc .restart{margin-top:40px}
           <div class="linkbox" style="margin-top:0"><input type="text" readonly id="team-url-res" onclick="this.select()"><button class="btn btn-dark" onclick="copyTeam('res')">Kopieren</button></div>
           <div class="savebox">
             <strong>Wichtig: Speicher dir diese Links jetzt.</strong>
-            <span>Jeder Team-Link gehört zu genau einem Team. Ohne den Link kommst du später nicht mehr an euer Ergebnis, und wir können ihn auch nicht wiederherstellen. Am einfachsten schickst du dir beide Links gleich selbst.</span>
-            <a class="btn btn-dark" id="team-mailme" href="#" onclick="track('teamcheck-team-link-mail',{})">Links an mich mailen →</a>
+            <span>Jeder Team-Link gehört zu genau einem Team. Ohne den Link kommst du später nicht mehr an euer Ergebnis, und wir können ihn auch nicht wiederherstellen. Am einfachsten lässt du dir dein Ergebnis per Mail schicken, der Link darin öffnet auch euer Teamergebnis.</span>
+            <a class="btn btn-dark" href="#r-mail" onclick="return toMailForm()">Per Mail schicken lassen →</a>
           </div>
         </div>
         <div class="copied" id="r-copied" style="color:#3a5a00;margin-top:10px"></div>
@@ -330,7 +330,7 @@ main.tc .restart{margin-top:40px}
 
       <div class="mail" id="r-mail">
         <h2>Dein Ergebnis per Mail</h2>
-        <p class="lead" style="font-size:15px;margin-top:12px">Wir schicken dir dein Ergebnis mit der Übung und einem Link, über den du es jederzeit wieder öffnen und als PDF speichern kannst. Eine Woche später fragt Paul kurz nach, wie es dir damit geht.</p>
+        <p class="lead" style="font-size:15px;margin-top:12px">Wir schicken dir dein Ergebnis mit der Übung und einem Link, über den du es jederzeit wieder öffnen und als PDF speichern kannst. Hast du einen Team-Link erstellt, öffnet derselbe Link auch euer Teamergebnis. Eine Woche später fragt Paul kurz nach, wie es dir damit geht.</p>
         <form id="tc-mail" onsubmit="return sendMail(event)" novalidate>
           <div class="mrow">
             <label>Vorname<input type="text" name="vorname" autocomplete="given-name" required maxlength="80"></label>
@@ -707,6 +707,13 @@ function shareLinkedIn(){
 
 function teamUrl(){ return CONFIG.pageUrl + '?team=' + teamId; }
 function resultUrl(){ return teamUrl() + '&ansicht=ergebnis'; }
+function toMailForm(){
+  var el = $('r-mail'); if(!el) return false;
+  window.scrollTo({top: el.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth'});
+  setTimeout(function(){ var i = document.querySelector('#tc-mail input[name=vorname]'); if(i) i.focus({preventScroll:true}); }, 600);
+  track('teamcheck-team-link-mail', {});
+  return false;
+}
 function setMailMe(){
   var body = 'Mein LEAP Team-Check\n\nLink zum Mitmachen (für das Team):\n' + teamUrl() + '\n\nLink zum Ergebnis (für die Besprechung):\n' + resultUrl() + '\n';
   var el = $('team-mailme'); if(el) el.href = 'mailto:?subject=' + encodeURIComponent('Team-Check: unsere Links') + '&body=' + encodeURIComponent(body);
