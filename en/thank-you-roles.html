@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank you for your purchase · LEAP</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<!-- Umami läuft über integrations.js. Event dieser Seite: kit-danke (kit, mit_name) -->
+<script src="/integrations.js"></script>
+<link rel="stylesheet" href="/leap-site.css">
+<style>
+/* Danke-Seite: alle Regeln auf main.dk begrenzt, damit Nav und Footer der Website unberührt bleiben */
+:root{
+  --black:#000;--white:#fff;--lime:#E9FF70;
+  --ink:#2E2E2E;--gray:#595959;--bg:#F5F5F5;
+  --s900:#0d0d0d;--s700:#181818;--s600:#222;--s500:#333;
+  --d1:rgba(255,255,255,.92);--d2:rgba(255,255,255,.8);--d3:rgba(255,255,255,.7);--d4:rgba(255,255,255,.58);
+  --font:'Poppins',system-ui,-apple-system,sans-serif;
+}
+body.dk-page{background:var(--black)}
+main.dk{font-family:var(--font);font-weight:300;color:var(--white);line-height:1.7}
+main.dk *{box-sizing:border-box}
+main.dk h1,main.dk h2,main.dk h3,main.dk p,main.dk ol{margin-top:0}
+main.dk .wrap{max-width:860px;margin:0 auto;padding:0 20px}
+main.dk section{padding:0 0 64px}
+main.dk .hero{padding:72px 0 56px;animation:fade .4s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){main.dk .hero{animation:none}}
+
+main.dk .chip{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;border-radius:100px;padding:6px 14px;background:var(--lime);color:var(--black)}
+main.dk h1{font-weight:700;font-size:clamp(34px,6vw,60px);line-height:1.08;letter-spacing:-.02em;margin:22px 0 20px}
+main.dk h1 em,main.dk h2 em{font-style:normal;color:var(--lime)}
+main.dk h2{font-weight:700;font-size:clamp(24px,3.4vw,34px);line-height:1.15;letter-spacing:-.02em;margin-bottom:8px}
+main.dk .lead{font-size:clamp(16px,2vw,19px);color:var(--d2);max-width:640px;line-height:1.75}
+main.dk .lang{font-size:12px;margin:-6px 0 18px}
+main.dk .lang a{color:var(--d3);text-decoration:underline}
+main.dk .lang a:hover{color:var(--white)}
+main.dk .eyebrow{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--lime);margin-bottom:12px}
+main.dk .btn{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;border-radius:4px;padding:16px 26px;text-decoration:none;transition:transform .15s ease}
+main.dk .btn:hover{transform:translateY(-1px)}
+main.dk .btn-dark{background:var(--black);color:var(--white)}
+main.dk .btn-ghost{background:transparent;color:var(--white);border:1px solid var(--s500)}
+main.dk .btn-ghost:hover{border-color:var(--d3)}
+
+/* Zwei Mails */
+main.dk .mails{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
+main.dk .mail{border:1px solid var(--s600);background:var(--s900);border-radius:8px;padding:24px 24px 22px}
+main.dk .mail .from{font-size:12px;color:var(--d4);margin-bottom:10px;word-break:break-word}
+main.dk .mail h3{font-size:18px;font-weight:700;line-height:1.3;margin-bottom:8px}
+main.dk .mail p{font-size:14px;color:var(--d2)}
+main.dk .hint{font-size:13px;color:var(--d4);margin-top:16px;max-width:640px}
+
+/* Schritte */
+main.dk .steps{list-style:none;margin:32px 0 0;padding:0;border-top:1px solid var(--s700)}
+main.dk .steps li{display:grid;grid-template-columns:72px 1fr;gap:8px;padding:26px 0;border-bottom:1px solid var(--s700)}
+main.dk .steps .n{font-size:40px;font-weight:700;line-height:1;color:var(--lime);letter-spacing:-.02em}
+main.dk .steps h3{font-size:19px;font-weight:700;line-height:1.3;margin-bottom:6px}
+main.dk .steps p{font-size:15px;color:var(--d2);max-width:600px}
+
+/* Tipp, hell */
+main.dk .tip{background:var(--lime);color:var(--black);border-radius:8px;padding:34px 32px}
+main.dk .tip .eyebrow{color:var(--black)}
+main.dk .tip h2{color:var(--black)}
+main.dk .tip p{font-size:16px;color:rgba(0,0,0,.78);max-width:620px;margin-top:10px}
+
+/* Weiter */
+main.dk .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
+main.dk .card{border:1px solid var(--s600);background:var(--s900);border-radius:8px;padding:26px 24px;display:flex;flex-direction:column;align-items:flex-start}
+main.dk .card h3{font-size:19px;font-weight:700;line-height:1.3;margin-bottom:10px}
+main.dk .card p{font-size:14px;color:var(--d2);flex:1}
+main.dk .card .btn{margin-top:20px}
+main.dk .card.light{background:var(--white);border-color:var(--white);color:var(--black)}
+main.dk .card.light .eyebrow{color:var(--gray)}
+main.dk .card.light p{color:var(--ink)}
+
+/* Hilfe */
+main.dk .help{border-top:1px solid var(--s700);padding-top:44px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+main.dk .help p{font-size:15px;color:var(--d2);max-width:560px;margin-top:10px}
+main.dk .help a{color:var(--lime);text-decoration:none;font-weight:600}
+main.dk .help .contact{font-size:15px;line-height:1.9;text-align:right}
+
+@media (max-width:720px){
+  main.dk .hero{padding:44px 0 40px}
+  main.dk section{padding-bottom:48px}
+  main.dk .mails,main.dk .cards{grid-template-columns:1fr}
+  main.dk .steps li{grid-template-columns:52px 1fr}
+  main.dk .steps .n{font-size:32px}
+  main.dk .tip{padding:28px 22px}
+  main.dk .help{grid-template-columns:1fr}
+  main.dk .help .contact{text-align:left}
+}
+</style>
+</head>
+<body class="dk-page" data-screen-label="Thank you Roles &amp; Responsibility">
+
+<!-- NAV -->
+<nav>
+  <div class="wrap">
+    <div class="nav-in">
+      <a href="index.html" class="nav-logo"><img src="../apple-touch-icon.png" alt="" class="nav-logo-icon"><span class="nav-logo-text">LE<span class="a">A</span>P</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="programs.html">Programs</a></li>
+        <li><a href="workshop-kits.html" class="nav-hl">Workshop Kits</a></li>
+        <li><a href="team-check.html" class="nav-tc" data-umami-event="nav_teamcheck">Team Check <span class="nav-badge">free</span></a></li>
+        <li><a href="organizations.html">For Organizations</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="../danke-rollen.html?lang=de" class="nav-lang" hreflang="de" lang="de" aria-label="Deutsche Version">DE</a>
+        <a href="contact.html" class="nav-cta" data-umami-event="nav_gespraech_buchen">Book a call →</a>
+        <button class="nav-burger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+  <div class="mob-menu" id="mobmenu">
+    <a href="index.html">Home</a>
+    <a href="programs.html">Programs</a>
+    <a href="workshop-kits.html">Workshop Kits</a>
+    <a href="team-check.html" class="mob-tc">Team Check · free</a>
+    <a href="organizations.html">For Organizations</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="../danke-rollen.html?lang=de" class="mob-lang" hreflang="de" lang="de" aria-label="Deutsche Version">Deutsch</a>
+  </div>
+</nav>
+
+<main class="dk">
+  <div class="wrap">
+
+    <div class="hero">
+      <span class="chip">Workshop Kit · Roles &amp; Responsibility</span>
+      <h1 id="dk-h1">Thank you! Your kit is <em>here.</em></h1>
+      
+      <p class="lead">Great that you're taking this on with your team. Below you'll find what's arriving in the next few minutes and how best to get started. Preparation takes about 25 minutes, and the guide walks you through the rest.</p>
+    </div>
+
+    <section>
+      <div class="eyebrow">What happens next</div>
+      <h2>Two emails in your inbox</h2>
+      <div class="mails">
+        <div class="mail">
+          <div class="from">from no-reply@myablefy.com</div>
+          <h3>Invoice and downloads</h3>
+          <p>It contains the links to the presentation, facilitator guide, agenda and email templates, each in English and German. You can use the same link to download everything again later.</p>
+        </div>
+        <div class="mail">
+          <div class="from">from LEAP</div>
+          <h3>Miro board and all materials</h3>
+          <p>It has the link to your own Miro board, fully set up. Your team won't need a Miro account. All materials are attached, in English and German.</p>
+        </div>
+      </div>
+      <p class="hint">Nothing there yet? Please check your spam folder. If nothing has arrived after fifteen minutes, write to us and we'll send everything to you directly.</p>
+    </section>
+
+    <section>
+      <div class="eyebrow">How to start</div>
+      <h2>Four steps to your workshop</h2>
+      <ol class="steps">
+        <li><span class="n">1</span><div><h3>Read the guide</h3><p>Start with the facilitator guide, not the slides. It lists every step with timings and the exact words you can use. Afterwards you'll know how the workshop feels.</p></div></li>
+        <li><span class="n">2</span><div><h3>Set a date and invite your team</h3><p>Pick a date when everyone can really be there, not answering emails on the side. For the invitation, use the email templates and adapt them.</p></div></li>
+        <li><span class="n">3</span><div><h3>Click through the Miro board once</h3><p>Open the board from the second email and take a quick look at each section. Share the link with your team on the day of the workshop.</p></div></li>
+        <li><span class="n">4</span><div><h3>Run the workshop</h3><p>Slides on the screen, board open, guide next to you. The kit is yours, and you can use it with any team as often as you like.</p></div></li>
+      </ol>
+    </section>
+
+    <section>
+      <div class="tip">
+        <div class="eyebrow">A tip from our experience</div>
+        <h2>Disagreement is the point</h2>
+        <p>In Delegation Poker, two people often play very different cards. That&#x27;s not a flaw in the process, it&#x27;s exactly why you&#x27;re running the workshop. Stay with those moments a little longer instead of rushing to a compromise.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="eyebrow">If you like</div>
+      <h2>What else can help</h2>
+      <div class="cards">
+        <div class="card light">
+          <div class="eyebrow">Before the workshop</div>
+          <h3>The Team Check as a starting point</h3>
+          <p>Have your team take the Team Check anonymously beforehand. It takes three minutes and gives you a shared picture you can come back to in the workshop.</p>
+          <a class="btn btn-dark" href="team-check.html?utm_source=thank-you&amp;utm_medium=website&amp;utm_campaign=kit-rollen" data-umami-event="kit-danke-teamcheck">Go to the Team Check →</a>
+        </div>
+        <div class="card">
+          <div class="eyebrow">Rather not facilitate yourself?</div>
+          <h3>Someone from our coach team takes over</h3>
+          <p>Sometimes it's better to have someone from outside facilitate, for example when you're part of the issue yourself. Get in touch and we'll find a date.</p>
+          <a class="btn btn-ghost" href="contact.html?thema=moderation" data-umami-event="kit-danke-moderation">Request facilitation →</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="help">
+        <div>
+          <h2>Questions? Just write to us.</h2>
+          <p>We at LEAP built these kits, and we're here for you after your purchase too. If something is unclear, missing or not working, get in touch and we'll help. And once you've run the workshop, we'd love to hear how it went.</p>
+        </div>
+        <div class="contact">
+          <a href="mailto:paul@ich-leaps.at?subject=Workshop%20Kit%20Roles &amp; Responsibility">paul@ich-leaps.at</a><br>
+          <a href="tel:+436649153184">+43 664 915 31 84</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="f-brand">LE<span class="a">A</span>P</div>
+        <p class="f-tagline">Leading &amp; Empowering Awesome People.<br>Leadership that actually works.</p>
+      </div>
+      <div>
+        <div class="f-col-title">Navigation</div>
+        <ul class="f-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="workshop-kits.html">Workshop Kits</a></li>
+          <li><a href="team-check.html">Team Check</a></li>
+          <li><a href="organizations.html">For Organizations</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-col-title">Contact</div>
+        <div class="f-contact">LEAP e.U.<br>Spittelauer Lände 15-2/7/21<br>1090 Vienna, Austria<br><br><a href="tel:+436649153184">+43 664 915 31 84</a><br><a href="mailto:paul@ich-leaps.at">paul@ich-leaps.at</a></div>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <p class="f-copy">© <span id="copy-year">2025</span> LEAP e.U. · Drop by and take the leap!</p>
+      <div class="f-legal"><a href="imprint.html">Imprint</a><a href="privacy.html">Privacy</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Vorname aus der ablefy-Parameterweiterleitung lesen.
+   Welcher Parametername ankommt, zeigt der erste Testkauf (siehe Adresszeile).
+   Die gängigen Varianten werden hier alle geprüft. */
+(function(){
+  var KIT = 'rollen', vorname = '';
+  try{
+    var p = new URLSearchParams(location.search);
+    var keys = ['vorname','first_name','firstname','payer_first_name','payer[first_name]','name'];
+    for(var i=0;i<keys.length && !vorname;i++){ vorname = (p.get(keys[i]) || '').trim(); }
+    vorname = vorname.split(/\s+/)[0].slice(0,40);
+    if(!/^[\p{L}][\p{L}'\-.]*$/u.test(vorname)) vorname = '';
+  }catch(e){ vorname = ''; }
+  if(vorname){
+    var h = document.getElementById('dk-h1');
+    h.textContent = 'Thank you, ' + vorname + '! Your kit is ';
+    var em = document.createElement('em'); em.textContent = 'here.'; h.appendChild(em);
+  }
+  // Umami lädt eventuell erst nach dieser Zeile, darum ein paar Versuche
+  var tries = 0;
+  (function send(){
+    try{
+      if(window.umami && typeof umami.track==='function'){ umami.track('kit-danke', {sprache: 'en', kit: KIT, mit_name: vorname ? 'ja' : 'nein'}); return; }
+    }catch(e){ return; }
+    if(++tries < 20) setTimeout(send, 250);
+  })();
+})();
+</script>
+<script src="/site.js"></script>
+
+</body>
+</html>

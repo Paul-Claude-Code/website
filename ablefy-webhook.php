@@ -137,18 +137,47 @@ if ($tokenOk && $kit !== null && $buyerEmail !== '' && !$isDuplicate) {
     // generischen Namen als Fallback. "E-Mail-Vorlagen" ist uneinheitlich
     // benannt (mal mit Bindestrich, mal ohne), deshalb beide Varianten.
     $kitTitle = $kitBoardTitles[$kit] ?? ucfirst($kit);
+    // Englische Kit-Namen für die _EN-Dateien (LEAP_FacilitatorGuide_Trust_EN usw.)
+    $kitTitlesEn = ['vertrauen' => 'Trust', 'rollen' => 'Roles', 'feedback' => 'Feedback'];
+    $kitTitleEn = $kitTitlesEn[$kit] ?? $kitTitle;
+
+    // Jedes Kit enthält alle Unterlagen auf Deutsch und Englisch.
+    // Deutsch: zuerst die neuen _DE-Dateien, dann die alten Namen als Fallback.
     $deliverables = [
-        'Facilitator Guide' => leap_find_deliverable($kit, ["LEAP_FacilitatorGuide_{$kitTitle}", 'facilitator-guide']),
-        'Agenda' => leap_find_deliverable($kit, ["LEAP_Agenda_{$kitTitle}", 'agenda']),
-        'Präsentation' => leap_find_deliverable($kit, ["LEAP_Präsentation_{$kitTitle}", 'praesentation']),
-        'E-Mail-Vorlagen' => leap_find_deliverable($kit, ["LEAP_E-Mail_Vorlagen_{$kitTitle}", "LEAP_EmailVorlagen_{$kitTitle}", 'email-vorlagen']),
+        'Facilitator Guide' => [
+            'de' => leap_find_deliverable($kit, ["LEAP_FacilitatorGuide_{$kitTitle}_DE", "LEAP_FacilitatorGuide_{$kitTitle}", 'facilitator-guide']),
+            'en' => leap_find_deliverable($kit, ["LEAP_FacilitatorGuide_{$kitTitleEn}_EN"]),
+        ],
+        'Agenda' => [
+            'de' => leap_find_deliverable($kit, ["LEAP_Agenda_{$kitTitle}_DE", "LEAP_Agenda_{$kitTitle}", 'agenda']),
+            'en' => leap_find_deliverable($kit, ["LEAP_Agenda_{$kitTitleEn}_EN"]),
+        ],
+        'Präsentation' => [
+            'de' => leap_find_deliverable($kit, ["LEAP_Praesentation_{$kitTitle}_DE", "LEAP_Präsentation_{$kitTitle}", 'praesentation']),
+            'en' => leap_find_deliverable($kit, ["LEAP_Presentation_{$kitTitleEn}_EN"]),
+        ],
+        'E-Mail-Vorlagen' => [
+            'de' => leap_find_deliverable($kit, ["LEAP_E-Mail_Vorlagen_{$kitTitle}_DE", "LEAP_E-Mail_Vorlagen_{$kitTitle}", "LEAP_EmailVorlagen_{$kitTitle}", 'email-vorlagen']),
+            'en' => leap_find_deliverable($kit, ["LEAP_Email_Templates_{$kitTitleEn}_EN"]),
+        ],
     ];
     $attachments = [];
-    foreach ($deliverables as $label => $path) {
-        if ($path !== null) {
-            $attachments[] = ['path' => $path, 'name' => basename($path)];
-        } else {
-            $fulfillmentNotes[] = "Datei fehlt: '{$label}' für Kit '{$kit}' (erwartet in deliverables/{$kit}/, siehe INTEGRATIONS.md).";
+    $attachedLabels = [];
+    foreach ($deliverables as $label => $paths) {
+        foreach (['de' => 'Deutsch', 'en' => 'Englisch'] as $lang => $langName) {
+            if ($paths[$lang] !== null) {
+                $attachments[] = ['path' => $paths[$lang], 'name' => basename($paths[$lang])];
+            } else {
+                $fulfillmentNotes[] = "Datei fehlt: '{$label}' ({$langName}) für Kit '{$kit}' (erwartet in deliverables/{$kit}/, siehe deliverables/README.md).";
+            }
+        }
+        // Zeile in der Kunden-Mail, z.B. "Facilitator Guide · Deutsch & English"
+        if ($paths['de'] !== null && $paths['en'] !== null) {
+            $attachedLabels[] = $label . ' · Deutsch & English';
+        } elseif ($paths['de'] !== null) {
+            $attachedLabels[] = $label;
+        } elseif ($paths['en'] !== null) {
+            $attachedLabels[] = $label . ' · English';
         }
     }
 
@@ -167,7 +196,6 @@ if ($tokenOk && $kit !== null && $buyerEmail !== '' && !$isDuplicate) {
 
     $lifetimeDays = (int) ($config['miro_board_lifetime_days'] ?? 30);
     $kitLabel2 = $kitLabels2[$kit] ?? $kit;
-    $attachedLabels = array_keys(array_filter($deliverables, function ($path) { return $path !== null; }));
     $customerHtml = leap_render_kit_email(
         $kitLabel2,
         $firstName,
