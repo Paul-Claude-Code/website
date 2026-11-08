@@ -25,12 +25,14 @@ $phone = leap_clean((string) ($data['phone'] ?? ''), 60);
 $topic = leap_clean((string) ($data['topic'] ?? ''), 120);
 $message = leap_clean((string) ($data['message'] ?? ''), 4000);
 $programm = leap_clean((string) ($data['programm'] ?? ''), 60);
+// 'en' when the form was sent from the English site (/en/contact.html)
+$isEn = (($data['lang'] ?? '') === 'en');
 
 if ($name === '' || $email === '' || $message === '') {
-    leap_json_response(false, 'Bitte fülle Name, E-Mail und Nachricht aus.', 422);
+    leap_json_response(false, $isEn ? 'Please fill in name, email and message.' : 'Bitte fülle Name, E-Mail und Nachricht aus.', 422);
 }
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    leap_json_response(false, 'Bitte gib eine gültige E-Mail-Adresse an.', 422);
+    leap_json_response(false, $isEn ? 'Please enter a valid email address.' : 'Bitte gib eine gültige E-Mail-Adresse an.', 422);
 }
 
 $config = leap_config();
@@ -74,6 +76,9 @@ $rows = [
 if ($programmLabel !== '') {
     $rows['Programm'] = $programmLabel;
 }
+if ($isEn) {
+    $rows['Sprache'] = 'Englisch (über die englische Website) – bitte auf Englisch antworten';
+}
 
 $html = '<h2>Neue Nachricht über das Kontaktformular</h2><table cellpadding="6" cellspacing="0">';
 foreach ($rows as $label => $value) {
@@ -81,12 +86,12 @@ foreach ($rows as $label => $value) {
 }
 $html .= '</table><p><strong>Nachricht:</strong><br>' . nl2br(htmlspecialchars($message, ENT_QUOTES)) . '</p>';
 
-$sent = leap_send_notification($config, 'Kontaktformular: ' . $name, $html, $email, $name);
+$sent = leap_send_notification($config, ($isEn ? '[EN] ' : '') . 'Kontaktformular: ' . $name, $html, $email, $name);
 
 leap_sync_brevo_contact($config, $email, $listKeys, $interesse);
 
 if (!$sent) {
-    leap_json_response(false, 'Nachricht konnte nicht gesendet werden. Bitte versuch es später erneut oder schreib direkt an paul@ich-leaps.at.', 502);
+    leap_json_response(false, $isEn ? 'Your message could not be sent. Please try again later or email paul@ich-leaps.at directly.' : 'Nachricht konnte nicht gesendet werden. Bitte versuch es später erneut oder schreib direkt an paul@ich-leaps.at.', 502);
 }
 
-leap_json_response(true, 'Danke — wir haben deine Nachricht!');
+leap_json_response(true, $isEn ? 'Thanks, we got your message!' : 'Danke — wir haben deine Nachricht!');

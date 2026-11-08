@@ -6,3 +6,6 @@ RewriteRule ^team-check/?$ team-check.html [L]
 
 # LEAP — Clean-URL für den Leadership-Navigator (Testseite, noch nicht verlinkt)
 RewriteRule ^leadership-navigator/?$ leadership-navigator.html [L]
+
+# LEAP — englische Version des Team-Checks: /en/team-check auf en/team-check.html
+RewriteRule ^en/team-check/?$ en/team-check.html [L]

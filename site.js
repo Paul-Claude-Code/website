@@ -5,6 +5,16 @@
     if(m) m.classList.toggle('op');
   };
 
+  /* language switcher (DE/EN): keep ?team=… / ?ergebnis=… etc. when switching,
+     so a team link still counts for the same team in the other language.
+     Reads location.search at click time (the Team-Check updates the URL after
+     creating a team link). */
+  document.querySelectorAll('.nav-lang,.mob-lang').forEach(function(a){
+    a.addEventListener('click', function(){
+      if(location.search){ a.href = a.href.split('?')[0].split('#')[0] + location.search; }
+    });
+  });
+
   /* footer copyright year — always current, no yearly manual edits needed */
   var yearEl = document.getElementById('copy-year');
   if(yearEl) yearEl.textContent = new Date().getFullYear();

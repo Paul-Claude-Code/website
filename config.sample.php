@@ -46,6 +46,10 @@ return [
     // Team-Check „Ergebnis per Mail“: ID der Double-Opt-in-Vorlage in Brevo
     // (Kampagnen → Vorlagen → die Vorlage mit dem Bestätigungslink, ID steht in der Liste).
     'teamcheck_doi_template_id' => null,
+    // Team-Check auf Englisch (/en/team-check): eigene Brevo-Liste und eigene
+    // englische Double-Opt-in-Vorlage. Siehe BREVO-TEAMCHECK-EN.md.
+    'teamcheck_en_list_id' => null,
+    'teamcheck_en_doi_template_id' => null,
 
     'ablefy_webhook_token' => null,
 

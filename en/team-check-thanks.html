@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confirmed: your result is on its way | LEAP</title>
+<meta name="description" content="Thanks for confirming. Your Team Check result is on its way to your inbox.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,700;1,200;1,300;1,400;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../leap-site.css">
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<script src="../integrations.js"></script>
+<script>if(!document.hidden){document.documentElement.className+=' anim-ready';}</script>
+
+<style>
+.dk-hero{background:var(--black);color:var(--white);padding:96px 0 88px;}
+.dk-check{width:64px;height:64px;border-radius:50%;background:var(--lime);color:var(--black);display:flex;align-items:center;justify-content:center;margin-bottom:28px;}
+.dk-hero h1{font-size:clamp(34px,5vw,56px);font-weight:700;line-height:1.08;letter-spacing:-0.02em;margin-bottom:20px;}
+.dk-hero h1 em{font-style:normal;color:var(--lime);}
+.dk-hero p{font-size:clamp(16px,1.8vw,19px);color:rgba(255,255,255,0.85);max-width:620px;line-height:1.75;}
+.dk-hint{font-size:13px!important;color:rgba(255,255,255,0.86)!important;margin-top:14px;}
+.dk-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:860px;}
+.dk-card{border:1px solid var(--border,#E8E8E8);border-radius:8px;padding:28px 26px;display:flex;flex-direction:column;gap:10px;background:#fff;}
+.dk-card .n{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gray,#595959);}
+.dk-card h3{font-size:19px;font-weight:700;line-height:1.3;color:var(--black);}
+.dk-card p{font-size:14px;color:var(--gray,#595959);line-height:1.7;flex:1;}
+.dk-card .btn{align-self:flex-start;margin-top:8px;}
+.dk-card.lime{background:var(--lime);border-color:var(--lime);}
+.dk-card.lime .n,.dk-card.lime p{color:rgba(0,0,0,.66);}
+@media(max-width:860px){.dk-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body data-screen-label="Team-Check Danke">
+
+<!-- NAV -->
+<nav>
+  <div class="wrap">
+    <div class="nav-in">
+      <a href="index.html" class="nav-logo"><img src="../apple-touch-icon.png" alt="" class="nav-logo-icon"><span class="nav-logo-text">LE<span class="a">A</span>P</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="programs.html">Programs</a></li>
+        <li><a href="workshop-kits.html" class="nav-hl">Workshop Kits</a></li>
+        <li><a href="team-check.html" class="nav-tc" data-umami-event="nav_teamcheck">Team Check <span class="nav-badge">free</span></a></li>
+        <li><a href="organizations.html">For Organizations</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="../team-check-danke.html" class="nav-lang" hreflang="de" lang="de" aria-label="Deutsche Version">DE</a>
+        <a href="contact.html" class="nav-cta" data-umami-event="nav_gespraech_buchen">Book a call →</a>
+        <button class="nav-burger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+  <div class="mob-menu" id="mobmenu">
+    <a href="index.html">Home</a>
+    <a href="programs.html">Programs</a>
+    <a href="workshop-kits.html">Workshop Kits</a>
+    <a href="team-check.html" class="mob-tc">Team Check · free</a>
+    <a href="organizations.html">For Organizations</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="../team-check-danke.html" class="mob-lang" hreflang="de" lang="de" aria-label="Deutsche Version">Deutsch</a>
+  </div>
+</nav>
+
+<section class="dk-hero">
+  <div class="wrap">
+    <div class="dk-check"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg></div>
+    <h1>Confirmed. Your result<br><em>is on its way.</em></h1>
+    <p>It will arrive by email in the next few minutes, with a link you can use to open your result again at any time and save it as a PDF.</p>
+    <p class="dk-hint">Nothing there? Take a quick look in your spam or promotions folder.</p>
+  </div>
+</section>
+
+<section class="sec sec-bg">
+  <div class="wrap">
+    <span class="chip">While you wait</span>
+    <h2 class="sec-h2" style="color:var(--black);margin-bottom:36px;">Two things you<br>can do right now.</h2>
+    <div class="dk-grid">
+      <div class="dk-card lime">
+        <span class="n">With your team</span>
+        <h3>Let your team take part anonymously</h3>
+        <p>Open your result via the link in the email and create a team link there. Everyone fills it in anonymously, and together you see how your team ticks on average.</p>
+      </div>
+      <div class="dk-card">
+        <span class="n">The right tool</span>
+        <h3>Run the workshop yourself</h3>
+        <p>For each of the four areas there's a workshop kit you can use to facilitate the workshop with your team yourself. The kit materials are in German.</p>
+        <a href="workshop-kits.html" class="btn btn-lime" data-umami-event="teamcheck_danke_klick" data-umami-event-ziel="kits">See the workshop kits →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="f-brand">LE<span class="a">A</span>P</div>
+        <p class="f-tagline">Leading &amp; Empowering Awesome People.<br>Leadership that actually works.</p>
+      </div>
+      <div>
+        <div class="f-col-title">Navigation</div>
+        <ul class="f-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="workshop-kits.html">Workshop Kits</a></li>
+          <li><a href="team-check.html">Team Check</a></li>
+          <li><a href="organizations.html">For Organizations</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-col-title">Contact</div>
+        <div class="f-contact">LEAP e.U.<br>Spittelauer Lände 15-2/7/21<br>1090 Vienna, Austria<br><br><a href="tel:+436649153184">+43 664 915 31 84</a><br><a href="mailto:paul@ich-leaps.at">paul@ich-leaps.at</a></div>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <p class="f-copy">© <span id="copy-year">2025</span> LEAP e.U. · Drop by and take the leap!</p>
+      <div class="f-legal"><a href="imprint.html">Imprint</a><a href="privacy.html">Privacy</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="../site.js"></script>
+<script>
+(function(){var r=document.documentElement;
+function go(){r.classList.add('hero-go');}
+function show(){r.classList.add('hero-go');r.classList.add('hero-shown');}
+if(!document.hidden){requestAnimationFrame(function(){requestAnimationFrame(go);});}
+document.addEventListener('visibilitychange',function(){if(!document.hidden)go();});
+window.addEventListener('load',function(){setTimeout(show,1900);});
+})();
+</script>
+</body>
+</html>

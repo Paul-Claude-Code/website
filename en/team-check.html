@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team Check · LEAP</title>
+<meta name="description" content="12 statements, 3 minutes. LEAP's free Team Check shows you where your team stands on roles, feedback, trust and communication.">
+<meta property="og:title" content="The Team Check · Where does your team really stand?">
+<meta property="og:description" content="12 statements, 3 minutes, free. Afterwards you know where your biggest lever is.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.ich-leaps.at/en/team-check">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<link rel="alternate" hreflang="de" href="https://www.ich-leaps.at/team-check">
+<link rel="alternate" hreflang="en" href="https://www.ich-leaps.at/en/team-check">
+<link rel="alternate" hreflang="x-default" href="https://www.ich-leaps.at/team-check">
+<link rel="canonical" href="https://www.ich-leaps.at/en/team-check">
+<meta property="og:image" content="https://www.ich-leaps.at/img/team-check-cover.jpg">
+<meta property="og:locale" content="en_GB">
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<!-- Umami läuft über integrations.js. Events dieser Seite:
+     teamcheck-start, teamcheck-fertig (Typ + Punkte je Bereich, anonym), teamcheck-bild,
+     teamcheck-linkedin, teamcheck-vergleich-link, teamcheck-vergleich-fertig, teamcheck-mail -->
+<script src="../integrations.js"></script>
+<link rel="stylesheet" href="../leap-site.css">
+<style>
+/* Team-Check: alle Regeln auf main.tc begrenzt, damit Nav und Footer der Website unberührt bleiben */
+:root{
+  --black:#000;--white:#fff;--lime:#E9FF70;--coral:#FF7C70;--blue:#70B3FF;
+  --ink:#2E2E2E;--gray:#595959;--bg:#F5F5F5;--border:#E8E8E8;
+  --s900:#0d0d0d;--s700:#181818;--s600:#222;--s500:#333;
+  --d1:rgba(255,255,255,.92);--d2:rgba(255,255,255,.8);--d3:rgba(255,255,255,.7);--d4:rgba(255,255,255,.58);
+  --font:'Poppins',system-ui,-apple-system,sans-serif;
+}
+body.tc-page{background:var(--black)}
+main.tc{font-family:var(--font);font-weight:400;color:var(--white);line-height:1.7;min-height:70vh}
+main.tc *{box-sizing:border-box}
+main.tc button{font-family:inherit;cursor:pointer}
+main.tc .wrap{max-width:860px;margin:0 auto;padding:0 20px}
+
+
+main.tc .screen{display:none;padding:56px 0 72px}
+main.tc .screen.on{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.screen.on{animation:none}}
+
+main.tc .chip{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;border:1px solid var(--s500);border-radius:100px;padding:6px 14px;color:var(--d2)}
+main.tc .chip.lime{background:var(--lime);color:var(--black);border-color:var(--lime)}
+main.tc h1{font-weight:700;font-size:clamp(34px,6vw,60px);line-height:1.08;letter-spacing:-.02em;margin:22px 0 18px}
+main.tc h1 em,main.tc h2 em{font-style:normal;color:var(--lime)}
+main.tc h2{font-weight:700;font-size:clamp(24px,3.4vw,36px);line-height:1.15;letter-spacing:-.02em}
+main.tc .lead{font-size:clamp(16px,2vw,19px);color:var(--d2);max-width:620px;line-height:1.75}
+main.tc .btn{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;border-radius:4px;padding:16px 26px;text-decoration:none;transition:transform .15s ease,background .15s ease}
+main.tc .btn:hover{transform:translateY(-1px)}
+main.tc .btn-lime{background:var(--lime);color:var(--black)}
+main.tc .btn-ghost{background:transparent;color:var(--white);border:1px solid var(--s500)}
+main.tc .btn-ghost:hover{border-color:var(--d3)}
+main.tc .btn-dark{background:var(--black);color:var(--white)}
+
+/* Intro */
+main.tc .blocks{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:40px 0 44px}
+main.tc .blk{border:1px solid var(--s600);border-radius:6px;padding:16px 14px;background:var(--s900)}
+main.tc .blk b{display:block;font-size:12px;color:var(--lime);letter-spacing:.15em;margin-bottom:6px}
+main.tc .blk span{font-size:13px;font-weight:400;color:var(--d1);line-height:1.4;display:block}
+main.tc .note{font-size:12px;color:var(--d4);margin-top:22px;max-width:520px}
+main.tc .compare-banner{border:1px solid var(--lime);border-radius:6px;padding:16px 18px;margin-top:28px;max-width:620px;font-size:14px;color:var(--d1);display:none}
+main.tc .compare-banner strong{color:var(--lime);font-weight:700}
+
+/* Frage */
+main.tc .q-meta{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:12px;font-weight:400;color:var(--d3);margin-bottom:12px}
+main.tc .q-meta .cat{color:var(--lime);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:11px}
+main.tc .bar{height:3px;background:var(--s600);border-radius:2px;overflow:hidden}
+main.tc .bar i{display:block;height:100%;background:var(--lime);width:0;transition:width .3s ease}
+main.tc .q-text{font-weight:700;font-size:clamp(22px,3.6vw,34px);line-height:1.3;letter-spacing:-.01em;margin:48px 0 40px;min-height:3.9em}
+main.tc .scale{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+main.tc .scale button{background:var(--s900);border:1px solid var(--s600);color:var(--white);border-radius:6px;height:68px;font-size:22px;font-weight:700;transition:background .12s ease,border-color .12s ease,color .12s ease}
+main.tc .scale button:hover{border-color:var(--lime)}
+main.tc .scale button.sel{background:var(--lime);color:var(--black);border-color:var(--lime)}
+main.tc .scale-labels{display:flex;justify-content:space-between;font-size:12px;color:var(--d3);margin-top:10px}
+main.tc .q-nav{margin-top:44px;display:flex;justify-content:space-between;align-items:center}
+main.tc .linkbtn{background:none;border:none;color:var(--d3);font-size:13px;font-weight:400;padding:6px 0}
+main.tc .linkbtn:hover{color:var(--white)}
+main.tc .linkbtn:disabled{visibility:hidden}
+
+/* Ergebnis */
+main.tc .res-head{max-width:680px}
+main.tc .res-head .type{font-size:clamp(32px,6vw,54px);font-weight:700;line-height:1.08;letter-spacing:-.02em;margin:20px 0 18px}
+main.tc .res-head .type em{font-style:normal;color:var(--lime)}
+main.tc .scores{margin:44px 0 12px;display:grid;gap:18px}
+main.tc .srow .lbl{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;font-weight:400;color:var(--d1);margin-bottom:8px;gap:12px}
+main.tc .srow .lbl b{font-weight:700}
+main.tc .srow .lvl{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+main.tc .lvl.s{color:var(--lime)}.lvl.m{color:var(--d2)}.lvl.w{color:var(--coral)}
+main.tc .track{position:relative;height:12px;background:var(--s700);border-radius:3px}
+main.tc .track .fill{position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:var(--d3);width:0;transition:width .7s cubic-bezier(.2,.8,.2,1)}
+main.tc .track .fill.s{background:var(--lime)}.track .fill.w{background:var(--coral)}
+main.tc .track .fill.tmavg{background:var(--blue)}
+main.tc .track .mk{position:absolute;top:-5px;bottom:-5px;width:3px;border-radius:2px;margin-left:-1px;transition:left .7s cubic-bezier(.2,.8,.2,1)}
+main.tc .track .mk.lead{background:var(--coral)}
+main.tc .track .mk.you{background:var(--white)}
+main.tc .agree{font-size:11px;font-weight:400;color:var(--d3);margin-left:8px;text-transform:none;letter-spacing:0}
+main.tc .teamres{border:1px solid var(--blue);border-radius:8px;padding:28px 26px;margin-top:40px}
+main.tc .teamres .eyebrow{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+main.tc .teamres h3{font-size:clamp(20px,2.6vw,26px);font-weight:700;line-height:1.25;margin-bottom:6px}
+main.tc .teamres h3 em{font-style:normal;color:var(--blue)}
+main.tc .teamres .sub{font-size:14px;color:var(--d2)}
+main.tc .teamres .scores{margin:28px 0 8px}
+main.tc .teamres .legend{display:flex;flex-wrap:wrap}
+main.tc .linkbox{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:18px}
+main.tc .linkbox input{flex:1 1 260px;font-family:inherit;font-size:13px;padding:12px 14px;border-radius:4px;border:1px solid var(--s500);background:var(--s900);color:var(--white)}
+main.tc .savebox{display:flex;flex-direction:column;gap:8px;align-items:flex-start;background:var(--lime);color:#000;border-radius:8px;padding:20px 22px;margin-top:26px}
+main.tc .savebox strong{font-size:16px;font-weight:700}
+main.tc .savebox span{font-size:14px;line-height:1.6;color:rgba(0,0,0,.75)}
+main.tc .savebox .btn{margin-top:6px}
+main.tc .team .linkbox input{background:#f5f5f5;border-color:#ddd;color:#000}
+main.tc .legend{display:none;gap:8px 18px;font-size:12px;color:var(--d3);margin-top:6px}
+main.tc .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+main.tc .cmp-note{display:none;border-left:3px solid var(--blue);padding:4px 0 4px 16px;margin:30px 0 0;color:var(--d1);font-size:15px;max-width:640px}
+main.tc .cmp-note strong{font-weight:700}
+
+main.tc .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:48px 0}
+main.tc .card{border:1px solid var(--s600);background:var(--s900);border-radius:8px;padding:26px 24px}
+main.tc .card .eyebrow{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--lime);margin-bottom:12px}
+main.tc .card h3{font-size:19px;font-weight:700;line-height:1.3;margin-bottom:10px}
+main.tc .card p{font-size:14px;color:var(--d2)}
+main.tc .card .btn{margin-top:20px}
+main.tc .card.light{background:var(--lime);border-color:var(--lime);color:var(--black)}
+main.tc .card.light .eyebrow{color:var(--black)}
+main.tc .card.light p{color:rgba(0,0,0,.72)}
+
+main.tc .pdfbox{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;border:1px solid var(--lime);border-radius:8px;padding:24px 26px;margin:0 0 56px}
+main.tc .pdfbox h3{font-size:19px;font-weight:700;margin-bottom:4px}
+main.tc .pdfbox p{font-size:14px;color:var(--d2)}
+main.tc .share{border-top:1px solid var(--s700);padding-top:48px;margin-top:8px}
+main.tc .share-grid{display:grid;grid-template-columns:240px 1fr;gap:32px;align-items:start;margin-top:26px}
+main.tc .share-grid canvas{width:100%;height:auto;border-radius:6px;border:1px solid var(--s600);display:block}
+main.tc .share-actions{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+main.tc .share-actions p{font-size:14px;color:var(--d2);max-width:460px}
+main.tc .copied{font-size:12px;color:var(--lime);min-height:18px}
+
+main.tc .team{background:var(--white);color:var(--black);border-radius:8px;padding:36px 32px;margin-top:40px}
+main.tc .team h2{color:var(--black)}
+main.tc .team p{color:var(--ink);font-size:15px;max-width:600px;margin:14px 0 22px}
+
+main.tc .mail{border-top:1px solid var(--s700);margin-top:56px;padding-top:44px}
+main.tc .mail .small{font-size:12px;color:var(--d4);margin-top:12px;max-width:560px}
+main.tc .mail .ok{display:none;color:var(--lime);font-weight:700;margin-top:16px}
+main.tc .mail form{display:flex;flex-direction:column;gap:16px;margin-top:22px;max-width:620px}
+main.tc .mrow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+main.tc .mrow label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:400;color:var(--d2)}
+main.tc .mrow input{height:auto;flex:none;width:100%;font-family:inherit;font-size:15px;padding:13px 14px;border-radius:4px;border:1px solid var(--s500);background:var(--s900);color:var(--white)}
+main.tc .mrow input:focus{outline:none;border-color:var(--lime)}
+main.tc .tc-consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--d2);line-height:1.6;width:auto;height:auto;margin:0;background:none;border-radius:0}
+main.tc .tc-consent input{margin-top:4px;accent-color:var(--lime);width:16px;height:16px;flex:none}
+main.tc .tc-consent a{text-decoration:underline}
+main.tc .mail .btn{align-self:flex-start}
+main.tc .merr{color:var(--coral);font-size:14px;min-height:1px}
+main.tc .mok{display:none;border:1px solid var(--lime);border-radius:8px;padding:24px 26px;margin-top:22px;max-width:620px}
+main.tc .mok h3{font-size:20px;font-weight:700;color:var(--lime);margin-bottom:6px}
+main.tc .mok p{font-size:15px;color:var(--d1)}
+@media (max-width:720px){main.tc .mrow{grid-template-columns:1fr}}
+main.tc .restart{margin-top:40px}
+
+
+@media (max-width:720px){
+  main.tc .screen{padding:36px 0 56px}
+  main.tc .blocks{grid-template-columns:1fr 1fr;margin:30px 0 34px}
+  main.tc .cards{grid-template-columns:1fr}
+  main.tc .share-grid{grid-template-columns:1fr}
+  main.tc .share-grid canvas{max-width:280px}
+  main.tc .scale{gap:6px}
+  main.tc .scale button{height:58px;font-size:20px}
+  main.tc .q-text{margin:36px 0 30px;min-height:5.2em}
+  main.tc .team{padding:28px 22px}
+}
+
+</style>
+</head>
+<body class="tc-page" data-screen-label="Team-Check">
+
+<!-- NAV -->
+<nav>
+  <div class="wrap">
+    <div class="nav-in">
+      <a href="index.html" class="nav-logo"><img src="../apple-touch-icon.png" alt="" class="nav-logo-icon"><span class="nav-logo-text">LE<span class="a">A</span>P</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="programs.html">Programs</a></li>
+        <li><a href="workshop-kits.html" class="nav-hl">Workshop Kits</a></li>
+        <li><a href="team-check.html" class="nav-tc cur">Team Check <span class="nav-badge">free</span></a></li>
+        <li><a href="organizations.html">For Organizations</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="../team-check.html" class="nav-lang" hreflang="de" lang="de" aria-label="Deutsche Version">DE</a>
+        <a href="contact.html" class="nav-cta" data-umami-event="nav_gespraech_buchen">Book a call →</a>
+        <button class="nav-burger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+  <div class="mob-menu" id="mobmenu">
+    <a href="index.html">Home</a>
+    <a href="programs.html">Programs</a>
+    <a href="workshop-kits.html">Workshop Kits</a>
+    <a href="team-check.html" class="mob-tc cur">Team Check · free</a>
+    <a href="organizations.html">For Organizations</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="../team-check.html" class="mob-lang" hreflang="de" lang="de" aria-label="Deutsche Version">Deutsch</a>
+  </div>
+</nav>
+
+
+
+<main class="tc">
+  <!-- INTRO -->
+  <section class="screen on" id="s-intro">
+    <div class="wrap">
+      <span class="chip">Free Team Check</span>
+      <h1>Where does your team <em>really stand?</em></h1>
+      <p class="lead">12 statements, about 3 minutes. Afterwards you'll see where your team's biggest lever is, and you can compare your view with how your team sees it.</p>
+      <div class="compare-banner" id="cmp-banner">
+        <strong>You're taking the check as a team.</strong> Your answers stay anonymous. Everyone sees the shared team result once at least three people have taken part.
+        <div style="margin-top:12px"><button class="linkbtn" style="color:var(--lime);font-weight:600;padding:0" onclick="viewTeam()">See the team result →</button></div>
+      </div>
+      <div class="blocks">
+        <div class="blk"><b>A</b><span>Roles &amp; Responsibility</span></div>
+        <div class="blk"><b>B</b><span>Feedback</span></div>
+        <div class="blk"><b>C</b><span>Trust &amp; Psychological Safety</span></div>
+        <div class="blk"><b>D</b><span>Communication &amp; Clarity</span></div>
+      </div>
+      <button class="btn btn-lime" onclick="startCheck()">Start the check →</button>
+      <p class="note">No sign-up. We store your answers anonymously, without your name, email or IP address, and only analyse them in aggregate. More in our <a href="privacy.html" style="text-decoration:underline">privacy policy</a>.</p>
+    </div>
+  </section>
+
+  <!-- FRAGEN -->
+  <section class="screen" id="s-q">
+    <div class="wrap">
+      <div class="q-meta"><span class="cat" id="q-cat"></span><span id="q-count"></span></div>
+      <div class="bar"><i id="q-bar"></i></div>
+      <p class="q-text" id="q-text"></p>
+      <div class="scale" id="q-scale" role="group" aria-label="Rating from 1 to 5"></div>
+      <div class="scale-labels"><span>not true at all</span><span>completely true</span></div>
+      <div class="q-nav">
+        <button class="linkbtn" id="q-back" onclick="prevQ()">← Back</button>
+        <span class="note" style="margin:0">Honest helps more than nice.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAMERGEBNIS -->
+  <section class="screen" id="s-team">
+    <div class="wrap">
+      <span class="chip lime">Your team result</span>
+      <div id="tm-res"></div>
+      <div style="margin-top:36px;display:flex;gap:12px;flex-wrap:wrap">
+        <button class="btn btn-lime" id="tm-start" onclick="startCheck()">Take part yourself →</button>
+        <button class="btn btn-ghost" onclick="viewTeam()">Refresh</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ERGEBNIS -->
+  <section class="screen" id="s-res">
+    <div class="wrap">
+      <div class="res-head">
+        <span class="chip lime">Your result</span>
+        <p class="type" id="r-type"></p>
+        <p class="lead" id="r-desc"></p>
+      </div>
+
+      <div class="scores" id="r-scores"></div>
+
+      <div id="r-teamres"></div>
+
+      <div class="team">
+        <span class="chip" id="team-chip" style="border-color:#ccc;color:#555">The most valuable comparison</span>
+        <h2 style="margin-top:16px" id="team-h">Does your team see it the same way?</h2>
+        <div id="team-create">
+          <p>Create a team link and send it to your team. Everyone fills in the check anonymously, and afterwards everyone sees the same result: the team average. Your own answers count anonymously, just like everyone else's.</p>
+          <p style="font-size:13px;color:#555;margin-top:-8px">Only you can see your own result. Download it below as an image or PDF and put it next to the team result when you talk it through. The team result only appears once there are three answers, so nobody can be identified.</p>
+          <button class="btn btn-dark" onclick="createTeam()">Create a team link →</button>
+        </div>
+        <div id="team-link" style="display:none">
+          <p style="margin-bottom:6px" id="team-mit-txt"><strong>Link to take part.</strong> Send this to your team, e.g. via Teams, Slack or email.</p>
+          <div class="linkbox" style="margin-top:0"><input type="text" readonly id="team-url" onclick="this.select()"><button class="btn btn-dark" onclick="copyTeam('mit')">Copy</button></div>
+          <p style="margin:22px 0 6px"><strong>Link to the result.</strong> This opens the team result directly, without taking the check again. Ideal for your team discussion, so keep it somewhere safe.</p>
+          <div class="linkbox" style="margin-top:0"><input type="text" readonly id="team-url-res" onclick="this.select()"><button class="btn btn-dark" onclick="copyTeam('res')">Copy</button></div>
+          <div class="savebox">
+            <strong>Important: save these links now.</strong>
+            <span>Each team link belongs to exactly one team. Without the link you won't be able to get back to your result later, and we can't recover it for you. The easiest way is to have your result emailed to you. The link in that email also opens your team result.</span>
+            <a class="btn btn-dark" href="#r-mail" onclick="return toMailForm()">Email it to me →</a>
+          </div>
+        </div>
+        <div class="copied" id="r-copied" style="color:#3a5a00;margin-top:10px"></div>
+      </div>
+
+
+      <div class="cards">
+        <div class="card">
+          <div class="eyebrow">Try this week</div>
+          <h3 id="r-tip-h"></h3>
+          <p id="r-tip"></p>
+        </div>
+        <div class="card light">
+          <div class="eyebrow">If you need more</div>
+          <h3 id="r-offer-h"></h3>
+          <p id="r-offer"></p>
+          <a class="btn btn-dark" id="r-offer-btn" href="#"></a>
+        </div>
+      </div>
+      <p class="note" id="r-multi" style="display:none;margin-top:-20px;margin-bottom:40px"></p>
+
+      <div class="share">
+        <h2>Save and share</h2>
+        <div class="share-grid">
+          <canvas id="r-canvas" width="1080" height="1080" aria-label="Result image to share"></canvas>
+          <div class="share-actions">
+            <p>The PDF contains your result, the exercise and questions for talking it through with your team. You can post the image on LinkedIn. I'm genuinely curious which type comes up most often.</p>
+            <button class="btn btn-lime" onclick="downloadPdf('eigen', this)">Download as PDF →</button>
+            <button class="btn btn-lime" onclick="downloadCard()">Download image →</button>
+            <button class="btn btn-ghost" onclick="shareLinkedIn()">Share on LinkedIn</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mail" id="r-mail">
+        <h2>Get your result by email</h2>
+        <p class="lead" style="font-size:15px;margin-top:12px">We'll send you your result with the exercise and a link you can use to open it again at any time and save it as a PDF. If you created a team link, the same link also opens your team result. A week later, Paul will check in briefly to see how it's going.</p>
+        <form id="tc-mail" onsubmit="return sendMail(event)" novalidate>
+          <div class="mrow">
+            <label>First name<input type="text" name="vorname" autocomplete="given-name" required maxlength="80"></label>
+            <label>Email<input type="email" name="email" autocomplete="email" required maxlength="200" placeholder="name@company.com"></label>
+          </div>
+          <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+          <label class="tc-consent"><input type="checkbox" name="einwilligung" required><span>I'd like to receive my result by email and a short follow-up a week later. I can unsubscribe at any time. More in the <a href="privacy.html">privacy policy</a>.</span></label>
+          <button class="btn btn-lime" type="submit">Send my result →</button>
+          <p class="merr" id="mail-err"></p>
+        </form>
+        <div class="mok" id="mail-ok">
+          <h3>Almost there.</h3>
+          <p>We've sent you an email. Please click the confirmation link in it, and your result will follow right after. If you can't find it, check your spam folder.</p>
+        </div>
+      </div>
+
+      <div class="restart"><button class="linkbtn" onclick="restart()">↺ Start over</button></div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="f-brand">LE<span class="a">A</span>P</div>
+        <p class="f-tagline">Leading &amp; Empowering Awesome People.<br>Leadership that actually works.</p>
+      </div>
+      <div>
+        <div class="f-col-title">Navigation</div>
+        <ul class="f-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="workshop-kits.html">Workshop Kits</a></li>
+          <li><a href="team-check.html">Team Check</a></li>
+          <li><a href="organizations.html">For Organizations</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-col-title">Contact</div>
+        <div class="f-contact">LEAP e.U.<br>Spittelauer Lände 15-2/7/21<br>1090 Vienna, Austria<br><br><a href="tel:+436649153184">+43 664 915 31 84</a><br><a href="mailto:paul@ich-leaps.at">paul@ich-leaps.at</a></div>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <p class="f-copy">© <span id="copy-year">2025</span> LEAP e.U. · Drop by and take the leap!</p>
+      <div class="f-legal"><a href="imprint.html">Imprint</a><a href="privacy.html">Privacy</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+var CONFIG = {
+  pageUrl: 'https://www.ich-leaps.at/en/team-check.html',
+  links: {
+    A: 'kit-roles.html',
+    B: 'kit-feedback.html',
+    C: 'kit-trust.html',
+    D: 'contact.html?thema=workshop',
+    E: 'program-coaching-leader.html',
+    moderation: 'contact.html?thema=moderation'
+  }
+};
+
+var BLOCKS = [
+  {k:'A', name:'Roles & Responsibility', short:'Roles & Responsibility'},
+  {k:'B', name:'Feedback', short:'Feedback'},
+  {k:'C', name:'Trust & Psychological Safety', short:'Trust'},
+  {k:'D', name:'Communication & Clarity', short:'Communication'}
+];
+
+var QUESTIONS = [
+  {b:'A', t:'Everyone on the team can say in one sentence what they\'re responsible for, and the others would agree.'},
+  {b:'A', t:'When a new task comes up, it\'s clear within minutes who will take it on.'},
+  {b:'A', t:'Tasks don\'t regularly get left undone here because nobody feels responsible.'},
+  {b:'B', t:'Our team gives feedback regularly, not just in the annual review.'},
+  {b:'B', t:'Critical feedback here is specific and about behaviour, not about the person.'},
+  {b:'B', t:'The leader also gets open feedback here and takes it well.'},
+  {b:'C', t:'Anyone here can admit a mistake without being shown up for it.'},
+  {b:'C', t:'Risks and half-finished ideas are also raised openly here.'},
+  {b:'C', t:'When someone says "I\'m stuck", the team responds with support, not judgement.'},
+  {b:'D', t:'After our meetings, everyone knows what was decided and who does what by when.'},
+  {b:'D', t:'Important information reaches everyone who needs it, without anyone having to chase it.'},
+  {b:'D', t:'We know which topics belong in a meeting and which don\'t. Our meeting time feels well spent.'}
+];
+
+// Reihenfolge der Anzeige: gemischt, nie zwei Aussagen aus demselben Bereich hintereinander.
+// Die Antworten werden trotzdem pro Aussage gespeichert, Auswertung und Vergleichslink bleiben gleich.
+var ORDER = [0,6,3,9,7,1,10,4,8,2,11,5];
+
+var TYPES = {
+  A:{name:'Everyone here is a little bit responsible.', card:['Everyone here is','a little bit','responsible.'],
+     desc:'Work gets left undone, without anyone meaning any harm. Everyone feels responsible for a piece of it, and that\'s exactly why, in the end, nobody feels fully responsible. Your biggest lever is roles and responsibility.',
+     tipH:'The task without a name',
+     tip:'In your next team meeting, ask: "Which task doesn\'t have anyone who feels responsible for it right now?" Write down the answers and put a name next to each one before you leave the room.',
+     offerH:'Workshop kit "Roles & Responsibility"',
+     offer:'In 2.5 hours you clarify together who stands for what. With a run sheet, facilitator guide and Miro board, even if you\'ve never facilitated before. Materials in German.',
+     btn:'See the kit →'},
+  B:{name:'We are a very polite team.', card:['We are a','very polite team.'],
+     desc:'The tone in your team is friendly, and that\'s a good thing. But a lot of what needs saying gets said by the coffee machine, not in the meeting. Your biggest lever is feedback.',
+     tipH:'Ask for feedback yourself',
+     tip:'This week, explicitly ask one person for feedback on something you did. Then listen, say thank you and don\'t explain yourself. That shows your team more than any feedback rule.',
+     offerH:'Workshop kit "Feedback"',
+     offer:'A workshop where your team practises giving feedback that actually lands, instead of just talking about it. Materials in German.',
+     btn:'See the kit →'},
+  C:{name:'Here, people think twice before they speak up.', card:['Here, people','think twice before','they speak up.'],
+     desc:'People in your team don\'t ask questions easily and don\'t like admitting mistakes. That costs time, and you often only hear about problems once they\'re already big. Your biggest lever is trust and psychological safety.',
+     tipH:'Start with your own mistake',
+     tip:'In your next meeting, talk about a mistake you made recently and what you took away from it. As long as the leader doesn\'t go first, usually nobody else does either.',
+     offerH:'Workshop kit "Trust & Psychological Safety"',
+     offer:'Our most-used kit. Your team talks about what it needs to speak openly and agrees on concrete ground rules. Materials in German.',
+     btn:'See the kit →'},
+  D:{name:'Here, the real talk happens after the meeting.', card:['Here, the real talk','happens after','the meeting.'],
+     desc:'In the meeting everyone nods. What was really decided gets sorted out in the corridor afterwards, or not at all. Your biggest lever is communication and clarity.',
+     tipH:'Two minutes at the end',
+     tip:'At the end of your next meeting, take two minutes and ask someone else to sum up what was decided and who does what by when. You\'ll be surprised how often their summary differs from yours.',
+     offerH:'The "Communication & Clarity" kit is coming soon',
+     offer:'We\'re working on it right now. Until then, a conversation with our coaches often helps you find the right place to start.',
+     btn:'Get in touch →'},
+  E:{name:'We are a well-oiled team.', card:['We are a','well-oiled team.'],
+     desc:'A lot works in your team that gets stuck in others. Still, keep an eye on it: under pressure, even good teams wobble first on trust and roles. And check whether your team sees it the same way.',
+     tipH:'Pass the check on to your team',
+     tip:'Send your team the team link below. If your team\'s picture looks as good as yours, great. If not, now you know where to look.',
+     offerH:'"Coaching as a Leader"',
+     offer:'For leaders whose team is already doing well and who want to take the next step themselves. Held in German.',
+     btn:'See the program →'}
+};
+var TIE_ORDER = ['C','A','B','D']; // bei Gleichstand: Fundament zuerst
+
+var answers = new Array(12).fill(null);
+var idx = 0;
+var teamId = null;   // Team-Kennung aus dem Link (?team=…)
+var teamRole = null;
+var lastTeam = null; // zuletzt geladenes Teamergebnis (für das PDF) // 'lead' = hat den Team-Link erstellt, 'member' = hat im Team mitgemacht
+function store(k, v){ try{ if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k, v); }catch(e){ return null; } }
+var result = null;
+
+/* ---------- Helfer ---------- */
+function track(name, data){ try{ if(window.umami && typeof umami.track==='function') umami.track(name, data); }catch(e){} }
+function $(id){ return document.getElementById(id); }
+function show(id){ document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('on'); }); $(id).classList.add('on'); window.scrollTo(0,0); }
+function level(sum){ return sum>=13 ? 's' : (sum>=9 ? 'm' : 'w'); }
+var LEVEL_TXT = {s:'Strength', m:'Solid', w:'Needs work'};
+var AGREE_TXT = {einig:'agrees', gemischt:'mixed views', uneinig:'disagrees'};
+
+function sums(arr){
+  var r = {A:0,B:0,C:0,D:0};
+  arr.forEach(function(v,i){ r[QUESTIONS[i].b] += v; });
+  return r;
+}
+function typeOf(s){
+  var keys = ['A','B','C','D'];
+  if(keys.every(function(k){ return s[k]>=13; })) return 'E';
+  var min = Math.min(s.A,s.B,s.C,s.D);
+  for(var i=0;i<TIE_ORDER.length;i++){ if(s[TIE_ORDER[i]]===min) return TIE_ORDER[i]; }
+}
+
+/* ---------- Einstieg von der Startseite (?a1=…): erste Antwort übernehmen ---------- */
+(function(){
+  try{
+    var a1 = new URLSearchParams(location.search).get('a1');
+    if(a1 && /^[1-5]$/.test(a1)){
+      document.addEventListener('DOMContentLoaded', function(){
+        answers[ORDER[0]] = Number(a1);
+        idx = 1; renderQ(); show('s-q');
+        track('teamcheck-start', {quelle:'startseite'});
+      });
+    }
+  }catch(e){}
+})();
+
+/* ---------- Ergebnis aus dem Mail-Link (?ergebnis=…) ---------- */
+var replay = false;
+(function(){
+  try{
+    var e = new URLSearchParams(location.search).get('ergebnis');
+    if(e && /^[1-5]{12}$/.test(e)){
+      replay = true;
+      answers = e.split('').map(Number);
+      document.addEventListener('DOMContentLoaded', function(){ finish(); });
+      if(document.readyState !== 'loading') setTimeout(finish, 0);
+    }
+  }catch(err){}
+})();
+
+/* ---------- Team-Link lesen ---------- */
+(function(){
+  try{
+    var t = new URLSearchParams(location.search).get('team');
+    if(t && /^[A-Za-z0-9]{12}$/.test(t)){
+      teamId = t;
+      teamRole = store('tc-team-' + t);
+      $('cmp-banner').style.display = 'block';
+      // wer schon mitgemacht hat (oder den Link erstellt hat), sieht gleich das Teamergebnis
+      var p = new URLSearchParams(location.search);
+      if(!replay && (teamRole || p.get('ansicht') === 'ergebnis')){ viewTeam(); }
+    }
+  }catch(e){}
+})();
+
+/* ---------- Ablauf ---------- */
+function startCheck(){ idx = 0; renderQ(); show('s-q'); track('teamcheck-start', teamId ? {team:'ja'} : {}); }
+
+function renderQ(){
+  var qi = ORDER[idx];
+  var q = QUESTIONS[qi];
+  $('q-cat').textContent = 'Team Check';
+  $('q-count').textContent = 'Statement ' + (idx+1) + ' of 12';
+  $('q-bar').style.width = (idx/12*100) + '%';
+  $('q-text').textContent = q.t;
+  var sc = $('q-scale'); sc.innerHTML = '';
+  for(var n=1;n<=5;n++){
+    var b = document.createElement('button');
+    b.textContent = n; b.setAttribute('aria-label', n + (n===1?' (not true at all)':n===5?' (completely true)':''));
+    if(answers[qi]===n) b.className = 'sel';
+    (function(val){ b.onclick = function(){ choose(val, this); }; })(n);
+    sc.appendChild(b);
+  }
+  $('q-back').disabled = idx===0;
+}
+
+var busy = false;
+function choose(val, el){
+  if(busy) return; busy = true;
+  answers[ORDER[idx]] = val;
+  document.querySelectorAll('#q-scale button').forEach(function(b){ b.classList.remove('sel'); });
+  el.classList.add('sel');
+  setTimeout(function(){
+    busy = false;
+    if(idx < 11){ idx++; renderQ(); }
+    else { finish(); }
+  }, 220);
+}
+function prevQ(){ if(idx>0){ idx--; renderQ(); } }
+
+document.addEventListener('keydown', function(e){
+  if(!$('s-q').classList.contains('on')) return;
+  var n = parseInt(e.key,10);
+  if(n>=1 && n<=5){ var btn = $('q-scale').children[n-1]; if(btn) choose(n, btn); }
+  if(e.key==='Backspace' || e.key==='ArrowLeft'){ prevQ(); }
+});
+
+/* ---------- Ergebnis ---------- */
+function finish(){
+  var s = sums(answers);
+  var t = typeOf(s);
+  result = {s:s, t:t, code:answers.join('')};
+  var T = TYPES[t];
+
+  $('r-type').innerHTML = T.name.replace(/(\S+\.)$/, '<em>$1</em>');
+  $('r-desc').textContent = T.desc;
+  $('r-tip-h').textContent = T.tipH;
+  $('r-tip').textContent = T.tip;
+  $('r-offer-h').textContent = T.offerH;
+  $('r-offer').textContent = T.offer;
+  $('r-offer-btn').textContent = T.btn;
+  $('r-offer-btn').href = CONFIG.links[t];
+
+  // mehrere Baustellen
+  var weak = ['A','B','C','D'].filter(function(k){ return s[k]<=8; });
+  if(weak.length>=2){
+    $('r-multi').style.display = 'block';
+    $('r-multi').textContent = 'Several areas need work? Start with the foundation. Trust and clear roles carry everything else, and feedback and communication build on them. If you\'re part of the issue yourself, external facilitation by our coaches can help.';
+  } else { $('r-multi').style.display = 'none'; }
+
+  // Balken
+  var box = $('r-scores'); box.innerHTML = '';
+  BLOCKS.forEach(function(b){
+    var v = s[b.k], lv = level(v);
+    var row = document.createElement('div'); row.className = 'srow';
+    row.innerHTML = '<div class="lbl"><span><b>' + b.k + '</b> · ' + b.name + '</span><span class="lvl ' + lv + '">' + LEVEL_TXT[lv] + ' · ' + v + '/15</span></div>'
+      + '<div class="track"><div class="fill ' + lv + '"></div></div>';
+    box.appendChild(row);
+    setTimeout(function(){
+      row.querySelector('.fill').style.width = ((v-3)/12*100) + '%';
+    }, 80);
+  });
+
+  // Team
+  $('r-teamres').innerHTML = '';
+  if(teamId && replay){
+    teamJoined();
+    $('team-create').style.display = 'none';
+    $('team-link').style.display = 'block';
+    $('team-url').value = teamUrl(); $('team-url-res').value = resultUrl(); setMailMe();
+    fetch('/team-check-team.php?team=' + teamId).then(readJson)
+      .then(function(d){ renderTeam(d, $('r-teamres'), s); })
+      .catch(function(e){ teamError($('r-teamres'), e); });
+  } else if(teamId && teamRole !== 'lead'){
+    teamJoined();
+    $('team-create').style.display = 'none';
+    $('team-link').style.display = 'block';
+    $('team-url').value = teamUrl(); $('team-url-res').value = resultUrl(); setMailMe();
+    var already = teamRole === 'member';
+    var req = already ? fetch('/team-check-team.php?team=' + teamId) :
+      fetch('/team-check-team.php', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({action:'add', team: teamId, antworten: answers.join('')})});
+    req.then(readJson).then(function(d){
+      if(d.ok){ teamRole = 'member'; store('tc-team-' + teamId, 'member'); store('tc-own-' + teamId, answers.join('')); }
+      renderTeam(d, $('r-teamres'), s);
+    }).catch(function(e){ teamError($('r-teamres'), e); });
+    track('teamcheck-team-mitgemacht', {});
+  } else if(teamId && teamRole === 'lead'){
+    $('team-create').style.display = 'none';
+    $('team-link').style.display = 'block';
+    $('team-url').value = teamUrl(); $('team-url-res').value = resultUrl(); setMailMe();
+  }
+
+  show('s-res');
+  drawCard();
+  if(replay){ $('r-mail').style.display = 'none'; track('teamcheck-ergebnis-link', {typ:t}); }
+  else { saveAnon(s, t); }
+  if(!replay) track('teamcheck-fertig', {typ:t, A:s.A, B:s.B, C:s.C, D:s.D, team: teamId ? teamRole : 'nein'});
+}
+
+/* ---------- Ergebnisbild ---------- */
+function drawCard(){
+  var c = $('r-canvas'), x = c.getContext('2d');
+  var draw = function(){
+    var W = 1080, s = result.s, T = TYPES[result.t];
+    x.fillStyle = '#000'; x.fillRect(0,0,W,W);
+    // Logo
+    x.fillStyle = '#fff'; x.font = '700 40px Poppins, sans-serif'; x.textBaseline = 'alphabetic';
+    var lx = 90; ['L','E','A','P'].forEach(function(ch){ x.fillStyle = ch==='A' ? '#E9FF70' : '#fff'; x.fillText(ch, lx, 140); lx += x.measureText(ch).width + 6; });
+    x.fillStyle = 'rgba(255,255,255,.62)'; x.font = '700 22px Poppins, sans-serif';
+    x.textAlign = 'right'; x.fillText('TEAM CHECK', W-90, 136); x.textAlign = 'left';
+    // Typ
+    x.fillStyle = '#fff'; x.font = '700 64px Poppins, sans-serif';
+    var y = 280;
+    T.card.forEach(function(line, i){
+      x.fillStyle = i===T.card.length-1 ? '#E9FF70' : '#fff';
+      x.fillText(line, 90, y); y += 80;
+    });
+    // Balken
+    y = Math.max(y + 40, 560);
+    BLOCKS.forEach(function(b){
+      var v = s[b.k], lv = level(v);
+      x.fillStyle = 'rgba(255,255,255,.92)'; x.font = '400 28px Poppins, sans-serif';
+      x.fillText(b.short, 90, y);
+      x.textAlign = 'right'; x.font = '700 28px Poppins, sans-serif';
+      x.fillStyle = lv==='s' ? '#E9FF70' : lv==='w' ? '#FF7C70' : 'rgba(255,255,255,.72)';
+      x.fillText(v + '/15', W-90, y); x.textAlign = 'left';
+      x.fillStyle = '#181818'; roundRect(x, 90, y+18, W-180, 16, 4); x.fill();
+      x.fillStyle = lv==='s' ? '#E9FF70' : lv==='w' ? '#FF7C70' : 'rgba(255,255,255,.62)';
+      roundRect(x, 90, y+18, Math.max(16,(W-180)*(v-3)/12), 16, 4); x.fill();
+      y += 92;
+    });
+    // Fuß
+    x.fillStyle = 'rgba(255,255,255,.62)'; x.font = '400 26px Poppins, sans-serif';
+    x.fillText('And where does your team stand?', 90, W-80);
+    x.textAlign = 'right'; x.fillStyle = '#E9FF70'; x.font = '700 26px Poppins, sans-serif';
+    x.fillText('ich-leaps.at/en/team-check', W-90, W-80); x.textAlign = 'left';
+  };
+  if(document.fonts && document.fonts.load){
+    Promise.all([document.fonts.load('700 64px Poppins'), document.fonts.load('400 28px Poppins')]).then(draw, draw);
+  } else { draw(); }
+}
+function roundRect(x, X, Y, w, h, r){ x.beginPath(); x.moveTo(X+r,Y); x.arcTo(X+w,Y,X+w,Y+h,r); x.arcTo(X+w,Y+h,X,Y+h,r); x.arcTo(X,Y+h,X,Y,r); x.arcTo(X,Y,X+w,Y,r); x.closePath(); }
+
+function downloadCard(){
+  var c = $('r-canvas');
+  try{
+    var a = document.createElement('a');
+    a.download = 'leap-team-check.png';
+    a.href = c.toDataURL('image/png');
+    document.body.appendChild(a); a.click(); a.remove();
+  }catch(e){ window.open(c.toDataURL('image/png'), '_blank'); }
+  track('teamcheck-bild', {typ: result.t});
+}
+
+function shareLinkedIn(){
+  var url = CONFIG.pageUrl + '?utm_source=linkedin&utm_medium=social&utm_campaign=teamcheck-teilen';
+  window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(url), '_blank', 'noopener');
+  track('teamcheck-linkedin', {typ: result.t});
+}
+
+function teamJoined(){
+  $('team-chip').textContent = 'Your team';
+  $('team-h').textContent = 'Your team links';
+  $('team-mit-txt').innerHTML = '<strong>Link to take part.</strong> Is someone from the team still missing? Forward this link to them.';
+}
+function teamUrl(){ return CONFIG.pageUrl + '?team=' + teamId; }
+function resultUrl(){ return teamUrl() + '&ansicht=ergebnis'; }
+function toMailForm(){
+  var el = $('r-mail'); if(!el) return false;
+  window.scrollTo({top: el.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth'});
+  setTimeout(function(){ var i = document.querySelector('#tc-mail input[name=vorname]'); if(i) i.focus({preventScroll:true}); }, 600);
+  track('teamcheck-team-link-mail', {});
+  return false;
+}
+function setMailMe(){
+  var body = 'My LEAP Team Check\n\nLink to take part (for the team):\n' + teamUrl() + '\n\nLink to the result (for our discussion):\n' + resultUrl() + '\n';
+  var el = $('team-mailme'); if(el) el.href = 'mailto:?subject=' + encodeURIComponent('Team Check: our links') + '&body=' + encodeURIComponent(body);
+}
+
+function createTeam(){
+  var btn = document.querySelector('#team-create .btn'); btn.disabled = true; btn.textContent = 'Creating …';
+  fetch('/team-check-team.php', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({action:'create', antworten: answers.join('')})})
+    .then(readJson)
+    .then(function(d){
+      if(!d.ok || !d.team) throw new Error(d.error || 'fehler');
+      teamId = d.team; teamRole = 'lead'; store('tc-team-' + teamId, 'lead'); store('tc-own-' + teamId, answers.join(''));
+      $('team-create').style.display = 'none';
+      $('team-link').style.display = 'block';
+      $('team-url').value = teamUrl(); $('team-url-res').value = resultUrl(); setMailMe();
+      try{ history.replaceState(null, '', 'team-check.html?team=' + teamId); }catch(e){}
+      track('teamcheck-team-erstellt', {typ: result.t});
+    })
+    .catch(function(e){ btn.disabled = false; btn.textContent = 'Create a team link →'; $('r-copied').textContent = 'Sorry, that didn\'t work. Please try again in a moment. (' + errText(e) + ')'; });
+}
+
+function copyTeam(which){
+  var url = which === 'res' ? resultUrl() : teamUrl() + '&utm_source=team&utm_medium=link&utm_campaign=teamcheck-team';
+  var done = function(){ $('r-copied').textContent = 'Link copied.'; };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(done, function(){ fallbackCopy(url); done(); });
+  } else { fallbackCopy(url); done(); }
+  track('teamcheck-team-link', {art: which === 'res' ? 'ergebnis' : 'mitmachen'});
+}
+
+function viewTeam(){
+  show('s-team');
+  $('tm-start').style.display = teamRole ? 'none' : 'inline-flex';
+  $('tm-res').innerHTML = '<p class="lead" style="margin-top:24px">Loading the team result …</p>';
+  fetch('/team-check-team.php?team=' + teamId)
+    .then(readJson)
+    .then(function(d){ renderTeam(d, $('tm-res'), null); })
+    .catch(function(e){ teamError($('tm-res'), e); });
+}
+
+/* Antwort lesen; bei Fehlern den Grund mitgeben, damit man ihn sieht */
+function readJson(r){
+  return r.text().then(function(t){
+    var d = null; try{ d = JSON.parse(t); }catch(e){}
+    if(d) return d;
+    var err = new Error('keine-json'); err.status = r.status; throw err;
+  });
+}
+var ERR_TXT = {
+  'unbekannt': 'This team link doesn\'t exist (any more). Please check it was copied completely.',
+  'speicher': 'The server couldn\'t save the answer.',
+  'voll': 'This team has already received a very large number of answers.',
+  'antworten': 'The answers were incomplete.'
+};
+function errText(e){
+  if(!e) return 'unknown error';
+  if(e.status) return 'server responded with ' + e.status;
+  return ERR_TXT[e.message] ? e.message : 'no connection';
+}
+function teamError(el, e){
+  var code = e && e.message && ERR_TXT[e.message] ? ERR_TXT[e.message] : 'The team result couldn\'t be loaded just now. Please try again later.';
+  el.innerHTML = '<p class="lead" style="margin-top:24px">' + code + '</p><p class="note">Technical note: ' + errText(e) + '</p>';
+  track('teamcheck-team-fehler', {grund: errText(e)});
+}
+
+function fmt(v){ return String(v); }
+
+function renderTeam(d, el, own){
+  if(!d || !d.ok){ teamError(el, new Error((d && d.error) || 'fehler')); return; }
+  var html = '<div class="teamres"><div class="eyebrow">Your team</div>';
+  if(!d.ready){
+    var fehlt = d.min - d.n;
+    html += '<h3>So far ' + (d.n===1 ? 'one answer' : d.n + ' answers') + ' from the team.</h3>'
+      + '<p class="sub">The team result appears once at least ' + d.min + ' people have taken part. ' + (fehlt===1 ? 'One more is' : fehlt + ' more are') + ' needed. Check back later using the same link.</p>'
+      + '<p class="sub" style="margin-top:18px">Link to take part:</p><div class="linkbox" style="margin-top:6px"><input type="text" readonly value="' + teamUrl() + '" onclick="this.select()"></div>'
+      + '<p class="sub" style="margin-top:14px">Link to the result, for your discussion:</p><div class="linkbox" style="margin-top:6px"><input type="text" readonly value="' + resultUrl() + '" onclick="this.select()"></div></div>';
+    el.innerHTML = html; return;
+  }
+  lastTeam = d;
+  if(!own){ var saved = store('tc-own-' + teamId); if(saved && /^[1-5]{12}$/.test(saved)) own = sums(saved.split('').map(Number)); }
+  var m = d.mean;
+  var T = TYPES[typeOf(m)];
+  html += '<h3>On average your team says: <em>' + T.name + '</em></h3>'
+    + '<p class="sub">Average of ' + d.n + ' anonymous answers.' + (own ? ' The white marker is your own assessment, which only you can see.' : '') + '</p>'
+    + '<div class="scores">';
+  BLOCKS.forEach(function(b){
+    var lv = level(m[b.k]);
+    html += '<div class="srow"><div class="lbl"><span><b>' + b.k + '</b> · ' + b.name + '<span class="agree">Team ' + (AGREE_TXT[d.agree[b.k]] || d.agree[b.k]) + '</span></span>'
+      + '<span class="lvl ' + lv + '">Ø ' + fmt(m[b.k]) + '/15</span></div>'
+      + '<div class="track"><div class="fill tmavg" data-w="' + ((m[b.k]-3)/12*100) + '"></div>'
+      + (own ? '<div class="mk you" data-l="' + ((own[b.k]-3)/12*100) + '" title="You: ' + own[b.k] + '/15"></div>' : '')
+      + '</div></div>';
+  });
+  html += '</div><div class="legend"><span><i style="background:var(--blue)"></i>Team average</span>'
+    + (own ? '<span><i style="background:#fff"></i>You (only visible to you)</span>' : '') + '</div>';
+  if(own){
+    var gapK = 'A', gap = -1;
+    BLOCKS.forEach(function(b){ var g = Math.abs(m[b.k]-own[b.k]); if(g>gap){ gap=g; gapK=b.k; } });
+    var gb = BLOCKS.filter(function(b){ return b.k===gapK; })[0];
+    html += '<p class="cmp-note" style="display:block">' + (gap < 2
+      ? '<strong>You see the team pretty much the way everyone else does.</strong> Your biggest difference is on ' + gb.name + ' (' + own[gapK] + ' vs. avg. ' + fmt(m[gapK]) + ').'
+      : '<strong>Your view differs most from the team on ' + gb.name + '</strong>, with ' + own[gapK] + ' vs. an average of ' + fmt(m[gapK]) + ' points. A good place to ask in your discussion how the others experience it.')
+      + '</p>';
+  }
+  html += '<div style="margin-top:22px"><button class="btn btn-ghost" onclick="downloadPdf(\'team\', this)">Team result as PDF →</button></div>';
+  html += '<p class="sub" style="margin-top:26px"><strong style="color:var(--lime)">Link to the result, please save it.</strong> It lets you open the team result again at any time, for example in your team discussion.</p><div class="linkbox" style="margin-top:6px"><input type="text" readonly value="' + resultUrl() + '" onclick="this.select()"></div>';
+  html += '</div>';
+  el.innerHTML = html;
+  setTimeout(function(){
+    el.querySelectorAll('[data-w]').forEach(function(x){ x.style.width = x.getAttribute('data-w') + '%'; });
+    el.querySelectorAll('[data-l]').forEach(function(x){ x.style.left = x.getAttribute('data-l') + '%'; });
+  }, 80);
+  track('teamcheck-team-ergebnis', {n: d.n});
+}
+
+function fallbackCopy(t){ var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); }catch(e){} ta.remove(); }
+
+/* Anonyme Antworten speichern (ohne Name, Mail oder IP) – für die Auswertung im Jänner */
+function saveAnon(s, t){
+  try{
+    var p = new URLSearchParams(location.search);
+    var body = JSON.stringify({
+      antworten: answers.join(''),
+      typ: t, A: s.A, B: s.B, C: s.C, D: s.D,
+      team: teamId || '',
+      rolle: teamId ? (teamRole || 'mitglied') : 'einzeln',
+      quelle: (p.get('utm_source') || '').slice(0,40),
+      kampagne: (p.get('utm_campaign') || '').slice(0,60)
+    });
+    fetch('/team-check-save.php', {method:'POST', headers:{'Content-Type':'application/json'}, body: body, keepalive: true}).catch(function(){});
+  }catch(e){}
+}
+
+/* ---------- Ergebnis als PDF (A4, im Browser erzeugt) ---------- */
+var JSPDF_URL = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+function loadJsPdf(){
+  return new Promise(function(ok, fail){
+    if(window.jspdf) return ok();
+    var sc = document.createElement('script'); sc.src = JSPDF_URL; sc.onload = function(){ ok(); }; sc.onerror = fail;
+    document.head.appendChild(sc);
+  });
+}
+
+function wrapText(x, text, maxW){
+  var words = String(text).split(' '), lines = [], line = '';
+  words.forEach(function(w){
+    var t = line ? line + ' ' + w : w;
+    if(x.measureText(t).width > maxW && line){ lines.push(line); line = w; } else { line = t; }
+  });
+  if(line) lines.push(line);
+  return lines;
+}
+
+function drawPdfPage(mode){
+  var W = 1240, H = 1754, M = 110, CW = W - 2*M;
+  var c = document.createElement('canvas'); c.width = W; c.height = H;
+  var x = c.getContext('2d');
+  // 'team' = nur das Teamergebnis (zum gemeinsamen Besprechen), 'eigen' = nur das eigene Ergebnis
+  var team = (mode === 'team' && lastTeam && lastTeam.ready) ? lastTeam : null;
+  var own = (mode === 'eigen' && result) ? result.s : null;
+  var base = team ? team.mean : own;
+  var T = TYPES[typeOf(base)];
+  var y;
+
+  x.fillStyle = '#fff'; x.fillRect(0,0,W,H);
+  x.textBaseline = 'alphabetic';
+  // Kopf
+  x.fillStyle = '#000'; x.fillRect(0,0,W,150);
+  x.font = '700 44px Poppins, sans-serif';
+  var lx = M; ['L','E','A','P'].forEach(function(ch){ x.fillStyle = ch==='A' ? '#E9FF70' : '#fff'; x.fillText(ch, lx, 95); lx += x.measureText(ch).width + 7; });
+  var d = new Date(), dat = d.getDate() + ' ' + ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()] + ' ' + d.getFullYear();
+  x.font = '700 20px Poppins, sans-serif'; x.fillStyle = 'rgba(255,255,255,.7)'; x.textAlign = 'right';
+  x.fillText('TEAM CHECK · ' + dat.toUpperCase(), W-M, 90); x.textAlign = 'left';
+
+  // Titel
+  y = 235;
+  x.font = '700 20px Poppins, sans-serif'; x.fillStyle = '#595959';
+  x.fillText(team ? 'YOUR TEAM RESULT · ' + team.n + ' ANONYMOUS ANSWERS' : 'MY RESULT', M, y);
+  y += 62;
+  x.font = '700 50px Poppins, sans-serif'; x.fillStyle = '#000';
+  wrapText(x, (team ? 'Our team: ' : '') + T.name, CW).forEach(function(l){ x.fillText(l, M, y); y += 62; });
+  y += 6;
+  x.font = '400 23px Poppins, sans-serif'; x.fillStyle = '#2E2E2E';
+  wrapText(x, T.desc, CW).forEach(function(l){ x.fillText(l, M, y); y += 36; });
+
+  // Balken
+  y += 40;
+  BLOCKS.forEach(function(b){
+    var v = base[b.k], lv = level(v);
+    x.font = '700 25px Poppins, sans-serif'; x.fillStyle = '#000';
+    x.fillText(b.k + ' · ' + b.name, M, y);
+    var parts = [];
+    if(team){ parts.push('Ø ' + fmt(team.mean[b.k]) + '/15'); }
+    else parts.push(v + '/15');
+    x.font = '400 21px Poppins, sans-serif'; x.fillStyle = lv==='w' ? '#C2410C' : '#2E2E2E'; x.textAlign = 'right';
+    x.fillText(parts.join('  ·  ') + '  ·  ' + LEVEL_TXT[lv], W-M, y); x.textAlign = 'left';
+    var by = y + 18;
+    x.fillStyle = '#EDEDED'; roundRect(x, M, by, CW, 18, 5); x.fill();
+    x.fillStyle = '#000'; roundRect(x, M, by, Math.max(18, CW*(v-3)/12), 18, 5); x.fill();
+    if(team){ x.font = '400 18px Poppins, sans-serif'; x.fillStyle = '#595959'; x.fillText('Team ' + (AGREE_TXT[team.agree[b.k]] || team.agree[b.k]), M, by + 46); y += 100; }
+    else y += 92;
+  });
+  // Wo ist sich das Team am wenigsten einig?
+  var gapArea = null;
+  if(team){
+    var order = {uneinig:2, gemischt:1, einig:0}, best = null;
+    BLOCKS.forEach(function(b){ var o = order[team.agree[b.k]]; if(o>0 && (!best || o>order[team.agree[best.k]])) best = b; });
+    if(best) gapArea = best.name;
+  }
+
+  // Übung + Fragen
+  var weakest = BLOCKS.slice().sort(function(a,b){ return base[a.k]-base[b.k]; })[0].name;
+  var colW = (CW - 50) / 2, top = y + 20;
+  // erst messen, dann zeichnen, damit die Boxen immer zum Text passen
+  function block(x0, eyebrow, head, lines, draw){
+    var yy = top + 52;
+    x.font = '700 17px Poppins, sans-serif'; x.fillStyle = '#595959'; if(draw) x.fillText(eyebrow, x0 + 30, yy); yy += 42;
+    x.font = '700 24px Poppins, sans-serif'; x.fillStyle = '#000';
+    wrapText(x, head, colW - 60).forEach(function(l){ if(draw) x.fillText(l, x0 + 30, yy); yy += 32; });
+    yy += 10; x.font = '400 19px Poppins, sans-serif'; x.fillStyle = '#2E2E2E';
+    lines.forEach(function(t){ wrapText(x, t, colW - 60).forEach(function(l){ if(draw) x.fillText(l, x0 + 30, yy); yy += 28; }); yy += 12; });
+    return yy;
+  }
+  var qs = ['1. Which number surprises us most, and why?',
+            '2. Where do we notice ' + weakest + ' in our day-to-day work? One example from the last two weeks.'];
+  if(gapArea) qs.push('3. We agree least on ' + gapArea + '. How does each of us experience it?');
+  else qs.push('3. What would be different if we were two points higher here?');
+  qs.push('4. What will we try before we next meet, and who takes care of it?');
+  var qHead = 'Talk about why it is the way it is. Who is right doesn\'t matter.';
+  var boxH = Math.max(block(M, '', T.tipH, [T.tip], false), block(M + colW + 50, '', qHead, qs, false)) - top + 24;
+  x.fillStyle = '#F5F5F5'; roundRect(x, M, top, colW, boxH, 10); x.fill();
+  x.fillStyle = '#E9FF70'; roundRect(x, M + colW + 50, top, colW, boxH, 10); x.fill();
+  block(M, 'TRY THIS WEEK', T.tipH, [T.tip], true);
+  block(M + colW + 50, 'QUESTIONS FOR YOUR DISCUSSION', qHead, qs, true);
+
+  // Fuß
+  x.font = '400 19px Poppins, sans-serif'; x.fillStyle = '#595959';
+  x.fillText('Workshop kits and support for your team: ich-leaps.at/en', M, H - 70);
+  x.textAlign = 'right'; x.fillText('© LEAP e.U.', W - M, H - 70); x.textAlign = 'left';
+  return c;
+}
+
+function downloadPdf(mode, btn){
+  var label = btn ? btn.textContent : '';
+  if(btn){ btn.disabled = true; btn.textContent = 'Creating PDF …'; }
+  var fontsReady = (document.fonts && document.fonts.load) ? Promise.all([document.fonts.load('700 50px Poppins'), document.fonts.load('400 23px Poppins')]) : Promise.resolve();
+  Promise.all([loadJsPdf(), fontsReady]).then(function(){
+    var c = drawPdfPage(mode);
+    var pdf = new window.jspdf.jsPDF({unit:'mm', format:'a4', orientation:'portrait'});
+    pdf.addImage(c.toDataURL('image/jpeg', 0.92), 'JPEG', 0, 0, 210, 297);
+    pdf.save(lastTeam && lastTeam.ready ? 'LEAP-Team-Result.pdf' : 'LEAP-Team-Check-Result.pdf');
+    track('teamcheck-pdf', {art: lastTeam && lastTeam.ready ? 'team' : 'eigen'});
+  }).catch(function(){
+    alert('The PDF couldn\'t be created just now. Please try again.');
+  }).then(function(){ if(btn){ btn.disabled = false; btn.textContent = label; } });
+}
+
+/* ---------- Ergebnis per Mail ---------- */
+function sendMail(ev){
+  ev.preventDefault();
+  var f = ev.target, err = $('mail-err'), btn = f.querySelector('button');
+  err.textContent = '';
+  var vor = f.vorname.value.trim(), mail = f.email.value.trim();
+  if(!vor || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ err.textContent = 'Please enter your first name and a valid email address.'; return false; }
+  if(!f.einwilligung.checked){ err.textContent = 'Please tick the consent box.'; return false; }
+  btn.disabled = true; var lbl = btn.textContent; btn.textContent = 'Sending …';
+  fetch('/team-check-mail.php', {method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({vorname: vor, email: mail, einwilligung: true, antworten: answers.join(''), team: teamId || '', lang: 'en', website: f.website.value})})
+    .then(function(r){ return r.json().catch(function(){ return {ok:false, message:'Server responded with ' + r.status}; }); })
+    .then(function(d){
+      if(d.ok){ f.style.display = 'none'; $('mail-ok').style.display = 'block'; track('teamcheck-mail', {typ: result ? result.t : ''}); }
+      else { err.textContent = d.message || 'That didn\'t work just now.'; }
+    })
+    .catch(function(){ err.textContent = 'No connection. Please try again in a moment.'; })
+    .then(function(){ btn.disabled = false; btn.textContent = lbl; });
+  return false;
+}
+
+function restart(){ answers = new Array(12).fill(null); show('s-intro'); }
+</script>
+<script src="../site.js"></script>
+
+</body>
+</html>

@@ -13,6 +13,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
+<link rel="alternate" hreflang="de" href="https://www.ich-leaps.at/team-check">
+<link rel="alternate" hreflang="en" href="https://www.ich-leaps.at/en/team-check">
+<link rel="alternate" hreflang="x-default" href="https://www.ich-leaps.at/team-check">
 <link rel="canonical" href="https://www.ich-leaps.at/team-check">
 <meta property="og:image" content="https://www.ich-leaps.at/img/team-check-cover.jpg">
 <meta property="og:locale" content="de_AT">
@@ -35,7 +38,7 @@
   --font:'Poppins',system-ui,-apple-system,sans-serif;
 }
 body.tc-page{background:var(--black)}
-main.tc{font-family:var(--font);font-weight:300;color:var(--white);line-height:1.7;min-height:70vh}
+main.tc{font-family:var(--font);font-weight:400;color:var(--white);line-height:1.7;min-height:70vh}
 main.tc *{box-sizing:border-box}
 main.tc button{font-family:inherit;cursor:pointer}
 main.tc .wrap{max-width:860px;margin:0 auto;padding:0 20px}
@@ -196,6 +199,7 @@ main.tc .restart{margin-top:40px}
         <li><a href="kontakt.html">Kontakt</a></li>
       </ul>
       <div class="nav-right">
+        <a href="en/team-check.html" class="nav-lang" hreflang="en" lang="en" aria-label="English version">EN</a>
         <a href="kontakt.html" class="nav-cta" data-umami-event="nav_gespraech_buchen">Gespräch buchen →</a>
         <button class="nav-burger" onclick="toggleMenu()" aria-label="Menü"><span></span><span></span><span></span></button>
       </div>
@@ -210,6 +214,7 @@ main.tc .restart{margin-top:40px}
     <a href="unternehmen.html">Für Unternehmen</a>
     <a href="ueber-uns.html">Über uns</a>
     <a href="kontakt.html">Kontakt</a>
+    <a href="en/team-check.html" class="mob-lang" hreflang="en" lang="en" aria-label="English version">English</a>
   </div>
 </nav>
 
@@ -278,15 +283,15 @@ main.tc .restart{margin-top:40px}
       <div id="r-teamres"></div>
 
       <div class="team">
-        <span class="chip" style="border-color:#ccc;color:#555">Der wertvollste Vergleich</span>
-        <h2 style="margin-top:16px">Sieht dein Team das genauso?</h2>
+        <span class="chip" id="team-chip" style="border-color:#ccc;color:#555">Der wertvollste Vergleich</span>
+        <h2 style="margin-top:16px" id="team-h">Sieht dein Team das genauso?</h2>
         <div id="team-create">
           <p>Erstell einen Team-Link und schick ihn deinem Team. Alle füllen den Check anonym aus, und alle sehen danach dasselbe Ergebnis, nämlich den Durchschnitt des Teams. Deine eigenen Antworten zählen genauso anonym mit wie alle anderen.</p>
           <p style="font-size:13px;color:#555;margin-top:-8px">Dein eigenes Ergebnis siehst nur du. Lad es dir weiter unten als Bild oder PDF herunter und leg es in eurer Besprechung neben das Teamergebnis. Das Teamergebnis erscheint erst ab drei Antworten, damit niemand erkennbar ist.</p>
           <button class="btn btn-dark" onclick="createTeam()">Team-Link erstellen →</button>
         </div>
         <div id="team-link" style="display:none">
-          <p style="margin-bottom:6px"><strong>Link zum Mitmachen.</strong> Den schickst du deinem Team, zum Beispiel per Teams, Slack oder Mail.</p>
+          <p style="margin-bottom:6px" id="team-mit-txt"><strong>Link zum Mitmachen.</strong> Den schickst du deinem Team, zum Beispiel per Teams, Slack oder Mail.</p>
           <div class="linkbox" style="margin-top:0"><input type="text" readonly id="team-url" onclick="this.select()"><button class="btn btn-dark" onclick="copyTeam('mit')">Kopieren</button></div>
           <p style="margin:22px 0 6px"><strong>Link zum Ergebnis.</strong> Damit öffnet ihr das Teamergebnis direkt, ohne den Check nochmal zu machen. Ideal für eure gemeinsame Besprechung, speicher ihn dir gut ab.</p>
           <div class="linkbox" style="margin-top:0"><input type="text" readonly id="team-url-res" onclick="this.select()"><button class="btn btn-dark" onclick="copyTeam('res')">Kopieren</button></div>
@@ -613,6 +618,7 @@ function finish(){
   // Team
   $('r-teamres').innerHTML = '';
   if(teamId && replay){
+    teamJoined();
     $('team-create').style.display = 'none';
     $('team-link').style.display = 'block';
     $('team-url').value = teamUrl(); $('team-url-res').value = resultUrl(); setMailMe();
@@ -620,6 +626,7 @@ function finish(){
       .then(function(d){ renderTeam(d, $('r-teamres'), s); })
       .catch(function(e){ teamError($('r-teamres'), e); });
   } else if(teamId && teamRole !== 'lead'){
+    teamJoined();
     $('team-create').style.display = 'none';
     $('team-link').style.display = 'block';
     $('team-url').value = teamUrl(); $('team-url-res').value = resultUrl(); setMailMe();
@@ -705,6 +712,11 @@ function shareLinkedIn(){
   track('teamcheck-linkedin', {typ: result.t});
 }
 
+function teamJoined(){
+  $('team-chip').textContent = 'Euer Team';
+  $('team-h').textContent = 'Eure Team-Links';
+  $('team-mit-txt').innerHTML = '<strong>Link zum Mitmachen.</strong> Fehlt noch jemand aus dem Team? Dann schick diesen Link weiter.';
+}
 function teamUrl(){ return CONFIG.pageUrl + '?team=' + teamId; }
 function resultUrl(){ return teamUrl() + '&ansicht=ergebnis'; }
 function toMailForm(){

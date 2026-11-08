@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,700;1,200;1,300;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,700;1,200;1,300;1,400;1,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="leap-site.css">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -53,7 +53,7 @@ nav.scrolled+.nv-rail{top:52px;}
 .nv-ctx{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--lime);border-radius:0 6px 6px 0;margin-bottom:44px;}
 .nv-ctx-row{display:flex;align-items:flex-start;gap:22px;padding:18px 24px;}
 .nv-ctx-lab{flex:0 0 128px;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gray);padding-top:6px;}
-.nv-ctx-q{flex:1;margin:0;font-size:16px;font-weight:300;line-height:1.6;color:var(--ink);}
+.nv-ctx-q{flex:1;margin:0;font-size:16px;font-weight:400;line-height:1.6;color:var(--ink);}
 @media(max-width:600px){.nv-ctx-row{flex-wrap:wrap;gap:8px;}.nv-ctx-lab{flex:0 0 100%;}}
 /* Schritt 2 — Herausforderungen */
 .nv-list{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
@@ -83,11 +83,11 @@ nav.scrolled+.nv-rail{top:52px;}
 .nv-lvl-3 .nv-opts{grid-template-columns:1fr;}
 .nv-lvl-3 .nv-opt{background:var(--black);border-color:var(--black);padding:30px 32px;}
 .nv-lvl-3 .nv-opt-t{color:var(--lime);font-size:18px;}
-.nv-lvl-3 .nv-opt-b{color:rgba(255,255,255,0.6);max-width:70ch;}
-.nv-fmt{display:inline-flex;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin:0 0 12px;}
+.nv-lvl-3 .nv-opt-b{color:rgba(255,255,255,0.8);max-width:70ch;}
+.nv-fmt{display:inline-flex;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin:0 0 12px;}
 .nv-opt-link{display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:10px 17px;border-radius:4px;font-size:12px;font-weight:700;letter-spacing:0.04em;background:var(--lime);color:var(--black);transition:filter .2s;}
 .nv-opt-link:hover{filter:brightness(.95);}
-.nv-opt-link.is-quiet{background:transparent;color:rgba(255,255,255,0.6);border:1.5px solid var(--bd-dk3);}
+.nv-opt-link.is-quiet{background:transparent;color:rgba(255,255,255,0.8);border:1.5px solid var(--bd-dk3);}
 .nv-opt-link.is-quiet:hover{border-color:var(--lime);color:var(--lime);}
 /* Sonderfall Kontakt */
 .nv-contact{background:var(--black);border-left:3px solid var(--coral);border-radius:0 6px 6px 0;padding:40px 38px;position:relative;overflow:hidden;}
@@ -95,12 +95,12 @@ nav.scrolled+.nv-rail{top:52px;}
 .nv-contact>*{position:relative;}
 .nv-contact .nv-c-lab{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--coral);margin-bottom:14px;}
 .nv-contact-t{font-family:var(--pp);font-size:clamp(21px,2.4vw,28px);font-weight:700;line-height:1.25;letter-spacing:-0.02em;color:var(--white);margin:0 0 14px;}
-.nv-contact-b{font-size:15px;font-weight:300;line-height:1.8;color:rgba(255,255,255,0.74);margin:0 0 28px;max-width:56ch;}
+.nv-contact-b{font-size:15px;font-weight:400;line-height:1.8;color:rgba(255,255,255,0.86);margin:0 0 28px;max-width:56ch;}
 /* Fuß des letzten Schritts */
 .nv-foot{margin-top:56px;padding-top:24px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;}
 .nv-restart{background:none;border:1.5px solid var(--black);border-radius:4px;padding:11px 18px;cursor:pointer;font-family:var(--pp);font-size:12px;font-weight:700;letter-spacing:0.04em;color:var(--black);transition:all .2s;}
 .nv-restart:hover{background:var(--black);color:var(--lime);}
-.nv-foot-note{font-size:14px;font-weight:300;color:var(--gray);margin:0;}
+.nv-foot-note{font-size:14px;font-weight:400;color:var(--gray);margin:0;}
 /* "Fehlt was?" — leichter Vorschlags-Kasten direkt in jedem Schritt, statt
    Umweg über das große Kontaktformular */
 .nv-suggest{margin-top:28px;}
@@ -123,7 +123,7 @@ nav.scrolled+.nv-rail{top:52px;}
 .nv-suggest-msg.is-err{color:#b3261e;}
 
 /* Team-Check-Hinweis unter Kit-Empfehlungen, die wirklich Team-Sache sind */
-.nv-tc-hint{margin:16px 0 0;padding-top:14px;border-top:1px solid var(--bd-dk3);font-size:12px;font-weight:400;color:rgba(255,255,255,0.4);line-height:1.6;}
+.nv-tc-hint{margin:16px 0 0;padding-top:14px;border-top:1px solid var(--bd-dk3);font-size:12px;font-weight:400;color:rgba(255,255,255,0.7);line-height:1.6;}
 .nv-tc-hint a{color:var(--lime);border-bottom:1px solid rgba(233,255,112,0.4);}
 .nv-tc-hint a:hover{border-bottom-color:var(--lime);}
 .nv-tc-step1{margin:0 0 40px;padding:16px 20px;background:var(--bg);border-left:3px solid var(--lime);border-radius:0 4px 4px 0;font-size:14px;font-weight:400;color:var(--ink);line-height:1.6;max-width:58ch;}
@@ -134,7 +134,7 @@ nav.scrolled+.nv-rail{top:52px;}
    nie als Modal, jederzeit wegklickbar, max. 1x pro Sitzung (sessionStorage) */
 .nv-nudge{position:fixed;left:16px;right:16px;bottom:-140px;z-index:150;max-width:440px;margin:0 auto;background:var(--black);border:1px solid var(--bd-dk2);border-top:3px solid var(--lime);border-radius:8px;box-shadow:0 20px 50px rgba(0,0,0,0.4),0 6px 24px rgba(233,255,112,0.18);padding:22px 22px 20px;transition:bottom .4s cubic-bezier(.2,.8,.2,1);}
 .nv-nudge.is-in{bottom:20px;}
-.nv-nudge-close{position:absolute;top:8px;right:10px;background:none;border:none;color:rgba(255,255,255,0.4);font-size:15px;cursor:pointer;line-height:1;padding:4px;}
+.nv-nudge-close{position:absolute;top:8px;right:10px;background:none;border:none;color:rgba(255,255,255,0.7);font-size:15px;cursor:pointer;line-height:1;padding:4px;}
 .nv-nudge-close:hover{color:var(--white);}
 .nv-nudge-q{font-size:14px;font-weight:400;color:var(--white);line-height:1.55;margin:0 14px 14px 0;}
 .nv-nudge-btns{display:flex;gap:10px;flex-wrap:wrap;}
@@ -145,7 +145,7 @@ nav.scrolled+.nv-rail{top:52px;}
 .nv-nudge-btn.is-yes{background:var(--lime);border-color:var(--lime);color:var(--black);}
 .nv-nudge-btn.is-yes:hover{filter:brightness(.95);color:var(--black);}
 @media(max-width:520px){.nv-nudge{left:12px;right:12px;padding:18px 20px;}}
-.nv-byline{max-width:640px;margin:-72px 0 56px;font-size:12px;font-weight:300;line-height:1.7;color:var(--gray);}
+.nv-byline{max-width:640px;margin:-72px 0 56px;font-size:12px;font-weight:400;line-height:1.7;color:var(--gray);}
 @media(max-width:640px){.nv-byline{margin-top:-56px;}}
 </style>
 </head>
@@ -167,6 +167,7 @@ nav.scrolled+.nv-rail{top:52px;}
         <li><a href="kontakt.html">Kontakt</a></li>
       </ul>
       <div class="nav-right">
+        <a href="en/" class="nav-lang" hreflang="en" lang="en" aria-label="English version">EN</a>
         <a href="kontakt.html" class="nav-cta" data-umami-event="nav_gespraech_buchen">Gespräch buchen →</a>
         <button class="nav-burger" onclick="toggleMenu()" aria-label="Menü"><span></span><span></span><span></span></button>
       </div>
@@ -181,6 +182,7 @@ nav.scrolled+.nv-rail{top:52px;}
     <a href="unternehmen.html">Für Unternehmen</a>
     <a href="ueber-uns.html">Über uns</a>
     <a href="kontakt.html">Kontakt</a>
+    <a href="en/" class="mob-lang" hreflang="en" lang="en" aria-label="English version">English</a>
   </div>
 </nav>
 
@@ -565,8 +567,10 @@ window.NAV = (function(){
 
   var isFirstRender = true;
   function scrollToRail(){
-    var y = rail.getBoundingClientRect().top + window.pageYOffset - 62;
-    window.scrollTo(0, Math.max(y, 0));
+    /* Die Leiste (rail) ist sticky und meldet beim Scrollen immer ~62px,
+       daher am Anfang des Inhalts (stage) messen und die Leistenhöhe abziehen. */
+    var y = stage.getBoundingClientRect().top + window.pageYOffset - 62 - rail.offsetHeight - 16;
+    if (window.pageYOffset > y) window.scrollTo({ top: Math.max(y, 0), behavior: 'instant' });
   }
   function render(){
     rail.innerHTML = railHtml();

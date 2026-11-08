@@ -43,8 +43,34 @@ window.LEAP_INTEGRATIONS = {
 
 (function(){
 
+  /* ---------- Sprache: DE (Standard) oder EN (Seiten unter /en/) ---------- */
+  var LANG = (document.documentElement.lang || 'de').slice(0,2) === 'en' ? 'en' : 'de';
+  window.LEAP_LANG = LANG;
+  var T = {
+    de: {
+      redirect: 'Weiterleitung läuft',
+      checkoutTitle: 'Weiter zu deiner sicheren Kasse',
+      checkoutText: 'Du wirst gleich zu unserem Zahlungspartner <strong>Ablefy</strong> weitergeleitet, um <span id="ablefy-transit-kit"></span> sicher zu bezahlen.',
+      checkoutGo: 'Jetzt weiter zur Kasse →',
+      cancel: 'Abbrechen',
+      fallbackKit: 'dein Workshop-Kit',
+      contactPage: 'kontakt.html',
+      kits: { vertrauen: 'Vertrauen aufbauen', rollen: 'Rollen & Verantwortung', feedback: 'Feedback' }
+    },
+    en: {
+      redirect: 'Redirecting',
+      checkoutTitle: 'On to secure checkout',
+      checkoutText: 'You\'re being sent to our payment partner <strong>Ablefy</strong> to pay for <span id="ablefy-transit-kit"></span> securely. Checkout is in German.',
+      checkoutGo: 'Continue to checkout →',
+      cancel: 'Cancel',
+      fallbackKit: 'your workshop kit',
+      contactPage: 'contact.html',
+      kits: { vertrauen: 'Building Trust', rollen: 'Roles & Responsibility', feedback: 'Feedback' }
+    }
+  }[LANG];
+
   /* ---------- Ablefy: Workshop-Kit kaufen ---------- */
-  var kitLabels = { vertrauen: 'Vertrauen aufbauen', rollen: 'Rollen & Verantwortung', feedback: 'Feedback' };
+  var kitLabels = T.kits;
   var transitTimer = null;
   var TRANSIT_DELAY_MS = 1800;
 
@@ -56,12 +82,12 @@ window.LEAP_INTEGRATIONS = {
         '<div class="modal" style="text-align:center;">' +
           '<div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:18px;">' +
             '<span class="transit-dot"></span>' +
-            '<span style="font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--gray);">Weiterleitung läuft</span>' +
+            '<span style="font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--gray);">' + T.redirect + '</span>' +
           '</div>' +
-          '<h3>Weiter zu deiner sicheren Kasse</h3>' +
-          '<p>Du wirst gleich zu unserem Zahlungspartner <strong>Ablefy</strong> weitergeleitet, um <span id="ablefy-transit-kit"></span> sicher zu bezahlen.</p>' +
-          '<button class="btn btn-lime" style="width:100%;justify-content:center;" id="ablefy-transit-go">Jetzt weiter zur Kasse →</button>' +
-          '<button class="transit-cancel" id="ablefy-transit-cancel">Abbrechen</button>' +
+          '<h3>' + T.checkoutTitle + '</h3>' +
+          '<p>' + T.checkoutText + '</p>' +
+          '<button class="btn btn-lime" style="width:100%;justify-content:center;" id="ablefy-transit-go">' + T.checkoutGo + '</button>' +
+          '<button class="transit-cancel" id="ablefy-transit-cancel">' + T.cancel + '</button>' +
         '</div>' +
       '</div>';
     document.body.appendChild(wrap.firstElementChild);
@@ -83,7 +109,7 @@ window.LEAP_INTEGRATIONS = {
     var url = (window.LEAP_INTEGRATIONS.ablefy.products || {})[productKey];
     if(url){
       ensureTransitModal();
-      document.getElementById('ablefy-transit-kit').textContent = kitLabels[productKey] || 'dein Workshop-Kit';
+      document.getElementById('ablefy-transit-kit').textContent = kitLabels[productKey] || T.fallbackKit;
       document.getElementById('ablefy-transit-go').onclick = function(){ goToAblefy(url); };
       document.getElementById('ablefy-transit-cancel').onclick = window.closeAblefyTransit;
       document.getElementById('ablefy-transit-modal').classList.add('op');
@@ -102,7 +128,7 @@ window.LEAP_INTEGRATIONS = {
     var sel = document.getElementById('ctopic');
     var label = topicLabels[context];
     if(sel && label){
-      for(var i=0;i<sel.options.length;i++){ if(sel.options[i].text===label){ sel.selectedIndex=i; break; } }
+      for(var i=0;i<sel.options.length;i++){ if(sel.options[i].value===label || sel.options[i].text===label){ sel.selectedIndex=i; break; } }
     }
     var hint = document.getElementById('cform-hint');
     if(hint) hint.style.display='block';
@@ -125,14 +151,14 @@ window.LEAP_INTEGRATIONS = {
       return;
     }
     // Kein Brevo-Meetings-Link hinterlegt: aufs Kontaktformular verweisen
-    var onContactPage = /kontakt\.html$/.test(window.location.pathname);
+    var onContactPage = /(kontakt|contact)\.html$/.test(window.location.pathname);
     if(onContactPage){
       preselectTopic(context);
       var grid = document.querySelector('.contact-grid');
       if(grid) window.scrollTo({top:grid.offsetTop-80, behavior:'smooth'});
       return;
     }
-    window.location.href = fallbackUrl || ('kontakt.html?thema=' + encodeURIComponent(context||''));
+    window.location.href = fallbackUrl || (T.contactPage + '?thema=' + encodeURIComponent(context||''));
   };
 
   window.closeBookingModal = function(){

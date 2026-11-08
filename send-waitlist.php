@@ -44,9 +44,10 @@ $html = '<h2>Neue Warteliste-Anmeldung (Früher Zugang)</h2>'
     . '<tr><td><strong>Kit</strong></td><td>' . htmlspecialchars($kitLabel, ENT_QUOTES) . '</td></tr>'
     . '<tr><td><strong>Name</strong></td><td>' . htmlspecialchars($name, ENT_QUOTES) . '</td></tr>'
     . '<tr><td><strong>E-Mail</strong></td><td>' . htmlspecialchars($email, ENT_QUOTES) . '</td></tr>'
+    . (($data['lang'] ?? '') === 'en' ? '<tr><td><strong>Sprache</strong></td><td>Englisch (über die englische Website)</td></tr>' : '')
     . '</table>';
 
-$sent = leap_send_notification($config, 'Warteliste: ' . $kitLabel . ' — ' . $name, $html, $email, $name);
+$sent = leap_send_notification($config, (($data['lang'] ?? '') === 'en' ? '[EN] ' : '') . 'Warteliste: ' . $kitLabel . ' — ' . $name, $html, $email, $name);
 
 $interesse = $kit !== '' ? ('kit_' . $kit . '_warteliste') : 'kit_unbekannt_warteliste';
 leap_sync_brevo_contact($config, $email, ['kit'], $interesse);
